@@ -7,3 +7,6 @@ set tabstop     =2
 set softtabstop =2
 set shiftwidth  =2
 set expandtab
+
+" preserve edit position, per https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
+source $VIMRUNTIME/vimrc_example.vim
