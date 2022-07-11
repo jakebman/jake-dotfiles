@@ -13,6 +13,8 @@ function fail() {
 
 WHICH="<unknown WSL-parity>"
 GIT="fail"
+
+# TODO: respect $GIT_DIR and --git-dir
 case "$(realpath $(pwd))" in
 	/mnt/c/*)
 		WHICH=Windows
