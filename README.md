@@ -20,4 +20,5 @@ rc manager - uses symlinks
 https://thoughtbot.com/blog/rcm-for-rc-files-in-dotfiles-repos
 
 # manual vcsh
-The atlassian blog post in my bash-it repo
+The atlassian blog post in my bash-it repo at https://github.com/jakebman/bash-it/blob/custom-jake/plugins/available/dotfiles-via-bare-git-repo-with-config-alias.plugin.bash
+https://www.atlassian.com/git/tutorials/dotfiles
