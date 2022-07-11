@@ -1,0 +1,32 @@
+#! /bin/bash
+
+# A shortened name for this script, in case diagnostics are required
+# based on the principle of https://stackoverflow.com/a/246128
+THIS_SCRIPT="$(realpath ${BASH_SOURCE[0]:-$0})"
+# condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
+THIS_SCRIPT="${THIS_SCRIPT/~/\~}"
+
+function fail() {
+	echo >&2 "${THIS_SCRIPT}: Cannot determine which git to use - WSL's or Windows's."
+	exit 1
+}
+
+WHICH="<unknown WSL-parity>"
+GIT="fail"
+case "$(realpath $(pwd))" in
+	/mnt/c/*)
+		WHICH=Windows
+		GIT=git.exe ;;
+	*)
+		WHICH=WSL
+		GIT=/usr/bin/git ;;
+esac
+
+"$GIT" "$@"
+EXIT_CODE=$?
+if [ -t 1 ] ; then # we're running in a terminal
+	echo "(This command used ${WHICH}'s ${GIT}. Indirection provided by ${THIS_SCRIPT})"
+fi
+exit $EXIT_CODE
+
+
