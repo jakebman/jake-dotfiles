@@ -8,5 +8,30 @@ set softtabstop =2
 set shiftwidth  =2
 set expandtab
 
-" preserve edit position, per https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
+" preserve edit position,
+" see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
 source $VIMRUNTIME/vimrc_example.vim
+
+
+" stash temporary files in ~
+" https://stackoverflow.com/questions/743150/how-to-prevent-vim-from-creating-and-leaving-temporary-files/61585014#61585014
+set undofile
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
+set backup                        " enable backups
+set swapfile                      " enable swaps
+set undodir=$HOME/.vim/tmp/undo     " undo files
+set backupdir=$HOME/.vim/tmp/backup " backups
+set directory=$HOME/.vim/tmp/swap   " swap files
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
