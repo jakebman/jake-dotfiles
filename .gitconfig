@@ -3,6 +3,7 @@
 	name = Jake Boeckerman
 [alias]
 	co = checkout
+	dif = diff
 [checkout]
 	defaultRemote = origin
 [init]
