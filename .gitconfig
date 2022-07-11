@@ -1,0 +1,9 @@
+[user]
+	email = jakebman@gmail.com
+	name = Jake Boeckerman
+[alias]
+	co = checkout
+[checkout]
+	defaultRemote = origin
+[init]
+	defaultBranch = main
