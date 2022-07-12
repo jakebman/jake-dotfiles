@@ -1,10 +1,10 @@
 [user]
-	email = jakebman@gmail.com
 	name = Jake Boeckerman
+	email = jake.boeckerman@charter.com
 [alias]
 	co = checkout
 	dif = diff
-[checkout]
-	defaultRemote = origin
-[init]
-	defaultBranch = main
+[lfs]
+	locksverify = false
+[http]
+	sslcainfo = /home/jakebman/P2776931/.config/git-jake-certificate-store/ca-bundle.crt
