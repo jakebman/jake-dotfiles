@@ -1,5 +1,11 @@
 
---pager=less
+--ignore-directory=is:.idea
+--ignore-directory=is:node_modules
+--ignore-file=ext:class
+--ignore-file=ext:jar
+
+--pager=less -r
+
 --type-set=pom:is:pom.xml
 --type-add=pom:ext:pom
 --type-set=mvn:is:pom.xml
