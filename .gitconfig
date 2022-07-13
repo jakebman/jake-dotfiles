@@ -14,3 +14,5 @@
 	sslcainfo = /home/jakebman/P2776931/.config/git-jake-certificate-store/ca-bundle.crt
 [push]
 	autoSetupRemote = true
+[help]
+	autoCorrect = prompt
