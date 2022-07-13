@@ -3,10 +3,20 @@
 " softtabstop:      Fine tunes the amount of white space to be added
 " shiftwidth        Determines the amount of whitespace to add in normal mode
 " expandtab:        When this option is enabled, vi will use spaces instead of tabs
-set tabstop     =2
+" I choose tabs to be 4 characters long to distinguish them from my two-space
+" indent style
+set tabstop     =4
 set softtabstop =2
 set shiftwidth  =2
 set expandtab
+
+" visible characters:
+" https://vi.stackexchange.com/questions/422/displaying-tabs-as-characters
+set list
+set listchars=eol:⏎,tab:␉·,trail:␠
+"set listchars=eol:¬,tab:▸],trail:␠
+"set listchars=eol:·,tab:>],trail:%
+
 
 " preserve edit position,
 " see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
