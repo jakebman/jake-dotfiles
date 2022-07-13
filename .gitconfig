@@ -5,9 +5,9 @@
 	co = checkout
 	dif = diff
 [checkout]
-       defaultRemote = origin
+	defaultRemote = origin
 [init]
-       defaultBranch = main
+	defaultBranch = main
 [lfs]
 	locksverify = false
 [http]
