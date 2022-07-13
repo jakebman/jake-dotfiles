@@ -1,11 +1,16 @@
 
+# some files I know ack can ignore
 --ignore-directory=is:.idea
 --ignore-directory=is:node_modules
 --ignore-file=ext:class
 --ignore-file=ext:jar
 
+# I give ack permission to use ALL ansi escapes
+# (not just color ones (-R) like I configured in the LESS env variable)
+# This helps with bold symbols in ack --man
 --pager=less -r
 
+# Maven
 --type-set=pom:is:pom.xml
 --type-add=pom:ext:pom
 --type-set=mvn:is:pom.xml
@@ -13,13 +18,20 @@
 --type-set=maven:is:pom.xml
 --type-add=maven:ext:pom
 
+# Google Protobuf
 --type-add=proto:ext:proto
 
+# Properties files
 --type-add=properties:ext:properties
+# (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
 --type-add=properties:ext:properties.*
+
+# sometimes it's useful to know about gitignore files
 --type-add=gitignore:is:.gitignore
 
-
+# NNS uses several variants on the actual jenkinsfile names.
+# Honestly, at this point, this should just be a case-insensitive
+# match on the word 'jenkins'
 --type-set=jenkins:is:Jenkinsfile
 --type-add=jenkins:is:JenkinsFile
 --type-add=jenkins:match:jenkinsfile.*
