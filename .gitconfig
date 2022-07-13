@@ -4,6 +4,10 @@
 [alias]
 	co = checkout
 	dif = diff
+[checkout]
+       defaultRemote = origin
+[init]
+       defaultBranch = main
 [lfs]
 	locksverify = false
 [http]
