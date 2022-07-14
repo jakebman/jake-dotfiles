@@ -12,6 +12,8 @@
 
 # Jake's own files usually have a name with Jake in it
 --type-set=jake:match:/(?i:jake)/
+# a typo:
+--type-set=hake:match:/(?i:jake)/
 
 # Maven
 --type-set=pom:is:pom.xml
