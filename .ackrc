@@ -10,6 +10,9 @@
 # This helps with bold symbols in ack --man
 --pager=less -r
 
+# Jake's own files usually have a name with Jake in it
+--type-set=jake:match:/(?i:jake)/
+
 # Maven
 --type-set=pom:is:pom.xml
 --type-add=pom:ext:pom
