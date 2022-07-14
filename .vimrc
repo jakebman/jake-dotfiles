@@ -13,7 +13,8 @@ set expandtab
 " visible characters:
 " https://vi.stackexchange.com/questions/422/displaying-tabs-as-characters
 set list
-set listchars=eol:⏎,tab:␉·,trail:␠
+set listchars=tab:␉·,trail:␠
+"set listchars=eol:⏎,tab:␉·,trail:␠
 "set listchars=eol:¬,tab:▸],trail:␠
 "set listchars=eol:·,tab:>],trail:%
 
