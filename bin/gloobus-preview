@@ -1,0 +1,4 @@
+#!/bin/bash
+less "$@"
+# this saves us .1s starting up bash-it, which takes that time to try and find this command.
+# By making this exe, we get that time back
