@@ -1,4 +1,7 @@
 
+# files are lexicographically sorted (consistent between runs)
+--sort-files
+
 # some files I know ack can ignore
 --ignore-directory=is:.idea
 --ignore-directory=is:node_modules
