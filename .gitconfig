@@ -4,6 +4,7 @@
 [alias]
 	co = checkout
 	dif = diff
+	comit = commit
 [checkout]
 	defaultRemote = origin
 [init]
