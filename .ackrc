@@ -3,10 +3,14 @@
 --sort-files
 
 # some files I know ack can ignore
+## Java
 --ignore-directory=is:.idea
 --ignore-directory=is:node_modules
 --ignore-file=ext:class
 --ignore-file=ext:jar
+# Node
+--ignore-directory=is:.npm
+
 
 # I give ack permission to use ALL ansi escapes
 # (not just color ones (-R) like I configured in the LESS env variable)
