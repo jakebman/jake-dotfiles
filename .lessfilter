@@ -547,4 +547,4 @@ case "$1" in
 esac
 [ "$lexer" = 'unknown' ] && exit 1 # set above
 
-pygmentize -f 256 -O style="${LESSSTYLE:-default}" -g "$1"
+pygmentize -f 256 -O style="${LESSSTYLE:-default}" "$1"
