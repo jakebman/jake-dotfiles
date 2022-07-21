@@ -4,7 +4,12 @@
 # lexer="$(pygmentize -N "$1")"
 # Because the above line takes .3s, I generated this case statement from https://github.com/pygments/pygments /pygments/lexers/_mapping via this python3 snippet:
 #>>> import _mapping
-#>>> print(''.join("|".join(i[3]) + ") lexer="+str(first_or_none(i[2]))+ "\n;;\n"  for i in _mapping.LEXERS.values()))
+#>>> def first_or_none(tupl):
+#         if tupl: return tupl[0]
+#         return None
+#>>> print("\t"+''.join("|".join(i[3]) + ") lexer="+str(first_or_none(i[2]))+ ";;\n"  for i in _mapping.LEXERS.values()))
+# and then comment out all the empty clauses:
+# vim :%s/^\t)/\t# <no suffix for this> )/g
 
 lexer=unknown
 case "$1" in
