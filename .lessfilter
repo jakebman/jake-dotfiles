@@ -13,6 +13,9 @@
 
 lexer=unknown
 case "$1" in
+  # CUSTOM
+  *.class) lexer=java; PREFIX=(procyon "$1") ;;
+  # END CUSTOM
   *.abap|*.ABAP) lexer=abap ;;
   *.isa) lexer=amdgpu ;;
   *.apl|*.aplf|*.aplo|*.apln|*.aplc|*.apli|*.dyalog) lexer=apl ;;
@@ -552,4 +555,8 @@ case "$1" in
 esac
 [ "$lexer" = 'unknown' ] && exit 1 # set above
 
-pygmentize -f 256 -O style="${LESSSTYLE:-default}" "$1"
+if [[ -n $PREFIX[*] ]]; then
+  "${PREFIX[@]}" | pygmentize -f 256 -O style="${LESSSTYLE:-default}" -l "$lexer"
+else
+  pygmentize -f 256 -O style="${LESSSTYLE:-default}" "$1"
+fi
