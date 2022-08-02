@@ -4,11 +4,12 @@
 
 # some files I know ack can ignore
 ## Java
+--ignore-directory=is:target
 --ignore-directory=is:.idea
---ignore-directory=is:node_modules
 --ignore-file=ext:class
 --ignore-file=ext:jar
 # Node
+--ignore-directory=is:node_modules
 --ignore-directory=is:.npm
 
 
