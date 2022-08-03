@@ -11,10 +11,12 @@
 # and then comment out all the empty clauses:
 # vim :%s/^\t)/\t# <no suffix for this> )/g
 
-lexer=unknown
-case "$1" in
+preprocessor_required=
+if [ -z "$LESSLEXER" ]; then # TODO: how do we allow intuition of preprocessors while letting the user specify the lexer?
+  lexer=unknown
+  case "$1" in
   # CUSTOM
-  *.class) lexer=java; PREFIX=(procyon "$1") ;;
+  *.class) lexer=java; preprocessor_required=procyon; PREFIX=(procyon "$1") ;;
   # END CUSTOM
   *.abap|*.ABAP) lexer=abap ;;
   *.isa) lexer=amdgpu ;;
@@ -552,11 +554,37 @@ case "$1" in
   *.zep) lexer=zephir ;;
   *.zig) lexer=zig ;;
   *.ans) lexer=ansys ;;
-esac
-[ "$lexer" = 'unknown' ] && exit 1 # set above
+  esac
+  LESSLEXER="$lexer"
+fi
 
-if [[ -n $PREFIX[*] ]]; then
-  "${PREFIX[@]}" | pygmentize -f 256 -O style="${LESSSTYLE:-default}" -l "$lexer"
+function debug {
+  : # prevent error for empty function while echo line is commented-out
+  # echo "$@" >>~/jake-debug
+}
+
+: ${LESSSTYLE:=default}
+debug "lexer is $LESSLEXER; style is $LESSSTYLE for lessfilter $@"
+if [ "$LESSLEXER" = 'unknown' ] ; then
+  # If we don't know which lexer to use, I'd prefer not to let pygmentize guess
+  exit 1
+fi
+
+# while we are lessfilter, thec check for '-' won't matter. Lessopen doesn't proc on stdin,
+# and therefore obviously does not call us. This makes a good argument for making
+# my own lessopen
+if [ '-' == "$1" ] ; then
+  debug "have lexer $LESSLEXER, reading from standard in ($@)"
+  pygmentize -f 256 -O style="$LESSSTYLE" -l "$LESSLEXER"
+
+elif [[ -n "$preprocessor_required" ]]; then
+  debug "preprocessor required - using ${PREFIX[@]}"
+  "${PREFIX[@]}" | pygmentize -f 256 -O style="$LESSSTYLE" -l "$LESSLEXER"
+
+# I believe pygmentize will make the correct choice here, because it has a lexer
+# for this suffix. It might be able to be smarter on filetype as needed, but
+# it won't be wildly off
 else
-  pygmentize -f 256 -O style="${LESSSTYLE:-default}" "$1"
+  debug "pygmentizing the file $@"
+  pygmentize -f 256 -O style="$LESSSTYLE" "$@"
 fi
