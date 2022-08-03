@@ -19,3 +19,5 @@
 	autoSetupRemote = true
 [help]
 	autoCorrect = prompt
+[pager]
+	status = true
