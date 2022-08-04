@@ -560,7 +560,7 @@ fi
 
 function debug {
   : # prevent error for empty function while echo line is commented-out
-  # echo "$@" >>~/jake-debug
+  # echo "$0 DEBUG: $@" | tee -a ~/jake-debug
 }
 
 : ${LESSSTYLE:=default}
@@ -570,7 +570,7 @@ if [ "$LESSLEXER" = 'unknown' ] ; then
   exit 1
 fi
 
-# while we are lessfilter, thec check for '-' won't matter. Lessopen doesn't proc on stdin,
+# while we are lessfilter, the check for '-' won't matter. Lessopen doesn't proc on stdin,
 # and therefore obviously does not call us. This makes a good argument for making
 # my own lessopen
 if [ '-' == "$1" ] ; then
@@ -581,10 +581,12 @@ elif [[ -n "$preprocessor_required" ]]; then
   debug "preprocessor required - using ${PREFIX[@]}"
   "${PREFIX[@]}" | pygmentize -f 256 -O style="$LESSSTYLE" -l "$LESSLEXER"
 
-# I believe pygmentize will make the correct choice here, because it has a lexer
-# for this suffix. It might be able to be smarter on filetype as needed, but
-# it won't be wildly off
+elif [ -z "$lexer" ] ; then # $LESSLEXER was unset above, and $lexer was used to guess it
+  debug "pygmentizing the file '$@', with chosen lexer $LESSLEXER"
+  pygmentize -f 256 -O style="$LESSSTYLE" -l "$LESSLEXER" "$@"
 else
-  debug "pygmentizing the file $@"
+  # Despite "I don't want to let pygmentize guess" above, we have good evidence that pygmentize
+  # does have a lexer for this file, so we'll let it choose
+  debug "pygmentizing the file $@, letting pygmentize pick the lexer"
   pygmentize -f 256 -O style="$LESSSTYLE" "$@"
 fi
