@@ -35,6 +35,7 @@ set swapfile                      " enable swaps
 set undodir=$HOME/.vim/tmp/undo     " undo files
 set backupdir=$HOME/.vim/tmp/backup " backups
 set directory=$HOME/.vim/tmp/swap   " swap files
+set viminfofile=$HOME/.vim/viminfo
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
