@@ -20,4 +20,4 @@
 [help]
 	autoCorrect = prompt
 [pager]
-	status = true
+	status = true # `git status` should always use a pager
