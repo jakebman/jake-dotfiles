@@ -6,6 +6,7 @@ import argparse
 import re
 import sys # for argv
 
+BARRIER=re.compile('\\b')
 def common_word_barrier(strings):
     prefix = commonprefix(strings)
     index = len(prefix)
@@ -14,8 +15,13 @@ def common_word_barrier(strings):
 
     # TODO: potentially find if the prefix is a barrier for some and not others?
     # Alternatively, figure out the last-enough barriers in each and pick the (one that is most common? last shared one? maximum?)
-    matches = re.finditer('\\b', prefix)
-    return list(matches)
+    split=0
+    for string in strings:
+        for match in BARRIER.finditer(string, 0, index):
+            split = max(split, match.start())
+    #split = max(match.start() for match in re.finditer('\\b', string) for string in strings if match.start() <= index)
+
+    return prefix[:split]
 
 DEFAULT_COMMON=common_word_barrier
 
@@ -47,18 +53,12 @@ def do_line(prev, line, commonStrat=DEFAULT_COMMON):
     index = len(prefix) # with commonpath, this is stopped BEFORE the common slash
     paranoia = commonprefix([line[index:], prev[index:]])
 
-    if deserveElipsis(index, line):
-        prefix = ' '*(index-3) + '...'
+    if index >= 5:
+        prefix = ' '*(index-5) + '[...]'
     else:
         prefix = ' ' * index
     print(prefix + line[index:])
 
-
-def deserveElipsis(index, line):
-    if index < 3: return False
-    if index >= len(line): return False
-    if '/' != line[index]: return True
-    return False
 
 def main():
     args = calc_args(sys.argv[1:])
