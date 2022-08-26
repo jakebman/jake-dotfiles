@@ -22,9 +22,10 @@ DEFAULT_COMMON=common_word_barrier
 def calc_args(argv):
     args = argparse.ArgumentParser(description='Remove common prefixes between lines of input. Works best on already-sorted input')
     args.add_argument("files", nargs="*") # default = none
-    args.add_argument("--pathwise -p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
-    args.add_argument("--wordwise -w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier (default)")
-    args.add_argument("--textwise -t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
+    group = args.add_mutually_exclusive_group()
+    group.add_argument("--wordwise", "-w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier (default)")
+    group.add_argument("--pathwise", "-p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
+    group.add_argument("--textwise", "-t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
     args.set_defaults(commonStrat=DEFAULT_COMMON)
     out = args.parse_args(argv)
     return out.__dict__
