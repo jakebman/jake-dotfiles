@@ -7,6 +7,8 @@
 	comit = commit
 	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
 	assumed-unchanged = !git ls-files -v | grep "^[[:lower:]]"
+	up = pull
+	staged = diff --staged
 [checkout]
 	defaultRemote = origin
 [init]
