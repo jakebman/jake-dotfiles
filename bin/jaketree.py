@@ -7,20 +7,38 @@ import re
 import sys # for argv
 
 BARRIER=re.compile('\\b')
+def index_of_lowest_element(items):
+    lowest = min(items)
+    return items.index(lowest)
+
+
 def common_word_barrier(strings):
     prefix = commonprefix(strings)
     index = len(prefix)
     l=min(len(s) for s in strings)
-    # if index == l: return prefix # no need to check deeper - they're either all the same, or one is exactly the common prefix
-
-    # TODO: potentially find if the prefix is a barrier for some and not others?
-    # Alternatively, figure out the last-enough barriers in each and pick the (one that is most common? last shared one? maximum?)
+    ticks=[0 for x in range(index+1)] # `+1` allows for the match to be between prefix and the next letter
+    # Find the last shared word barrier
     split=0
-    for string in strings:
-        for match in BARRIER.finditer(string, 0, index):
-            split = max(split, match.start())
-    #split = max(match.start() for match in re.finditer('\\b', string) for string in strings if match.start() <= index)
-
+    barrier_source = [BARRIER.finditer(string) for string in strings]
+    while barrier_source: # not exactly idiomatic, but it prevents us from entering if there are no strings
+        try:
+            barriers = [next(b).start() for b in barrier_source] # where all the barriers are
+            while len(set(barriers)) != 1:
+                i = index_of_lowest_element(barriers)
+                if barriers[i] > index: raise StopIteration
+                ticks[barriers[i]] += 1
+                barriers[i] = next(barrier_source[i]).start()
+            ticks[split] = len(strings) # allowed to look past the common prefix
+            if barriers[0] > index:
+                break
+            split = barriers[0] # they all agreed. Keep this answer, go to the top and try again
+        except StopIteration: # a finditer finished its run
+            break
+    if False:
+        for string in strings:
+            print("DEBUG:", string)
+        print("DEBUG:", prefix)
+        print("DEBUG:", ''.join(chr(ord('0') + t) for t in ticks))
     return prefix[:split]
 
 DEFAULT_COMMON=common_word_barrier
@@ -49,7 +67,7 @@ def run(stdin, commonStrat=DEFAULT_COMMON):
 
 
 def do_line(prev, line, commonStrat=DEFAULT_COMMON):
-    prefix = commonStrat([line, prev])
+    prefix = commonStrat([prev, line])
     index = len(prefix) # with commonpath, this is stopped BEFORE the common slash
     paranoia = commonprefix([line[index:], prev[index:]])
 
