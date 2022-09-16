@@ -26,10 +26,15 @@
 # Maven
 --type-set=pom:is:pom.xml
 --type-add=pom:ext:pom
+
 --type-set=mvn:is:pom.xml
 --type-add=mvn:ext:pom
+
 --type-set=maven:is:pom.xml
 --type-add=maven:ext:pom
+
+# Text files
+--type-set=text:ext:txt
 
 # Google Protobuf
 --type-add=proto:ext:proto
