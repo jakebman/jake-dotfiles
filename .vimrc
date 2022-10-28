@@ -18,6 +18,8 @@ set listchars=tab:␉·,trail:␠
 "set listchars=eol:¬,tab:▸],trail:␠
 "set listchars=eol:·,tab:>],trail:%
 
+" I spend a lot of time typing q when I meant :q
+map q :q
 
 " preserve edit position,
 " see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
