@@ -2,6 +2,9 @@
 # files are lexicographically sorted (consistent between runs)
 --sort-files
 
+# Ignore case if the argument is entirely lowercase:
+--smart-case
+
 # some files I know ack can ignore
 ## Java
 --ignore-directory=is:target
