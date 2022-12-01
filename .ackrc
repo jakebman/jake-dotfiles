@@ -26,6 +26,9 @@
 # a typo:
 --type-set=hake:match:/(?i:jake)/
 
+# Foo-ly named files - foo.txt, asdf.foo, etc.
+--type-set=foo:match:/\b(?i:foo)\b/
+
 # Maven
 --type-set=pom:is:pom.xml
 --type-add=pom:ext:pom
