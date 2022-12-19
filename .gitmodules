@@ -1,3 +1,6 @@
 [submodule "editorconfig-vim"]
 	path = .vim/pack/editorconfig/start/editorconfig-vim
 	url = git@github.com:editorconfig/editorconfig-vim.git
+[submodule "bin/gitstatus"]
+	path = bin/gitstatus
+	url = git@github.com:romkatv/gitstatus.git
