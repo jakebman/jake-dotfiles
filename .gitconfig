@@ -12,7 +12,8 @@
 	assumed-unchanged = !git ls-files -v | grep "^[[:lower:]]"
 	up = pull
 	staged = diff --staged
-# stage = diff --staged # Fails, because stage is already a command
+	rainbow = log --oneline --graph
+	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
 	defaultRemote = origin
 [init]
