@@ -18,6 +18,12 @@ set listchars=tab:␉·,trail:␠
 "set listchars=eol:¬,tab:▸],trail:␠
 "set listchars=eol:·,tab:>],trail:%
 
+" smartcase matching - lowercase matches any case. Any casing matches only
+" that casing:
+" https://stackoverflow.com/a/2288438
+set ignorecase
+set smartcase
+
 " I spend a lot of time typing q when I meant :q
 map q :q
 
