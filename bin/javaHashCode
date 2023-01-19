@@ -1,0 +1,12 @@
+#! /usr/bin/env -S java --source 11
+
+import java.util.Scanner;
+public class javaHashCode {
+  public static void main(String... args) {
+    Scanner in = new Scanner(System.in);
+    while(in.hasNextLine()) {
+        String line = in.nextLine();
+        System.out.println(line.hashCode() + "\t" + line);
+    }
+  }
+}
