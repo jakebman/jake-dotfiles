@@ -1,6 +1,12 @@
 [submodule "editorconfig-vim"]
 	path = .vim/pack/editorconfig/start/editorconfig-vim
 	url = git@github.com:editorconfig/editorconfig-vim.git
+	branch = master
+	# use a non-detached HEAD strategy in the submodule
+	update = rebase
 [submodule "bin/gitstatus"]
 	path = bin/gitstatus
 	url = git@github.com:romkatv/gitstatus.git
+	branch = master
+	# use a non-detached HEAD strategy in the submodule
+	update = rebase
