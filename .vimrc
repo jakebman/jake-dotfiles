@@ -27,6 +27,15 @@ set smartcase
 " I spend a lot of time typing q when I meant :q
 map q :q
 
+" wq is cool, but sometimes I type it as qw, and that should work too.
+" Unfortunately, this is apparently more complicated than it seems
+" see https://stackoverflow.com/questions/3878692/how-to-create-an-alias-for-a-command-in-vim
+" Especially the commentor who wrote his own tool for this, who clarifies that
+" vim doesn't let you create user-defined commands which start with a
+" lower-case letter
+" :command qw wq
+
+
 " preserve edit position,
 " see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
 source $VIMRUNTIME/vimrc_example.vim
