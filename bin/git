@@ -23,10 +23,11 @@ else
     /mnt/c/*)
       if  [ "$1" == "config" ] ; then
         # WSL's git is faster for this, but we need to know to read
-        # Window's config file root
-        # (and... probably the %USERPROFILE% one too. TODO.)
-        WHICH="WSL, reading Window's GIT_CONFIG_SYSTEM"
-        GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
+        # Window's config file roots
+        HOW=", reading Window's GIT_CONFIG_* variables"
+        export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
+        # :? fails if this variable is unset
+        export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
       else
         WHICH=Windows
         GIT=git.exe
@@ -39,7 +40,7 @@ fi
 "$GIT" "$@"
 EXIT_CODE=$?
 if [ -t 1 ] ; then # we're running in a terminal
-	echo "(This command used ${WHICH}'s ${GIT}. Indirection provided by ${THIS_SCRIPT})"
+	echo "(This command used ${WHICH}'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"
 fi
 exit $EXIT_CODE
 
