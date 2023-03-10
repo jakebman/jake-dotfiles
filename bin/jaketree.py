@@ -85,5 +85,5 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except (BrokenPipeError, IOError):
+    except (BrokenPipeError, IOError, KeyboardInterrupt):
         exit(55)
