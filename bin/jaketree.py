@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
-from fileinput import input
+from fileinput import input as fileinput
 from os.path import commonpath, commonprefix
 import argparse
 import re
 import sys # for argv
 
 BARRIER=re.compile('\\b')
+ELISION_MARKER='[...]'
+
 def index_of_lowest_element(items):
     lowest = min(items)
     return items.index(lowest)
@@ -50,29 +52,30 @@ def calc_args(argv):
     group.add_argument("--wordwise", "-w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier (default)")
     group.add_argument("--pathwise", "-p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
     group.add_argument("--textwise", "-t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
+    group.add_argument("--elision-marker", default='[...]', help="the indicator that a piece has been removed")
     args.set_defaults(commonStrat=DEFAULT_COMMON)
     out = args.parse_args(argv)
     return out.__dict__
 
-def run_on_files(files=None, commonStrat=DEFAULT_COMMON):
-    with input(files=files) as stdin:
-        run(stdin, commonStrat=commonStrat)
+def run_on_files(files=None, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER):
+    with fileinput(files=files) as stdin:
+        run(stdin, commonStrat=commonStrat, elision_marker=elision_marker)
 
-def run(stdin, commonStrat=DEFAULT_COMMON):
+def run(stdin, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER):
     prev=''
     for line in stdin:
         line = line.strip()
-        do_line(prev, line, commonStrat=DEFAULT_COMMON)
+        do_line(prev, line, commonStrat=DEFAULT_COMMON, elision_marker=elision_marker)
         prev = line
 
 
-def do_line(prev, line, commonStrat=DEFAULT_COMMON):
+def do_line(prev, line, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER):
     prefix = commonStrat([prev, line])
     index = len(prefix) # with commonpath, this is stopped BEFORE the common slash
     paranoia = commonprefix([line[index:], prev[index:]])
 
-    if index >= 5:
-        prefix = ' '*(index-5) + '[...]'
+    if index >= len(elision_marker):
+        prefix = ' '*(index-len(elision_marker)) + elision_marker
     else:
         prefix = ' ' * index
     print(prefix + line[index:])
