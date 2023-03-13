@@ -15,6 +15,7 @@
 	staged = diff --staged
 	rainbow = log --oneline --graph
 	aliases = config --get-regexp '^alias\\.'
+	logp = log -p
 	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
 	defaultRemote = origin
