@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function help() {
+  echo "usage: git j <arguments to git jump grep>"
+  echo
+  echo "Run a git jump, pass it through fzf and open vim with the chosen lines"
+}
+
+#TODO: variables for Before, After, Context line counts
+# The math tries to cheat an `x>5 ? x-5 : 0` with the 0/1 integer result of (x>5)
+
+function gitj-preview {
+  batcat "$1" \
+    --highlight-line "$2" \
+    --line-range $(( ($2>5) * ($2-5) )): \
+    --decorations always \
+    --color always
+}
+export -f gitj-preview
+
+git jump --stdout grep "$@" | fzf --preview='gitj-preview {+1} {2}' --delimiter='[ :]'
+
