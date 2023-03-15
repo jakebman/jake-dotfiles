@@ -16,6 +16,9 @@ function gitj-preview {
     --decorations always \
     --color always
 }
+
+# Since we're a subshell, we don't need to clean up this exported function
+# (our parent process doesn't see this - only git, fzf, and vim see it)
 export -f gitj-preview
 
 # TODO: figure out how to use become() and {f} to auto-invoke vim -q {+f} like in
