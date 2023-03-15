@@ -1,0 +1,36 @@
+#!/bin/bash
+
+function help() {
+  echo "usage: git implicitdiff [<no arguments>]"
+  echo
+  echo "Run a git diff, but if there is no difference, give additional information"
+  echo "similar to git status."
+}
+
+# hidden feature: --help is a 'valid' option (prevents failure)
+if [ "$1" == '--help' ] ; then
+  help
+  exit
+elif [ $# -gt 0 ] ; then
+  help >&2
+  exit 1
+fi
+
+# --quiet and --exit-code disable the pager, so we have to 'peek'
+# also - --quiet doesn't suppress stderr if you're outside a git dir
+git diff --quiet 2>/dev/null
+RET=$?
+
+if [ "$RET" -eq 1 ] ; then
+  # legitimate differences - let's do the actual paged output
+  git diff
+elif [ "$RET" -eq 0 ] ; then
+  # "Success" - there is no difference, and we should supplement
+  # the lack-of-output from git diff
+  git status
+elif [ "$RET" -gt 1 ] ; then
+  # Failure due to not-in-git-directory, or something
+  # Hopefully git status fails for a similar reason and
+  # will report what is wrong better than we can
+  git status
+fi
