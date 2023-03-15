@@ -18,5 +18,13 @@ function gitj-preview {
 }
 export -f gitj-preview
 
-git jump --stdout grep "$@" | fzf --preview='gitj-preview {+1} {2}' --delimiter='[ :]'
+# TODO: figure out how to use become() and {f} to auto-invoke vim -q {+f} like in
+# https://github.com/junegunn/fzf#turning-into-a-different-process
+# (requires a higher fzf version than is in Ubuntu 20.04)
+LINE=$(git jump --stdout grep "$@" | fzf --preview='gitj-preview {+1} {2}' --delimiter='[ :]')
+RET=$?
+
+if [ "$RET" -eq 0 ] ; then
+  vim -q <(echo "$LINE")
+fi
 
