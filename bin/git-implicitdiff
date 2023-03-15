@@ -32,5 +32,6 @@ elif [ "$RET" -gt 1 ] ; then
   # Failure due to not-in-git-directory, or something
   # Hopefully git status fails for a similar reason and
   # will report what is wrong better than we can
+  echo "git-diff failed with code ${RET}. Trying git-status:" >&2
   git status
 fi
