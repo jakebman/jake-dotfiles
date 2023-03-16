@@ -12,9 +12,10 @@ function help() {
 function gitj-preview {
   batcat "$1" \
     --highlight-line "$2" \
-    --force-colorization
+    --decorations always \
+    --color always
 
-  # force-colorization implies both --decorations always and --color always
+  # TODO: --force-colorization when batcat gets to higher versions
 }
 
 function gitj-fzf {
@@ -23,7 +24,7 @@ function gitj-fzf {
      --select-1 \
      --no-sort \
      --reverse \
-     --preview-window=+{2}-5\
+     --preview-window=+{2}-5 \
      --with-nth 1,4.. \
      --delimiter='[ :]'
 }
