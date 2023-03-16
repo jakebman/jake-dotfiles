@@ -17,11 +17,13 @@ function gitj-preview {
 
 function gitj-fzf {
  #TODO: variables for the header lines to include
- fzf --preview='gitj-preview {+1} {2}' \
+ fzf-0.38 --preview='gitj-preview {+1} {2}' \
      --exit-0 \
      --select-1 \
      --no-sort \
      --reverse \
+     --multi \
+     --bind 'enter:become(cat {+f})' \
      --preview-window=+{2}-5 \
      --with-nth 1,4.. \
      --delimiter='[ :]'
@@ -34,10 +36,6 @@ export -f gitj-preview
 # TODO: figure out how to use become() and {f} to auto-invoke vim -q {+f} like in
 # https://github.com/junegunn/fzf#turning-into-a-different-process
 # (requires a higher fzf version than is in Ubuntu 20.04)
-LINE=$( git jump --stdout grep "$@" | gitj-fzf )
-RET=$?
+git jump --stdout grep "$@" | gitj-fzf
 
-if [ "$RET" -eq 0 ] ; then
-  vim -q <(echo "$LINE") && echo successfully edited $LINE
-fi
 
