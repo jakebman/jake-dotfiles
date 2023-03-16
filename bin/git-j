@@ -18,6 +18,15 @@ function gitj-preview {
   # force-colorization implies both --decorations always and --color always
 }
 
+function gitj-fzf {
+ fzf --preview='gitj-preview {+1} {2}' \
+     --exit-0 \
+     --select-1 \
+     --no-sort \
+     --with-nth 1,4.. \
+     --delimiter='[ :]'
+}
+
 # Since we're a subshell, we don't need to clean up this exported function
 # (our parent process doesn't see this - only git, fzf, and vim see it)
 export -f gitj-preview
@@ -25,13 +34,7 @@ export -f gitj-preview
 # TODO: figure out how to use become() and {f} to auto-invoke vim -q {+f} like in
 # https://github.com/junegunn/fzf#turning-into-a-different-process
 # (requires a higher fzf version than is in Ubuntu 20.04)
-LINE=$(git jump --stdout grep "$@" |
-       fzf --preview='gitj-preview {+1} {2}' \
-           --exit-0 \
-           --select-1 \
-           --no-sort \
-           --with-nth 1,4.. \
-           --delimiter='[ :]')
+LINE=$( git jump --stdout grep "$@" | gitj-fzf )
 RET=$?
 
 if [ "$RET" -eq 0 ] ; then
