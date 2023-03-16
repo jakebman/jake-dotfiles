@@ -31,5 +31,6 @@
 	status = true # `git status` should always use a pager
 [diff]
 	tool = vimdiff
+	mnemonicPrefix = true
 [blame]
 	date = human
