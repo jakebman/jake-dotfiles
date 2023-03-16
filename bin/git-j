@@ -39,6 +39,6 @@ LINE=$( git jump --stdout grep "$@" | gitj-fzf )
 RET=$?
 
 if [ "$RET" -eq 0 ] ; then
-  vim -q <(echo "$LINE")
+  vim -q <(echo "$LINE") && echo successfully edited $LINE
 fi
 
