@@ -1,12 +1,12 @@
 #!/bin/bash
 
 function help() {
-  echo "usage: git j <arguments to git jump grep>"
+  echo "usage: j <arguments to ack>"
   echo
-  echo "Run a git jump, pass it through fzf and open vim with the chosen lines"
+  echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
 }
 
-function gitj-preview {
+function j-preview {
   batcat "$1" \
     --highlight-line "$2" \
     --decorations always \
@@ -15,9 +15,9 @@ function gitj-preview {
   # TODO: --force-colorization when batcat gets to higher versions
 }
 
-function gitj-fzf {
+function j-fzf {
  #TODO: variables for the header lines to include
- fzf --preview='gitj-preview {+1} {2}' \
+ fzf --preview='j-preview {+1} {2}' \
      --exit-0 \
      --select-1 \
      --no-sort \
@@ -28,13 +28,13 @@ function gitj-fzf {
 }
 
 # Since we're a subshell, we don't need to clean up this exported function
-# (our parent process doesn't see this - only git, fzf, and vim see it)
-export -f gitj-preview
+# (our parent process doesn't see this - only ack, fzf, and vim see it)
+export -f j-preview
 
 # TODO: figure out how to use become() and {f} to auto-invoke vim -q {+f} like in
 # https://github.com/junegunn/fzf#turning-into-a-different-process
 # (requires a higher fzf version than is in Ubuntu 20.04)
-LINE=$( git jump --stdout grep "$@" | gitj-fzf )
+LINE=$( ack --column "$@" | j-fzf )
 RET=$?
 
 if [ "$RET" -eq 0 ] ; then
