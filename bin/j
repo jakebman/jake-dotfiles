@@ -3,13 +3,14 @@
 function help() {
   echo "usage: j <arguments to ack>"
   echo "usage: j --diff <arguments to git (jump) diff>"
+  echo "usage: j --ws <arguments to git jump ws>"
   echo "usage: j -q <quickfix file>"
 
   echo
   echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
   echo "OR: run a git (jump) diff through fzf ..."
+  echo "OR: run a git (jump) ws through fzf ... (finds whitespace errors)"
   echo "OR: pass a quickfix file ..."
-  echo "OR: -q invocation"
 }
 
 function j-preview {
@@ -35,8 +36,15 @@ function j-fzf {
 }
 
 function j-git-jump-diff {
-  # Leverate our third mode, and pass ourselves as the editor that git jump will use
+  # Leverage our last mode, and pass ourselves as the editor that git jump will use
+  # TODO: this might not be necessary if we just use --stdout
   GIT_EDITOR="$0" git jump diff "$@"
+}
+
+function j-git-jump-ws {
+  # Leverage our last mode, and pass ourselves as the editor that git jump will use
+  # TODO: this might not be necessary if we just use --stdout
+  GIT_EDITOR="$0" git jump ws "$@"
 }
 
 
@@ -65,6 +73,9 @@ case $1 in
   # to a second copy of this script.
   # Confusing. Convoluted. Works.
   --diff) shift ; j-git-jump-diff "$@" ; exit $? ;;
+
+  # Ditto, but for whitespace checking
+  --ws) shift ; j-git-jump-ws "$@" ; exit $? ;;
 
   # help command
   --help|-h) help ; exit ;;
