@@ -22,7 +22,7 @@ function j-fzf {
      --select-1 \
      --no-sort \
      --reverse \
-     --preview-window=+{2}-5 \
+     --preview-window=+{2}-5,~3 \
      --with-nth 1,4.. \
      --delimiter='[ :]'
 }
