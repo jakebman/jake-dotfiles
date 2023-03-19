@@ -22,6 +22,7 @@ function j-fzf {
      --select-1 \
      --no-sort \
      --reverse \
+     --multi \
      --preview-window=+{2}-5,~3 \
      --with-nth 1,4.. \
      --delimiter='[ :]'
@@ -34,13 +35,23 @@ export -f j-preview
 # TODO: figure out how to use become() and {f} to auto-invoke vim -q {+f} like in
 # https://github.com/junegunn/fzf#turning-into-a-different-process
 # (requires a higher fzf version than is in Ubuntu 20.04)
-LINE=$( ack --column "$@" | j-fzf )
+# There is code in the fzf-0.38 branch that does this the above "right" way
+# Until then, we must use a mktemp plan
+
+if TEMPFILE=$(mktemp --tmpdir jake-j-jumping-tool.XXXXXX); then
+  trap 'rm "$TEMPFILE"' EXIT
+else
+  echo >&2 "Could not create temporary file :("
+  exit 100
+fi
+
+ack --column "$@" | j-fzf >"$TEMPFILE"
 RET=$?
 
 if [ "$RET" -eq 0 ] ; then
-  vim -q <(echo "$LINE") && echo successfully edited $LINE
+  vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
 else
-  echo "Failed to search with j for $@"
+  echo "Failed to search with $(basename $0) for $@"
   exit $RET
 fi
 
