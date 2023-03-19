@@ -2,8 +2,14 @@
 
 function help() {
   echo "usage: j <arguments to ack>"
+  echo "usage: j --diff <arguments to git (jump) diff>"
+  echo "usage: j -q <quickfix file>"
+
   echo
   echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
+  echo "OR: run a git (jump) diff through fzf ..."
+  echo "OR: pass a quickfix file ..."
+  echo "OR: -q invocation"
 }
 
 function j-preview {
@@ -28,6 +34,12 @@ function j-fzf {
      --delimiter='[ :]'
 }
 
+function j-git-jump-diff {
+  # Leverate our third mode, and pass ourselves as the editor that git jump will use
+  GIT_EDITOR="$0" git jump diff "$@"
+}
+
+
 # Since we're a subshell, we don't need to clean up this exported function
 # (our parent process doesn't see this - only ack, fzf, and vim see it)
 export -f j-preview
@@ -45,7 +57,22 @@ else
   exit 100
 fi
 
-ack --column "$@" | j-fzf >"$TEMPFILE"
+case $1 in
+  # We're emulating vim, but passing our argument to fzf to get to TEMPFILE, then finally to vim
+  -q) shift ; cat "$@" | j-fzf >"$TEMPFILE" ;;
+
+  # We delegate the 'find the quickfixes' task to `git jump diff`, which then delegates its editing
+  # to a second copy of this script.
+  # Confusing. Convoluted. Works.
+  --diff) shift ; j-git-jump-diff "$@" ; exit $? ;;
+
+  # help command
+  --help|-h) help ; exit ;;
+
+  # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
+  # filtered by fzf
+  *) ack --column "$@" | j-fzf >"$TEMPFILE" ;;
+esac
 RET=$?
 
 if [ "$RET" -eq 0 ] ; then
