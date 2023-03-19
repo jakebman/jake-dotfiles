@@ -39,5 +39,8 @@ RET=$?
 
 if [ "$RET" -eq 0 ] ; then
   vim -q <(echo "$LINE") && echo successfully edited $LINE
+else
+  echo "Failed to search with j for $@"
+  exit $RET
 fi
 
