@@ -89,6 +89,7 @@ RET=$?
 if [ "$RET" -eq 0 ] ; then
   vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
 else
+  # TODO: fzf has multiple exit codes
   echo "Failed to search with $(basename $0) for $@"
   exit $RET
 fi
