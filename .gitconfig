@@ -18,6 +18,7 @@
 	logp = log -p
 	dff = diff
 	ocmmit = commit
+	jdf = !GIT_EDITOR='~/bin/j' git jump diff
 	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
 	defaultRemote = origin
