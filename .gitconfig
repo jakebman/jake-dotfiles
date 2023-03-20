@@ -14,7 +14,7 @@
 	up = pull
 	staged = diff --staged
 	rainbow = log --oneline --graph
-	aliases = config --get-regexp '^alias\\.'
+	aliases = ! git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less
 	logp = log -p
 	dff = diff
 	ocmmit = commit
