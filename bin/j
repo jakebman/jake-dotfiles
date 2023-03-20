@@ -91,6 +91,8 @@ case $1 in
 
   # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
   # filtered by fzf
+  # TODO --print0/--read0
+  # (but that might not be a big deal, considering the output formatting is line-delineated anyway)
   *) ack --column "$@" | j-fzf >"$TEMPFILE" ;;
 esac
 RET=$?
