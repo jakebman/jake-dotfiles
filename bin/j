@@ -32,7 +32,7 @@ function j-fzf {
      --multi \
      --bind "ctrl-a:select-all" \
      --bind "ctrl-n:deselect-all" \
-     --preview-window=+{2}-5,~3 \
+     --preview-window=+{2}+3/3,~3 \
      --with-nth 1,4.. \
      --delimiter='[ :]'
 }
