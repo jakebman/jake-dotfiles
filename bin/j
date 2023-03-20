@@ -65,6 +65,15 @@ else
   exit 100
 fi
 
+# TODO: "no args" could be considered implicitly "search everything", but only if we're
+# not in the root dir or something
+if [ "$#" -eq 0 ] ; then
+  help
+  echo
+  echo "please specify search terms to get a successful search"
+  exit 1
+fi
+
 case $1 in
   # We're emulating vim, but passing our argument to fzf to get to TEMPFILE, then finally to vim
   -q) shift ; cat "$@" | j-fzf >"$TEMPFILE" ;;
