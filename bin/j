@@ -14,7 +14,7 @@ function help() {
 }
 
 function j-preview {
-  batcat "$1" \
+  bat "$1" \
     --highlight-line "$2" \
     --decorations always \
     --color always
