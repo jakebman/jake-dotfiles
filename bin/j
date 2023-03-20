@@ -97,11 +97,22 @@ case $1 in
 esac
 RET=$?
 
+# Successful search - run vim then be done
 if [ "$RET" -eq 0 ] ; then
   vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
-else
-  # TODO: fzf has multiple exit codes
-  echo "Failed to search with $(basename $0) for $@"
-  exit $RET
+  exit $?
 fi
 
+# Failure modes:
+# (pipefail isn't specified, so these are fzf error codes)
+if [ "$RET" -eq 1 ] ; then
+  echo "No matches found"
+elif [ "$RET" -eq 2 ] ; then
+  echo "error in fzf"
+elif [ "$RET" -eq 130 ] ; then
+  echo "(cancelled by user)"
+else
+  echo "Failed to search with $(basename $0) for $@"
+fi
+
+exit $RET
