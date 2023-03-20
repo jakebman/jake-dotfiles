@@ -19,6 +19,11 @@
 	dff = diff
 	ocmmit = commit
 	jdf = !GIT_EDITOR='~/bin/j' git jump diff
+	# cute aliases from https://stackoverflow.com/a/52896091/285944
+	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
+	ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
 	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
 	defaultRemote = origin
