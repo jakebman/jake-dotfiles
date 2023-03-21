@@ -18,6 +18,9 @@
 	logp = log -p
 	dff = diff
 	ocmmit = commit
+	# TODO: once bat is capable of respecting GIT_DIR and GIT_WORK_DIR, these should migrate to
+	# git-j, git-jdf, and git-jws shell scripts.
+	# (Aliases do not run under an environment that receives GIT_DIR or GIT_WORK_DIR)
 	j = !j
 	jdf = !j --diff
 	jws = !j --ws
