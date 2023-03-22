@@ -25,7 +25,7 @@ function j-preview {
 
 function j-fzf {
  #TODO: variables for the header lines to include
- fzf --preview='j-preview {+1} {2}' \
+ fzf --preview='j-preview {1} {2}' \
      --exit-0 \
      --select-1 \
      --no-sort \
