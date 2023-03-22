@@ -15,6 +15,7 @@ function help() {
 }
 
 function j-preview {
+  # TODO: it'd be nice if bat respected GIT_DIR for change highlighting
   bat "$1" \
     --highlight-line "$2" \
     --decorations always \
@@ -98,6 +99,7 @@ case $1 in
   # filtered by fzf
   # TODO --print0/--read0
   # (but that might not be a big deal, considering the output formatting is line-delineated anyway)
+  # TODO: respect GIT_WORK_DIR and git ls-files
   *) ack --column "$@" | j-fzf >"$TEMPFILE" ;;
 esac
 RET=$?
