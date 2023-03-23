@@ -27,6 +27,7 @@ function j-preview {
 function j-fzf {
  #TODO: variables for the header lines to include
  fzf --preview='j-preview {1} {2}' \
+   --ansi \
      --exit-0 \
      --select-1 \
      --no-sort \
@@ -100,7 +101,7 @@ case $1 in
   # TODO --print0/--read0
   # (but that might not be a big deal, considering the output formatting is line-delineated anyway)
   # TODO: respect GIT_WORK_DIR and git ls-files
-  *) ack --column "$@" | j-fzf >"$TEMPFILE" ;;
+  *) ack --color --column "$@" | j-fzf >"$TEMPFILE" ;;
 esac
 RET=$?
 
