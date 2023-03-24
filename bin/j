@@ -18,6 +18,7 @@ function j-preview {
   # TODO: it'd be nice if bat respected GIT_DIR for change highlighting
   bat "$1" \
     --highlight-line "$2" \
+    --pager "less --mouse" \
     --decorations always \
     --color always
 
