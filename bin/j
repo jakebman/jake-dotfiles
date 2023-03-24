@@ -88,15 +88,13 @@ case $1 in
 esac
 RET=$?
 
-# Successful search - run vim then be done
+# $RET is the return code of fzf (not ack, git-jump, or others), because
+# we don't have PIPEFAIL set
 if [ "$RET" -eq 0 ] ; then
+  # Successful search - run vim, and update our success variable
   vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
-  exit $?
-fi
-
-# Failure modes:
-# (pipefail isn't specified, so these are fzf error codes)
-if [ "$RET" -eq 1 ] ; then
+  RET=$?
+elif [ "$RET" -eq 1 ] ; then
   echo "No matches found"
 elif [ "$RET" -eq 2 ] ; then
   echo "error in fzf"
