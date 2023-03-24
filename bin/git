@@ -26,7 +26,7 @@ else
         # Window's config file roots
         HOW=", reading Window's GIT_CONFIG_* variables"
         export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
-        # :? fails if this variable is unset
+        # :? fails if the variable is unset, with a reasonable error
         export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
       else
         WHICH=Windows
@@ -36,6 +36,20 @@ else
    *)
   esac
 fi
+
+# Fallback to check my `config` dotfiles repo when I'm not thinking super hard about it
+if [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ -z "$GIT_DIR" ] && ! "$GIT" rev-parse &>/dev/null ; then
+  # Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
+  # ... not even if we're using WSL-git for faster config reading
+  # ...    nor   if we'd overwrite a different GIT_DIR
+  # Finally, a fast-failing git command (rev-parse works) tells us that we're outside any other repo
+
+  HOW=", using the GIT_DIR and GIT_WORK_TREE to work with the dotfiles git repo"
+  # :? fails if the variable is unset, with a reasonable error
+  export GIT_DIR="${BASH_IT_DOTFILES_GIT_REPO:?}"
+  export GIT_WORK_TREE="$HOME"
+fi
+
 
 echo "$$ - git" "$@" >> ~/git-commands
 "$GIT" "$@"
