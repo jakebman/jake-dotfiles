@@ -38,10 +38,11 @@ else
 fi
 
 # Fallback to check my `config` dotfiles repo when I'm not thinking super hard about it
-if [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ -z "$GIT_DIR" ] && ! "$GIT" rev-parse &>/dev/null ; then
+if [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ -z "$GIT_DIR" ] && [ "$1" != clone ] && ! "$GIT" rev-parse &>/dev/null ; then
   # Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
   # ... not even if we're using WSL-git for faster config reading
   # ...    nor   if we'd overwrite a different GIT_DIR
+  # ... and FOR SURE not if we're trying to clone!
   # Finally, a fast-failing git command (rev-parse works) tells us that we're outside any other repo
 
   HOW=", using the GIT_DIR and GIT_WORK_TREE to work with the dotfiles git repo"
