@@ -2,12 +2,14 @@
 
 function help() {
   echo "usage: j <arguments to ack>"
+  echo "usage: j ack <arguments to ack>"
   echo "usage: j --diff <arguments to git (jump) diff>"
   echo "usage: j --ws <arguments to git jump ws>"
   echo "usage: j -q <quickfix file>"
 
   echo
   echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
+  echo " (for convenience, you can !! the ack command you just ran, instead of just !* its arguments)"
   echo "OR: run a git (jump) diff through fzf ..."
   echo "OR: run a git (jump) ws through fzf ... (finds whitespace errors)"
   echo "OR: pass a quickfix file ..."
@@ -77,6 +79,9 @@ case $1 in
 
   # help command
   --help|-h) help ; exit ;;
+
+  # special 'leading ack' case, where I went `j !!` instead of `j !*`
+  ack) shift ; ack --color --column "$@" | j-fzf >"$TEMPFILE" ;;
 
   # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
   # filtered by fzf
