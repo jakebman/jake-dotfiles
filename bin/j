@@ -23,7 +23,6 @@ function j-preview {
 }
 
 function j-fzf {
- #TODO: variables for the header lines to include
  fzf --preview='j-preview {1} {2}' \
    --ansi \
      --exit-0 \
@@ -81,7 +80,7 @@ case $1 in
 
   # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
   # filtered by fzf
-  # TODO: respect GIT_WORK_DIR and git ls-files
+  # TODO: respect GIT_WORK_DIR and git ls-files (nb: ack -x doesn't respect --type arguments)
   *) ack --color --column "$@" | j-fzf >"$TEMPFILE" ;;
 esac
 RET=$?
