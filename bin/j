@@ -38,7 +38,7 @@ function j-fzf {
      --bind "change:unbind(q)" \
      --preview-window=+{2}+3/3,~3 \
      --with-nth 1,4.. \
-     --delimiter='[ :]'
+     --delimiter=':'
 }
 
 # Since we're a subshell, we don't need to clean up this exported function
