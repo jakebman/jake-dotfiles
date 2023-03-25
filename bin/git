@@ -56,7 +56,6 @@ fi
 echo "$$ - git" "$@" >> ~/git-commands
 "$GIT" "$@"
 EXIT_CODE=$?
-# TODO: git has multiple exit codes. If we get a "not in git dir", maybe try to grab the config envs and try again?
 if [ -t 1 ] ; then # we're running in a terminal
 	echo "(This command used ${WHICH}'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"
 fi
