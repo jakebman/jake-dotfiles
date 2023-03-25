@@ -33,6 +33,7 @@
 	unstage = restore --staged
 	pus = push
 	ad = add
+	delta = -c core.pager=delta diff
 	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
 	defaultRemote = origin
@@ -49,5 +50,6 @@
 [diff]
 	tool = vimdiff
 	mnemonicPrefix = true
+	colorMoved = default # uses blue/purple for moved lines. Very pretty :)
 [blame]
 	date = human
