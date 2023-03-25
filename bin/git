@@ -45,7 +45,8 @@ if [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ -z "$GIT_DIR" ] && [ "$1" != clone 
   # ... and FOR SURE not if we're trying to clone!
   # Finally, a fast-failing git command (rev-parse works) tells us that we're outside any other repo
 
-  HOW=", using the GIT_DIR and GIT_WORK_TREE to work with the dotfiles git repo"
+  # condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
+  HOW=", assuming the GIT_* vars for ${BASH_IT_DOTFILES_GIT_REPO/~/\~}"
   # :? fails if the variable is unset, with a reasonable error
   export GIT_DIR="${BASH_IT_DOTFILES_GIT_REPO:?}"
   export GIT_WORK_TREE="$HOME"
