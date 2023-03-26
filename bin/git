@@ -46,10 +46,14 @@ if [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ -z "$GIT_DIR" ] && [ "$1" != clone 
   # Finally, a fast-failing git command (rev-parse works) tells us that we're outside any other repo
 
   # condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
-  HOW=", assuming the GIT_* vars for ${BASH_IT_DOTFILES_GIT_REPO/~/\~}"
+  HOW=", assuming the GIT_DIR for ${BASH_IT_DOTFILES_GIT_REPO/~/\~}"
   # :? fails if the variable is unset, with a reasonable error
   export GIT_DIR="${BASH_IT_DOTFILES_GIT_REPO:?}"
-  export GIT_WORK_TREE="$HOME"
+
+  # TODO: I'd like to export this to pair with GIT_DIR, but the currently-working situation is to set core.worktree on my repo instead
+  # (libgit2, used by git2-rs, and ultimately bat chokes if this variable is set, but respects core.worktree, which I recommend
+  # in the bash-it repo plugin for this setup)
+  # export GIT_WORK_TREE="$HOME"
 fi
 
 
