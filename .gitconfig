@@ -17,6 +17,8 @@
 	aliases = ! git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less
 	logp = log -p
 	dff = diff
+	jdf = j --diff
+	jws = j --ws
 	ocmmit = commit
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
 	# cute aliases from https://stackoverflow.com/a/52896091/285944

@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# Invoke j, but specifically in the context of being called from git (we'll receive GIT_DIR and GIT_WORK_TREE)
-j --diff "$@"
