@@ -32,6 +32,8 @@ function j-fzf {
      --no-sort \
      --reverse \
      --multi \
+     --header "Ctrl+Space to preview" \
+     --bind "ctrl-space:execute(vim -q <(echo {}) </dev/tty >/dev/tty)" \
      --bind "ctrl-a:select-all" \
      --bind "ctrl-n:deselect-all" \
      --bind "q:abort" \
