@@ -24,9 +24,9 @@ function j-preview {
     --force-colorization # sets both --decoration and --color to `always`
 }
 
-function j-fzf {
+function j-fzf-common {
  fzf --preview='j-preview {1} {2}' \
-   --ansi \
+     --ansi \
      --exit-0 \
      --select-1 \
      --no-sort \
@@ -39,8 +39,18 @@ function j-fzf {
      --bind "q:abort" \
      --bind "change:unbind(q)" \
      --preview-window=+{2}+3/3,~3 \
-     --with-nth 1,4.. \
-     --delimiter=':'
+     --delimiter=':' \
+     "$@"
+}
+
+# with column selection, we hide columns 2 & 3
+function j-fzf-ack {
+  j-fzf-common --with-nth 1,4..
+}
+
+# with no column selection, we only need to hide column 2
+function j-fzf-diff {
+  j-fzf-common --with-nth 1,3..
 }
 
 # Since we're a subshell, we don't need to clean up this exported function
@@ -74,21 +84,21 @@ case $1 in
   -q) shift ; cat "$@" | j-fzf >"$TEMPFILE" ;;
 
   # we're getting git-jump's diff lines, and filtering them
-  --diff) shift ; git jump --stdout diff "$@" | j-fzf >"$TEMPFILE" ;;
+  --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE" ;;
 
   # ditto, but for whitespace errors
-  --ws) shift ; git jump --stdout ws "$@" | j-fzf >"$TEMPFILE" ;;
+  --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
 
   # help command
   --help|-h) help ; exit ;;
 
   # special 'leading ack' case, where I went `j !!` instead of `j !*`
-  ack) shift ; ack --color --column "$@" | j-fzf >"$TEMPFILE" ;;
+  ack) shift ; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
 
   # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
   # filtered by fzf
   # TODO: respect GIT_WORK_DIR and git ls-files (nb: ack -x doesn't respect --type arguments)
-  *) ack --color --column "$@" | j-fzf >"$TEMPFILE" ;;
+  *) ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
 esac
 RET=$?
 
