@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function help() {
+  echo "usage: j (no arguments, implies --diff)"
   echo "usage: j <arguments to ack>"
   echo "usage: j ack <arguments to ack>"
   echo "usage: j --diff <arguments to git (jump) diff>"
@@ -73,33 +74,31 @@ fi
 # TODO: "no args" could be considered implicitly "search everything", but only if we're
 # not in the root dir or something
 if [ "$#" -eq 0 ] ; then
-  help
-  echo
-  echo "please specify search terms to get a successful search"
-  exit 1
+  # implicitly do a --jump
+  git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE"
+else
+  case $1 in
+    # We're emulating vim, but passing our argument to fzf to get to TEMPFILE, then finally to vim
+    -q) shift ; cat "$@" | j-fzf >"$TEMPFILE" ;;
+
+    # we're getting git-jump's diff lines, and filtering them
+    --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE" ;;
+
+    # ditto, but for whitespace errors
+    --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
+
+    # help command
+    --help|-h) help ; exit ;;
+
+    # special 'leading ack' case, where I went `j !!` instead of `j !*`
+    ack) shift ; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
+
+    # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
+    # filtered by fzf
+    # TODO: respect GIT_WORK_DIR and git ls-files (nb: ack -x doesn't respect --type arguments)
+    *) ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
+  esac
 fi
-
-case $1 in
-  # We're emulating vim, but passing our argument to fzf to get to TEMPFILE, then finally to vim
-  -q) shift ; cat "$@" | j-fzf >"$TEMPFILE" ;;
-
-  # we're getting git-jump's diff lines, and filtering them
-  --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE" ;;
-
-  # ditto, but for whitespace errors
-  --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
-
-  # help command
-  --help|-h) help ; exit ;;
-
-  # special 'leading ack' case, where I went `j !!` instead of `j !*`
-  ack) shift ; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
-
-  # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
-  # filtered by fzf
-  # TODO: respect GIT_WORK_DIR and git ls-files (nb: ack -x doesn't respect --type arguments)
-  *) ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
-esac
 RET=$?
 
 # $RET is the return code of fzf (not ack, git-jump, or others), because
