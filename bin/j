@@ -75,6 +75,9 @@ fi
 
 # TODO: "no args" could be considered implicitly "search everything", but only if we're
 # not in the root dir or something
+# TODO: I'm at the point of wanting better argument parsing. My options are:
+# https://github.com/docopt/docopts - parsing from a template file
+# https://www.baeldung.com/linux/bash-parse-command-line-arguments getopts - a program that helps iterate over argument
 if [ "$#" -eq 0 ] ; then
   # implicitly do a --jump
   git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE"
