@@ -4,6 +4,7 @@ function help() {
   echo "usage: j (no arguments, implies --diff)"
   echo "usage: j <arguments to ack>"
   echo "usage: j ack <arguments to ack>"
+  echo "usage: j --git <arguments to ack>"
   echo "usage: j --diff <arguments to git (jump) diff>"
   echo "usage: j --ws <arguments to git jump ws>"
   echo "usage: j -q <quickfix file>"
@@ -11,9 +12,10 @@ function help() {
   echo
   echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
   echo " (for convenience, you can !! the ack command you just ran, instead of just !* its arguments)"
-  echo "OR: run a git (jump) diff through fzf ..."
-  echo "OR: run a git (jump) ws through fzf ... (finds whitespace errors)"
-  echo "OR: pass a quickfix file ..."
+  echo "You can specify --git to query ALL git-controlled files (ack --type doesn't narrow these, sorry)"
+  echo "OR: --diff runs a git (jump) diff through fzf ..."
+  echo "OR: --ws runs a git (jump) ws through fzf ... (finds whitespace errors)"
+  echo "OR: -q passes a quickfix file ..."
   echo "As a heads-up - typing q immediately quits the search."
 }
 
@@ -86,6 +88,9 @@ else
 
     # ditto, but for whitespace errors
     --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
+
+    # respect the files that are in the current git
+    --git) shift ; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack >"$TEMPFILE" ;;
 
     # help command
     --help|-h) help ; exit ;;
