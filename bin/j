@@ -104,7 +104,14 @@ RET=$?
 # $RET is the return code of fzf (not ack, git-jump, or others), because
 # we don't have PIPEFAIL set
 if [ "$RET" -eq 0 ] ; then
-  # Successful search - run vim, and update our success variable
+  # Successful search
+
+  if ! [ -t 0 ] ; then
+    echo "$(basename "$0") - stdin not from /dev/tty - reopening"
+    exec </dev/tty
+  fi
+
+  # run vim, and update our success variable
   vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
   RET=$?
 elif [ "$RET" -eq 1 ] ; then
