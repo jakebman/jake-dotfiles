@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "export GIT_DIR='$GIT_DIR'"
+# TODO: bat can't handle this:
+# echo "export GIT_WORK_TREE='$GIT_WORK_TREE'"
