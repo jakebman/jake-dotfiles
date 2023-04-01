@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# TODO: proper shell quoting
-echo "export GIT_DIR='$GIT_DIR'"
+declare -p GIT_DIR
 # TODO: bat can't handle this:
-# echo "export GIT_WORK_TREE='$GIT_WORK_TREE'"
+# declare -p GIT_WORK_TREE
