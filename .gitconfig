@@ -19,6 +19,7 @@
 	logp = log -p
 	dff = diff
 	jdf = j --diff
+	jmg = j --merge
 	jws = j --ws
 	ocmmit = commit
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"

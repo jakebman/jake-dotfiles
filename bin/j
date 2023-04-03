@@ -6,6 +6,7 @@ function help() {
   echo "usage: j ack <arguments to ack>"
   echo "usage: j --git <arguments to ack>"
   echo "usage: j --diff <arguments to git (jump) diff>"
+  echo "usage: j --merge <arguments to git jump merge>"
   echo "usage: j --ws <arguments to git jump ws>"
   echo "usage: j -q <quickfix file>"
 
@@ -14,6 +15,7 @@ function help() {
   echo " (for convenience, you can !! the ack command you just ran, instead of just !* its arguments)"
   echo "You can specify --git to query ALL git-controlled files (ack --type doesn't narrow these, sorry)"
   echo "OR: --diff runs a git (jump) diff through fzf ..."
+  echo "OR: --merge runs a git (jump) merge through fzf ... (finds merge issues)"
   echo "OR: --ws runs a git (jump) ws through fzf ... (finds whitespace errors)"
   echo "OR: -q passes a quickfix file ..."
   echo "As a heads-up - typing q immediately quits the search."
@@ -88,6 +90,9 @@ else
 
     # we're getting git-jump's diff lines, and filtering them
     --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE" ;;
+
+    # ditto, but for merge differences
+    --merge) shift ; git jump --stdout merge "$@" | j-fzf-diff >"$TEMPFILE" ;;
 
     # ditto, but for whitespace errors
     --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
