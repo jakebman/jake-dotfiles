@@ -8,7 +8,12 @@
 # Short-cutted, for speed:
 THIS_SCRIPT="Jake's ~/bin/git"
 
-# TODO: respect $GIT_DIR and --git-dir
+# TODO: respect --git-dir, which takes precedence over either GIT_DIR or PWD.
+# And be sure to set that value into GIT_DIR, or otherwise respect it below
+# where we sometimes assume an empty GIT_DIR should really be BASH_IT_DOTFILES_GIT_REPO
+# It's not a big deal, but it does embarass the output in corner cases
+WHERE="${GIT_DIR:-${PWD:-$(pwd)}}"
+
 GIT=/usr/bin/git
 WHICH=WSL
 
@@ -19,7 +24,7 @@ elif [ "$1" == "symbolic-ref" ] ; then
   # We could eventually add this, but it feels unnecessary right now:
   # GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
 else
-  case "$(realpath $(pwd))" in
+  case "$(realpath "$WHERE")" in
     /mnt/c/*)
       if  [ "$1" == "config" ] ; then
         # WSL's git is faster for this, but we need to know to read
