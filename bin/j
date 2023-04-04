@@ -97,7 +97,9 @@ else
     # ditto, but for whitespace errors
     --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
 
-    # respect the files that are in the current git
+    # respect the files that are in the current git.
+    # This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
+    # It also doesn't respect type constraints, because ack's starting set is explicitly given
     --git) shift ; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack >"$TEMPFILE" ;;
 
     # help command
@@ -106,9 +108,7 @@ else
     # special 'leading ack' case, where I went `j !!` instead of `j !*`
     ack) shift ; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
 
-    # Every other execution mode delegates directly to ack for "find the quickfixes", which then get
-    # filtered by fzf
-    # TODO: respect GIT_WORK_DIR and git ls-files (nb: ack -x doesn't respect --type arguments)
+    # Finally, any other starting argument means "delegate all these arguments to ack".
     *) ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
   esac
 fi
