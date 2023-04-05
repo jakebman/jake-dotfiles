@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "$GIT_DIR" ] ; then
+  echo "# GIT_DIR is not set or empty"
+  exit
+fi
+
 declare -p GIT_DIR
 # TODO: bat can't handle this:
 # declare -p GIT_WORK_TREE
