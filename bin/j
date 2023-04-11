@@ -128,6 +128,7 @@ if [ "$RET" -eq 0 ] ; then
   vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
   RET=$?
 elif [ "$RET" -eq 1 ] ; then
+  # TODO: this message is dissonant in the case of bare `j` or j --diff. Would prefer "No differences to jump to" for that case
   echo "No matches found"
 elif [ "$RET" -eq 2 ] ; then
   echo "error in fzf"
