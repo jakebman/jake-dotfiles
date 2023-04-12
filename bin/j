@@ -75,6 +75,9 @@ else
   exit 100
 fi
 
+# what sort of thing is searched for. For better "no matches" output
+ITEMS=differences # default is git jump diff -> differences
+
 # TODO: "no args" could be considered implicitly "search everything", but only if we're
 # not in the root dir or something
 # TODO: I'm at the point of wanting better argument parsing. My options are:
@@ -86,13 +89,13 @@ if [ "$#" -eq 0 ] ; then
 else
   case $1 in
     # We're emulating vim, but passing our argument to fzf to get to TEMPFILE, then finally to vim
-    -q) shift ; cat "$@" | j-fzf >"$TEMPFILE" ;;
+    -q) shift ; ITEMS=quickfixes; cat "$@" | j-fzf >"$TEMPFILE" ;;
 
     # we're getting git-jump's diff lines, and filtering them
     --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE" ;;
 
     # ditto, but for merge differences
-    --merge) shift ; git jump --stdout merge "$@" | j-fzf-diff >"$TEMPFILE" ;;
+    --merge) shift ; ITEMS='merge differences'; git jump --stdout merge "$@" | j-fzf-diff >"$TEMPFILE" ;;
 
     # ditto, but for whitespace errors
     --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
@@ -100,16 +103,16 @@ else
     # respect the files that are in the current git.
     # This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
     # It also doesn't respect type constraints, because ack's starting set is explicitly given
-    --git) shift ; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack >"$TEMPFILE" ;;
+    --git) shift ; ITEMS='git files'; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack >"$TEMPFILE" ;;
 
     # help command
     --help|-h) help ; exit ;;
 
     # special 'leading ack' case, where I went `j !!` instead of `j !*`
-    ack) shift ; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
+    ack) shift ; ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
 
     # Finally, any other starting argument means "delegate all these arguments to ack".
-    *) ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
+    *) ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
   esac
 fi
 RET=$?
@@ -128,8 +131,7 @@ if [ "$RET" -eq 0 ] ; then
   vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
   RET=$?
 elif [ "$RET" -eq 1 ] ; then
-  # TODO: this message is dissonant in the case of bare `j` or j --diff. Would prefer "No differences to jump to" for that case
-  echo "No matches found"
+  echo "No ${ITEMS} found"
 elif [ "$RET" -eq 2 ] ; then
   echo "error in fzf"
 elif [ "$RET" -eq 130 ] ; then
