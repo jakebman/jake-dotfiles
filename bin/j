@@ -136,6 +136,7 @@ elif [ "$RET" -eq 2 ] ; then
   echo "error in fzf"
 elif [ "$RET" -eq 130 ] ; then
   echo "(cancelled by user)"
+  # TODO: it'd be cool to print out the unfiltered results even if we cancel.
 else
   echo "Failed to search with $(basename $0) for $@"
 fi
