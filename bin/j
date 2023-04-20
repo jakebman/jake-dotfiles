@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# allow any failure in a pipe to halt the pipe
+set -o pipefail
+
 function help() {
   echo "usage: j (no arguments, implies --diff)"
   echo "usage: j <arguments to ack>"
@@ -21,6 +24,18 @@ function help() {
   echo "As a heads-up - typing q immediately quits the search."
 }
 
+PREVIEW_LINES=7
+# preview all the results if the user cancelled the result
+function j-minor-preview {
+  local lines=`wc --lines <"$ALLRESULTS_FILE"`
+  head -n "$PREVIEW_LINES" "$ALLRESULTS_FILE"
+  if (( $lines > $PREVIEW_LINES )) ; then
+    ((remain= $lines - $PREVIEW_LINES ))
+    echo "...${remain} lines elided"
+  fi
+  echo "$lines lines"
+}
+
 function j-preview {
   # TODO: it'd be nice if bat respected GIT_DIR for change highlighting
   bat "$1" \
@@ -30,6 +45,7 @@ function j-preview {
 }
 
 function j-fzf-common {
+ tee "$ALLRESULTS_FILE" |
  fzf --preview='j-preview {1} {2}' \
      --ansi \
      --exit-0 \
@@ -45,7 +61,10 @@ function j-fzf-common {
      --bind "change:unbind(q)" \
      --preview-window=+{2}+3/3,~3 \
      --delimiter=':' \
-     "$@"
+     "$@" \
+  >"$QUICKFIX_FILE"
+  # INFO: I'm treating this redirection identically to a final tee to the output, because I'd otherwise be fragile to
+  # adding a final pipeline step here
 }
 
 # with column selection, we hide columns 2 & 3
@@ -68,8 +87,14 @@ export -f j-preview
 # There is code in the fzf-0.38 branch that does this the above "right" way
 # Until then, we must use a mktemp plan
 
-if QUICKFIX_FILE=$(mktemp --tmpdir jake-j-jumping-tool.XXXXXX); then
+if QUICKFIX_FILE=$(mktemp --tmpdir jake-j-jumping-tool.quickfix.XXXXXX); then
   trap 'rm "$QUICKFIX_FILE"' EXIT
+else
+  echo >&2 "Could not create temporary file :("
+  exit 100
+fi
+if ALLRESULTS_FILE=$(mktemp --tmpdir jake-j-jumping-tool.allresults.XXXXXX); then
+  trap 'rm "$QUICKFIX_FILE" "$ALLRESULTS_FILE"' EXIT
 else
   echo >&2 "Could not create temporary file :("
   exit 100
@@ -85,40 +110,40 @@ ITEMS=differences # default is git jump diff -> differences
 # https://www.baeldung.com/linux/bash-parse-command-line-arguments getopts - a program that helps iterate over argument
 if [ "$#" -eq 0 ] ; then
   # implicitly do a --jump
-  git jump --stdout diff "$@" | j-fzf-diff >"$QUICKFIX_FILE"
+  git jump --stdout diff "$@" | j-fzf-diff
 else
   case $1 in
     # We're emulating vim, but passing our argument to fzf to get to QUICKFIX_FILE, then finally to vim
-    -q) shift ; ITEMS=quickfixes; cat "$@" | j-fzf >"$QUICKFIX_FILE" ;;
+    -q) shift ; ITEMS=quickfixes; cat "$@" | j-fzf ;;
 
     # we're getting git-jump's diff lines, and filtering them
-    --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$QUICKFIX_FILE" ;;
+    --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff ;;
 
     # ditto, but for merge differences
-    --merge) shift ; ITEMS='merge differences'; git jump --stdout merge "$@" | j-fzf-diff >"$QUICKFIX_FILE" ;;
+    --merge) shift ; ITEMS='merge differences'; git jump --stdout merge "$@" | j-fzf-diff ;;
 
     # ditto, but for whitespace errors
-    --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$QUICKFIX_FILE" ;;
+    --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff ;;
 
     # respect the files that are in the current git.
     # This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
     # It also doesn't respect type constraints, because ack's starting set is explicitly given
-    --git) shift ; ITEMS='git files'; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack >"$QUICKFIX_FILE" ;;
+    --git) shift ; ITEMS='git files'; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack ;;
 
     # help command
     --help|-h) help ; exit ;;
 
     # special 'leading ack' case, where I went `j !!` instead of `j !*`
-    ack) shift ; ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$QUICKFIX_FILE" ;;
+    ack) shift ; ITEMS=matches; ack --color --column "$@" | j-fzf-ack ;;
 
     # Finally, any other starting argument means "delegate all these arguments to ack".
-    *) ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$QUICKFIX_FILE" ;;
+    *) ITEMS=matches; ack --color --column "$@" | j-fzf-ack ;;
   esac
 fi
 RET=$?
 
-# $RET is the return code of fzf (not ack, git-jump, or others), because
-# we don't have PIPEFAIL set
+# $RET is most likely the return code of fzf (not ack, git-jump, tee, or others), but because we set PIPEFAIL, that might be wrong
+# (I need PIPEFAIL to propagate fzf failures past the final tee of the pipeline
 if [ "$RET" -eq 0 ] ; then
   # Successful search
 
@@ -134,9 +159,10 @@ elif [ "$RET" -eq 1 ] ; then
   echo "No ${ITEMS} found"
 elif [ "$RET" -eq 2 ] ; then
   echo "error in fzf"
+  j-minor-preview
 elif [ "$RET" -eq 130 ] ; then
   echo "(cancelled by user)"
-  # TODO: it'd be cool to print out the unfiltered results even if we cancel.
+  j-minor-preview
 else
   echo "Failed to search with $(basename $0) for $@"
 fi
