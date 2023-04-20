@@ -68,8 +68,8 @@ export -f j-preview
 # There is code in the fzf-0.38 branch that does this the above "right" way
 # Until then, we must use a mktemp plan
 
-if TEMPFILE=$(mktemp --tmpdir jake-j-jumping-tool.XXXXXX); then
-  trap 'rm "$TEMPFILE"' EXIT
+if QUICKFIX_FILE=$(mktemp --tmpdir jake-j-jumping-tool.XXXXXX); then
+  trap 'rm "$QUICKFIX_FILE"' EXIT
 else
   echo >&2 "Could not create temporary file :("
   exit 100
@@ -85,34 +85,34 @@ ITEMS=differences # default is git jump diff -> differences
 # https://www.baeldung.com/linux/bash-parse-command-line-arguments getopts - a program that helps iterate over argument
 if [ "$#" -eq 0 ] ; then
   # implicitly do a --jump
-  git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE"
+  git jump --stdout diff "$@" | j-fzf-diff >"$QUICKFIX_FILE"
 else
   case $1 in
-    # We're emulating vim, but passing our argument to fzf to get to TEMPFILE, then finally to vim
-    -q) shift ; ITEMS=quickfixes; cat "$@" | j-fzf >"$TEMPFILE" ;;
+    # We're emulating vim, but passing our argument to fzf to get to QUICKFIX_FILE, then finally to vim
+    -q) shift ; ITEMS=quickfixes; cat "$@" | j-fzf >"$QUICKFIX_FILE" ;;
 
     # we're getting git-jump's diff lines, and filtering them
-    --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$TEMPFILE" ;;
+    --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff >"$QUICKFIX_FILE" ;;
 
     # ditto, but for merge differences
-    --merge) shift ; ITEMS='merge differences'; git jump --stdout merge "$@" | j-fzf-diff >"$TEMPFILE" ;;
+    --merge) shift ; ITEMS='merge differences'; git jump --stdout merge "$@" | j-fzf-diff >"$QUICKFIX_FILE" ;;
 
     # ditto, but for whitespace errors
-    --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$TEMPFILE" ;;
+    --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff >"$QUICKFIX_FILE" ;;
 
     # respect the files that are in the current git.
     # This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
     # It also doesn't respect type constraints, because ack's starting set is explicitly given
-    --git) shift ; ITEMS='git files'; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack >"$TEMPFILE" ;;
+    --git) shift ; ITEMS='git files'; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack >"$QUICKFIX_FILE" ;;
 
     # help command
     --help|-h) help ; exit ;;
 
     # special 'leading ack' case, where I went `j !!` instead of `j !*`
-    ack) shift ; ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
+    ack) shift ; ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$QUICKFIX_FILE" ;;
 
     # Finally, any other starting argument means "delegate all these arguments to ack".
-    *) ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$TEMPFILE" ;;
+    *) ITEMS=matches; ack --color --column "$@" | j-fzf-ack >"$QUICKFIX_FILE" ;;
   esac
 fi
 RET=$?
@@ -128,7 +128,7 @@ if [ "$RET" -eq 0 ] ; then
   fi
 
   # run vim, and update our success variable
-  vim -q "$TEMPFILE" && echo successfully edited: && cat "$TEMPFILE"
+  vim -q "$QUICKFIX_FILE" && echo successfully edited: && cat "$QUICKFIX_FILE"
   RET=$?
 elif [ "$RET" -eq 1 ] ; then
   echo "No ${ITEMS} found"
