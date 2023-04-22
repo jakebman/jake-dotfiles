@@ -17,6 +17,7 @@
 	rainbow = log --oneline --graph
 	aliases = ! git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less
 	logp = log -p
+	logs = log --stat
 	dff = diff
 	jdf = j --diff
 	jmg = j --merge
