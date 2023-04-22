@@ -77,6 +77,10 @@ function j-fzf-diff {
   j-fzf-common --with-nth 1,3..
 }
 
+function j-ack {
+   ack --color --column "$@"
+}
+
 # Since we're a subshell, we don't need to clean up this exported function
 # (our parent process doesn't see this - only ack, fzf, and vim see it)
 export -f j-preview
@@ -128,16 +132,16 @@ else
     # respect the files that are in the current git.
     # This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
     # It also doesn't respect type constraints, because ack's starting set is explicitly given
-    --git) shift ; ITEMS='git files'; git ls-files | ack --color --column --files-from=- "$@" | j-fzf-ack ;;
+    --git) shift ; ITEMS='git files'; git ls-files | j-ack --files-from=- "$@" | j-fzf-ack ;;
 
     # help command
     --help|-h) help ; exit ;;
 
     # special 'leading ack' case, where I went `j !!` instead of `j !*`
-    ack) shift ; ITEMS=matches; ack --color --column "$@" | j-fzf-ack ;;
+    ack) shift ; ITEMS=matches; j-ack "$@" | j-fzf-ack ;;
 
     # Finally, any other starting argument means "delegate all these arguments to ack".
-    *) ITEMS=matches; ack --color --column "$@" | j-fzf-ack ;;
+    *) ITEMS=matches; j-ack "$@" | j-fzf-ack ;;
   esac
 fi
 RET=$?
