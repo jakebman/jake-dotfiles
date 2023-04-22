@@ -45,8 +45,9 @@ function j-preview {
 }
 
 function j-fzf-common {
- tee "$ALLRESULTS_FILE" |
- fzf --preview='j-preview {1} {2}' \
+  # TODO: what if the paths were abbreviated if there were more than ~12 characters worth of them?
+  tee "$ALLRESULTS_FILE" |
+  fzf --preview='j-preview {1} {2}' \
      --ansi \
      --exit-0 \
      --select-1 \
