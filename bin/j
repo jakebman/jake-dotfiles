@@ -107,8 +107,8 @@ fi
 # what sort of thing is searched for. For better "no matches" output
 ITEMS=differences # default is git jump diff -> differences
 
-# TODO: "no args" could be considered implicitly "search everything", but only if we're
-# not in the root dir or something
+# TODO: "no args" could be considered implicitly "search everything with fzf", but only if we're
+# not in the root dir or something. Potentially limited to ack's --known-types
 # TODO: I'm at the point of wanting better argument parsing. My options are:
 # https://github.com/docopt/docopts - parsing from a template file
 # https://www.baeldung.com/linux/bash-parse-command-line-arguments getopts - a program that helps iterate over argument
