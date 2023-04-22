@@ -98,6 +98,7 @@ else
   exit 100
 fi
 if ALLRESULTS_FILE=$(mktemp --tmpdir jake-j-jumping-tool.allresults.XXXXXX); then
+  # update the (single) exit trap to remove both files
   trap 'rm "$QUICKFIX_FILE" "$ALLRESULTS_FILE"' EXIT
 else
   echo >&2 "Could not create temporary file :("
