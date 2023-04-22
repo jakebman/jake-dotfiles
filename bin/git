@@ -17,6 +17,12 @@ WHERE="${GIT_DIR:-${PWD:-$(pwd)}}"
 GIT=/usr/bin/git
 WHICH=WSL
 
+# Improve ^C behavior - print out this diagnostic/status message even if th user cancels the command
+if [ -t 1 ] ; then # we're running in a terminal
+  trap 'echo "(This command used ${WHICH}'"'"'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"' EXIT
+fi
+
+
 if [ "$#" -eq 0 ] ; then
   : # do nothing - keep $GIT at linux
 elif [ "$1" == "symbolic-ref" ] ; then
@@ -67,10 +73,6 @@ fi
 echo "$$ - git" "$@" >> ~/git-commands
 "$GIT" "$@"
 EXIT_CODE=$?
-# TODO: does making this a trap invocation improve anything? (yes - improves ^C behavior)
-if [ -t 1 ] ; then # we're running in a terminal
-	echo "(This command used ${WHICH}'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"
-fi
 echo "$$ exiting with $EXIT_CODE" >> ~/git-commands
 exit $EXIT_CODE
 
