@@ -78,7 +78,7 @@ function j-fzf-diff {
 }
 
 function j-ack {
-   ack --color --column "$@"
+   ack --color --column --with-filename "$@"
 }
 
 # Since we're a subshell, we don't need to clean up this exported function
