@@ -2,7 +2,7 @@
 
 # Invoke j, but specifically in the context of being called from git (we'll receive GIT_DIR and GIT_WORK_TREE if the user specified --git-dir or --work-tree)
 
-if [[ "$1" == -* ]] ; then
+if [[ "$1" != -* ]] ; then
   # the user invoked the moral equivalent of 'git j', which will resepect GIT_DIR when it invokes the child 'git ls-files'
   # ... we need to tell j that it's not just in the current directory, but also in a git-like context
   j --git "$@"
