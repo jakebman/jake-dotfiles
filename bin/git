@@ -67,6 +67,7 @@ fi
 echo "$$ - git" "$@" >> ~/git-commands
 "$GIT" "$@"
 EXIT_CODE=$?
+# TODO: does making this a trap invocation improve anything?
 if [ -t 1 ] ; then # we're running in a terminal
 	echo "(This command used ${WHICH}'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"
 fi
