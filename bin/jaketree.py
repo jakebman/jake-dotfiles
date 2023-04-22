@@ -53,7 +53,7 @@ def calc_args(argv):
     group.add_argument("--wordwise", "-w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier (default)")
     group.add_argument("--pathwise", "-p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
     group.add_argument("--textwise", "-t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
-    group.add_argument("--elision-marker", default='[...]', help="the indicator that a piece has been removed")
+    group.add_argument("--elision-marker", default=ELISION_MARKER, help="the indicator that a piece has been removed")
     args.set_defaults(commonStrat=DEFAULT_COMMON)
     out = args.parse_args(argv)
     return out.__dict__
