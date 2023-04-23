@@ -34,6 +34,7 @@
 	ad = add
 	delta = -c core.pager=delta diff
 	addDelta = -c interactive.diffFilter='delta --color-only' add
+	logDelta = -c core.pager=delta log -p
 	man = help
 	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
