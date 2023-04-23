@@ -134,10 +134,8 @@ else
     # respect the files that are in the current git.
     # This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
     # It also doesn't respect type constraints, because ack's starting set is explicitly given
-    # TODO: ls-files includes the psuedo-files representing submodules, which are folders on the drive.
-    # ack chokes on those. Is it work thinking about a recursive descent thing, just filter them out,
-    # or ignore the problem?
-    --git) shift ; ITEMS='git files'; git ls-files | j-ack --files-from=- "$@" | j-fzf-ack ;;
+    # TODO: --recurse-submodues lists non-init'd submodules as files, and it confuses ack's --files-from
+    --git) shift ; ITEMS='git files'; git ls-files --recurse-submodules | j-ack --files-from=- "$@" | j-fzf-ack ;;
 
     # help command
     --help|-h) help ; exit ;;
