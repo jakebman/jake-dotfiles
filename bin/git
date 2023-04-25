@@ -52,7 +52,7 @@ elif [ "$1" == "symbolic-ref" ] ; then
 else
   case "$(realpath "$WHERE")" in
     /mnt/c/*)
-      handleInWindowsDirectory;;
+      handleInWindowsDirectory "$@";;
   esac
 fi
 
