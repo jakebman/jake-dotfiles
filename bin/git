@@ -26,7 +26,7 @@ fi
 function handleInWindowsDirectory {
   echo "$$ is in windows directory" >> ~/git-commands
   case "$1" in
-    config )
+    config | implicitdiff)
       echo "$$ is in special situation" >> ~/git-commands
       # WSL's git is faster for this, but we need to know to read
       # Window's config file roots
