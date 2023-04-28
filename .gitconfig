@@ -14,7 +14,7 @@
 	assumed-unchanged = !git ls-files -v | grep "^[[:lower:]]"
 	up = pull
 	staged = diff --staged
-	rainbow = log --oneline --graph
+	rainbow = log --oneline --graph --all
 	aliases = ! git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less
 	logp = log -p
 	logs = log --stat
