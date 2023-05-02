@@ -86,12 +86,8 @@ function j-ack {
 # (our parent process doesn't see this - only ack, fzf, and vim see it)
 export -f j-preview
 
-# TODO: figure out how to use become() and {f} to auto-invoke vim -q {+f} like in
-# https://github.com/junegunn/fzf#turning-into-a-different-process
-# (requires a higher fzf version than is in Ubuntu 20.04)
-# There is code in the fzf-0.38 branch that does this the above "right" way
-# Until then, we must use a mktemp plan
-
+# The fzf output will be piped into $QUICKFIX_FILE instead of using `become()` so that we can
+# introspect the fzf output if the editor has any errors
 if QUICKFIX_FILE=$(mktemp --tmpdir jake-j-jumping-tool.quickfix.XXXXXX); then
   trap 'rm "$QUICKFIX_FILE"' EXIT
 else
