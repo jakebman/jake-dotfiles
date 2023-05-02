@@ -25,7 +25,7 @@ fi
 
 if [ "$#" -eq 0 ] ; then
   : # do nothing - keep $GIT at linux
-elif [ "$1" == "symbolic-ref" ] ; then
+elif [ "$1" == "symbolic-ref" ] || [ "$1" == "help" ] ; then
   : # do nothing - WSL reads symbolic refs faster than windows
   # We could eventually add this, but it feels unnecessary right now:
   # GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
