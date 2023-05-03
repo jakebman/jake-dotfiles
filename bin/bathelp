@@ -1,0 +1,14 @@
+#! /bin/bash
+
+if [ "$#" -lt 1 ] ; then
+  if [ -t 1 ] ; then
+    echo "please redirect --help output into this program, or specify a program to get an implicit --help. The terminal doesn't make much sense for stdin"
+    exit 1
+  fi
+  bat -l help -p
+else
+  prog=$1
+  shift
+  "$prog" --help "$@" | bat -l help -p
+fi
+
