@@ -18,6 +18,7 @@ GIT=/usr/bin/git
 WHICH=WSL
 
 # Improve ^C behavior - print out this diagnostic/status message even if th user cancels the command
+# TODO: Respect -q / --quiet, and suppress this output if we're quiet
 if [ -t 1 ] ; then # we're running in a terminal
   trap 'echo "(This command used ${WHICH}'"'"'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"' EXIT
 fi
