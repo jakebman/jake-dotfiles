@@ -24,6 +24,7 @@
 	jmg = j --merge
 	jws = j --ws
 	ocmmit = commit
+	# function tech to ensure no parameters get sent to set
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
 	# cute aliases from https://stackoverflow.com/a/52896091/285944
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
