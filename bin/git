@@ -19,7 +19,9 @@ WHICH=WSL
 
 # Improve ^C behavior - print out this diagnostic/status message even if th user cancels the command
 # TODO: Respect -q / --quiet, and suppress this output if we're quiet
-if [ -t 1 ] ; then # we're running in a terminal
+# For now (infamous temp fix that will last forever), I am suppressing output when run through `mr`
+# NB: mr does pass --quiet through to us, so we will be able to rely on that
+if [ -t 1 ] && [ -z "$MR_REPO" ] ; then # we're running in a terminal, and not from `mr`
   trap 'echo "(This command used ${WHICH}'"'"'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"' EXIT
 fi
 
