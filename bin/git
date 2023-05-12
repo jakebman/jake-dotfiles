@@ -21,6 +21,8 @@ WHICH=WSL
 # TODO: Respect -q / --quiet, and suppress this output if we're quiet
 # For now (infamous temp fix that will last forever), I am suppressing output when run through `mr`
 # NB: mr does pass --quiet through to us, so we will be able to rely on that
+# Further consideration could go into a magic parameter setup (git -c jake.custom.indirection.disableMessage) that
+# can act as a "quiet, but for this callout only"
 if [ -t 1 ] && [ -z "$MR_REPO" ] ; then # we're running in a terminal, and not from `mr`
   trap 'echo "(This command used ${WHICH}'"'"'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"' EXIT
 fi
