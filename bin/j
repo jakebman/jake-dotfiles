@@ -107,6 +107,7 @@ ITEMS=differences # default is git jump diff -> differences
 
 # TODO: "no args" could be considered implicitly "search everything with fzf", but only if we're
 # not in the root dir or something. Potentially limited to ack's --known-types
+# OR: it could be 're-open the previous query, with the previous selections highlighted', or 'just run the previous vim'
 # TODO: I'm at the point of wanting better argument parsing. My options are:
 # https://github.com/docopt/docopts - parsing from a template file
 # https://www.baeldung.com/linux/bash-parse-command-line-arguments getopts - a program that helps iterate over argument
