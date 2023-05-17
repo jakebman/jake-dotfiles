@@ -24,6 +24,7 @@
 	logs = log --stat
 	logn = log --numstat
 	dff = diff
+	jstg = j --staged
 	jdf = j --diff
 	jmg = j --merge
 	jws = j --ws
