@@ -6,6 +6,10 @@
 	dif = diff
 	idff = diff
 	comit = commit
+	comm0t = commit
+	comm9t = commit
+	comm-t = commit
+	commt = commit
 	statu = status
 	tatus = status
 	ignored = status --ignored
@@ -34,6 +38,7 @@
 	unstage = restore --staged
 	pus = push
 	ad = add
+	addp = add -p
 	delta = -c core.pager=delta diff
 	addDelta = -c interactive.diffFilter='delta --color-only' add
 	logDelta = -c core.pager=delta log -p
