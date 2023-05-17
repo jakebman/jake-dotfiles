@@ -13,3 +13,6 @@
 [submodule ".vim/pack/obsession/start/obsession"]
 	path = .vim/pack/obsession/start/obsession
 	url = git@github.com:tpope/vim-obsession.git
+	branch = master
+	# use a non-detached HEAD strategy in the submodule
+	update = rebase
