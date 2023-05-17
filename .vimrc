@@ -35,8 +35,9 @@ map q :q
 " lower-case letter
 " :command qw wq
 
-" Leave room for the session tracking message from vim-obsession
-set cmdheight=2
+" Automatically start Obsession without concatenating the status line (does cause the previous status line to be lost)
+" https://vi.stackexchange.com/questions/8876/echo-message-on-startup-without-prompting
+autocmd VimEnter * Obsession $HOME/.vim/jake-autosaved-session
 
 " preserve edit position,
 " see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
