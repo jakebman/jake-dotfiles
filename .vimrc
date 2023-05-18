@@ -37,6 +37,9 @@ map q :q
 
 " Automatically start Obsession without concatenating the status line (does cause the previous status line to be lost)
 " https://vi.stackexchange.com/questions/8876/echo-message-on-startup-without-prompting
+" TODO: don't do this on temporary files
+" TODO: when entering vim with no args, instead restore this session (this is
+" currently accomplished via an indirection function)
 autocmd VimEnter * Obsession $HOME/.vim/jake-autosaved-session
 
 " preserve edit position,
