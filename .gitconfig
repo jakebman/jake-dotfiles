@@ -65,3 +65,5 @@
 	colorMoved = default # uses blue/purple for moved lines. Very pretty :)
 [blame]
 	date = human
+[mailmap]
+	file = ~/.mailmap
