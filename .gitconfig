@@ -68,3 +68,5 @@
 	date = human
 [mailmap]
 	file = ~/.mailmap
+[submodule]
+	recurse = true
