@@ -19,6 +19,7 @@
 	up = pull
 	staged = diff --staged
 	rainbow = log --oneline --graph --all
+	# see also git-alias in git-extras
 	aliases = ! git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less
 	logp = log --patch
 	logs = log --stat
@@ -31,9 +32,9 @@
 	ocmmit = commit
 	# function tech to ensure no parameters get sent to set. See https://www.atlassian.com/blog/git/advanced-git-aliases
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
-	authors = "!f() { git shortlog -s -e \"$@\" | awk '{$1=\"\";print}' | sort -f ; } ; f"
-	authors-raw = "!f() { git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors \"$@\" ; } ; f"
-	authors-by-email = "!f() { git authors \"$@\" | sort -f -k2 -t'<' ; } ; f"
+	authors-l = authors -l # renamed because git-extras has an authors command
+	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
+	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
 	# cute aliases from https://stackoverflow.com/a/52896091/285944
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
