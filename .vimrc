@@ -40,6 +40,7 @@ map q :q
 " TODO: don't do this on temporary files
 " TODO: when entering vim with no args, instead restore this session (this is
 " currently accomplished via an indirection function)
+" TODO: include quickfix file into the session. Potentially with https://vi.stackexchange.com/questions/38545/how-to-save-quickfix-list-per-neovim-session-using-mksession
 autocmd VimEnter * Obsession $HOME/.vim/jake-autosaved-session
 
 " preserve edit position,
