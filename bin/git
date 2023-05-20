@@ -17,6 +17,15 @@ WHERE="${GIT_DIR:-${PWD:-$(pwd)}}"
 GIT=/usr/bin/git
 WHICH=WSL
 
+: ${XDG_CONFIG_HOME:=${HOME}/.config}
+: ${VCSH_REPO_D:=${XDG_CONFIG_HOME}/vcsh/repo.d}
+# condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
+# plus vcsh, plus any others that might be relevant in the future
+function summarize_path {
+  local first="${1/#$VCSH_REPO_D\//vcsh\'s }"
+  echo "${first/~/\~}"
+}
+
 # Improve ^C behavior - print out this diagnostic/status message even if the user cancels the command
 # TODO: Respect -q / --quiet, and suppress this output if we're quiet
 # For now (infamous temp fix that will last forever), I am suppressing output when run through `mr`
@@ -55,7 +64,7 @@ fi
 
 # Fallback to check my `config` dotfiles repo when I'm not thinking super hard about it
 if [ -n "$GIT_DIR" ] ; then
-  HOW="${HOW}, respecting received GIT_DIR='${GIT_DIR/~/\~}'"
+  HOW="${HOW}, respecting received GIT_DIR='$(summarize_path "$GIT_DIR")'"
 elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" rev-parse &>/dev/null ; then
   # Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
   # ... not even if we're using WSL-git for faster config reading
@@ -63,8 +72,7 @@ elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init
   # ... and FOR SURE not if we're trying to clone or init!
   # Finally, a fast-failing git command (rev-parse works) tells us that we're outside any other repo
 
-  # condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
-  HOW=", assuming the GIT_DIR for ${BASH_IT_DOTFILES_GIT_REPO/~/\~}"
+  HOW=", assuming the GIT_DIR for $(summarize_path "$BASH_IT_DOTFILES_GIT_REPO")"
   # :? fails if the variable is unset, with a reasonable error
   export GIT_DIR="${BASH_IT_DOTFILES_GIT_REPO:?}"
 
