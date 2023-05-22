@@ -20,7 +20,7 @@
 	staged = diff --staged
 	rainbow = log --oneline --graph --all
 	# see also git-alias in git-extras
-	aliases = ! git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less
+	aliases = "!f() { git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less ; echo also check out git-alias in git-extras ; } ; f"
 	logp = log --patch
 	logs = log --stat
 	logn = log --numstat
