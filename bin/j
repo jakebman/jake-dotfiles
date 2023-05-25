@@ -122,6 +122,7 @@ else
     -q) shift ; ITEMS=quickfixes; cat "$@" | j-fzf ;;
 
     # we're getting git-jump's diff lines, and filtering them
+    # TODO: if there is no diff, try the diff from the most-recent commit
     --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff ;;
 
     # we're getting git-jump's diff lines, and filtering them
