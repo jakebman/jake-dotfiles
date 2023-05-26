@@ -9,6 +9,6 @@ if [ "$#" -lt 1 ] ; then
 else
   prog=$1
   shift
-  "$prog" --help "$@" | bat -l help -p
+  "$prog" --help "$@" |& bat -l help -p
 fi
 
