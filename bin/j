@@ -125,6 +125,9 @@ else
     # TODO: if there is no diff, try the diff from the most-recent commit
     --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff ;;
 
+    # TODO: a way to just... load the diffs from a particular commit. Basically, the --diff with no working dir changes
+    # can just delegate to this behavior with the commit `HEAD`
+
     # we're getting git-jump's diff lines, and filtering them
     --staged) shift ; git jump --stdout diff --staged "$@" | j-fzf-diff ;;
 
