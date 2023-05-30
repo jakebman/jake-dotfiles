@@ -1,0 +1,6 @@
+#! /bin/bash
+
+DISTRO=`basename "$0"`
+echo "running $DISTRO -- $@"
+set -x
+wsl.exe -d "$DISTRO" --shell-type login bash -ic "$@"
