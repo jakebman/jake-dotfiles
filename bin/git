@@ -10,8 +10,11 @@ THIS_SCRIPT="Jake's ~/bin/git"
 
 # TODO: respect --git-dir, which takes precedence over either GIT_DIR or PWD.
 # And be sure to set that value into GIT_DIR, or otherwise respect it below
-# where we sometimes assume an empty GIT_DIR should really be BASH_IT_DOTFILES_GIT_REPO
+# where we sometimes assume an unset GIT_DIR should really be BASH_IT_DOTFILES_GIT_REPO
 # It's not a big deal, but it does embarass the output in corner cases
+# NB: $WHERE here can either equal $GIT_DIR or $GIT_WORK_TREE. That will be
+# confusing if this variable is used as-if it were one and not the other.
+# (It's fine for the use of this variable, which is only for user output)
 WHERE="${GIT_DIR:-${PWD:-$(pwd)}}"
 
 GIT=/usr/bin/git
