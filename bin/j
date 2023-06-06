@@ -170,6 +170,8 @@ if [ "$RET" -eq 0 ] ; then
   RET=$?
 elif [ "$RET" -eq 1 ] ; then
   echo "No ${ITEMS} found"
+  # Still do the preview - fzf might have filtered out all the results
+  j-minor-preview
 elif [ "$RET" -eq 2 ] ; then
   echo "error in fzf"
   j-minor-preview
