@@ -25,7 +25,7 @@ WHICH=WSL
 # condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
 # plus vcsh, plus any others that might be relevant in the future
 function summarize_path {
-  local first="${1/#$VCSH_REPO_D\//vcsh\'s }"
+  local first="${1/#$VCSH_REPO_D\//\$VCSH_REPO_D/}"
   echo "${first/~/\~}"
 }
 
