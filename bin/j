@@ -29,6 +29,7 @@ function help() {
 PREVIEW_LINES=7
 # preview all the results if the user cancelled the result
 function j-minor-preview {
+  # TODO: long lines get wonky output. Is there a trim?
   local lines=`wc --lines <"$ALLRESULTS_FILE"`
   head -n "$PREVIEW_LINES" "$ALLRESULTS_FILE"
   if (( $lines > $PREVIEW_LINES )) ; then
