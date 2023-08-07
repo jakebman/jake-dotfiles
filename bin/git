@@ -40,7 +40,9 @@ if [ -t 1 ] && [ -z "$MR_REPO" ] && [ -z "$JAKE_SUPPRESS_GIT_SQUAWK" ] ; then # 
   trap 'echo "(This command used ${WHICH}'"'"'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"' EXIT
 fi
 
-
+# TODO: I'd like to add implicitdiff to the list of commands which use /usr/bin/git, but respect windows dirs
+# This ad-hoc jumble isn't really condusive to adding more pieces. Perhaps a series of flags (which could be received from
+# the parent environment) could help make the fallback choices clearer.
 if [ "$#" -eq 0 ] ; then
   : # do nothing - keep $GIT at linux
 elif [ "$1" == "symbolic-ref" ] || [ "$1" == "help" ] ; then
