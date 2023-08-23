@@ -16,3 +16,9 @@
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
+[submodule ".vim/pack/vim-polyglot/start/vim-polyglot"]
+	path = .vim/pack/vim-polyglot/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+	branch = master
+	# use a non-detached HEAD strategy in the submodule
+	update = rebase
