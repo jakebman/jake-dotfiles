@@ -124,6 +124,7 @@ else
 
     # we're getting git-jump's diff lines, and filtering them
     # TODO: if there is no diff, try staged changes, and then the diff from the most-recent commit
+    # TODO: if there are non-option arguments, they are commit-ish ids - show their changes (Advanced)
     --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff ;;
 
     # TODO: a way to just... load the diffs from a particular commit. Basically, the --diff with no working dir changes
