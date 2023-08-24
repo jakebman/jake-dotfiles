@@ -12,7 +12,7 @@ insert_final_newline = true
 [**.{md,rst}]
 trim_trailing_whitespace = false
 
-[.git*]
+[{.git*,**/.git/config}]
 indent_size = tab
 indent_style = tab
 
