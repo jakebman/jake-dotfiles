@@ -8,7 +8,8 @@
 # Short-cutted, for speed:
 THIS_SCRIPT="Jake's ~/bin/git"
 
-# TODO: respect --git-dir, which takes precedence over either GIT_DIR or PWD.
+# TODO: respect --git-dir, --work-tree, and -C, which take precedence over either GIT_DIR or PWD.
+# (See the git man entry for -C, and https://stackoverflow.com/a/35899275 for details)
 # And be sure to set that value into GIT_DIR, or otherwise respect it below
 # where we sometimes assume an unset GIT_DIR should really be BASH_IT_DOTFILES_GIT_REPO
 # It's not a big deal, but it does embarass the output in corner cases
