@@ -12,6 +12,7 @@
 	commt = commit
 	statu = status
 	tatus = status
+	stashs = stash
 	ignored = status --ignored
 	tpush = push
 	idiff = implicitdiff
