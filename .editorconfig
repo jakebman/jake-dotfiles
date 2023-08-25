@@ -27,6 +27,11 @@ indent_style = tab
 indent_size = tab
 indent_style = tab
 
+[*.java]
+# Approximately equivalent to IntelliJ default settings
+indent_size = 4
+max_line_length = 120
+
 [{**.*sh,test/run,**.bats}]
 indent_size = tab
 indent_style = tab
