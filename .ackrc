@@ -30,6 +30,12 @@
 ## Foo-ly named files - foo.txt, asdf.foo, etc.
 --type-set=foo:match:/\b(?i:foo)\b/
 
+## Bash-it
+--type-set=alias:match:/\.alias\.bash$/
+--type-set=plugin:match:/\.plugin\.bash$/
+--type-set=completion:match:/\.completion\.bash$/
+--type-set=theme:match:/\.theme\.bash$/
+
 ## Maven
 --type-set=pom:is:pom.xml
 --type-add=pom:ext:pom
@@ -49,7 +55,7 @@
 ## Properties files
 --type-add=properties:ext:properties
 # (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
---type-add=properties:ext:properties.*
+--type-add=properties:match:/\.properties\..*/
 
 ## Gitignore files
 --type-add=gitignore:is:.gitignore
