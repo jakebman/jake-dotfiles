@@ -1,5 +1,8 @@
 # EditorConfig is awesome: http://EditorConfig.org
 
+# this is the top-level config. You can stop looking
+root = true
+
 [*]
 indent_style = space
 indent_size = 2
@@ -15,7 +18,8 @@ indent_size = 4
 [**.{md,rst}]
 trim_trailing_whitespace = false
 
-[{.git*,**/.git/config}]
+# All git configuration files, in bare, fake-bare, and non-bare repos
+[{.git*,*.git/config,**/*.git/config}]
 indent_size = tab
 indent_style = tab
 
