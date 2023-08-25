@@ -5,31 +5,32 @@
 # Ignore case if the argument is entirely lowercase:
 --smart-case
 
+# I give ack permission to use ALL ansi escapes
+# (not just color ones (-R) like I configured in the LESS env variable)
+# This helps with bold symbols in ack --man
+--pager=less -r
+
 # some files I know ack can ignore
 ## Java
 --ignore-directory=is:target
 --ignore-directory=is:.idea
 --ignore-file=ext:class
 --ignore-file=ext:jar
-# Node
+## Node
 --ignore-directory=is:node_modules
 --ignore-directory=is:.npm
 
+# My Own Types
 
-# I give ack permission to use ALL ansi escapes
-# (not just color ones (-R) like I configured in the LESS env variable)
-# This helps with bold symbols in ack --man
---pager=less -r
-
-# Jake's own files usually have a name with Jake in it
+## Jakely-named files. 99% of the time, these are files I created
 --type-set=jake:match:/(?i:jake)/
 # a typo:
 --type-set=hake:match:/(?i:jake)/
 
-# Foo-ly named files - foo.txt, asdf.foo, etc.
+## Foo-ly named files - foo.txt, asdf.foo, etc.
 --type-set=foo:match:/\b(?i:foo)\b/
 
-# Maven
+## Maven
 --type-set=pom:is:pom.xml
 --type-add=pom:ext:pom
 
@@ -39,18 +40,18 @@
 --type-set=maven:is:pom.xml
 --type-add=maven:ext:pom
 
-# Text files
+## Text files
 --type-set=text:ext:txt
 
-# Google Protobuf
+## Google Protobuf
 --type-add=proto:ext:proto
 
-# Properties files
+## Properties files
 --type-add=properties:ext:properties
 # (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
 --type-add=properties:ext:properties.*
 
-# sometimes it's useful to know about gitignore files
+## Gitignore files
 --type-add=gitignore:is:.gitignore
 
 # NNS uses several variants on the actual jenkinsfile names.
