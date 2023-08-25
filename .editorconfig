@@ -44,4 +44,4 @@ insert_final_newline = true
 [**.bats]
 indent_size = tab
 indent_style = tab
-shell_variant	= bats
+shell_variant = bats
