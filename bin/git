@@ -90,7 +90,7 @@ elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init
 fi
 
 
-echo "$$ - git" "$@" >> ~/git-commands
+echo "$$ (in $PWD) - git" "$@" >> ~/git-commands
 "$GIT" "$@"
 EXIT_CODE=$?
 echo "$$ exiting with $EXIT_CODE" >> ~/git-commands
