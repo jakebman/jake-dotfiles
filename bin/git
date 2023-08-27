@@ -21,8 +21,10 @@ WHERE="${GIT_DIR:-${PWD:-$(pwd)}}"
 GIT=/usr/bin/git
 WHICH=WSL
 
+# Reify the values for these variables to their documented default values from `man vcsh`:
 : ${XDG_CONFIG_HOME:=${HOME}/.config}
 : ${VCSH_REPO_D:=${XDG_CONFIG_HOME}/vcsh/repo.d}
+
 # condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
 # plus vcsh, plus any others that might be relevant in the future
 function summarize_path {
