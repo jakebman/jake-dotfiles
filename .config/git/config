@@ -72,6 +72,6 @@
 [blame]
 	date = human
 [mailmap]
-	file = ~/.mailmap
+	file = ~/.config/git/mailmap
 [submodule]
 	recurse = true
