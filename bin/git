@@ -8,6 +8,8 @@
 # Short-cutted, for speed:
 THIS_SCRIPT="Jake's ~/bin/git"
 
+
+# TODO: a mechanism by which I can 'lock' this script to unix-land or windows-land
 # TODO: respect --git-dir, --work-tree, and -C, which take precedence over either GIT_DIR or PWD.
 # (See the git man entry for -C, and https://stackoverflow.com/a/35899275 for details)
 # And be sure to set that value into GIT_DIR, or otherwise respect it below
