@@ -37,7 +37,7 @@ map q :q
 
 " Automatically start Obsession without concatenating the status line (does cause the previous status line to be lost)
 " https://vi.stackexchange.com/questions/8876/echo-message-on-startup-without-prompting
-" TODO: don't do this on temporary files
+" TODO: don't do this on temporary files (especially the git commit message ones)
 " TODO: when entering vim with no args, instead restore this session (this is
 " currently accomplished via an indirection function)
 " TODO: include quickfix file into the session. Potentially with https://vi.stackexchange.com/questions/38545/how-to-save-quickfix-list-per-neovim-session-using-mksession
