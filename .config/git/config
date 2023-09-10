@@ -77,3 +77,6 @@
 	file = ~/.config/git/mailmap
 [submodule]
 	recurse = true
+[log]
+	# ask git log to act as if --follow is always present
+	follow = true
