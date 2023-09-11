@@ -48,6 +48,16 @@
 ## Text files
 --type-set=text:ext:txt
 
+## Readme files
+--type-set=readme:ext:txt
+--type-add=readme:ext:md
+--type-add=readme:ext:rst
+--type-add=readme:ext:adoc
+--type-add=readme:match:/\b(?i:readme)\b/
+
+## ALLCAPS files (README, LICENSE, CONTRIBUTING, AUTHORS, etc.)
+--type-set=caps:match:/^[A-Z_]+$/
+
 ## Google Protobuf
 --type-add=proto:ext:proto
 
