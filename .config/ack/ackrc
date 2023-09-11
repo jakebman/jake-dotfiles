@@ -5,11 +5,6 @@
 # Ignore case if the argument is entirely lowercase:
 --smart-case
 
-# I give ack permission to use ALL ansi escapes
-# (not just color ones (-R) like I configured in the LESS env variable)
-# This helps with bold symbols in ack --man
---pager=less -r
-
 # some files I know ack can ignore
 ## Java
 --ignore-directory=is:target
