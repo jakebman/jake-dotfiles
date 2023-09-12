@@ -17,8 +17,8 @@
 	tpush = push
 	idiff = implicitdiff
 	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
-	# TODO: probably needs the function tech from below
-	assumed-unchanged = !git ls-files -v | grep "^[[:lower:]]"
+	# (leveraging the function tech defined below)
+	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
 	up = pull
 	staged = diff --staged
 	rainbow = log --oneline --graph --all
