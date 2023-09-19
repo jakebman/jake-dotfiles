@@ -5,6 +5,9 @@
 # Ignore case if the argument is entirely lowercase:
 --smart-case
 
+# I really like paged output
+--pager=less
+
 # some files I know ack can ignore
 ## Java
 --ignore-directory=is:target
