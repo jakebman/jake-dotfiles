@@ -24,7 +24,7 @@ set listchars=tab:␉·,trail:␠
 set ignorecase
 set smartcase
 
-hi ColorColumn ctermbg=cyan guibg=blue
+highlight ColorColumn ctermbg=cyan guibg=blue
 let g:EditorConfig_max_line_indicator = "exceeding"
 
 " I spend a lot of time typing q when I meant :q
