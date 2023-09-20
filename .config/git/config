@@ -24,6 +24,7 @@
 	rainbow = log --oneline --graph --all
 	# see also git-alias in git-extras
 	aliases = "!f() { git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less ; echo also check out git-alias in git-extras ; } ; f"
+	alises = aliases
 	logp = log --patch
 	logs = log --stat
 	logn = log --numstat
