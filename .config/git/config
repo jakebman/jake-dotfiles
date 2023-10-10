@@ -77,6 +77,8 @@
 	# because this is truly/more-logically "${XDG_CONFIG_HOME:-${HOME}/.config}/git/mailmap"
 	file = ~/.config/git/mailmap
 [submodule]
+	# Allow submodule recursion everywhere. This gets thorny with mr fetching bat's 85(!) submodules,
+	# but it's really useful where I want it to be, and as long as I put out that fire
 	recurse = true
 [log]
 	# ask git log to act as if --follow is always present
