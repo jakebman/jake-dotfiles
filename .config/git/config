@@ -49,9 +49,10 @@
 	pus = push
 	ad = add
 	addp = add -p
-	delta = -c core.pager='delta --max-line-length 0' diff
-	addDelta = -c interactive.diffFilter='delta --color-only' add
-	logDelta = -c core.pager=delta log -p
+	delta = !git -c core.pager='delta --max-line-length 0'
+	deltaDiff = delta diff
+	deltaAdd = -c interactive.diffFilter='delta --color-only' add
+	deltaLog = delta log -p
 	man = help
 	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
