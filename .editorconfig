@@ -23,7 +23,8 @@ trim_trailing_whitespace = false
 indent_size = tab
 indent_style = tab
 
-[Makefile]
+# Build-like files seem to enjoy tabs (build.gradle is from spring initializr)
+[{Makefile,build.gradle}]
 indent_size = tab
 indent_style = tab
 
