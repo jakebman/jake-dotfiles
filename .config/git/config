@@ -52,7 +52,7 @@
 	delta = !git -c core.pager='delta --max-line-length 0'
 	deltaDiff = delta diff
 	deltaAdd = -c interactive.diffFilter='delta --color-only' add
-	deltaLog = delta log -p
+	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
 	man = help
 	# stage = diff --staged # Fails, because stage is already a command
 [checkout]
