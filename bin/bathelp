@@ -1,14 +1,28 @@
 #! /bin/bash
 
+# I'd like to get a failure of --help to cause a failure of this total command
+# This should mean I can fully support bash builtins too
+set -o pipefail
+
+function bat-help {
+  bat -l help -p
+}
+
+function help-or---help {
+  if [ "$#" -eq 1 ] ; then
+    help "$1" 2>/dev/null || "$1" --help
+  else
+    "$@" --help
+  fi
+}
+
 if [ "$#" -lt 1 ] ; then
   if [ -t 0 ] ; then
     echo "please redirect --help output into this program, or specify a program to get an implicit --help. The terminal doesn't make much sense for stdin"
     exit 1
   fi
-  bat -l help -p
+  bat-help
 else
-  prog=$1
-  shift
-  "$prog" --help "$@" |& bat -l help -p
+  help-or---help "$@" | bat-help
 fi
 
