@@ -24,9 +24,10 @@ switch_case_indent = true  # like -ci
 space_redirects    = true  # like -sr
 keep_padding       = false # like -kp
 end_of_line        = lf
-charset            = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
+
+# A refinement for bats files
+[**.bats]
+shell_variant = bats
 
 [**.pm6]
 indent_size = 4
@@ -38,6 +39,7 @@ indent_style = space
 shell_variant = unset
 
 [**.{md,rst}]
+# Trailing whitespace is meaningful to Markdown (and reStructuredText?) files
 trim_trailing_whitespace = false
 
 # All git configuration files, in bare, fake-bare, and non-bare repos
@@ -55,7 +57,3 @@ indent_style = tab
 indent_size = 4
 max_line_length = 120
 
-[**.bats]
-indent_size = tab
-indent_style = tab
-shell_variant = bats
