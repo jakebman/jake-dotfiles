@@ -14,6 +14,7 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 # My ~/bin files should be considered shell files, unless a rule below overrides it
+# Currently, that's just the .py rule
 [{bin/*,**.*sh,test/run,**.bats}]
 indent_size = tab
 indent_style = tab
