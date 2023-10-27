@@ -3,6 +3,7 @@
 # this is the top-level config. You can stop looking
 root = true
 
+# Reasonable defaults
 [*]
 indent_style = space
 indent_size = 2
@@ -12,8 +13,29 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+# My ~/bin files should be considered shell files, unless a rule below overrides it
+[{bin/*,**.*sh,test/run,**.bats}]
+indent_size = tab
+indent_style = tab
+
+shell_variant      = bash
+binary_next_line   = true  # like -bn
+switch_case_indent = true  # like -ci
+space_redirects    = true  # like -sr
+keep_padding       = false # like -kp
+end_of_line        = lf
+charset            = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
 [**.pm6]
 indent_size = 4
+
+[**.py]
+# I have a .py file in ~/bin. It's not shell, so I want to undo the ~/bin rule
+indent_size = 4
+indent_style = space
+shell_variant = unset
 
 [**.{md,rst}]
 trim_trailing_whitespace = false
@@ -32,20 +54,6 @@ indent_style = tab
 # Approximately equivalent to IntelliJ default settings
 indent_size = 4
 max_line_length = 120
-
-[{**.*sh,test/run,**.bats}]
-indent_size = tab
-indent_style = tab
-
-shell_variant      = bash
-binary_next_line   = true  # like -bn
-switch_case_indent = true  # like -ci
-space_redirects    = true  # like -sr
-keep_padding       = false # like -kp
-end_of_line        = lf
-charset            = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
 
 [**.bats]
 indent_size = tab
