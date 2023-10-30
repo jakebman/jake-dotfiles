@@ -16,6 +16,8 @@ insert_final_newline = true
 # My ~/bin files should be considered shell files, unless a rule below overrides it
 # Currently, that's just the .py rule
 [{bin/*,**.*sh,test/run,**.bats}]
+# Setting indent_size to 'tab' is probably less-well-defined than other settings, but it probably means 'platform tab size'
+# The documentation for editorconfig is a little silent on what this will actually do
 indent_size = tab
 indent_style = tab
 
