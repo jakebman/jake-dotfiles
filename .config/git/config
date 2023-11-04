@@ -49,10 +49,9 @@
 	pus = push
 	ad = add
 	addp = add -p
-	# TODO: I'd prefer if `git delta add -p` also worked
-	delta = !git -c core.pager='delta --max-line-length 0'
+	delta = !git -c core.pager='delta --max-line-length 0' -c interactive.diffFilter='delta --color-only'
 	deltaDiff = delta diff
-	deltaAdd = -c interactive.diffFilter='delta --color-only' add
+	deltaAdd = delta add --patch # --patch is implied if you're adding with delta
 	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
 	man = help
 	autostash = pull --autostash
