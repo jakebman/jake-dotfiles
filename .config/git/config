@@ -49,6 +49,7 @@
 	pus = push
 	ad = add
 	addp = add -p
+	# TODO: I'd prefer if `git delta add -p` also worked
 	delta = !git -c core.pager='delta --max-line-length 0'
 	deltaDiff = delta diff
 	deltaAdd = -c interactive.diffFilter='delta --color-only' add
