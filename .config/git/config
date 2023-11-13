@@ -37,6 +37,7 @@
 	ocmmit = commit
 	tags = tag -l
 	# function tech to ensure no parameters get sent to set. See https://www.atlassian.com/blog/git/advanced-git-aliases
+	# TODO: /usr/share/bash-completion/completions has smarts about using the null command for completion that I don't understand
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
 	authors-l = authors -l # renamed because git-extras has an authors command
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
