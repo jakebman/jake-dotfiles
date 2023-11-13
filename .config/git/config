@@ -14,6 +14,7 @@
 	tatus = status
 	stashs = stash
 	ignored = status --ignored
+	untracked = status --untracked
 	tpush = push
 	idiff = implicitdiff
 	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
