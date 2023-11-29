@@ -41,13 +41,15 @@
 	authors-l = authors -l # renamed because git-extras has an authors command
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
-	# TODO: include date in rainbow and these ls aliases
-	rainbow = log --oneline --graph --all
-	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944
-	l =  log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=short
-	ll = log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --numstat --date=relative
-	ld = log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=short --graph
-	ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=relative
+	rainbow = log-oneline --graph --all
+	log-oneline = log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]" --date=relative
+	# Abuse empty string concatenation to get these to line up even though I drop stuff out of it
+	# log-nodate = log --pretty=format:"%C(auto)%h""""""""""""""""""""""""%d\\ %C(reset)%s\\ %C(blue)[%cN]"
+	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline format above
+	l =  log-oneline
+	ll = log-oneline --numstat
+	ld = log-oneline --date=short --graph
+	ls = log-oneline
 	unstage = restore --staged
 	pus = push
 	ad = add
