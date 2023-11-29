@@ -42,12 +42,12 @@
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
 	rainbow = log-oneline --graph --all
-	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]" --date=relative
+	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]" # implicit --date=human-local from log.date
 	# Abuse empty string concatenation to get these to line up even though I drop stuff out of it
 	# log-nodate = log --pretty=tformat:"%C(auto)%h""""""""""""""""""""""""%d\\ %C(reset)%s\\ %C(blue)[%cN]"
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline format above
 	l =  log-oneline
-	ll = log-oneline --numstat
+	ll = log-oneline --date=iso   --numstat
 	ld = log-oneline --date=short --graph
 	ls = log-oneline
 	unstage = restore --staged
@@ -78,7 +78,7 @@
 	mnemonicPrefix = true
 	colorMoved = default # uses blue/purple for moved lines. Very pretty :)
 [blame]
-	date = human
+	date = human-local
 [mailmap]
 	# TODO: I wish there were a way to read this value from the environment,
 	# because this is truly/more-logically "${XDG_CONFIG_HOME:-${HOME}/.config}/git/mailmap"
@@ -90,5 +90,7 @@
 [log]
 	# ask git log to act as if --follow is always present
 	follow = true
+	# get relative dates when it's short, otherwise good dates anyway
+	date = human-local
 [commit]
 	verbose = true
