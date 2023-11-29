@@ -43,11 +43,11 @@
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
 	# TODO: include date in rainbow and these ls aliases
 	rainbow = log --oneline --graph --all
-	# cute aliases from https://stackoverflow.com/a/52896091/285944
-	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=short
-	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --numstat
-	ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=short --graph
-	ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=relative
+	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944
+	l =  log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=short
+	ll = log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --numstat --date=relative
+	ld = log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=short --graph
+	ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%C(auto)%d\\ %Creset%s%Cblue\\ [%cN]" --decorate --date=relative
 	unstage = restore --staged
 	pus = push
 	ad = add
