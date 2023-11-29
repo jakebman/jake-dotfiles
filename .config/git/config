@@ -42,9 +42,9 @@
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
 	rainbow = log-oneline --graph --all
-	log-oneline = log --pretty=format:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]" --date=relative
+	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]" --date=relative
 	# Abuse empty string concatenation to get these to line up even though I drop stuff out of it
-	# log-nodate = log --pretty=format:"%C(auto)%h""""""""""""""""""""""""%d\\ %C(reset)%s\\ %C(blue)[%cN]"
+	# log-nodate = log --pretty=tformat:"%C(auto)%h""""""""""""""""""""""""%d\\ %C(reset)%s\\ %C(blue)[%cN]"
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline format above
 	l =  log-oneline
 	ll = log-oneline --numstat
