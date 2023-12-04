@@ -42,7 +42,12 @@
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
 	rainbow = log-oneline --graph --all
-	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]" # implicit --date=human-local from log.date
+
+	# Impl. notes:
+	# implicit --date=human-local from log.date
+	# explicit tformat, instead of the implicit one you get by setting --pretty with a %-substitution
+	# Use tformat over format, because I like the terminator semantics over the separator syntax (I want the final newline)
+	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]"
 	# Abuse empty string concatenation to get these to line up even though I drop stuff out of it
 	# log-nodate = log --pretty=tformat:"%C(auto)%h""""""""""""""""""""""""%d\\ %C(reset)%s\\ %C(blue)[%cN]"
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline format above
