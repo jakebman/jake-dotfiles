@@ -105,3 +105,23 @@
 	date = human-local
 [commit]
 	verbose = true
+[safe]
+	# I intend safe.directory to be read:
+	# * by WSL's /usr/bin/git
+	# * from Window's %USERHOME%/.gitconfig
+	# * * through the received GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig")
+	# * when my ~/bin/git redirection thinks that WSL's git can be faster than Windows' git.exe
+	# So:
+	# * These directory names need to be valid *from WSL's perspective*
+	# But:
+	# * These entries will only ever be read *from Windows's config files*
+	# But Anyway:
+	# * It's probably just easier to let this situation trust all directories
+	# So:
+	# ... just change the value of this to `directory = *` in the Windows config
+	# But Still:
+	# * I can't in good conscience commit this with `directory = *` into my dotfiles repo
+	# So:
+	# * It's just going to be some example folders from work
+	directory = /mnt/c/Users/P2776931/Projects/restserver
+	directory = /mnt/c/Users/P2776931/Projects/nationalnavigation
