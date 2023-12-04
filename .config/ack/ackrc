@@ -60,6 +60,7 @@
 
 ## ALLCAPS files (README, LICENSE, CONTRIBUTING, AUTHORS, etc.)
 --type-set=caps:match:/^[A-Z_]+$/
+--type-set=CAPS:match:/^[A-Z_]+$/
 
 ## Google Protobuf
 --type-add=proto:ext:proto
