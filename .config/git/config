@@ -71,6 +71,7 @@
 	man = help
 	autostash = pull --rebase --autostash
 	# stage = diff --staged # Fails, because stage is already a command
+	config-debug = config --list --show-origin --show-scope
 [checkout]
 	defaultRemote = origin
 [init]
