@@ -47,6 +47,11 @@
 	# implicit --date=human-local from log.date
 	# explicit tformat, instead of the implicit one you get by setting --pretty with a %-substitution
 	# Use tformat over format, because I like the terminator semantics over the separator syntax (I want the final newline)
+	# %h: abbreviated commit hash. Auto-colors with color.diff.commit
+	# %ad: author date, respecting --date, and log.date (log.date is set to human-local)
+	# %d: decorations. Auto-colors with color.decorate.*, and color.diff.commmit for the parens, commas, etc.
+	# %s: commit subject
+	# %cN: commiter name, respecting mailmap
 	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]"
 	# Abuse empty string concatenation to get these to line up even though I drop stuff out of it
 	# log-nodate = log --pretty=tformat:"%C(auto)%h""""""""""""""""""""""""%d\\ %C(reset)%s\\ %C(blue)[%cN]"
