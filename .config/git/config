@@ -87,6 +87,7 @@
 [pager]
 	status = true # `git status` should always use a pager
 [diff]
+	context = 5
 	tool = vimdiff
 	mnemonicPrefix = true
 	colorMoved = default # uses blue/purple for moved lines. Very pretty :)
