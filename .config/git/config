@@ -51,8 +51,8 @@
 	# %ad: author date, respecting --date=..., and log.date (log.date is set to human-local)
 	# %d: decorations. Auto-colors with color.decorate.*, and color.diff.commmit for the parens, commas, etc.
 	# %s: commit subject
-	# %cN: commiter name, respecting mailmap
-	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%cN]"
+	# %aN: author name, respecting mailmap
+	log-oneline = log --pretty=tformat:"%C(auto)%h\\ %C(green)%ad%C(auto)%d\\ %C(reset)%s\\ %C(blue)[%aN]"
 	# Abuse empty string concatenation to get these to line up even though I drop stuff out of it
 	# log-nodate = log --pretty=tformat:"%C(auto)%h""""""""""""""""""""""""%d\\ %C(reset)%s\\ %C(blue)[%cN]"
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline format above
