@@ -17,6 +17,8 @@
 ## Node
 --ignore-directory=is:node_modules
 --ignore-directory=is:.npm
+## Python
+--ignore-directory=is:.venv
 
 # My Own Types
 
