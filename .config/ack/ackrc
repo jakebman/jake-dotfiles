@@ -60,6 +60,9 @@
 --type-add=readme:ext:adoc
 --type-add=readme:match:/\b(?i:readme)\b/
 
+# Markdown files, or similar. Mostly the same as readme
+--type-add=md:ext:md
+
 ## ALLCAPS files (README, LICENSE, CONTRIBUTING, AUTHORS, etc.)
 --type-set=caps:match:/^[A-Z_]+$/
 --type-set=CAPS:match:/^[A-Z_]+$/
