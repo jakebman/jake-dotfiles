@@ -10,11 +10,6 @@ set softtabstop =2
 set shiftwidth  =2
 set expandtab
 
-" https://stackoverflow.com/questions/1290285/why-cant-i-stop-vim-from-wrapping-my-code
-set textwidth=0
-set wrapmargin=0
-
-
 " visible characters:
 " https://vi.stackexchange.com/questions/422/displaying-tabs-as-characters
 set list
@@ -57,6 +52,14 @@ autocmd VimEnter * Obsession $HOME/.vim/jake-autosaved-session
 " see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
 source $VIMRUNTIME/vimrc_example.vim
 
+" disable the textwidth setting in /usr/share/vim/vim82/vimrc_example.vim
+" (it's annoying, and I don't like it)
+augroup vimrcEx
+  " Clear the contents of this group
+  au!
+augroup END
+" Delete the group, for cleanliness
+augroup! vimrcEx
 
 " stash temporary files in ~
 " https://stackoverflow.com/questions/743150/how-to-prevent-vim-from-creating-and-leaving-temporary-files/61585014#61585014
