@@ -76,7 +76,7 @@ fi
 
 # Fallback to check my `config` dotfiles repo when I'm not thinking super hard about it
 if [ -n "$GIT_DIR" ] ; then
-  HOW="${HOW}, respecting received GIT_DIR='$(summarize_path "$GIT_DIR")'"
+  HOW="${HOW}, respecting received GIT_DIR=\"$(summarize_path "$GIT_DIR")\""
 elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" rev-parse &>/dev/null ; then
   # Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
   # ... not even if we're using WSL-git for faster config reading
