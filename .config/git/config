@@ -104,7 +104,9 @@
 	# %d: decorations. Auto-colors with color.decorate.*, and color.diff.commmit for the parens, commas, etc.
 	# %s: commit subject
 	# %aN: author name, respecting mailmap
-	# TODO: (from git-log's man page)
+	# TODO: It'd be really cool to get a field which can be empty which is approximately
+	#       "committer name, but blank if it is identical to the author", so we could leverage
+	#       these behaviors from git-log's man page:
 	#  If you add a + (plus sign) after % of a placeholder, a line-feed is inserted immediately before the expansion if and only if the placeholder expands to a non-empty string.
 	#  If you add a - (minus sign) after % of a placeholder, all consecutive line-feeds immediately preceding the expansion are deleted if and only if the placeholder expands to an empty string.
 	#  If you add a ` ` (space) after % of a placeholder, a space is inserted immediately before the expansion if and only if the placeholder expands to a non-empty string.
