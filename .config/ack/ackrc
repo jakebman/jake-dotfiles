@@ -22,13 +22,21 @@
 
 # My Own Types
 
+## Clang - C language files
+### I couldn't remember that C files were under the name CC. I tried clang first.
+### So now THAT WORKS!
+--type-add=clang:ext:c,h,xs
+## Header - C and C++ header files
+### Also, (c-only) header files are named hh. That's obscure too. Here's a copy of hpp
+--type-add=header:ext:hpp,hh,h,hxx
+
 ## Bash - a section of the shell type, but bash/sh only
 --type-add=bash:ext:sh,bash #,csh,tcsh,ksh,zsh,fish
 --type-add=bash:firstlinematch:/^#!.*\b(?:ba)?sh\b/
 
 ## Jakely-named files. 99% of the time, these are files I created
 --type-set=jake:match:/(?i:jake)/
-# a typo:
+### a typo:
 --type-set=hake:match:/(?i:jake)/
 
 ## Foo-ly named files - foo.txt, asdf.foo, etc.
