@@ -43,7 +43,7 @@ function summarize_path {
 # can act as a "quiet, but for this callout only"
 # Further TODO: call out what command was eventually invoked, with env variables, if some debug indications are present
 if [ -t 1 ] && [ -z "$MR_REPO" ] && [ -z "$JAKE_SUPPRESS_GIT_SQUAWK" ] ; then # we're running in a terminal, and not from `mr`
-  trap 'echo "(This command used ${WHICH}'"'"'s ${GIT}${HOW}. Indirection provided by ${THIS_SCRIPT})"' EXIT
+  trap 'echo "(${THIS_SCRIPT} used ${WHICH}'"'"'s ${GIT}${HOW})"' EXIT
 fi
 
 # TODO: I'd like to add implicitdiff to the list of commands which use /usr/bin/git, but respect windows dirs
