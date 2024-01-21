@@ -12,6 +12,8 @@ THIS_SCRIPT="Jake's ~/bin/git"
 # TODO: a mechanism by which I can 'lock' this script to unix-land or windows-land
 # TODO: respect --git-dir, --work-tree, and -C, which take precedence over either GIT_DIR or PWD.
 # (See the git man entry for -C, and https://stackoverflow.com/a/35899275 for details)
+# NB: the behavior of this git with -C is incredibly hilarious. The implicit GIT_DIR from ~ is used
+#     but the status is reported as-if you're running git in the folder specified by -C
 # And be sure to set that value into GIT_DIR, or otherwise respect it below
 # where we sometimes assume an unset GIT_DIR should really be BASH_IT_DOTFILES_GIT_REPO
 # It's not a big deal, but it does embarass the output in corner cases
