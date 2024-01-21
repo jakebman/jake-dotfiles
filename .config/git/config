@@ -96,9 +96,12 @@
 	# Impl. notes:
 	# This used to be a raw --pretty invocation (from the stackoverflow link for the l,ll,ls alias variants)
 	# but it is sooo much cleaner here!
-	# this will almost always be paired with --date=human-local from log.date, below
-	# explicit tformat, instead of the implicit one you get by setting --pretty with a %-substitution
-	# Use tformat over format, because I like the terminator semantics over the separator syntax (I want the final newline)
+	# This will almost always be paired with --date=human-local from log.date, below
+	# I use an explicit tformat, instead of the implicit one you get by setting --pretty with a %-substitution
+	# I use tformat over format, because I like the terminator semantics over the separator syntax
+	# (I want the final newline, and since I'm making a oneline-like format, I benefit from
+	#    "This means that the final entry of a single-line format will  be properly terminated
+	#     with a new line, just as the "oneline" format does")
 	# %h: abbreviated commit hash. Auto-colors with color.diff.commit
 	# %ad: author date, respecting --date=..., and log.date (log.date is set to human-local)
 	# %d: decorations. Auto-colors with color.decorate.*, and color.diff.commmit for the parens, commas, etc.
