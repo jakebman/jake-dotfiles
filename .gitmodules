@@ -17,6 +17,8 @@
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
 [submodule ".vim/pack/vim-polyglot/start/vim-polyglot"]
+	# TODO: .cpy files aren't recognized (for rmkit & some reMarkable tablet stuff)
+	# https://github.com/ideawu/cpy
 	path = .vim/pack/vim-polyglot/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
 	branch = master
