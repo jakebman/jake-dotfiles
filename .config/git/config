@@ -1,5 +1,6 @@
 [user]
 	name = Jake Boeckerman
+	# TODO: potentially serve this via conditional configuration imports, so I can swap to my work email via an [includeIf "..."]
 	email = jakebman@gmail.com
 [alias]
 	co = checkout
