@@ -42,6 +42,7 @@ function j-minor-preview {
 function j-preview {
   # TODO: it'd be nice if bat respected GIT_DIR for change highlighting
   # TODO: bat's capable of wrapping long lines, right? Can we figure out how to get that to work here?
+  # (It's more than just leveraging --terminal-width "$FZF_PREVIEW_COLUMNS", because prior wrapped lines mess up fzf's scroll offset)
   bat "$1" \
     --highlight-line "$2" \
     --pager "less --mouse" \
