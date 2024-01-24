@@ -4,6 +4,7 @@
 	email = jakebman@gmail.com
 [alias]
 	co = checkout
+	ehlp = help
 	dif = diff
 	idff = diff
 	comit = commit
