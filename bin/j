@@ -66,6 +66,7 @@ function j-fzf-common {
      --bind "ctrl-n:deselect-all" \
      --bind "q:abort" \
      --bind "change:unbind(q)" \
+     --bind "backward-eof:rebind(q)" \
      --preview-window=+{2}+3/3,~3 \
      --delimiter=':' \
      "$@" \
