@@ -182,7 +182,8 @@ elif [ "$RET" -eq 2 ] ; then
   echo "error in fzf"
   j-minor-preview
 elif [ "$RET" -eq 130 ] ; then
-  echo "(cancelled by user)"
+  echo "(cancelled by user. Considering that success :)"
+  RET=0
   j-minor-preview
 else
   echo "Failed to search with $(basename $0) for $@"
