@@ -55,6 +55,7 @@
 	log-oneline = log --pretty=jake
 	log-nodate  = log --pretty=jake-nodate
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline alias above
+	# TODO: could these be variants of rainbow instead? I find I'm leaning on rainbow over these, and it's because of the graph
 	l  = log-oneline
 	ll = log-oneline --date=iso   --numstat
 	ld = log-oneline --date=short --graph
