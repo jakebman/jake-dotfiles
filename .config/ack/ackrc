@@ -75,6 +75,7 @@
 
 ## Continuous integration files
 --type-set=ci:is:.gitlab-ci.yml
+### TODO: more ci files
 
 ## Markdown files, or similar. Mostly the same as readme
 --type-add=md:ext:md
