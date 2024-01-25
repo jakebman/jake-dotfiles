@@ -59,6 +59,8 @@
 --type-add=maven:ext:pom
 
 ## Text files
+### I apparently need two names for this, because typing that e is apparently arduous
+--type-set=txt:ext:txt
 --type-set=text:ext:txt
 
 ## Readme files
@@ -67,6 +69,12 @@
 --type-add=readme:ext:rst
 --type-add=readme:ext:adoc
 --type-add=readme:match:/\b(?i:readme)\b/
+
+## Docker files
+--type-set=readme:is:Dockerfile
+
+## Continuous integration files
+--type-set=ci:is:.gitlab-ci.yml
 
 ## Markdown files, or similar. Mostly the same as readme
 --type-add=md:ext:md
