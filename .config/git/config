@@ -49,6 +49,7 @@
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
 	rainbow = log-oneline --graph --all
+	rainbow-here = log-oneline --graph
 
 	# see pretty.jake, which is my custom formatting, defined in pretty.jake
 	log-oneline = log --pretty=jake
