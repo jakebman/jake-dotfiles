@@ -80,15 +80,16 @@
 
 ## Properties files
 --type-add=properties:ext:properties
-# (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
+### (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
 --type-add=properties:match:/\.properties\..*/
 
 ## Gitignore files
 --type-add=gitignore:is:.gitignore
 
-# NNS uses several variants on the actual jenkinsfile names.
-# Honestly, at this point, this should just be a case-insensitive
-# match on the word 'jenkins'
+## Jenkins files
+### NNS uses several variants on the actual jenkinsfile names.
+### Honestly, at this point, this should just be a case-insensitive
+### match on the word 'jenkins'
 --type-set=jenkins:is:Jenkinsfile
 --type-add=jenkins:is:JenkinsFile
 --type-add=jenkins:match:jenkinsfile.*
