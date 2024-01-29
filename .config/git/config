@@ -48,15 +48,15 @@
 	authors-l = authors -l # renamed because git-extras has an authors command
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
-	rainbow = log-oneline --graph --all
-	rainbow-here = log-oneline --graph
+	rainbow = log-oneline --graph
+	rainbow-all = log-oneline --graph --all
 
 	# see pretty.jake, which is my custom formatting, defined in pretty.jake
 	log-oneline = log --pretty=jake
 	log-nodate  = log --pretty=jake-nodate
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline alias above
-	# TODO: could these be variants of rainbow instead? I find I'm leaning on rainbow over these, and it's because of the graph
-	l  = log-oneline
+	l  = rainbow
+	# don't want rainbow here - stats really don't rainbow nicely
 	ll = log-oneline --date=iso   --numstat
 	ld = log-oneline --date=short --graph
 	ls = log-oneline
