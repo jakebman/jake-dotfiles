@@ -66,6 +66,7 @@ else
         HOW=", reading Window's GIT_CONFIG_* variables"
         export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
         # :? fails if the variable is unset, with a reasonable error
+        # TODO: WSL probably reserves global variables here. Probably pick a new name :\
         export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
       else
         WHICH=Windows
