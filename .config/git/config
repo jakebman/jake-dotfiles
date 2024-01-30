@@ -75,7 +75,7 @@
 	deltaAdd = delta add --patch # --patch is implied if you're adding with delta
 	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
 	man = help
-	autostash = pull --rebase --autostash
+	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	# stage = diff --staged # Fails, because stage is already a command
 	# handled by a full git-config-debug command (to allow an optional argument of which key(s) to debug)
 	# config-debug = config --list --show-origin --show-scope
