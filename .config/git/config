@@ -141,6 +141,8 @@
 	follow = true
 	# get relative dates when it's short, otherwise good dates anyway
 	date = human-local
+	# --diff-merges=on should behave like --diff-merges=first-parent. show -m, too
+	diffMerges = first-parent
 [commit]
 	verbose = true
 [safe]
