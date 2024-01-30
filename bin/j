@@ -3,6 +3,12 @@
 # allow any failure in a pipe to halt the pipe
 set -o pipefail
 
+: ${JAKE_J_HISTORY_DIR=${XDG_STATE_HOME-${HOME}/.local/state}/jake-j}
+: ${JAKE_J_HISTORY_FILE=${JAKE_J_HISTORY_DIR}/history}
+
+# make the config space
+[[ -d "$JAKE_J_HISTORY_DIR" ]] || mkdir -p "$JAKE_J_HISTORY_DIR"
+
 function help() {
   echo "usage: j (no arguments, implies --diff)"
   echo "usage: j <arguments to ack>"
@@ -60,6 +66,7 @@ function j-fzf-common {
      --no-sort \
      --reverse \
      --multi \
+     --history "${JAKE_J_HISTORY_FILE:-${XDG_STATE_HOME:-${HOME}/.local/state}/jake-j/history}" \
      --header "Ctrl+Space to preview" \
      --bind "ctrl-space:execute(vim -q <(echo {}) </dev/tty >/dev/tty)" \
      --bind "ctrl-a:select-all" \
