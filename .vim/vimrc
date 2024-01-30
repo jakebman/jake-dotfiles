@@ -74,6 +74,10 @@ set backupdir=$HOME/.vim/tmp/backup " backups
 set directory=$HOME/.vim/tmp/swap   " swap files
 set viminfofile=$HOME/.vim/viminfo
 
+" This is cargo-culted from https://github.com/tpope/vim-git/blob/master/ftdetect/git.vim
+" I did at least figure out how to inline a function, and what au means
+autocmd BufNewFile,BufRead */.config/git/work-email let &filetype = "gitconfig"
+
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")
