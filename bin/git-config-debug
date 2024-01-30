@@ -1,0 +1,12 @@
+#!/bin/bash
+set -x
+function helper {
+	git config --show-origin --show-scope
+}
+
+if [ "$#" -eq 0 ] ; then
+	# implicit all
+	helper --list "$@" # empty arg list
+else
+	helper --get-all "$@"
+fi
