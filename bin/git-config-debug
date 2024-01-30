@@ -8,5 +8,8 @@ if [ "$#" -eq 0 ] ; then
 	# implicit all
 	helper --list "$@" # empty arg list
 else
-	helper --get-all "$@"
+	# --get-regex is --get-all, but accepts regex
+	for key in "$@"; do
+		helper --get-regex "$key"
+	done
 fi
