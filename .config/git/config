@@ -87,6 +87,7 @@
 	config-editg = config -e --global
 	config-editl = config -e --local
 	config-edit = config-editg
+	edit-config = config-edit
 [fetch]
 	# Fetch should assume --all
 	# This config (will be) added in git 2.44
