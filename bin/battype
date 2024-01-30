@@ -1,0 +1,20 @@
+#! /bin/bash
+
+# I'd like to get a failure of `type` to cause a failure of this total command
+# This should mean I can be happy with every failure
+set -o pipefail
+
+function bat-type {
+  bat -l bash -p
+}
+
+if [ "$#" -lt 1 ] ; then
+  if [ -t 0 ] ; then
+    echo "please redirect \`type <function>\` output into this program, or specify a function to get an implicit \`type function\`. The terminal doesn't make much sense for stdin"
+    exit 1
+  fi
+  bat-type
+else
+  type "$@" | bat-type
+fi
+
