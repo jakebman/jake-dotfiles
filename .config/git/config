@@ -77,7 +77,8 @@
 	man = help
 	autostash = pull --rebase --autostash
 	# stage = diff --staged # Fails, because stage is already a command
-	config-debug = config --list --show-origin --show-scope
+	# handled by a full git-config-debug command (to allow an optional argument of which key(s) to debug)
+	# config-debug = config --list --show-origin --show-scope
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	show-git-dir = rev-parse --git-dir
 [fetch]
