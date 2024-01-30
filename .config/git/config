@@ -82,7 +82,8 @@
 	# config-debug = config --list --show-origin --show-scope
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	show-git-dir = rev-parse --git-dir
-	merges = log --merges
+	# list git merges, and permit -p to turn them into patches
+	merges = log --merges -m
 	config-editg = config -e --global
 	config-editl = config -e --local
 	config-edit = config-editg
@@ -146,7 +147,8 @@
 	follow = true
 	# get relative dates when it's short, otherwise good dates anyway
 	date = human-local
-	# --diff-merges=on should behave like --diff-merges=first-parent. show -m, too
+	# --diff-merges=on should behave like --diff-merges=first-parent. show -m, too.
+	# This especially helps the git-merges alias above to simply have -m and get these first-parent diffs
 	diffMerges = first-parent
 [commit]
 	verbose = true
