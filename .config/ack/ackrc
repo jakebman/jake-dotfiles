@@ -35,54 +35,54 @@
 --type-add=bash:firstlinematch:/^#!.*\b(?:ba)?sh\b/
 
 ## Jakely-named files. 99% of the time, these are files I created
---type-set=jake:match:/(?i:jake)/
+--type-add=jake:match:/(?i:jake)/
 ### a typo:
---type-set=hake:match:/(?i:jake)/
+--type-add=hake:match:/(?i:jake)/
 
 ## Foo-ly named files - foo.txt, asdf.foo, etc.
---type-set=foo:match:/\b(?i:foo)\b/
+--type-add=foo:match:/\b(?i:foo)\b/
 
 ## Bash-it
---type-set=alias:match:/\.alias\.bash$/
---type-set=plugin:match:/\.plugin\.bash$/
---type-set=completion:match:/\.completion\.bash$/
---type-set=theme:match:/\.theme\.bash$/
+--type-add=alias:match:/\.alias\.bash$/
+--type-add=plugin:match:/\.plugin\.bash$/
+--type-add=completion:match:/\.completion\.bash$/
+--type-add=theme:match:/\.theme\.bash$/
 
 ## Maven
---type-set=pom:is:pom.xml
+--type-add=pom:is:pom.xml
 --type-add=pom:ext:pom
 
---type-set=mvn:is:pom.xml
+--type-add=mvn:is:pom.xml
 --type-add=mvn:ext:pom
 
---type-set=maven:is:pom.xml
+--type-add=maven:is:pom.xml
 --type-add=maven:ext:pom
 
 ## Text files
 ### I apparently need two names for this, because typing that e is apparently arduous
---type-set=txt:ext:txt
---type-set=text:ext:txt
+--type-add=txt:ext:txt
+--type-add=text:ext:txt
 
 ## Readme files
---type-set=readme:ext:txt
+--type-add=readme:ext:txt
 --type-add=readme:ext:md
 --type-add=readme:ext:rst
 --type-add=readme:ext:adoc
 --type-add=readme:match:/\b(?i:readme)\b/
 
 ## Docker files
---type-set=readme:is:Dockerfile
+--type-add=readme:is:Dockerfile
 
 ## Continuous integration files
---type-set=ci:is:.gitlab-ci.yml
+--type-add=ci:is:.gitlab-ci.yml
 ### TODO: more ci files
 
 ## Markdown files, or similar. Mostly the same as readme
 --type-add=md:ext:md
 
 ## ALLCAPS files (README, LICENSE, CONTRIBUTING, AUTHORS, etc.)
---type-set=caps:match:/^[A-Z_]+$/
---type-set=CAPS:match:/^[A-Z_]+$/
+--type-add=caps:match:/^[A-Z_]+$/
+--type-add=CAPS:match:/^[A-Z_]+$/
 
 ## Google Protobuf
 --type-add=proto:ext:proto
@@ -104,7 +104,7 @@
 ### NNS uses several variants on the actual jenkinsfile names.
 ### Honestly, at this point, this should just be a case-insensitive
 ### match on the word 'jenkins'
---type-set=jenkins:is:Jenkinsfile
+--type-add=jenkins:is:Jenkinsfile
 --type-add=jenkins:is:JenkinsFile
 --type-add=jenkins:match:jenkinsfile.*
 --type-add=jenkins:match:.*-JenkinsFile
