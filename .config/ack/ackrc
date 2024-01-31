@@ -92,6 +92,11 @@
 ### (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
 --type-add=properties:match:/\.properties\..*/
 
+## Git files
+### The config, ignore, etc. files live in $XDG_CONFIG_HOME/git
+--type-add=git:match:.?(git)?config
+--type-add=git:match:.?(git)?ignore
+
 ## Gitignore files
 --type-add=gitignore:is:.gitignore
 
