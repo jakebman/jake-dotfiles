@@ -43,7 +43,10 @@ map q :q
 " This allows vim to look at mouse activity while I'm in (n)ormal, (v)isual,
 " and (i)nsert contexts. Specifically, this excludes (c)ommand (and some misc. ones)
 " which means you can get selection by going to :-command mode (like :wq)
-" without having to hold Shift
+" without having to hold Shift.
+" NB: modeless-selection is the name for when vim emulates the selection style
+" I'm used to. But it ends up not copying newline characters, so it's just a
+" blob of chars (for some reason?)
 set mouse=nvi
 set ttymouse=xterm2 " more-responsive mouse tracking in the selection
 " Potentially helps with copying into X?
