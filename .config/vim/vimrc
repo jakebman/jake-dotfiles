@@ -52,6 +52,19 @@ set ttymouse=xterm2 " more-responsive mouse tracking in the selection
 " Potentially helps with copying into X?
 " set clipboard+=unnamed
 
+" from https://stackoverflow.com/questions/4911093/vim-change-mouse-click-behavior
+" toggle between terminal and vim mouse
+map <silent><F12> :let &mouse=(&mouse == "a"?"":"a")<CR>:call ShowMouseMode()<CR>
+imap <silent><F12> :let &mouse=(&mouse == "a"?"":"a")<CR>:call ShowMouseMode()<CR>
+function ShowMouseMode()
+    if (&mouse == 'a')
+        echo "mouse-vim"
+    else
+        echo "mouse-xterm"
+    endif
+endfunction
+
+
 " wq is cool, but sometimes I type it as qw, and that should work too.
 " Unfortunately, this is apparently more complicated than it seems
 " see https://stackoverflow.com/questions/3878692/how-to-create-an-alias-for-a-command-in-vim
