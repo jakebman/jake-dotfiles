@@ -63,6 +63,7 @@ endif
 " TODO: include quickfix file into the session. Potentially with https://vi.stackexchange.com/questions/38545/how-to-save-quickfix-list-per-neovim-session-using-mksession
 " TODO: somehow, there's a terminal-width-dependent thing that says "Press
 " ENTER or type command to continue". I wish that didn't happen
+" (Update: it might be related to vim's messages or more-prompt help topics)
 autocmd VimEnter * Obsession $XDG_STATE_HOME/vim/jake-autosaved-session
 
 " preserve edit position,
