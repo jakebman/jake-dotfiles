@@ -32,7 +32,8 @@ map q :q
 
 " Mouse scroll and click is *nice*
 " https://stackoverflow.com/questions/7225057/use-mouse-scroll-wheel-in-vim
-set mouse=a
+" https://unix.stackexchange.com/questions/139578/copy-paste-for-vim-is-not-working-when-mouse-set-mouse-a-is-on
+set mouse=r
 
 " wq is cool, but sometimes I type it as qw, and that should work too.
 " Unfortunately, this is apparently more complicated than it seems
