@@ -46,7 +46,9 @@ map q :q
 " without having to hold Shift.
 " NB: modeless-selection is the name for when vim emulates the selection style
 " I'm used to. But it ends up not copying newline characters, so it's just a
-" blob of chars (for some reason?)
+" blob of chars - this is Windows Terminal's behavior, which can be disabled
+" by turning on "Automatically copy selection to clipboard" in the
+" settings/interaction menu
 set mouse=nv
 set ttymouse=xterm2 " more-responsive mouse tracking in the selection
 " Potentially helps with copying into X?
