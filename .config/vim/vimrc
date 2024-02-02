@@ -30,13 +30,24 @@ let g:EditorConfig_max_line_indicator = "exceeding"
 " I spend a lot of time typing q when I meant :q
 map q :q
 
-" Mouse scroll and click is *nice*
+" Mouse scroll and click is *nice*, but it needs a modifier (Shift) pressed to
+" get the old terminal behavior, and the selection doesn't seem to grab
+" newlines, for some reason?
 " https://stackoverflow.com/questions/7225057/use-mouse-scroll-wheel-in-vim
 " https://unix.stackexchange.com/questions/139578/copy-paste-for-vim-is-not-working-when-mouse-set-mouse-a-is-on
 " https://superuser.com/questions/1365832/how-to-enable-both-this-vim-feature-mouse-cursor-move-and-paste-with-middle-mou
 " https://forum.manjaro.org/t/unable-to-paste-text-into-vim-using-mouse-middle-click/110323/5
-set mouse=nv
-set selectmode+=mouse
+" TODO: I'd like a way to ask vim to simply ignore some mouse actions, but it
+" doesn't seem doable. You'd need a mechanism for vim to have non-modified
+" mouse clicks 'go to the xterm' (per :help terminal-mouse)
+" This allows vim to look at mouse activity while I'm in (n)ormal, (v)isual,
+" and (i)nsert contexts. Specifically, this excludes (c)ommand (and some misc. ones)
+" which means you can get selection by going to :-command mode (like :wq)
+" without having to hold Shift
+set mouse=nvi
+set ttymouse=xterm2 " more-responsive mouse tracking in the selection
+" Potentially helps with copying into X?
+" set clipboard+=unnamed
 
 " wq is cool, but sometimes I type it as qw, and that should work too.
 " Unfortunately, this is apparently more complicated than it seems
