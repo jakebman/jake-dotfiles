@@ -30,6 +30,10 @@ let g:EditorConfig_max_line_indicator = "exceeding"
 " I spend a lot of time typing q when I meant :q
 map q :q
 
+" Mouse scroll and click is *nice*
+" https://stackoverflow.com/questions/7225057/use-mouse-scroll-wheel-in-vim
+set mouse=a
+
 " wq is cool, but sometimes I type it as qw, and that should work too.
 " Unfortunately, this is apparently more complicated than it seems
 " see https://stackoverflow.com/questions/3878692/how-to-create-an-alias-for-a-command-in-vim
