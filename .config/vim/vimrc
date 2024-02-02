@@ -47,7 +47,7 @@ map q :q
 " NB: modeless-selection is the name for when vim emulates the selection style
 " I'm used to. But it ends up not copying newline characters, so it's just a
 " blob of chars (for some reason?)
-set mouse=nvi
+set mouse=nv
 set ttymouse=xterm2 " more-responsive mouse tracking in the selection
 " Potentially helps with copying into X?
 " set clipboard+=unnamed
