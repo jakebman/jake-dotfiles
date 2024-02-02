@@ -15,6 +15,30 @@ function help-or---help {
 		"$@" --help
 	fi
 }
+declare args
+
+function help-message {
+	echo "runs like the bash help builtin <TODO: more>"
+}
+
+while getopts 'dmsh' arg "$@"; do
+	case "$arg" in
+		h)
+			help-message
+			exit
+			;;
+		?)
+			help-message
+			exit 1
+			;;
+	esac
+	args="${args}${arg}"
+done
+
+SHIFT="$OPTIND"
+(( SHIFT-- ))
+echo "args are '${args}'. Shifting by ${SHIFT}"
+shift "$SHIFT"
 
 if [ "$#" -lt 1 ]; then
 	if [ -t 0 ]; then
