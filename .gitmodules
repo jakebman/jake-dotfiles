@@ -4,19 +4,19 @@
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
-[submodule "bin/gitstatus"]
+[submodule "gitstatus"]
 	path = bin/gitstatus
 	url = git@github.com:romkatv/gitstatus.git
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
-[submodule ".vim/pack/obsession/start/obsession"]
+[submodule "obsession-vim"]
 	path = .config/vim/pack/obsession/start/obsession
 	url = git@github.com:tpope/vim-obsession.git
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
-[submodule ".vim/pack/vim-polyglot/start/vim-polyglot"]
+[submodule "polyglot-vim"]
 	# TODO: .cpy files aren't recognized (for rmkit & some reMarkable tablet stuff)
 	# https://github.com/ideawu/cpy
 	path = .config/vim/pack/vim-polyglot/start/vim-polyglot
