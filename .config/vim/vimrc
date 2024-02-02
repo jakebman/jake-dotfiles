@@ -35,7 +35,8 @@ map q :q
 " https://unix.stackexchange.com/questions/139578/copy-paste-for-vim-is-not-working-when-mouse-set-mouse-a-is-on
 " https://superuser.com/questions/1365832/how-to-enable-both-this-vim-feature-mouse-cursor-move-and-paste-with-middle-mou
 " https://forum.manjaro.org/t/unable-to-paste-text-into-vim-using-mouse-middle-click/110323/5
-set mouse=n
+set mouse=nv
+set selectmode+=mouse
 
 " wq is cool, but sometimes I type it as qw, and that should work too.
 " Unfortunately, this is apparently more complicated than it seems
