@@ -1,5 +1,5 @@
 [submodule "editorconfig-vim"]
-	path = .vim/pack/editorconfig/start/editorconfig-vim
+	path = .config/vim/pack/editorconfig/start/editorconfig-vim
 	url = git@github.com:editorconfig/editorconfig-vim.git
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
@@ -11,7 +11,7 @@
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
 [submodule ".vim/pack/obsession/start/obsession"]
-	path = .vim/pack/obsession/start/obsession
+	path = .config/vim/pack/obsession/start/obsession
 	url = git@github.com:tpope/vim-obsession.git
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
@@ -19,7 +19,7 @@
 [submodule ".vim/pack/vim-polyglot/start/vim-polyglot"]
 	# TODO: .cpy files aren't recognized (for rmkit & some reMarkable tablet stuff)
 	# https://github.com/ideawu/cpy
-	path = .vim/pack/vim-polyglot/start/vim-polyglot
+	path = .config/vim/pack/vim-polyglot/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
