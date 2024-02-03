@@ -56,8 +56,9 @@ set ttymouse=xterm2 " more-responsive mouse tracking in the selection
 
 " from https://stackoverflow.com/questions/4911093/vim-change-mouse-click-behavior
 " toggle between terminal and vim mouse
-map <silent><F12> :let &mouse=(&mouse == "a"?"":"a")<CR>:call ShowMouseMode()<CR>
-imap <silent><F12> :let &mouse=(&mouse == "a"?"":"a")<CR>:call ShowMouseMode()<CR>
+" (Abuse ternary to flip from nv -> off -> all -> off)
+map <silent><F12> :let &mouse=(&mouse == ""?"a":"")<CR>:call ShowMouseMode()<CR>
+imap <silent><F12> :let &mouse=(&mouse == ""?"a":"")<CR>:call ShowMouseMode()<CR>
 function ShowMouseMode()
     if (&mouse == 'a')
         echo "mouse-vim"
