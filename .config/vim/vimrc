@@ -48,7 +48,9 @@ map q :q
 " I'm used to. But it ends up not copying newline characters, so it's just a
 " blob of chars - this is Windows Terminal's behavior, which can be disabled
 " by turning on "Automatically copy selection to clipboard" in the
-" settings/interaction menu
+" settings/interaction menu (because then I don't have to hold shift while
+" clicking, which procs the singleLine behavior of the copy command, below)
+" https://github.com/microsoft/terminal/blob/ef96e225da6b0df496390eed9fe31dc7e434a939/src/cascadia/TerminalControl/ControlCore.cpp#L1242
 set mouse=nv
 set ttymouse=xterm2 " more-responsive mouse tracking in the selection
 " Potentially helps with copying into X?
