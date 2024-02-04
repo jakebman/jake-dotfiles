@@ -10,7 +10,7 @@ function bat-help {
 
 function help-or---help {
 	if [ "$#" -eq 1 ]; then
-		help "$1" 2> /dev/null || "$1" --help
+		builtin help "$1" 2> /dev/null || "$1" --help
 	else
 		"$@" --help
 	fi
@@ -20,6 +20,19 @@ declare args
 function help-message {
 	echo "runs like the bash help builtin <TODO: more>"
 }
+
+
+if [ "$#" -le 0 ]; then
+	if [ -t 0 ]; then
+		# Dispatch to builtin help directly:
+		builtin help | bat-help
+	else
+		# stdin isn't a terminal; we're probably coloring another help
+		bat-help
+	fi
+	exit "$?"
+fi
+
 
 while getopts 'dmsh' arg "$@"; do
 	case "$arg" in
@@ -31,6 +44,7 @@ while getopts 'dmsh' arg "$@"; do
 			help-message
 			exit 1
 			;;
+		# TODO: m) indicates man-page-like output
 	esac
 	args="${args}${arg}"
 done
@@ -40,12 +54,9 @@ SHIFT="$OPTIND"
 echo "args are '${args}'. Shifting by ${SHIFT}"
 shift "$SHIFT"
 
-if [ "$#" -lt 1 ]; then
-	if [ -t 0 ]; then
-		echo "please redirect --help output into this program, or specify a program to get an implicit --help. The terminal doesn't make much sense for stdin"
-		exit 1
-	fi
-	bat-help
-else
+if [[ "$SHIFT" -le 0 ]]; then
+	# no help-like args. Could be either help or --help
 	help-or---help "$@" | bat-help
+else
+	builtin help -"$args" "$@" | bat-help
 fi
