@@ -51,7 +51,6 @@ done
 
 SHIFT="$OPTIND"
 (( SHIFT-- ))
-echo "args are '${args}'. Shifting by ${SHIFT}"
 shift "$SHIFT"
 
 if [[ "$SHIFT" -le 0 ]]; then
