@@ -34,7 +34,7 @@ if [ "$#" -le 0 ]; then
 fi
 
 
-while getopts 'dmsh' arg "$@"; do
+while getopts 'dmsh' arg; do
 	case "$arg" in
 		h)
 			help-message
