@@ -89,7 +89,7 @@
 	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
 	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
 	#  branch for main
-	alias-main-for-master = symbolic-ref refs/heads/main refs/heads/master
+	alias-main-for-master = "!f() { git symbolic-ref refs/heads/main refs/heads/master ; } ; f"
 
 	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
 	# (leveraging the function tech defined below)
