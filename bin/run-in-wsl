@@ -1,5 +1,4 @@
 #! /bin/bash
 
-
-DISTRO=`basename "$0"`
+DISTRO=$(basename "$0")
 wsl.exe -d "$DISTRO" --shell-type login bash -ic "$@"
