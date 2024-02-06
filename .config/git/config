@@ -6,57 +6,51 @@
 	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
 	path = ~/.config/git/work-email
 [alias]
-	# TODO: organize these aliases into groups, loosly alphabetically if possible
-	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
-	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
-	#  branch for main
-	alias-main-for-master = symbolic-ref refs/heads/main refs/heads/master
-	co = checkout
-	ehlp = help
-	dif = diff
-	idff = diff
+
+	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
+	ad = add
+	addp = add -p
 	comit = commit
 	comm0t = commit
 	comm9t = commit
 	comm-t = commit
 	commt = commit
-	statu = status
-	tatus = status
-	stashs = stash
-	ignored = status --ignored
-	untracked = status --untracked
-	tpush = push
-	tgui = gui
-	idiff = implicitdiff
-	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
-	# (leveraging the function tech defined below)
-	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
-	up = pull
-	staged = diff --staged
-	# see also git-alias in git-extras
-	aliases = "!f() { git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less ; echo also check out git-alias in git-extras ; } ; f"
-	alises = aliases
-	logp = log --patch
-	logs = log --stat
-	logn = log --numstat
-	# Abuse parameter passing - the 'yesterday' argument will pass to --since, but if we do something dumb, we'll get something dumb back.
-	# (Also, we chooose since-as-filter to get around weird history hiccups that things like cherry-picking can introduce)
-	since = log --since-as-filter
-	# TODO: it'd be *really* cool if "yesterday" implicitly meant "Friday" if today is Monday
-	yesterday = since yesterday
+	ocmmit = commit
+	edit-config = config-edit
 	dff = diff
+	dif = diff
+	idff = diff
+	tgui = gui
+	ehlp = help
+	idiff = implicitdiff
 	jstg = j --staged
 	jdf = j --diff
 	jmg = j --merge
 	jws = j --ws
-	ocmmit = commit
-	tags = tag -l
-	# function tech to ensure no parameters get sent to set. See https://www.atlassian.com/blog/git/advanced-git-aliases
-	# TODO: /usr/share/bash-completion/completions has smarts about using the null command for completion that I don't understand
-	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
-	authors-l = authors -l # renamed because git-extras has an authors command
-	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
-	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
+	tpush = push
+	pus = push
+	statu = status
+	stashs = stash
+	tatus = status
+
+	## Convenient Names ("I typed something intentionally and expected it to work (often this promotes a flag to a command)")
+	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
+	co = checkout
+	config-editg = config -e --global
+	config-editl = config -e --local
+	config-edit = config-editg
+	# delta is a utility defined below
+	deltaDiff = delta diff
+	deltaAdd = delta add --patch # --patch is implied if you're adding with delta
+	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
+	ignored = status --ignored
+	untracked = status --untracked
+	up = pull
+	# stage = diff --staged # Fails, because stage is already a command
+	staged = diff --staged
+	logp = log --patch
+	logs = log --stat
+	logn = log --numstat
 
 	# see pretty.jake, which is my custom formatting, defined in pretty.jake
 	log-oneline = log --pretty=jake
@@ -72,25 +66,46 @@
 	ll = log-oneline --date=iso   --numstat
 	ld = log-oneline --date=short --graph
 	ls = log-oneline
-	unstage = restore --staged
-	pus = push
-	ad = add
-	addp = add -p
-	delta = !git -c core.pager='delta --max-line-length 0' -c interactive.diffFilter='delta --color-only'
-	deltaDiff = delta diff
-	deltaAdd = delta add --patch # --patch is implied if you're adding with delta
-	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
+
 	man = help
-	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
-	# stage = diff --staged # Fails, because stage is already a command
-	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
-	show-git-dir = rev-parse --git-dir
 	# list git merges, and permit -p to turn them into patches
 	merges = log --merges -m
-	config-editg = config -e --global
-	config-editl = config -e --local
-	config-edit = config-editg
-	edit-config = config-edit
+
+	# Abuse parameter passing - the 'yesterday' argument will pass to --since, but if we do something dumb, we'll get something dumb back.
+	# (Also, we chooose since-as-filter to get around weird history hiccups that things like cherry-picking can introduce)
+	since = log --since-as-filter
+	# TODO: it'd be *really* cool if "yesterday" implicitly meant "Friday" if today is Monday
+	yesterday = since yesterday
+	tags = tag -l
+	unstage = restore --staged
+
+	## Utilities ("I didn't expect this to work, but I'm causing it to work anyway :D")
+	# These'll more likely than not use the function tech from https://www.atlassian.com/blog/git/advanced-git-aliases
+	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
+	# TODO: /usr/share/bash-completion/completions has smarts about using the null command for completion that I don't understand
+
+	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
+	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
+	#  branch for main
+	alias-main-for-master = symbolic-ref refs/heads/main refs/heads/master
+
+	# see also git-alias in git-extras
+	aliases = "!f() { git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less ; echo also check out git-alias in git-extras ; } ; f"
+	alises = aliases
+
+	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
+	# (leveraging the function tech defined below)
+	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
+
+	authors-l = authors -l # renamed because git-extras has an authors command
+	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
+	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
+
+	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
+
+	delta = !git -c core.pager='delta --max-line-length 0' -c interactive.diffFilter='delta --color-only'
+	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
+	show-git-dir = rev-parse --git-dir
 [fetch]
 	# Fetch should assume --all
 	# This config (will be) added in git 2.44
