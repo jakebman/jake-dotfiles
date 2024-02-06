@@ -28,6 +28,9 @@ highlight ColorColumn ctermbg=cyan guibg=blue
 let g:EditorConfig_max_line_indicator = "exceeding"
 
 " I spend a lot of time typing q when I meant :q
+" TODO: what if I mapped this to "clear the search, but if there's no search,
+" then do :q". Can I do that? The relevant variable looks like @/ thanks to
+" https://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting
 map q :q
 
 " Mouse scroll and click is *nice*, but it needs a modifier (Shift) pressed to
