@@ -2,26 +2,26 @@
 
 # error checking ahead of time
 function help() {
-  echo "Usage: hgrep [OPTION]... PATTERN [FILE]..."
-  echo "Performs a normal grep, but preserves the first line, which is assumed to be a header"
-  echo "All parameters beyond --help are forwarded to grep"
-  echo "The header is read from standard in, so if you're reading multiple files, this might be confusing"
+	echo "Usage: hgrep [OPTION]... PATTERN [FILE]..."
+	echo "Performs a normal grep, but preserves the first line, which is assumed to be a header"
+	echo "All parameters beyond --help are forwarded to grep"
+	echo "The header is read from standard in, so if you're reading multiple files, this might be confusing"
 }
-if [ "$#" -eq 0 ] ; then
-  help
-  exit 1
-elif [ "$1" == '--help' ] ; then
-  help
-  exit
+if [ "$#" -eq 0 ]; then
+	help
+	exit 1
+elif [ "$1" == '--help' ]; then
+	help
+	exit
 fi
-if [ -t 1 ] ; then # we're running in a terminal
-  >&2 echo "hgrep: it's not usually a good idea to run hgrep with stdin from the terminal"
+if [ -t 1 ]; then # we're running in a terminal
+	echo >&2 "hgrep: it's not usually a good idea to run hgrep with stdin from the terminal"
 else
-  # core logic from https://stackpointer.io/unix/unix-linux-include-header-in-grep-result/478/
-  # Thank you, Mohamed Ibrahim
-  # -r don't allow backslash escapes ("raw"?)
-  IFS= read -r header
-  echo "$header"
+	# core logic from https://stackpointer.io/unix/unix-linux-include-header-in-grep-result/478/
+	# Thank you, Mohamed Ibrahim
+	# -r don't allow backslash escapes ("raw"?)
+	IFS= read -r header
+	echo "$header"
 fi
 
 # grep the rest of everything
