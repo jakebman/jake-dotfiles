@@ -10,9 +10,9 @@ function bat-help {
 
 function help-or---help {
 	if [ "$#" -eq 1 ]; then
-		builtin help "$1" 2> /dev/null ||
-			"$1" --help ||
-			builtin help "$1"
+		builtin help "$1" 2> /dev/null \
+			|| "$1" --help \
+			|| builtin help "$1"
 	else
 		"$@" --help
 	fi
@@ -22,7 +22,6 @@ declare args
 function help-message {
 	echo "runs like the bash help builtin <TODO: more>"
 }
-
 
 if [ "$#" -le 0 ]; then
 	if [ -t 0 ]; then
@@ -35,7 +34,6 @@ if [ "$#" -le 0 ]; then
 	exit "$?"
 fi
 
-
 while getopts 'dmsh' arg; do
 	case "$arg" in
 		h)
@@ -46,13 +44,13 @@ while getopts 'dmsh' arg; do
 			help-message
 			exit 1
 			;;
-		# TODO: m) indicates man-page-like output
+			# TODO: m) indicates man-page-like output
 	esac
 	args="${args}${arg}"
 done
 
 SHIFT="$OPTIND"
-(( SHIFT-- ))
+((SHIFT--))
 shift "$SHIFT"
 
 if [[ "$SHIFT" -le 0 ]]; then
