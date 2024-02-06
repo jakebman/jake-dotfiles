@@ -8,17 +8,17 @@ function has-flag {
 	for param in "$@"; do
 		case "$param" in
 			-*)
-				return 0; # success
+				return 0 # success
 				;;
 		esac
 	done
 	return 1 # failure
 }
 
-if [ "$#" -eq 0 ] ; then
+if [ "$#" -eq 0 ]; then
 	# implicit all
 	helper --list "$@" # empty arg list
-elif has-flag "$@" ; then
+elif has-flag "$@"; then
 	# caller knows what they *really* want to do here.
 	# They'll get the show-origin and show-scope, but nothing more
 	helper "$@"

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ -z "$GIT_DIR" ] ; then
-  echo "# GIT_DIR is not set or empty"
-  exit
+if [ -z "$GIT_DIR" ]; then
+	echo "# GIT_DIR is not set or empty"
+	exit
 fi
 
 echo "# Export your git environment variables by running this string in a bash eval statement"
