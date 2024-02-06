@@ -19,6 +19,8 @@
 --ignore-directory=is:.npm
 ## Python
 --ignore-directory=is:.venv
+## GNU gettext portable object files - i.e. translations
+--ignore-file=ext:po
 
 # My Own Types
 
@@ -99,6 +101,12 @@
 
 ## Gitignore files
 --type-add=gitignore:is:.gitignore
+
+## GNU gettext message catalogue
+### I found these first in git's source tree
+### I'm unconditionally excluding them above, but let's still keep an entry for them here
+### in case I change my mind later
+--type-add=po:ext:po
 
 ## Jenkins files
 ### NNS uses several variants on the actual jenkinsfile names.
