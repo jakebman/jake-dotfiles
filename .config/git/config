@@ -10,6 +10,8 @@
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
 	ad = add
 	addp = add -p
+	aliases = alias # git-alias is in git-extras. Sometimes I expect the plural to work
+	alises = aliases
 	comit = commit
 	comm0t = commit
 	comm9t = commit
@@ -88,10 +90,6 @@
 	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
 	#  branch for main
 	alias-main-for-master = symbolic-ref refs/heads/main refs/heads/master
-
-	# see also git-alias in git-extras
-	aliases = "!f() { git config --get-regexp '^alias\\.' | sed 's/^alias\\./alias: /g' | sort | less ; echo also check out git-alias in git-extras ; } ; f"
-	alises = aliases
 
 	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
 	# (leveraging the function tech defined below)
