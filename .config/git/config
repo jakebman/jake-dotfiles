@@ -39,6 +39,10 @@
 	logp = log --patch
 	logs = log --stat
 	logn = log --numstat
+	# Abuse parameter passing - the 'yesterday' argument will pass to --since, but if we do something dumb, we'll get something dumb back.
+	# (Also, we chooose since-as-filter to get around weird history hiccups that things like cherry-picking can introduce)
+	since = log --since-as-filter
+	yesterday = since yesterday
 	dff = diff
 	jstg = j --staged
 	jdf = j --diff
