@@ -54,6 +54,8 @@ map q :q
 " settings/interaction menu (because then I don't have to hold shift while
 " clicking, which procs the singleLine behavior of the copy command, below)
 " https://github.com/microsoft/terminal/blob/ef96e225da6b0df496390eed9fe31dc7e434a939/src/cascadia/TerminalControl/ControlCore.cpp#L1242
+" And there might be something to learn by trying to figure out this page:
+" https://vim.fandom.com/wiki/Using_the_mouse_for_Vim_in_an_xterm
 set mouse=nv
 set ttymouse=xterm2 " more-responsive mouse tracking in the selection
 " Potentially helps with copying into X?
