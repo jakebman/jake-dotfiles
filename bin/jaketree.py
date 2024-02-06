@@ -89,5 +89,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
+        # TODO: how do other progams get automatic less pagination to the terminal? Can we do that here, too?
     except (BrokenPipeError, IOError, KeyboardInterrupt):
         exit(55)
