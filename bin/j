@@ -205,7 +205,7 @@ if [ "$RET" -eq 0 ]; then
 	# Successful search
 
 	if ! [ -t 0 ]; then
-		echo "$(basename "$0") - stdin not from /dev/tty - reopening"
+		echo "$(basename "$0") - stdin not from /dev/tty - reopening the tty so we don't break vim"
 		exec < /dev/tty
 	fi
 
