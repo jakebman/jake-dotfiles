@@ -10,90 +10,90 @@ set -o pipefail
 [[ -d "$JAKE_J_HISTORY_DIR" ]] || mkdir -p "$JAKE_J_HISTORY_DIR"
 
 function help() {
-  echo "usage: j (no arguments, implies --diff)"
-  echo "usage: j <arguments to ack>"
-  echo "usage: j ack <arguments to ack>"
-  echo "usage: j --git <arguments to ack>"
-  echo "usage: j --diff <arguments to git (jump) diff>"
-  echo "usage: j --staged <arguments to git (jump) diff --staged>"
-  echo "usage: j --merge <arguments to git jump merge>"
-  echo "usage: j --ws <arguments to git jump ws>"
-  echo "usage: j -q <quickfix file>"
+	echo "usage: j (no arguments, implies --diff)"
+	echo "usage: j <arguments to ack>"
+	echo "usage: j ack <arguments to ack>"
+	echo "usage: j --git <arguments to ack>"
+	echo "usage: j --diff <arguments to git (jump) diff>"
+	echo "usage: j --staged <arguments to git (jump) diff --staged>"
+	echo "usage: j --merge <arguments to git jump merge>"
+	echo "usage: j --ws <arguments to git jump ws>"
+	echo "usage: j -q <quickfix file>"
 
-  echo
-  echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
-  echo " (for convenience, you can !! the ack command you just ran, instead of just !* its arguments)"
-  echo "You can specify --git to query ALL git-controlled files (ack --type doesn't narrow these, sorry)"
-  echo "OR: --diff runs a git (jump) diff through fzf ..."
-  echo "OR: --staged runs a git (jump) diff --staged through fzf ..."
-  echo "OR: --merge runs a git (jump) merge through fzf ... (finds merge issues)"
-  echo "OR: --ws runs a git (jump) ws through fzf ... (finds whitespace errors)"
-  echo "OR: -q passes a quickfix file ..."
-  echo "As a heads-up - typing q immediately quits the search."
+	echo
+	echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
+	echo " (for convenience, you can !! the ack command you just ran, instead of just !* its arguments)"
+	echo "You can specify --git to query ALL git-controlled files (ack --type doesn't narrow these, sorry)"
+	echo "OR: --diff runs a git (jump) diff through fzf ..."
+	echo "OR: --staged runs a git (jump) diff --staged through fzf ..."
+	echo "OR: --merge runs a git (jump) merge through fzf ... (finds merge issues)"
+	echo "OR: --ws runs a git (jump) ws through fzf ... (finds whitespace errors)"
+	echo "OR: -q passes a quickfix file ..."
+	echo "As a heads-up - typing q immediately quits the search."
 }
 
 PREVIEW_LINES=7
 # preview all the results if the user cancelled the result
 function j-minor-preview {
-  # TODO: long lines get wonky output. Is there a trim?
-  local lines=`wc --lines <"$ALLRESULTS_FILE"`
-  head -n "$PREVIEW_LINES" "$ALLRESULTS_FILE"
-  if (( $lines > $PREVIEW_LINES )) ; then
-    ((remain= $lines - $PREVIEW_LINES ))
-    echo "...${remain} lines elided"
-  fi
-  echo "$lines lines"
+	# TODO: long lines get wonky output. Is there a trim?
+	local lines=$(wc --lines < "$ALLRESULTS_FILE")
+	head -n "$PREVIEW_LINES" "$ALLRESULTS_FILE"
+	if (($lines > $PREVIEW_LINES)); then
+		((remain = $lines - $PREVIEW_LINES))
+		echo "...${remain} lines elided"
+	fi
+	echo "$lines lines"
 }
 
 function j-preview {
-  # TODO: it'd be nice if bat respected GIT_DIR for change highlighting
-  # TODO: bat's capable of wrapping long lines, right? Can we figure out how to get that to work here?
-  # (It's more than just leveraging --terminal-width "$FZF_PREVIEW_COLUMNS", because prior wrapped lines mess up fzf's scroll offset)
-  bat "$1" \
-    --highlight-line "$2" \
-    --pager "less --mouse" \
-    --force-colorization # sets both --decoration and --color to `always`
+	# TODO: it'd be nice if bat respected GIT_DIR for change highlighting
+	# TODO: bat's capable of wrapping long lines, right? Can we figure out how to get that to work here?
+	# (It's more than just leveraging --terminal-width "$FZF_PREVIEW_COLUMNS", because prior wrapped lines mess up fzf's scroll offset)
+	bat "$1" \
+		--highlight-line "$2" \
+		--pager "less --mouse" \
+		--force-colorization # sets both --decoration and --color to `always`
 }
 
 function j-fzf-common {
-  # TODO: what if the paths were abbreviated if there were more than ~12 characters worth of them?
-  # TODO: what in tarnation does this preview window setting mean?
-  tee "$ALLRESULTS_FILE" |
-  fzf --preview='j-preview {1} {2}' \
-     --ansi \
-     --exit-0 \
-     --select-1 \
-     --no-sort \
-     --reverse \
-     --multi \
-     --history "${JAKE_J_HISTORY_FILE:-${XDG_STATE_HOME:-${HOME}/.local/state}/jake-j/history}" \
-     --header "Ctrl+Space to preview" \
-     --bind "ctrl-space:execute(vim -q <(echo {}) </dev/tty >/dev/tty)" \
-     --bind "ctrl-a:select-all" \
-     --bind "ctrl-n:deselect-all" \
-     --bind "q:abort" \
-     --bind "change:unbind(q)" \
-     --bind "backward-eof:rebind(q)" \
-     --preview-window=+{2}+3/3,~3 \
-     --delimiter=':' \
-     "$@" \
-  >"$QUICKFIX_FILE"
-  # INFO: I'm treating this redirection identically to a final tee to the output, because I'd otherwise be fragile to
-  # adding a final pipeline step here
+	# TODO: what if the paths were abbreviated if there were more than ~12 characters worth of them?
+	# TODO: what in tarnation does this preview window setting mean?
+	tee "$ALLRESULTS_FILE" \
+		| fzf --preview='j-preview {1} {2}' \
+			--ansi \
+			--exit-0 \
+			--select-1 \
+			--no-sort \
+			--reverse \
+			--multi \
+			--history "${JAKE_J_HISTORY_FILE:-${XDG_STATE_HOME:-${HOME}/.local/state}/jake-j/history}" \
+			--header "Ctrl+Space to preview" \
+			--bind "ctrl-space:execute(vim -q <(echo {}) </dev/tty >/dev/tty)" \
+			--bind "ctrl-a:select-all" \
+			--bind "ctrl-n:deselect-all" \
+			--bind "q:abort" \
+			--bind "change:unbind(q)" \
+			--bind "backward-eof:rebind(q)" \
+			--preview-window=+{2}+3/3,~3 \
+			--delimiter=':' \
+			"$@" \
+			> "$QUICKFIX_FILE"
+	# INFO: I'm treating this redirection identically to a final tee to the output, because I'd otherwise be fragile to
+	# adding a final pipeline step here
 }
 
 # with column selection, we hide columns 2 & 3
 function j-fzf-ack {
-  j-fzf-common --with-nth 1,4..
+	j-fzf-common --with-nth 1,4..
 }
 
 # with no column selection, we only need to hide column 2
 function j-fzf-diff {
-  j-fzf-common --with-nth 1,3..
+	j-fzf-common --with-nth 1,3..
 }
 
 function j-ack {
-   ack --color --column --with-filename "$@"
+	ack --color --column --with-filename "$@"
 }
 
 # Since we're a subshell, we don't need to clean up this exported function
@@ -103,17 +103,17 @@ export -f j-preview
 # The fzf output will be piped into $QUICKFIX_FILE instead of using `become()` so that we can
 # introspect the fzf output if the editor has any errors
 if QUICKFIX_FILE=$(mktemp --tmpdir jake-j-jumping-tool.quickfix.XXXXXX); then
-  trap 'rm "$QUICKFIX_FILE"' EXIT
+	trap 'rm "$QUICKFIX_FILE"' EXIT
 else
-  echo >&2 "Could not create temporary file :("
-  exit 100
+	echo >&2 "Could not create temporary file :("
+	exit 100
 fi
 if ALLRESULTS_FILE=$(mktemp --tmpdir jake-j-jumping-tool.allresults.XXXXXX); then
-  # update the (single) exit trap to remove both files
-  trap 'rm "$QUICKFIX_FILE" "$ALLRESULTS_FILE"' EXIT
+	# update the (single) exit trap to remove both files
+	trap 'rm "$QUICKFIX_FILE" "$ALLRESULTS_FILE"' EXIT
 else
-  echo >&2 "Could not create temporary file :("
-  exit 100
+	echo >&2 "Could not create temporary file :("
+	exit 100
 fi
 
 # what sort of thing is searched for. For better "no matches" output
@@ -125,75 +125,106 @@ ITEMS=differences # default is git jump diff -> differences
 # TODO: I'm at the point of wanting better argument parsing. My options are:
 # https://github.com/docopt/docopts - parsing from a template file
 # https://www.baeldung.com/linux/bash-parse-command-line-arguments getopts - a program that helps iterate over argument
-if [ "$#" -eq 0 ] ; then
-  # implicitly do a --jump
-  git jump --stdout diff "$@" | j-fzf-diff
+if [ "$#" -eq 0 ]; then
+	# implicitly do a --jump
+	git jump --stdout diff "$@" | j-fzf-diff
 else
-  case $1 in
-    # We're emulating vim, but passing our argument to fzf to get to QUICKFIX_FILE, then finally to vim
-    -q) shift ; ITEMS=quickfixes; cat "$@" | j-fzf ;;
+	case $1 in
+		# We're emulating vim, but passing our argument to fzf to get to QUICKFIX_FILE, then finally to vim
+		-q)
+			shift
+			ITEMS=quickfixes
+			cat "$@" | j-fzf
+			;;
 
-    # we're getting git-jump's diff lines, and filtering them
-    # TODO: if there is no diff, try staged changes, and then the diff from the most-recent commit
-    # TODO: if there are non-option arguments, they are commit-ish ids - show their changes (Advanced)
-    --diff) shift ; git jump --stdout diff "$@" | j-fzf-diff ;;
+		# we're getting git-jump's diff lines, and filtering them
+		# TODO: if there is no diff, try staged changes, and then the diff from the most-recent commit
+		# TODO: if there are non-option arguments, they are commit-ish ids - show their changes (Advanced)
+		--diff)
+			shift
+			git jump --stdout diff "$@" | j-fzf-diff
+			;;
 
-    # TODO: a way to just... load the diffs from a particular commit. Basically, the --diff with no working dir changes
-    # can just delegate to this behavior with the commit `HEAD`
+		# TODO: a way to just... load the diffs from a particular commit. Basically, the --diff with no working dir changes
+		# can just delegate to this behavior with the commit `HEAD`
 
-    # we're getting git-jump's diff lines, and filtering them
-    --staged) shift ; git jump --stdout diff --staged "$@" | j-fzf-diff ;;
+		# we're getting git-jump's diff lines, and filtering them
+		--staged)
+			shift
+			git jump --stdout diff --staged "$@" | j-fzf-diff
+			;;
 
-    # ditto, but for merge differences
-    --merge) shift ; ITEMS='merge differences'; git jump --stdout merge "$@" | j-fzf-diff ;;
+		# ditto, but for merge differences
+		--merge)
+			shift
+			ITEMS='merge differences'
+			git jump --stdout merge "$@" | j-fzf-diff
+			;;
 
-    # ditto, but for whitespace errors
-    --ws) shift ; git jump --stdout ws "$@" | j-fzf-diff ;;
+		# ditto, but for whitespace errors
+		--ws)
+			shift
+			git jump --stdout ws "$@" | j-fzf-diff
+			;;
 
-    # respect the files that are in the current git.
-    # This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
-    # It also doesn't respect type constraints, because ack's starting set is explicitly given
-    # TODO: --recurse-submodues lists non-init'd submodules as files, and it confuses ack's --files-from
-    --git) shift ; ITEMS='git files'; git ls-files --recurse-submodules | j-ack --files-from=- "$@" | j-fzf-ack ;;
+		# respect the files that are in the current git.
+		# This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
+		# It also doesn't respect type constraints, because ack's starting set is explicitly given
+		# TODO: --recurse-submodues lists non-init'd submodules as files, and it confuses ack's --files-from
+		--git)
+			shift
+			ITEMS='git files'
+			git ls-files --recurse-submodules | j-ack --files-from=- "$@" | j-fzf-ack
+			;;
 
-    # help command
-    --help|-h) help ; exit ;;
+		# help command
+		--help | -h)
+			help
+			exit
+			;;
 
-    # special 'leading ack' case, where I went `j !!` instead of `j !*`
-    ack) shift ; ITEMS=matches; j-ack "$@" | j-fzf-ack ;;
+		# special 'leading ack' case, where I went `j !!` instead of `j !*`
+		ack)
+			shift
+			ITEMS=matches
+			j-ack "$@" | j-fzf-ack
+			;;
 
-    # Finally, any other starting argument means "delegate all these arguments to ack".
-    *) ITEMS=matches; j-ack "$@" | j-fzf-ack ;;
-  esac
+		# Finally, any other starting argument means "delegate all these arguments to ack".
+		*)
+			ITEMS=matches
+			j-ack "$@" | j-fzf-ack
+			;;
+	esac
 fi
 RET=$?
 
 # $RET is most likely the return code of fzf (not ack, git-jump, tee, or others), but because we set PIPEFAIL, that might be wrong
 # (I need PIPEFAIL to propagate fzf failures past the final tee of the pipeline
-if [ "$RET" -eq 0 ] ; then
-  # Successful search
+if [ "$RET" -eq 0 ]; then
+	# Successful search
 
-  if ! [ -t 0 ] ; then
-    echo "$(basename "$0") - stdin not from /dev/tty - reopening"
-    exec </dev/tty
-  fi
+	if ! [ -t 0 ]; then
+		echo "$(basename "$0") - stdin not from /dev/tty - reopening"
+		exec < /dev/tty
+	fi
 
-  # run vim, and update our success variable
-  vim -q "$QUICKFIX_FILE" && echo successfully edited: && cat "$QUICKFIX_FILE"
-  RET=$?
-elif [ "$RET" -eq 1 ] ; then
-  echo "No ${ITEMS} found"
-  # Still do the preview - fzf might have filtered out all the results
-  j-minor-preview
-elif [ "$RET" -eq 2 ] ; then
-  echo "error in fzf"
-  j-minor-preview
-elif [ "$RET" -eq 130 ] ; then
-  echo "(cancelled by user. Considering that success :)"
-  RET=0
-  j-minor-preview
+	# run vim, and update our success variable
+	vim -q "$QUICKFIX_FILE" && echo successfully edited: && cat "$QUICKFIX_FILE"
+	RET=$?
+elif [ "$RET" -eq 1 ]; then
+	echo "No ${ITEMS} found"
+	# Still do the preview - fzf might have filtered out all the results
+	j-minor-preview
+elif [ "$RET" -eq 2 ]; then
+	echo "error in fzf"
+	j-minor-preview
+elif [ "$RET" -eq 130 ]; then
+	echo "(cancelled by user. Considering that success :)"
+	RET=0
+	j-minor-preview
 else
-  echo "Failed to search with $(basename $0) for $@"
+	echo "Failed to search with $(basename $0) for $@"
 fi
 
 exit $RET
