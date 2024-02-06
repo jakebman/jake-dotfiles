@@ -83,8 +83,6 @@
 	man = help
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	# stage = diff --staged # Fails, because stage is already a command
-	# handled by a full git-config-debug command (to allow an optional argument of which key(s) to debug)
-	# config-debug = config --list --show-origin --show-scope
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	show-git-dir = rev-parse --git-dir
 	# list git merges, and permit -p to turn them into patches
