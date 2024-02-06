@@ -7,6 +7,10 @@ function help() {
 	echo "similar to git status."
 }
 
+# TODO: We might be able to get better usage output by using git-sh-setup.
+# see: `man git-sh-setup`
+# . "$(git --exec-path)/git-sh-setup"
+
 # hidden feature: --help is a 'valid' option (prevents failure)
 if [ "$1" == '--help' ]; then
 	help
