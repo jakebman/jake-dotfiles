@@ -26,6 +26,7 @@
 	ehlp = help
 	hlep = help
 	idiff = implicitdiff
+	intend = intent # convenient name below
 	jstg = j --staged
 	jdf = j --diff
 	jmg = j --merge
@@ -47,6 +48,7 @@
 	deltaAdd = delta add --patch # --patch is implied if you're adding with delta
 	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
 	ignored = status --ignored
+	intent = add --intent-to-add
 	untracked = status --untracked
 	up = pull
 	# stage = diff --staged # Fails, because stage is already a command
