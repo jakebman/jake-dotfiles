@@ -24,6 +24,7 @@
 	idff = diff
 	tgui = gui
 	ehlp = help
+	hlep = help
 	idiff = implicitdiff
 	jstg = j --staged
 	jdf = j --diff
