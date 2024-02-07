@@ -31,6 +31,7 @@ let g:EditorConfig_max_line_indicator = "exceeding"
 " TODO: what if I mapped this to "clear the search, but if there's no search,
 " then do :q". Can I do that? The relevant variable looks like @/ thanks to
 " https://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting
+" nb: less maps the 'clear search' action to ESC-u
 map q :q
 
 " Mouse scroll and click is *nice*, but it needs a modifier (Shift) pressed to
