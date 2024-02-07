@@ -9,6 +9,10 @@ set tabstop     =4
 set softtabstop =2
 set shiftwidth  =2
 set expandtab
+" TODO: it'd be cool if I could use tab to insert spaces in comments while
+" preserving tab characters in the rest of the source.
+"           ex: this line's indenting. Works in vimrc, but not bash files
+"               (We're respecing editorconfig, but it's still... comments)
 
 " visible characters:
 " https://vi.stackexchange.com/questions/422/displaying-tabs-as-characters
