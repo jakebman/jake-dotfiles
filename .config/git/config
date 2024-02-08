@@ -18,6 +18,7 @@
 	comm-t = commit
 	commt = commit
 	ocmmit = commit
+	config-deubg = config-debug
 	edit-config = config-edit
 	dff = diff
 	dif = diff
