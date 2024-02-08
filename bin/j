@@ -166,6 +166,7 @@ else
 		# ditto, but for whitespace errors
 		--ws)
 			shift
+			# TODO: git jump ws returns paths relative to repo's workdir, not current dir
 			git jump --stdout ws "$@" | j-fzf-diff
 			;;
 
