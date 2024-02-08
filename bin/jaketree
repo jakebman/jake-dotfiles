@@ -4,4 +4,4 @@ set -o pipefail # allow failure of jaketree.py to propagate outward
 
 # shim to automatically page the jaketree.py output temporarily until I figure out how to make
 # the python file itself do auto-pagination
-jaketree.py "$@" | less
+jaketree.py "$@" | pager
