@@ -1,0 +1,14 @@
+#! /usr/bin/env -S less -k
+# nb: the line above is a shbang line (for giggles).
+# This line and any that don't match this regex are comments:
+# /^#(command|line-edit|env)/
+# That means that the next comment-like line below actually defines the command section:
+
+#command
+
+# Control-D, which I'm now permanently marked with "end of input"
+# should scroll to the end of the file, and then quit less
+# (read: goto-eof; then quit)
+# Amusingly, this emulates --QUIT-AT-EOF behavior but specifically and ONLY for Ctrl+D,
+# even though I generally like the behavior of --quit-at-eof (go to eof 2x to quit) instead
+^d goto-end q
