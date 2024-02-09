@@ -75,6 +75,7 @@
 
 	man = help
 	# list git merges, and permit -p to turn them into patches
+	# (Specifically, we don't want to FORCE patches on, but it SHOULD be *as easy as possible*)
 	merges = log --merges -m
 
 	# Abuse parameter passing - the 'yesterday' argument will pass to --since, but if we do something dumb, we'll get something dumb back.
