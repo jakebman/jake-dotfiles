@@ -14,7 +14,7 @@ elif [ "$1" == '--help' ]; then
 	help
 	exit
 fi
-if [ -t 1 ]; then # we're running in a terminal
+if [ -t 0 ]; then # we're running in a terminal
 	echo >&2 "hgrep: it's not usually a good idea to run hgrep with stdin from the terminal"
 else
 	# core logic from https://stackpointer.io/unix/unix-linux-include-header-in-grep-result/478/
