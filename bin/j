@@ -10,7 +10,7 @@ set -o pipefail
 [[ -d "$JAKE_J_HISTORY_DIR" ]] || mkdir -p "$JAKE_J_HISTORY_DIR"
 
 function help() {
-	echo "usage: j (no arguments, implies --diff)"
+	echo "usage: j (no arguments, implies --diff. This may change without notice)"
 	echo "usage: j <arguments to ack>"
 	echo "usage: j ack <arguments to ack>"
 	echo "usage: j --git <arguments to ack>"
