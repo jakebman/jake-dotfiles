@@ -4,7 +4,7 @@ from fileinput import input as fileinput
 from os.path import commonpath, commonprefix
 import argparse
 import re
-import sys # for argv
+import sys # for argv and stdout
 
 # r'\b', but only at the end of words - a \word character followed by a non-\Word character or eol
 BARRIER=re.compile(r'(?<=\w)(?=\W|$)')
@@ -46,6 +46,11 @@ def common_word_barrier(strings):
 
 DEFAULT_COMMON=common_word_barrier
 
+
+def flushing_print(*args, **kwargs):
+    """print(), but with flush defaulting to true"""
+    return print(*args, flush=True, **kwargs)
+
 def calc_args(argv):
     args = argparse.ArgumentParser(description='Remove common prefixes between lines of input. Works best on already-sorted input')
     args.add_argument("files", nargs="*") # default = none
@@ -53,24 +58,29 @@ def calc_args(argv):
     group.add_argument("--wordwise", "-w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier (default)")
     group.add_argument("--pathwise", "-p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
     group.add_argument("--textwise", "-t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
-    group.add_argument("--elision-marker", default=ELISION_MARKER, help="the indicator that a piece has been removed")
-    args.set_defaults(commonStrat=DEFAULT_COMMON)
+    group.add_argument("--elision-marker", default=ELISION_MARKER, help=f"the indicator that a piece has been removed ({ELISION_MARKER})")
+    group.add_argument("--flush", "-f", action='store_const', dest="output", const=flushing_print, help="flush each line as it's printed (turns on automatically if stdout isn't a terminal)")
+    group.add_argument("--buffered", action='store_const', dest="output", const=print, help="use traditional buffered output (used for default terminal output)")
+    args.set_defaults(commonStrat=DEFAULT_COMMON, output=print)
+    if not sys.stdout.isatty():
+        args.set_defaults(output=flushing_print)
+
     out = args.parse_args(argv)
     return out.__dict__
 
-def run_on_files(files=None, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER):
+def run_on_files(files=None, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print):
     with fileinput(files=files) as stdin:
-        run(stdin, commonStrat=commonStrat, elision_marker=elision_marker)
+        run(stdin, commonStrat=commonStrat, elision_marker=elision_marker, output=output)
 
-def run(stdin, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER):
+def run(stdin, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print):
     prev=''
     for line in stdin:
         line = line.strip()
-        do_line(prev, line, commonStrat=DEFAULT_COMMON, elision_marker=elision_marker)
+        do_line(prev, line, commonStrat=commonStrat, elision_marker=elision_marker, output=output)
         prev = line
 
 
-def do_line(prev, line, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER):
+def do_line(prev, line, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print):
     prefix = commonStrat([prev, line])
     index = len(prefix) # with commonpath, this is stopped BEFORE the common slash
     paranoia = commonprefix([line[index:], prev[index:]])
@@ -79,7 +89,7 @@ def do_line(prev, line, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKE
         prefix = ' '*(index-len(elision_marker)) + elision_marker
     else:
         prefix = ' ' * index
-    print(prefix + line[index:])
+    output(prefix + line[index:])
 
 
 def main():
