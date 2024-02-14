@@ -54,13 +54,15 @@ def flushing_print(*args, **kwargs):
 def calc_args(argv):
     args = argparse.ArgumentParser(description='Remove common prefixes between lines of input. Works best on already-sorted input')
     args.add_argument("files", nargs="*") # default = none
-    group = args.add_mutually_exclusive_group()
+    # I *want* this to be a add_mutually_exclusive_group, but those don't get group titles, and
+    # it's annoying that you can't override prior flags with later ones (instead, you get an error)
+    group = args.add_argument_group("word-splitting strategies")
     group.add_argument("--wordwise", "-w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier (default)")
     group.add_argument("--pathwise", "-p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
     group.add_argument("--textwise", "-t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
-    group.add_argument("--elision-marker", default=ELISION_MARKER, help=f"the indicator that a piece has been removed ({ELISION_MARKER})")
-    group.add_argument("--flush", "-f", action='store_const', dest="output", const=flushing_print, help="flush each line as it's printed (turns on automatically if stdout isn't a terminal)")
-    group.add_argument("--buffered", action='store_const', dest="output", const=print, help="use traditional buffered output (used for default terminal output)")
+    args.add_argument("--elision-marker", default=ELISION_MARKER, help=f"the indicator that a piece has been removed ({ELISION_MARKER})")
+    args.add_argument("--flush", "-f", action='store_const', dest="output", const=flushing_print, help="flush each line as it's printed (turns on automatically if stdout isn't a terminal)")
+    args.add_argument("--buffered", action='store_const', dest="output", const=print, help="use traditional buffered output (used for default terminal output)")
     args.set_defaults(commonStrat=DEFAULT_COMMON, output=print)
     if not sys.stdout.isatty():
         args.set_defaults(output=flushing_print)
