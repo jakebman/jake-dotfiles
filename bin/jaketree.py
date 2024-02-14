@@ -68,7 +68,6 @@ def calc_args(argv):
         args.set_defaults(output=flushing_print)
 
     out = args.parse_args(argv)
-    print(vars(out))
     return vars(out)
 
 def run_on_files(files=None, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print):
