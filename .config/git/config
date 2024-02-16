@@ -51,6 +51,7 @@
 	ignored = status --ignored
 	intent = add --intent-to-add
 	unshallow = fetch --unshallow
+	unstash = stash pop
 	untracked = status --untracked
 	up = pull
 	# stage = diff --staged # Fails, because stage is already a command
