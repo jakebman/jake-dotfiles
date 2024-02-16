@@ -129,6 +129,7 @@
 	autoCorrect = prompt
 [pager]
 	status = true # `git status` should always use a pager
+	show-branch = true # ditto
 [diff]
 	context = 5
 	tool = vimdiff
