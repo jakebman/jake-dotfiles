@@ -128,6 +128,8 @@
 [help]
 	autoCorrect = prompt
 [core]
+	# almost every paged output that I care about is going to prefix the tabbed output with a +/-/' ' character
+	# this shifts my normal --tabs=2 over by that one character
 	pager = less --tabs=3,5
 [pager]
 	status = true # `git status` should always use a pager
