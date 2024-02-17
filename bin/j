@@ -166,7 +166,9 @@ else
 		# ditto, but for whitespace errors
 		--ws)
 			shift
-			# TODO: git jump ws returns paths relative to repo's workdir, not current dir
+			# TODO: git jump ws returns paths relative to repo's workdir, not current dir.
+			# I fixed this with a patch in jake-install-tools, but I'm keeping this TODO
+			# until I get that patch pushed upstream
 			git jump --stdout ws "$@" | j-fzf-diff
 			;;
 
