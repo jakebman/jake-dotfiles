@@ -127,6 +127,8 @@
 	autoSetupRemote = true
 [help]
 	autoCorrect = prompt
+[core]
+	pager = less --tabs=3,5
 [pager]
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
