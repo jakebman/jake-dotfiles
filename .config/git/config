@@ -19,6 +19,9 @@
 	commt = commit
 	ocmmit = commit
 	config-deubg = config-debug
+	deltaAdd = delta-add
+	deltaDiff = delta-diff
+	deltaLog = deltalog
 	edit-config = config-edit
 	dff = diff
 	dif = diff
@@ -45,9 +48,9 @@
 	config-editl = config -e --local
 	config-edit = config-editg
 	# delta is a utility defined below
-	deltaAdd = delta add --patch # --patch is implied if you're adding with delta
-	deltaDiff = delta diff
-	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
+	delta-add = delta add --patch # --patch is implied if you're adding with delta
+	delta-diff = delta diff
+	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
 	ignored = status --ignored
 	intent = add --intent-to-add
 	unshallow = fetch --unshallow
