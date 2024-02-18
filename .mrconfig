@@ -1,0 +1,16 @@
+[DEFAULT]
+jobs = 5
+git_update = git fetch -q "$@"; git pull --autostash "$@"
+
+[${BASH_IT_DOTFILES_GIT_REPO}]
+checkout = vcsh clone -b main git@github.com:jakebman/jake-dotfiles.git config
+
+[${COMPLETE_ALIAS_DIR}]
+checkout = git clone git@github.com:cykerway/complete-alias.git "${COMPLETE_ALIAS_DIR}"
+
+[.bash-it]
+checkout = git clone 'git@github.com:jakebman/bash-it.git' '.bash-it'
+
+[wsl-projects]
+checkout = git clone 'git@github.com:jakebman/myrepos.git' 'wsl-projects'
+chain = true
