@@ -111,6 +111,7 @@
 	# Read this as "run git in a delta-like mode for this current interaction"
 	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
 	delta = !git -c core.pager='delta --max-line-length 0' -c interactive.diffFilter='delta --color-only'
+	ignore-untracked =  "!f() { git config --local status.showUntrackedFiles no ; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	show-git-dir = rev-parse --git-dir
 [fetch]
