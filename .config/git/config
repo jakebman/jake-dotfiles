@@ -45,8 +45,8 @@
 	config-editl = config -e --local
 	config-edit = config-editg
 	# delta is a utility defined below
-	deltaDiff = delta diff
 	deltaAdd = delta add --patch # --patch is implied if you're adding with delta
+	deltaDiff = delta diff
 	deltaLog = delta log --patch # --patch is implied if you're going to send log to delta
 	ignored = status --ignored
 	intent = add --intent-to-add
