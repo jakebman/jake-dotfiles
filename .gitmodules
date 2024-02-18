@@ -24,3 +24,6 @@
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
+[submodule ".config/vim/pack/shfmt/start/vim-shfmt"]
+	path = .config/vim/pack/shfmt/start/vim-shfmt
+	url = git@github.com:z0mbix/vim-shfmt.git
