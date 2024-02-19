@@ -53,7 +53,7 @@
 	delta-add = delta add --patch # --patch is implied if you're adding with delta
 	delta-diff = delta diff
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
-	ignored = status --ignored
+	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
 	intent = add --intent-to-add
 	unshallow = fetch --unshallow
 	unstash = stash pop
