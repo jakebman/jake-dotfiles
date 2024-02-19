@@ -1,20 +1,25 @@
 #!/bin/bash
 
 function help() {
-	echo "usage: git implicitdiff [<no arguments>]"
+	echo "usage: git implicitdiff [--or-show]"
 	echo
 	echo "Run a git diff, but if there is no difference, give additional information"
 	echo "similar to git status."
+	echo " --or-show     use git show instead of git status as the fallback command"
 }
 
 # TODO: We might be able to get better usage output by using git-sh-setup.
 # see: `man git-sh-setup`
 # . "$(git --exec-path)/git-sh-setup"
 
+FALLBACK_COMMAND="git status"
+
 # hidden feature: --help is a 'valid' option (prevents failure)
 if [ "$1" == '--help' ]; then
 	help
 	exit
+elif [ "$1" == '--or-show' ]; then
+	FALLBACK_COMMAND='git show'
 elif [ $# -gt 0 ]; then
 	help >&2
 	exit 1
@@ -31,7 +36,7 @@ if [ "$RET" -eq 1 ]; then
 elif [ "$RET" -eq 0 ]; then
 	# "Success" - there is no difference, and we should supplement
 	# the lack-of-output from git diff
-	git status
+	$FALLBACK_COMMAND
 elif [ "$RET" -eq 129 ]; then
 	# "Not in git directory". git status prints a good error message for this case
 	git status
