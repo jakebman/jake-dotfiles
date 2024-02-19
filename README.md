@@ -14,6 +14,7 @@ Uses git working dir for each of vcsh's managed repos. myrepos is just for multi
 https://github.com/RichiH/vcsh
 https://github.com/RichiH/myrepos
 
+NB: vcsh is persnickety. I'd like to look into alternatives. https://github.com/capr/multigit seems similar enough?
 
 # rcm
 rc manager - uses symlinks
