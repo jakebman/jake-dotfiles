@@ -120,7 +120,7 @@
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
 	ignore-untracked =  "!f() { git config --local status.showUntrackedFiles no ; } ; f"
-	ouroboros = "!f() { git remote add ourobors \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
+	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	show-git-dir = rev-parse --git-dir
 [fetch]
