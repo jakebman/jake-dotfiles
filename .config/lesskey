@@ -12,3 +12,7 @@
 # Amusingly, this emulates --QUIT-AT-EOF behavior but specifically and ONLY for Ctrl+D,
 # even though I generally like the behavior of --quit-at-eof (go to eof 2x to quit) instead
 ^d goto-end q
+
+# "Next commit" - typing c gets you to search for the next commit-like label
+# by essentially being the / action, but the regex is always baked in
+c forw-search \^commit:? [0-9a-zA-Z]+\n
