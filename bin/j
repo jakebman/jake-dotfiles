@@ -16,6 +16,7 @@ function help() {
 	echo "usage: j --git <arguments to ack>"
 	echo "usage: j --diff <arguments to git (jump) diff>"
 	echo "usage: j --staged <arguments to git (jump) diff --staged>"
+	# TODO: echo "usage: j --show <commit-ish> <pretend that the diff of this commit is the current diff>"
 	echo "usage: j --merge <arguments to git jump merge>"
 	echo "usage: j --ws <arguments to git jump ws>"
 	echo "usage: j -q <quickfix file>"
