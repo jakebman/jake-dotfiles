@@ -110,6 +110,9 @@
 	# (leveraging the function tech defined below)
 	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
 
+	# TODO: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
+	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME.  Hence, why I'm calling it psychotic.
+	# My TODO is to remove that from git-extras in my tool checking and bring this to just the alias it used to be
 	authors-l = authors -l # renamed because git-extras has an authors command
 	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
 	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
