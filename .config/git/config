@@ -110,12 +110,15 @@
 	# (leveraging the function tech defined below)
 	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
 
-	# TODO: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
+	# NB: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
 	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME.  Hence, why I'm calling it psychotic.
-	# My TODO is to remove that from git-extras in my tool checking and bring this to just the alias it used to be
-	authors-l = authors -l # renamed because git-extras has an authors command
-	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors-l
-	authors-by-email = "!f() { git authors-l \"$@\" | sort -f -k2 -t'<' ; } ; f"
+	authors = "!f() { git shortlog -s -e \"$@\" | awk '{$1=\"\";print}' | sort -f ; } ; f"
+	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors
+	# sort:
+	# -t: field separator
+	# -f: ignore case
+	# -k: sort on k'th field
+	authors-by-email = "!f() { git authors \"$@\" | sort -f -k2 -t'<' ; } ; f"
 
 	# Read this as "run git in a delta-like mode for this current interaction"
 	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
