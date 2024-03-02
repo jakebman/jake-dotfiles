@@ -12,6 +12,7 @@
 	addp = add -p
 	aliases = alias # git-alias is in git-extras. Sometimes I expect the plural to work
 	alises = aliases
+	pb = bp # alias defined below to do big-picture stuff implicitly
 	comit = commit
 	comm0t = commit
 	comm9t = commit
@@ -47,6 +48,7 @@
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	bare = clone --bare
 	branches = branch -a # inspired by a bash alias
+	bp = "!f() { if test \"$#\" -eq 0; then git big-picture -v x-www-browser; else git big-picture \"$@\"; fi  } ; f"
 	co = checkout
 	config-editg = config -e --global
 	config-editl = config -e --local
