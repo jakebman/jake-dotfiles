@@ -13,6 +13,10 @@
 # even though I generally like the behavior of --quit-at-eof (go to eof 2x to quit) instead
 ^d goto-end q
 
+# Control-G, which runs a status by default. That's weird - I keep expecting it to just be Shift+G, so now it does
+# what G does, which is goto-end
+^g goto-end
+
 # "Next commit" - typing c gets you to search for the next commit-like label
 # by essentially being the / action, but the regex is always baked in
 c forw-search \^commit:? [0-9a-zA-Z]+\n
