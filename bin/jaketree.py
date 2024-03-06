@@ -8,7 +8,7 @@ import sys # for argv and stdout
 
 # r'\b', but only at the end of words - a \word character followed by a non-\Word character or eol
 BARRIER=re.compile(r'(?<=\w)(?=\W|$)')
-ELISION_MARKER='...'
+ELISION_MARKER='…'
 
 def index_of_lowest_element(items):
     lowest = min(items)
