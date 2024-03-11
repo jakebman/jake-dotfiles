@@ -26,3 +26,4 @@
 #
 
 --map-syntax "README:Markdown"
+--map-syntax "*.bats:Bourne Again Shell (bash)"
