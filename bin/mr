@@ -848,7 +848,7 @@ sub terminal_friendly_spawn {
 	# and the output will probably be the same for both
 	# pipes and terminals after stripping ANSI escape codes.
 	if ($terminal || ($have_pty && defined $output_cache)) {
-		my $pty = IO::Pty::Easy->new;
+		my $pty = IO::Pty::Easy->new(handle_pty_size => 0);
 		$pty->spawn($sh);
 		if ($continuous) {
 			$| = 1;
