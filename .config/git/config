@@ -39,6 +39,7 @@
 	oroboros = ouroboros
 	tpush = push
 	pus = push
+	# Should 'stat' be a typo for status or stats?
 	statu = status
 	stashs = stash
 	tatus = status
@@ -60,6 +61,7 @@
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
 	intent = add --intent-to-add
 	shallow = clone --depth 1
+	stats = show --stat
 	unshallow = fetch --unshallow
 	unstash = stash pop
 	untracked = status --untracked
