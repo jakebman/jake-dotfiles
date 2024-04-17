@@ -130,6 +130,10 @@
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
 	ignore-untracked =  "!f() { git config --local status.showUntrackedFiles no ; } ; f"
+	# this isn't ideal - some "natural" answers actually don't work (and are grep -v'd away) like git-svn
+	# I'd like to use `git help $x`, but that fails for git-j, git-rscp and others w/o man pages
+	# The grep -v phrasing excludes some specific external commands that are false positives
+	is-valid-git-command = "!f() { git help -a | grep -v -E '^\\s(cvs|p4|send-email|sh-)' | grep -q -s -E \"^\\s+${1?Need a value}\\b\" ; } ; f"
 	silence-mr-pull =  "!f() { git config --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
