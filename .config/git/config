@@ -155,6 +155,7 @@
 [pager]
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
+	help = true
 [diff]
 	context = 5
 	tool = vimdiff
