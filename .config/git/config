@@ -133,6 +133,9 @@
 	# this isn't ideal - some "natural" answers actually don't work (and are grep -v'd away) like git-svn
 	# I'd like to use `git help $x`, but that fails for git-j, git-rscp and others w/o man pages
 	# The grep -v phrasing excludes some specific external commands that are false positives
+	# This might also be improved if we leverage the `git --list-cmds=...` INTERNAL/EXPERIMENTAL tech from /usr/share/bash-completion/completions/git
+	# The list of values is in https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/git.c#L88
+	# And categories are listed in https://github.com/git/git/blob/master/command-list.txt, used by https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/help.c#L382
 	is-valid-git-command = "!f() { git help -a | grep -v -E '^\\s(cvs|p4|send-email|sh-)' | grep -q -s -E \"^\\s+${1?Need a value}\\b\" ; } ; f"
 	silence-mr-pull =  "!f() { git config --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
