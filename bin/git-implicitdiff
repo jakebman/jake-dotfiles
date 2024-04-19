@@ -20,7 +20,8 @@ elif [ $# -gt 0 ]; then
 	exit 1
 fi
 
-# --quiet and --exit-code disable the pager, so we have to 'peek'
+# The implicit --exit-code in --quiet disable the pager (because otherwise less's return code would be the one returned)
+# So we have to 'peek' at the result here
 # also - --quiet doesn't suppress stderr if you're outside a git dir
 git diff --quiet 2> /dev/null
 RET=$?
