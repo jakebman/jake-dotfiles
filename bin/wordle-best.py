@@ -6,7 +6,7 @@ def squared_sum(it):
     return sum(i*i for i in it)
 
 def score(word, by_key, target):
-    return squared_sum(len(by_key.get(letter)) for letter in word)
+    return squared_sum(target - len(by_key.get(letter)) for letter in word)
 
 def explain_score(word, by_key):
     return {letter:len(by_key.get(letter)) for letter in word}
