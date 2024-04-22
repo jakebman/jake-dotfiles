@@ -25,9 +25,9 @@ function composure-help {
 
 function help-or---help {
 	if [ "$#" -eq 1 ]; then
-		builtin help "$1" 2> /dev/null \
-			|| "$1" --help \
-			|| builtin help "$1"
+		builtin help "$1" 2> /dev/null ||
+			"$1" --help ||
+			builtin help "$1"
 	else
 		"$@" --help
 	fi
