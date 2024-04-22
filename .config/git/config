@@ -136,6 +136,8 @@
 	# This might also be improved if we leverage the `git --list-cmds=...` INTERNAL/EXPERIMENTAL tech from /usr/share/bash-completion/completions/git
 	# The list of values is in https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/git.c#L88
 	# And categories are listed in https://github.com/git/git/blob/master/command-list.txt, used by https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/help.c#L382
+	# But: Heads up! git --list-cmds=list-foreignscminterface still lists these cvs-y things, so is still over-broad
+	# This seems to be because those commands live as dependencies of apt's git-all
 	is-valid-git-command = "!f() { git help -a | grep -v -E '^\\s(cvs|p4|send-email|sh-)' | grep -q -s -E \"^\\s+${1?Need a value}\\b\" ; } ; f"
 	silence-mr-pull =  "!f() { git config --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
