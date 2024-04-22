@@ -6,8 +6,9 @@ def squared_sum(it):
     return sum(i*i for i in it)
 
 def score(word, by_key, target):
-    return squared_sum(target - len(by_key.get(letter)) for letter in word)
-
+            # each non-unique word gets a large score
+    return squared_sum(target - len(by_key.get(letter)) for letter in set(word)) + \
+            (target*target * (len(word) - len(set(word)) ))
 def explain_score(word, by_key):
     return {letter:len(by_key.get(letter)) for letter in word}
 
