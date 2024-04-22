@@ -22,7 +22,7 @@ def main(words):
             by_key[letter].add(word)
 
     for word in sorted(words, key=lambda word: score(word, by_key, len(words)/2)):
-        print(word, explain_score(word, by_key))
+        print(word, score(word, by_key, len(words)/2), explain_score(word, by_key))
 
 
 
