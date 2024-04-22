@@ -8,6 +8,21 @@ function bat-help {
 	bat --language help --plain
 }
 
+function composure-help {
+	# requires exactly one arg. Not enforced
+	# is a function and composure's reference function or equivalent is available
+	if [[ function = "$(type -t "$1")" ]] && type reference &>/dev/null; then
+		if [[ -n "$(reference "$1")" ]]; then
+			# reference produces output for this function
+			reference "$1"
+
+			return 0 # success!
+		fi
+	fi
+	return 1 # failure!
+}
+
+
 function help-or---help {
 	if [ "$#" -eq 1 ]; then
 		builtin help "$1" 2> /dev/null \
