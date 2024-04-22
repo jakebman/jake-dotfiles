@@ -38,6 +38,10 @@ let g:EditorConfig_max_line_indicator = "exceeding"
 " nb: less maps the 'clear search' action to ESC-u
 map q :q
 
+" Space should pagedown, like how less does it (otherwise, it's 'one space
+" forward', which isn't helpful to me)
+noremap <space> <C-d>
+
 " Mouse scroll and click is *nice*, but it needs a modifier (Shift) pressed to
 " get the old terminal behavior, and the selection doesn't seem to grab
 " newlines, for some reason?
