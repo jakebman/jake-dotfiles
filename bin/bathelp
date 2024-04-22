@@ -72,5 +72,6 @@ if [[ "$SHIFT" -le 0 ]]; then
 	# no help-like args. Could be either help or --help
 	help-or---help "$@" | bat-help
 else
+	# We received help-like arguments. We should just ask the builtin help and not go
 	builtin help -"$args" "$@" | bat-help
 fi
