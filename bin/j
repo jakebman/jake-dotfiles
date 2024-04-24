@@ -180,6 +180,7 @@ else
 		--git)
 			shift
 			ITEMS='git files'
+			# TODO: needs -z for zero-separated values. waiting on ack to support that
 			git ls-files --recurse-submodules | j-ack --files-from=- "$@" | j-fzf-ack
 			;;
 
