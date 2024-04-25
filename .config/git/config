@@ -124,8 +124,10 @@
 	# -k: sort on k'th field
 	authors-by-email = "!f() { git authors \"$@\" | sort -f -k2 -t'<' ; } ; f"
 
-	# https://superuser.com/a/1792567/137598
-	created-by-author = "!f() { git log --author=\"${1?Need An Author}\" --format='' --diff-filter=A --name-only --no-commit-id | sort | uniq ; } ; f"
+	# List files created by a particular user, defaulting to use the current git user.name
+	# (THESE FILES ARE NOT GUARANTEED TO EXIST b/c they can later be deleted)
+	# see https://superuser.com/a/1792567/137598
+	created-by-author = "!f() { git log --author=\"${1:-$(git config user.name)}\" --format='' --diff-filter=A --name-only --no-commit-id | sort | uniq ; } ; f"
 
 	# Read this as "run git in a delta-like mode for this current interaction"
 	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
