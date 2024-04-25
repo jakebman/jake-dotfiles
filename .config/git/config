@@ -93,7 +93,7 @@
 	merges = log --merges -m
 
 	# Abuse parameter passing - the 'yesterday' argument will pass to --since, but if we do something dumb, we'll get something dumb back.
-	# (Also, we chooose since-as-filter to get around weird history hiccups that things like cherry-picking can introduce)
+	# (Also, we choose since-as-filter to get around weird history hiccups that things like cherry-picking can introduce)
 	since = log --since-as-filter
 	# TODO: it'd be *really* cool if "yesterday" implicitly meant "Friday" if today is Monday (nb: `date +%A`)
 	yesterday = since yesterday
