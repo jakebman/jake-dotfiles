@@ -186,6 +186,7 @@
 [mailmap]
 	# TODO: I wish there were a way to read this value from the environment,
 	# because this is truly/more-logically "${XDG_CONFIG_HOME:-${HOME}/.config}/git/mailmap"
+	# TODO: I might eventually create a personal/home mailmap. This setting might move to the [include]'d work-email config file
 	file = ~/.config/git/mailmap
 [submodule]
 	# Allow submodule recursion everywhere. This gets thorny with mr fetching bat's 85(!) submodules,
