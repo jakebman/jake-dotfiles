@@ -16,14 +16,15 @@ def main(words):
     """
         given a set of words on stdin, print the best wordle guess from them
     """
-    print(words)
     by_key = defaultdict(set)
     for word in words:
         for letter in word:
             by_key[letter].add(word)
 
-    for word in sorted(words, key=lambda word: score(word, by_key, len(words)/2)):
-        print(word, score(word, by_key, len(words)/2), explain_score(word, by_key))
+    target = len(words)/2
+    print(words, "target score is", target)
+    for word in sorted(words, key=lambda word: score(word, by_key, target)):
+        print(word, score(word, by_key, target), explain_score(word, by_key))
 
 
 
