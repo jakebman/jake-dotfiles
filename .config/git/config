@@ -60,6 +60,8 @@
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
 	intent = add --intent-to-add
+	no-columns = -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
+
 	shallow = clone --depth 1
 	stats = show --stat
 	unshallow = fetch --unshallow
@@ -180,6 +182,8 @@
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
+[column]
+	ui = auto
 [diff]
 	context = 5
 	tool = vimdiff
