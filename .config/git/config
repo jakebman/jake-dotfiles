@@ -254,5 +254,6 @@
 	# * I can't in good conscience commit this with `directory = *` into my dotfiles repo
 	# So:
 	# * It's just going to be some example folders from work
+	directory = /home/jakebman/projects/nns-ms-network-portal/.git
 	directory = /mnt/c/Users/P2776931/Projects/restserver
 	directory = /mnt/c/Users/P2776931/Projects/nationalnavigation
