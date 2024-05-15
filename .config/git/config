@@ -62,6 +62,9 @@
 	intent = add --intent-to-add
 	no-columns = -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
 
+	# borrowed from my bash-implicit-git function `remote`, which we can't offer here, but its `remotes` alias can be duplicated here
+	remotes = "!f() { if test \"$#\" -eq 0 || test show = \"$1\"; then git remote -v \"$@\"; else git remote \"$@\" ; fi } ; f"
+
 	shallow = clone --depth 1
 	stats = show --stat
 	unshallow = fetch --unshallow
