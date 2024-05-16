@@ -161,8 +161,10 @@
 	unpaged = !git --no-pager
 
 	# TODO: also need to expire the reflog with  git reflog expire --expire=all --all, per https://stackoverflow.com/a/62650346/285944
+	# TODO: also might need to repack, per a peer answer: https://stackoverflow.com/a/53245223/285944
 	# In fact, it might be nice to 'stash' two files - one for the tags and one for the reflog so they can be restored
 	# Alternatively, following github's "Here are your local changes. Please type the name of this repo to proceed" prompt might be cool, too
+	# I should also do something along the lines of "create a shallow (--depth=1) clone; compare its .git dir's size"
 	reshallow = "!f() { echo 'deleting tags:'; git show-ref --tags; git tag -d $(git tag -l); git pull --rebase --no-tags --depth 1; git gc --prune=all; } ; f"
 [fetch]
 	all = true   # Fetch should assume --all. Thank you git 2.44 :D
