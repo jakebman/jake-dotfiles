@@ -50,6 +50,7 @@ trim_trailing_whitespace = false
 indent_size = tab
 indent_style = tab
 
+# mr config files. I consider them very similar to git config files, but they should be a separate section
 [.mrconfig]
 indent_size = tab
 indent_style = tab
