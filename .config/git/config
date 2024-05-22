@@ -83,7 +83,8 @@
 
 	rainbow = log-oneline --graph
 	rainbow-here = rainbow # for legacy clarity to myself
-	rainbow-all = log-oneline --graph --all
+	# NNS stores argo information in the argo_manifests branch. THAT IS NOT A REASONABLE BRANCH
+	rainbow-all = log-oneline --graph --exclude=argo_manifests --all
 
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline alias above
 	l  = rainbow
