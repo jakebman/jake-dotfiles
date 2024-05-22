@@ -87,6 +87,7 @@
 	rainbow-all = log-oneline --graph --exclude=argo_manifests --all
 
 	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline alias above
+	r  = rainbow-all # convenience name
 	l  = rainbow
 	# don't want rainbow here - stats really don't rainbow nicely
 	ll = log-oneline --date=iso   --numstat
