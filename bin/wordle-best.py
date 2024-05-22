@@ -24,7 +24,11 @@ def main(words):
     target = len(words)/2
     print(words, "target score is", target)
     for word in sorted(words, key=lambda word: score(word, by_key, target)):
-        print(word, score(word, by_key, target), explain_score(word, by_key))
+        try:
+            print(word, score(word, by_key, target), explain_score(word, by_key))
+        except BrokenPipeError:
+            # got cut off by something like `head`. Don't be bothered by it
+            return
 
 
 
