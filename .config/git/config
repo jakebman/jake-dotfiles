@@ -6,7 +6,7 @@
 	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
 	path = ~/.config/git/work-email
 [alias]
-
+	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
 	ad = add
 	addp = add -p
