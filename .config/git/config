@@ -163,6 +163,9 @@
 	show-git-dir = rev-parse --git-dir
 	unpaged = !git --no-pager
 
+	# Stolen from mr's git_status action
+	mr-status = "!f() { git status -s \"$@\"; git --no-pager log --branches --not --remotes --simplify-by-decoration --decorate --oneline; git --no-pager stash list; } ; f"
+
 	# TODO: also need to expire the reflog with  git reflog expire --expire=all --all, per https://stackoverflow.com/a/62650346/285944
 	# TODO: also might need to repack, per a peer answer: https://stackoverflow.com/a/53245223/285944
 	# In fact, it might be nice to 'stash' two files - one for the tags and one for the reflog so they can be restored
