@@ -125,7 +125,8 @@
 	# NB: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
 	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME.  Hence, why I'm calling it psychotic.
 	authors = "!f() { git shortlog -s -e \"$@\" | awk '{$1=\"\";print}' | sort -f ; } ; f"
-	authors-raw = -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null authors
+	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
+	authors-raw = no-mailmap authors
 	# sort:
 	# -t: field separator
 	# -f: ignore case
