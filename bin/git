@@ -119,7 +119,7 @@ if [[ "x $*" =~ "help" ]]; then
 		HOW+=". Invocation information below"
 		NOTES+=" ${GIT}"
 	else
-		HOW+=". Help requested, but no customizations applied"
+		HOW+=". No custom environment variables necessary"
 	fi
 fi
 
