@@ -80,7 +80,7 @@ fi
 
 # Fallback to check my `config` dotfiles repo, but only when I'm not thinking super hard about it
 # (let an explicit choice override my implicit choice)
-if [ -n "$GIT_DIR" ]; then
+if [ -v GIT_DIR ]; then
 	HOW+=". Received GIT_DIR=\"$(summarize_path "$GIT_DIR")\""
 elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" rev-parse &> /dev/null; then
 	# Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
