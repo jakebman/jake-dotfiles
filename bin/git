@@ -105,7 +105,7 @@ if [[ "x $*" =~ "help" ]]; then
 		NOTES+="GIT_DIR=\"${SUMMARIZED}\""
 		if [[ "x${SUMMARIZED}" =~ 'VCSH_REPO_D' ]]; then # was summarized
 			# wonky phrasing for "pre-catenate, with a space between, but it feels like the cleanest phrasing
-			printf -v NOTES '%s %s' 'XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}" VCSH_REPO_D="${VCSH_REPO_D:-${XDG_CONFIG_HOME}/vcsh/repo.d}"' "$NOTES"
+			printf -v NOTES '%s %s' 'VCSH_REPO_D="${VCSH_REPO_D:-${XDG_CONFIG_HOME:-${HOME}/.config}/vcsh/repo.d}"' "$NOTES"
 		fi
 	fi
 
