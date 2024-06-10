@@ -48,41 +48,38 @@ if [ -t 1 ] && [ -z "$MR_REPO" ] && [ -z "$JAKE_SUPPRESS_GIT_SQUAWK" ]; then # w
 	trap 'echo "(${THIS_SCRIPT} used ${WHICH}'"'"'s ${GIT}${HOW+${HOW}.})"; echo "${NOTES}"' EXIT
 fi
 
-# TODO: I'd like to add implicitdiff to the list of commands which use /usr/bin/git, but respect windows dirs
-# This ad-hoc jumble isn't really condusive to adding more pieces. Perhaps a series of flags (which could be received from
-# the parent environment) could help make the fallback choices clearer.
-if [ "$#" -eq 0 ]; then
-	: # do nothing - keep $GIT at linux
-elif [ "$1" == "symbolic-ref" ] || [ "$1" == "help" ]; then
-	: # do nothing - WSL reads symbolic refs faster than windows
-	# We could eventually add this, but it feels unnecessary right now:
-	# GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
-else
-	case "$(realpath "$WHERE")" in
-		/mnt/c/*)
-			if [ "$1" == "config" ]; then
-				# WSL's git is faster for this, but we need to know to read
-				# Window's config file roots
-				HOW=", reading Window's GIT_CONFIG_* variables"
-				export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
-				# :? fails if the variable is unset, with a reasonable error
-				# TODO: WSL probably reserves global variables here. Probably pick a new name :\
-				export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
-			else
-				WHICH=Windows
-				GIT=git.exe
-			fi
-			;;
-		*) ;;
-	esac
+declare -A ALWAYS_WSL_COMMANDS
+
+# the value isn't necessary - we're causing them to be set, which is what -v tests for
+ALWAYS_WSL_COMMANDS[config]=
+ALWAYS_WSL_COMMANDS[help]=
+ALWAYS_WSL_COMMANDS[implicitdiff]=
+ALWAYS_WSL_COMMANDS[symbolic-ref]=
+
+# Windows dirs are exported to WSL via v9fs. This is the fastest check I can run
+if [[ v9fs = "$(stat --file-system . --format=%T)" ]]; then
+	IS_WINDOWSY=true
+
+	# Impl. note: $1 isn't guaranteed to be defined here, but that is fine - it'll just be the empty string
+	if [[ -v "ALWAYS_WSL_COMMANDS[$1]" ]]; then
+		# Window's config file roots
+		HOW=", reading Window's GIT_CONFIG_* variables"
+		export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
+		# :? fails if the variable is unset, with a reasonable error
+		# TODO: WSL probably reserves global variables here. Probably pick a new name :\
+		export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
+	else
+		WHICH=Windows
+		GIT=git.exe
+	fi
 fi
 
 # Fallback to check my `config` dotfiles repo, but only when I'm not thinking super hard about it
 # (let an explicit choice override my implicit choice)
 if [ -v GIT_DIR ]; then
 	HOW+=". Received GIT_DIR=\"$(summarize_path "$GIT_DIR")\""
-elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" rev-parse &> /dev/null; then
-	# Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
+elif ! [ -v IS_WINDOWSY ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" rev-parse &> /dev/null; then
+	# Only check for this if we're in WSL-land and not windows-y - even rev-parse is 4x slower via git.exe and it feels weird to do this fallback across FS boundaries anyway
 	# ... not even if we're using WSL-git for faster config reading
 	# ...    nor   if we'd overwrite a different GIT_DIR
 	# ... and FOR SURE not if we're trying to clone or init!
