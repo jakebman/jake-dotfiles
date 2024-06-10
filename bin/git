@@ -98,8 +98,21 @@ elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init
 	# export GIT_WORK_TREE="$HOME"
 fi
 
+# include additional notes if the command looks like it includes a help-like part
+if [[ "x $*" =~ "help" ]]; then
+	HOW+=". Invocation information below"
+
+	NOTES='XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}" VCSH_REPO_D="${VCSH_REPO_D:-${XDG_CONFIG_HOME}/vcsh/repo.d}"'
+	if [[ -v GIT_DIR ]]; then
+		NOTES+=" GIT_DIR=\"$(summarize_path "${GIT_DIR}")\""
+	fi
+	NOTES+=" ${GIT}"
+	export NOTES
+fi
+
 echo "$$ (in $PWD) - git" "$@" >> ~/git-commands
 "$GIT" "$@"
 EXIT_CODE=$?
+
 echo "$$ exiting with $EXIT_CODE" >> ~/git-commands
 exit $EXIT_CODE
