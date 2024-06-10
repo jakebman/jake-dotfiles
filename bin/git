@@ -99,11 +99,14 @@ fi
 
 # include additional notes if the command looks like it includes a help-like part
 if [[ "x $*" =~ "help" ]]; then
-	HOW+=". Invocation information below"
 
-	NOTES='XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}" VCSH_REPO_D="${VCSH_REPO_D:-${XDG_CONFIG_HOME}/vcsh/repo.d}"'
 	if [[ -v GIT_DIR ]]; then
-		NOTES+=" GIT_DIR=\"$(summarize_path "${GIT_DIR}")\""
+		SUMMARIZED="$(summarize_path "$GIT_DIR")"
+		NOTES+="GIT_DIR=\"${SUMMARIZED}\""
+		if [[ "x${SUMMARIZED}" =~ 'VCSH_REPO_D' ]]; then # was summarized
+			# wonky phrasing for "pre-catenate, with a space between, but it feels like the cleanest phrasing
+			printf -v NOTES '%s %s' 'XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}" VCSH_REPO_D="${VCSH_REPO_D:-${XDG_CONFIG_HOME}/vcsh/repo.d}"' "$NOTES"
+		fi
 	fi
 
 	if [[ -v WINDOWSY_CONFIGS ]]; then
@@ -111,9 +114,13 @@ if [[ "x $*" =~ "help" ]]; then
 		NOTES+=" GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'"
 	fi
 
-	NOTES+=" ${GIT}"
-
-	export NOTES
+	# We have reasonable belief that there are env vars to print out about our invocation line
+	if [[ -v NOTES ]]; then
+		HOW+=". Invocation information below"
+		NOTES+=" ${GIT}"
+	else
+		HOW+=". Help requested, but no customizations applied"
+	fi
 fi
 
 echo "$$ (in $PWD) - git" "$@" >> ~/git-commands
