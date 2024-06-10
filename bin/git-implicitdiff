@@ -40,6 +40,10 @@ else
 	# Failure due to some unknown reason
 	# Hopefully git status fails for a similar reason and
 	# will report what is wrong better than we can
-	echo "${0}: git-diff failed with code ${RET}. Trying git-status:" >&2
+
+	git diff --quiet # Try reproducing the error message. TODO: maybe use temp file (or pipe?) above instead of /dev/null?
+	echo >&2 # spacing
+	echo "${0}: git-diff failed with code ${RET} (duplicated above?). Trying git-status:" >&2
+	echo >&2 # spacing
 	git status
 fi
