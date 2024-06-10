@@ -31,7 +31,7 @@ WHICH=WSL
 # condenses $HOME to ~, per https://superuser.com/questions/512061/how-to-get-foo-from-home-user1-foo/512078#512078
 # plus vcsh, plus any others that might be relevant in the future
 function summarize_path {
-	local first="${1/#$VCSH_REPO_D\//\$VCSH_REPO_D/}"
+	local first="${1/#${VCSH_REPO_D}\//\${VCSH_REPO_D\}/}"
 	echo "${first/~/\~}"
 }
 
@@ -44,8 +44,18 @@ function summarize_path {
 # can act as a "quiet, but for this callout only"
 # Further TODO: call out what command was eventually invoked, with env variables, if some debug indications are present
 if [ -t 1 ] && [ -z "$MR_REPO" ] && [ -z "$JAKE_SUPPRESS_GIT_SQUAWK" ]; then # we're running in a terminal, and not from `mr`
-	trap 'echo "(${THIS_SCRIPT} used ${WHICH}'"'"'s ${GIT}${HOW})"' EXIT
+	# TODO: use printf instead?
+	trap 'echo "(${THIS_SCRIPT} used ${WHICH}'"'"'s ${GIT}${HOW+${HOW}.})"; echo "${NOTES}"' EXIT
 fi
+
+# WSL's git is faster for certain things, but it does need to know to read Window's config file roots
+function running-wsl-git-in-windows-dir {
+	HOW+=", reading Window's GIT_CONFIG_* variables"
+	export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
+	# :? fails if the variable is unset, with a reasonable error
+	# TODO: WSL probably reserves global variables here. Probably pick a new name :\
+	export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
+}
 
 # TODO: I'd like to add implicitdiff to the list of commands which use /usr/bin/git, but respect windows dirs
 # This ad-hoc jumble isn't really condusive to adding more pieces. Perhaps a series of flags (which could be received from
@@ -53,20 +63,12 @@ fi
 if [ "$#" -eq 0 ]; then
 	: # do nothing - keep $GIT at linux
 elif [ "$1" == "symbolic-ref" ] || [ "$1" == "help" ]; then
-	: # do nothing - WSL reads symbolic refs faster than windows
-	# We could eventually add this, but it feels unnecessary right now:
-	# GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
+	running-wsl-git-in-windows-dir
 else
 	case "$(realpath "$WHERE")" in
 		/mnt/c/*)
 			if [ "$1" == "config" ]; then
-				# WSL's git is faster for this, but we need to know to read
-				# Window's config file roots
-				HOW=", reading Window's GIT_CONFIG_* variables"
-				export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
-				# :? fails if the variable is unset, with a reasonable error
-				# TODO: WSL probably reserves global variables here. Probably pick a new name :\
-				export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
+				running-wsl-git-in-windows-dir
 			else
 				WHICH=Windows
 				GIT=git.exe
@@ -79,7 +81,7 @@ fi
 # Fallback to check my `config` dotfiles repo, but only when I'm not thinking super hard about it
 # (let an explicit choice override my implicit choice)
 if [ -n "$GIT_DIR" ]; then
-	HOW="${HOW}. Received GIT_DIR=\"$(summarize_path "$GIT_DIR")\""
+	HOW+=". Received GIT_DIR=\"$(summarize_path "$GIT_DIR")\""
 elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" rev-parse &> /dev/null; then
 	# Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
 	# ... not even if we're using WSL-git for faster config reading
@@ -87,7 +89,8 @@ elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init
 	# ... and FOR SURE not if we're trying to clone or init!
 	# Finally, a fast-failing git command (rev-parse works) tells us that we're outside any other repo
 
-	HOW=". Implicit GIT_DIR=\"$(summarize_path "$BASH_IT_DOTFILES_GIT_REPO")\""
+	# TODO: better message if BASH_IT_DOTFILES_GIT_REPO is unset (for some reason?)
+	HOW+=". Implicit GIT_DIR=\"$(summarize_path "$BASH_IT_DOTFILES_GIT_REPO")\""
 	# :? fails if the variable is unset, with a reasonable error
 	export GIT_DIR="${BASH_IT_DOTFILES_GIT_REPO:?}"
 
@@ -97,8 +100,21 @@ elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init
 	# export GIT_WORK_TREE="$HOME"
 fi
 
+# include additional notes if the command looks like it includes a help-like part
+if [[ "x $*" =~ "help" ]]; then
+	HOW+=". Invocation information below"
+
+	NOTES='XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}" VCSH_REPO_D="${VCSH_REPO_D:-${XDG_CONFIG_HOME}/vcsh/repo.d}"'
+	if [[ -v GIT_DIR ]]; then
+		NOTES+=" GIT_DIR=\"$(summarize_path "${GIT_DIR}")\""
+	fi
+	NOTES+=" ${GIT}"
+	export NOTES
+fi
+
 echo "$$ (in $PWD) - git" "$@" >> ~/git-commands
 "$GIT" "$@"
 EXIT_CODE=$?
+
 echo "$$ exiting with $EXIT_CODE" >> ~/git-commands
 exit $EXIT_CODE
