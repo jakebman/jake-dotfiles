@@ -62,6 +62,7 @@ if [[ v9fs = "$(stat --file-system . --format=%T)" ]]; then
 
 	# Impl. note: $1 isn't guaranteed to be defined here, but that is fine - it'll just be the empty string
 	if [[ -v "ALWAYS_WSL_COMMANDS[$1]" ]]; then
+		WINDOWSY_CONFIGS=true
 		# Window's config file roots
 		HOW=", reading Window's GIT_CONFIG_* variables"
 		export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
@@ -104,7 +105,14 @@ if [[ "x $*" =~ "help" ]]; then
 	if [[ -v GIT_DIR ]]; then
 		NOTES+=" GIT_DIR=\"$(summarize_path "${GIT_DIR}")\""
 	fi
+
+	if [[ -v WINDOWSY_CONFIGS ]]; then
+		NOTES+=' GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"'
+		NOTES+=" GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'"
+	fi
+
 	NOTES+=" ${GIT}"
+
 	export NOTES
 fi
 
