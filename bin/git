@@ -81,7 +81,7 @@ fi
 # Fallback to check my `config` dotfiles repo, but only when I'm not thinking super hard about it
 # (let an explicit choice override my implicit choice)
 if [ -n "$GIT_DIR" ]; then
-	HOW="${HOW}. Received GIT_DIR=\"$(summarize_path "$GIT_DIR")\""
+	HOW+=". Received GIT_DIR=\"$(summarize_path "$GIT_DIR")\""
 elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" rev-parse &> /dev/null; then
 	# Only check for this if we're in WSL-land, because it's slow to check with Window's git.exe
 	# ... not even if we're using WSL-git for faster config reading
@@ -89,7 +89,8 @@ elif [ "$WHICH" == WSL ] && [ -z "$HOW" ] && [ "$1" != clone ] && [ "$1" != init
 	# ... and FOR SURE not if we're trying to clone or init!
 	# Finally, a fast-failing git command (rev-parse works) tells us that we're outside any other repo
 
-	HOW=". Implicit GIT_DIR=\"$(summarize_path "$BASH_IT_DOTFILES_GIT_REPO")\""
+	# TODO: better message if BASH_IT_DOTFILES_GIT_REPO is unset (for some reason?)
+	HOW+=". Implicit GIT_DIR=\"$(summarize_path "$BASH_IT_DOTFILES_GIT_REPO")\""
 	# :? fails if the variable is unset, with a reasonable error
 	export GIT_DIR="${BASH_IT_DOTFILES_GIT_REPO:?}"
 
