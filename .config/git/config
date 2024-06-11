@@ -85,14 +85,16 @@
 	# (NB: the --exclude *must specifically* come before the --all, per git help log)
 	rainbow-all = rainbow --exclude=*argo_manifests --all
 
-	# cute aliases, modified from https://stackoverflow.com/a/52896091/285944 to share my common oneline alias above
+	# cute aliases, inspired by https://stackoverflow.com/a/52896091/285944, sharing my common oneline alias above
 	r  = rainbow-all # convenience name
 	l  = rainbow
 	# don't want rainbow here - stats really don't rainbow nicely
 	ll = log-oneline --date=iso   --numstat
-	# this is equivalent to `rainbow --date=short`, but has different semantics.
+	# ld is equivalent to `rainbow --date=short`, but has different semantics.
 	# This spelling prevents concidental changes to rainbow from affecting ld
 	ld = log-oneline --date=short --graph
+	# Prompted by the discussion on ld, this is actually the variant that *does* trust rainbow
+	lr = rainbow     --date=short
 	ls = log-oneline
 
 	man = help
