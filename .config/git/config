@@ -90,6 +90,8 @@
 	l  = rainbow
 	# don't want rainbow here - stats really don't rainbow nicely
 	ll = log-oneline --date=iso   --numstat
+	# this is equivalent to `rainbow --date=short`, but has different semantics.
+	# This spelling prevents concidental changes to rainbow from affecting ld
 	ld = log-oneline --date=short --graph
 	ls = log-oneline
 
