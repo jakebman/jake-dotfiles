@@ -61,6 +61,7 @@
 
 	# borrowed from my bash-implicit-git function `remote`, which we can't offer here, but its `remotes` alias can be duplicated here
 	remotes = "!f() { if test \"$#\" -eq 0 || test show = \"$1\"; then git remote -v \"$@\"; else git remote \"$@\" ; fi } ; f"
+	submodules = submodule # arguably a typo, but I thought this was a proper command name
 
 	shallow = clone --depth 1
 	stats = show --stat
