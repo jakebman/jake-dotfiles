@@ -1,10 +1,7 @@
 [user]
+	# NB: these are intentionally overridden in work-email [include].path'd at the end of this file
 	name = Jake Boeckerman
 	email = jakebman@gmail.com
-[include]
-	# fun fact! You can include files that *don't exist*! (at least this doesn't exist in my home install)
-	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
-	path = ~/.config/git/work-email
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
@@ -267,3 +264,10 @@
 	directory = /home/jakebman/projects/nns-ms-network-portal/.git
 	directory = /mnt/c/Users/P2776931/Projects/restserver
 	directory = /mnt/c/Users/P2776931/Projects/nationalnavigation
+
+# This section should appear last - this allows work settings to either override or append-to the settings I choose for my home use
+# (It's not super useful for the safe.directory stuff, because it's easier to just change the file after I copy it over)
+[include]
+	# fun fact! You can include files that *don't exist*! (at least this doesn't exist in my home install)
+	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
+	path = ~/.config/git/work-email
