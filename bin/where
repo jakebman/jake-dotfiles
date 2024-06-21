@@ -16,16 +16,22 @@ def lines_annotate_cwds(lines):
 def line_annotate_cwds(line):
 	out = ""
 	for word in line.split(" "): # TODO: configurable rejoining
+		annotation = False
+
 		if word.isnumeric():
 			path = f"/proc/{word}/cwd" # TODO: path-like is allowed, so this might not require string interpolation and could be better
-			if islink(path):
-				rpath = realpath(path)
+			try:
+				if islink(path):
+					rpath = realpath(path)
+					annotation = f"at {rpath}"
+			except PermissionError:
+				annotation = "permission denied" # TODO: who might be the owner?
 
 		if out:
 			out += " " # TODO: configurable rejoining
 		out += word
-		if rpath:
-			out += f" (at {rpath})"
+		if annotation:
+			out += f" ({annotation})"
 
 	return out
 
