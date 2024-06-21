@@ -2,7 +2,7 @@
 
 # TODO: potentially use pathlib instead
 from os.path import islink, realpath
-
+from sys import argv
 
 def lines_annotate_cwds(lines):
 	"""
@@ -36,12 +36,17 @@ def line_annotate_cwds(line):
 	return out
 
 
-def main(lines):
-	for line in lines_annotate_cwds(lines):
-		print(line)
+def main():
+	on_cli = argv[1:] # skip the program's name
+	if on_cli:
+		for arg in on_cli:
+			print(line_annotate_cwds(arg))
+	else:
+		for line in lines_annotate_cwds(all_input()):
+			print(line)
 
 # TODO: fileinput tech from jaketree.py
-# Currently, we only accept stdin. Taking cat-like params seems like a reasonable add
+# Currently, we only accept stdin and numbers as params. Taking cat-like params seems like a reasonable add. Not a big deal to be flexible to accpet numbers and files on the cli
 def all_input():
     try:
         while True:
@@ -51,4 +56,7 @@ def all_input():
 
 
 if __name__ == "__main__":
-    main(all_input())
+	try:
+		main()
+	except KeyboardInterrupt:
+		pass
