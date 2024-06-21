@@ -1,0 +1,48 @@
+#! /bin/env python3
+
+# TODO: potentially use pathlib instead
+from os.path import islink, realpath
+
+
+def lines_annotate_cwds(lines):
+	"""
+		For each word-that-is-a-number in the input, if /proc/{that-number}/cwd exists, append "some meaningful" information about that process's cwd
+
+		Try to be streaming about this
+	"""
+	for line in lines:
+		yield line_annotate_cwds(line)
+
+def line_annotate_cwds(line):
+	out = ""
+	for word in line.split(" "): # TODO: configurable rejoining
+		if word.isnumeric():
+			path = f"/proc/{word}/cwd" # TODO: path-like is allowed, so this might not require string interpolation and could be better
+			if islink(path):
+				rpath = realpath(path)
+
+		if out:
+			out += " " # TODO: configurable rejoining
+		out += word
+		if rpath:
+			out += f" (at {rpath})"
+
+	return out
+
+
+def main(lines):
+	for line in lines_annotate_cwds(lines):
+		print(line)
+
+# TODO: fileinput tech from jaketree.py
+# Currently, we only accept stdin. Taking cat-like params seems like a reasonable add
+def all_input():
+    try:
+        while True:
+            yield input()
+    except EOFError:
+        return
+
+
+if __name__ == "__main__":
+    main(all_input())
