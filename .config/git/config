@@ -25,6 +25,7 @@
 	dif = diff
 	idff = diff
 	tgui = gui
+	thelp = help
 	ehlp = help
 	hlep = help
 	idiff = implicitdiff
