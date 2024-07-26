@@ -54,6 +54,14 @@ declare -A ALWAYS_WSL_COMMANDS
 ALWAYS_WSL_COMMANDS[config]=
 ALWAYS_WSL_COMMANDS[help]=
 ALWAYS_WSL_COMMANDS[symbolic-ref]=
+# My own ~/bin commands, which aren't in window
+ALWAYS_WSL_COMMANDS[config-debug]=
+ALWAYS_WSL_COMMANDS[dump-env]=
+ALWAYS_WSL_COMMANDS[export]=
+ALWAYS_WSL_COMMANDS[jump]='' # technically vendored
+# My ~/bin commands that are broken or otherwise weird if running from wsl in windows repos
+#ALWAYS_WSL_COMMANDS[j]= # takes a (too) long time to get the list of files
+#ALWAYS_WSL_COMMANDS[implicitdiff]= # I don't know. Shortcutted this by aliasing it to plain git-diff in windows-land
 
 # Windows dirs are exported to WSL via v9fs. This is the fastest check I can run
 if [[ v9fs = "$(stat --file-system . --format=%T)" ]]; then
