@@ -53,7 +53,6 @@ declare -A ALWAYS_WSL_COMMANDS
 # the value isn't necessary - we're causing them to be set, which is what -v tests for
 ALWAYS_WSL_COMMANDS[config]=
 ALWAYS_WSL_COMMANDS[help]=
-ALWAYS_WSL_COMMANDS[implicitdiff]=
 ALWAYS_WSL_COMMANDS[symbolic-ref]=
 
 # Windows dirs are exported to WSL via v9fs. This is the fastest check I can run
