@@ -207,11 +207,6 @@
 	colorMoved = default # uses blue/purple for moved lines. Very pretty :)
 [blame]
 	date = human-local
-[mailmap]
-	# TODO: I wish there were a way to read this value from the environment,
-	# because this is truly/more-logically "${XDG_CONFIG_HOME:-${HOME}/.config}/git/mailmap"
-	# TODO: I might eventually create a personal/home mailmap. This setting might move to the [include]'d work-email config file
-	file = ~/.config/git/mailmap
 [submodule]
 	# Allow submodule recursion everywhere. This gets thorny with mr fetching bat's 85(!) submodules,
 	# but it's really useful where I want it to be, and as long as I put out that fire
@@ -250,6 +245,16 @@
 	diffMerges = first-parent
 [commit]
 	verbose = true
+
+
+#### REFERENCES TO EXTERNAL FILES GO AT THE BOTTOM OF THIS FILE IF POSSIBLE ####
+
+[mailmap]
+	# TODO: I wish there were a way to read this value from the environment,
+	# because this is truly/more-logically "${XDG_CONFIG_HOME:-${HOME}/.config}/git/mailmap"
+	# This is my personal mailmap file. A different one is specified in the [include]'d work-email file below
+	file = ~/.config/git/mailmap
+
 [safe]
 	# I intend safe.directory to be read:
 	# * by WSL's /usr/bin/git
@@ -272,8 +277,9 @@
 	directory = /mnt/c/Users/P2776931/Projects/restserver
 	directory = /mnt/c/Users/P2776931/Projects/nationalnavigation
 
-# This section should appear last - this allows work settings to either override or append-to the settings I choose for my home use
-# (It's not super useful for the safe.directory stuff, because it's easier to just change the file after I copy it over)
+
+# The include section should appear last - this allows work settings to either override or append-to the settings I choose for my home use
+# (It's not super useful for safe.directory or mailmap.file, because it's easier to just change the those settings above after I copy this file over)
 [include]
 	# fun fact! You can include files that *don't exist*! (at least this doesn't exist in my home install)
 	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
