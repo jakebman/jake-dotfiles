@@ -1,5 +1,5 @@
 [user]
-	# NB: these are intentionally overridden in work-email [include].path'd at the end of this file
+	# NB: these are intentionally overridden in work-config [include].path'd at the end of this file
 	name = Jake Boeckerman
 	email = jakebman@gmail.com
 [alias]
@@ -252,7 +252,7 @@
 [mailmap]
 	# TODO: I wish there were a way to read this value from the environment,
 	# because this is truly/more-logically "${XDG_CONFIG_HOME:-${HOME}/.config}/git/mailmap"
-	# This is my personal mailmap file. A different one is specified in the [include]'d work-email file below
+	# This is my personal mailmap file. A different one is specified in the [include]'d work-config file below
 	file = ~/.config/git/mailmap
 
 [safe]
@@ -283,4 +283,4 @@
 [include]
 	# fun fact! You can include files that *don't exist*! (at least this doesn't exist in my home install)
 	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
-	path = ~/.config/git/work-email
+	path = ~/.config/git/work-config
