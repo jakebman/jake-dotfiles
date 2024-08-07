@@ -112,6 +112,8 @@ endif
 " ENTER or type command to continue". I wish that didn't happen
 " (Update: it might be related to vim's messages or more-prompt help topics)
 autocmd VimEnter * Obsession $XDG_STATE_HOME/vim/jake-autosaved-session
+" TODO: it'd be nice, if we resumed an existing session, to have vim print the
+" filenames from that session to stdout (stderr?) when we exit
 
 " preserve edit position,
 " see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
