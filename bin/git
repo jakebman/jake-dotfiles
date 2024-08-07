@@ -134,5 +134,11 @@ echo "$$ (in $PWD) - git" "$@" >> ~/git-commands
 "$GIT" "$@"
 EXIT_CODE=$?
 
-echo "$$ exiting with $EXIT_CODE" >> ~/git-commands
-exit $EXIT_CODE
+if (( $EXIT_CODE == 141 )); then
+	echo "$$ wants to exit with ${EXIT_CODE}, but that's SIGPIPE, which I want to succeed. exiting with 0 instead." >> ~/git-commands
+	NOTES+="${NOTES:+\n}(Enhanced behavior: SIGPIPE was translated to success)"
+	exit 0
+else
+	echo "$$ exiting with $EXIT_CODE" >> ~/git-commands
+	exit $EXIT_CODE
+fi
