@@ -49,7 +49,7 @@
 	amend = commit --amend # NB: the bash version of this command leverages my smart commit command
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	bare = clone --bare
-	branches = branch -a # inspired by a bash alias
+	branches = branch -a # Originally a typo from bash-land, I realized this could be an even better command
 	bp = "!f() { if test \"$#\" -eq 0; then git big-picture -v x-www-browser; else git big-picture \"$@\"; fi  } ; f"
 	co = checkout
 	config-editg = config -e --global
