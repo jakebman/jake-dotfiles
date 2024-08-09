@@ -46,6 +46,7 @@
 	workdir = worktree # geez.
 
 	## Convenient Names ("I typed something intentionally and expected it to work (often this promotes a flag to a command)")
+	amend = commit --amend # NB: the bash version of this command leverages my smart commit command
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	bare = clone --bare
 	branches = branch -a # inspired by a bash alias
