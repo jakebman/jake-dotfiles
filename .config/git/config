@@ -16,11 +16,13 @@
 	comm-t = commit
 	commt = commit
 	ocmmit = commit
+	commitm = commit -m
 	config-deubg = config-debug
 	deltaAdd = delta-add
 	deltaDiff = delta-diff
 	deltaLog = deltalog
 	edit-config = config-edit
+	d = diff
 	dff = diff
 	dif = diff
 	idff = diff
