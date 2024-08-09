@@ -22,7 +22,7 @@
 	deltaDiff = delta-diff
 	deltaLog = deltalog
 	edit-config = config-edit
-	d = diff
+	d = implicitdiff
 	dff = diff
 	dif = diff
 	idff = diff
