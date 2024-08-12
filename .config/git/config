@@ -16,7 +16,10 @@
 	comm-t = commit
 	commt = commit
 	ocmmit = commit
-	commitm = commit -m
+	commitm = commit -m # TODO: would be nice if no-args to this didn't produce an error, but instead a message editor
+	commitmp = commitpm
+	commitp = commitpm
+	commitpm = addp-and-commitm
 	config-deubg = config-debug
 	deltaAdd = delta-add
 	deltaDiff = delta-diff
@@ -119,6 +122,7 @@
 	# These'll more likely than not use the function tech from https://www.atlassian.com/blog/git/advanced-git-aliases
 	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
 	# TODO: /usr/share/bash-completion/completions has smarts about using the null command for completion that I don't understand
+	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
 
 	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
 	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
