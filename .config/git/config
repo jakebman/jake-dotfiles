@@ -39,6 +39,7 @@
 	oroboros = ouroboros
 	tpush = push
 	pus = push
+	restorep = restore -p
 	# Should 'stat' be a typo for status or stats?
 	statu = status
 	stashs = stash
