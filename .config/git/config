@@ -54,7 +54,13 @@
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	bare = clone --bare
 	branches = branch -a # Originally a typo from bash-land, I realized this could be an even better command
-	bp = "!f() { if test \"$#\" -eq 0; then git big-picture -v x-www-browser; else git big-picture \"$@\"; fi  } ; f"
+	bp = "!f() { \
+		if test \"$#\" -eq 0; then \
+			git big-picture -v x-www-browser; \
+		else \
+			git big-picture \"$@\"; \
+		fi \
+		} ; f"
 	co = checkout
 	config-editg = config -e --global
 	config-editl = config -e --local
@@ -68,7 +74,13 @@
 	no-columns = -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
 
 	# borrowed from my bash-implicit-git function `remote`, which we can't offer here, but its `remotes` alias can be duplicated here
-	remotes = "!f() { if test \"$#\" -eq 0 || test show = \"$1\"; then git remote -v \"$@\"; else git remote \"$@\" ; fi } ; f"
+	remotes = "!f() { \
+		if test \"$#\" -eq 0 || test show = \"$1\"; then \
+			git remote -v \"$@\"; \
+		else \
+			git remote \"$@\" ; \
+		fi \
+		} ; f"
 	submodules = submodule # arguably a typo, but I thought this was a proper command name
 
 	shallow = clone --depth 1
@@ -120,6 +132,8 @@
 
 	## Utilities ("I didn't expect this to work, but I'm causing it to work anyway :D")
 	# These'll more likely than not use the function tech from https://www.atlassian.com/blog/git/advanced-git-aliases
+	# Also, multiline functions are strings with backslashes on the newlines. See https://stackoverflow.com/a/28502292/285944
+	# I only really feel that to be useful if there's more than one relevant command in the function
 	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
 	# TODO: /usr/share/bash-completion/completions has smarts about using the null command for completion that I don't understand
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
@@ -129,7 +143,11 @@
 	#  branch for main
 	alias-main-for-master = "!f() { git symbolic-ref refs/heads/main refs/heads/master ; } ; f"
 
-	arguments-debug = "!f(){ for i; do echo \"'$i'\"; done ; } ; f"
+	arguments-debug = "!f(){ \
+		for i; do \
+			echo \"'$i'\"; \
+		done ; \
+		} ; f"
 	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
 	# (leveraging the function tech defined below)
 	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
@@ -181,14 +199,24 @@
 
 	# Stolen from mr's git_status action
 	# TODO: --simplify-by-decoration is a good "trim the tree to relevant bits" flag. Potentially use it in more places
-	mr-status = "!f() { git status -s \"$@\"; git --no-pager log --branches --not --remotes --simplify-by-decoration --decorate --oneline; git --no-pager stash list; } ; f"
+	mr-status = "!f() { \
+			git status -s \"$@\"; \
+			git --no-pager log --branches --not --remotes --simplify-by-decoration --decorate --oneline; \
+			git --no-pager stash list; \
+		} ; f"
 
 	# TODO: also need to expire the reflog with  git reflog expire --expire=all --all, per https://stackoverflow.com/a/62650346/285944
 	# TODO: also might need to repack, per a peer answer: https://stackoverflow.com/a/53245223/285944
 	# In fact, it might be nice to 'stash' two files - one for the tags and one for the reflog so they can be restored
 	# Alternatively, following github's "Here are your local changes. Please type the name of this repo to proceed" prompt might be cool, too
 	# I should also do something along the lines of "create a shallow (--depth=1) clone; compare its .git dir's size"
-	reshallow = "!f() { echo 'deleting tags:'; git show-ref --tags; git tag -d $(git tag -l); git pull --rebase --no-tags --depth 1; git gc --prune=all; } ; f"
+	reshallow = "!f() { \
+			echo 'deleting tags:'; \
+			git show-ref --tags; \
+			git tag -d $(git tag -l); \
+			git pull --rebase --no-tags --depth 1; \
+			git gc --prune=all; \
+		} ; f"
 [fetch]
 	all = true   # Fetch should assume --all. Thank you git 2.44 :D
 	parallel = 0 # zero means "some reasonable (non-1) default"; the default value is 1
