@@ -66,6 +66,7 @@ ALWAYS_WSL_COMMANDS[jump]='' # technically vendored
 # My ~/bin commands that are broken or otherwise weird if running from wsl in windows repos
 #ALWAYS_WSL_COMMANDS[j]= # takes a (too) long time to get the list of files
 #ALWAYS_WSL_COMMANDS[implicitdiff]= # I don't know. Shortcutted this by aliasing it to plain git-diff in windows-land
+# TODO: tab completion isn't... able to follow what I'm doing here. Anything I can do to help it along?
 
 # Windows dirs are exported to WSL via v9fs. This is the fastest check I can run
 if [[ v9fs = "$(stat --file-system . --format=%T)" ]]; then
