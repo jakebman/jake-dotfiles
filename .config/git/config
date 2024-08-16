@@ -156,7 +156,8 @@
 
 	# Read this as "run git in a delta-like mode for this current interaction"
 	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
-	delta = !git -c core.pager='delta --max-line-length 0' -c interactive.diffFilter='delta --color-only'
+	# NB: the [delta] sections below configures the particular --features I'm using here
+	delta = !git -c core.pager='delta --features=git-pager' -c interactive.diffFilter='delta --features=diff-filter'
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
 	ignore-untracked =  "!f() { git config --local status.showUntrackedFiles no ; } ; f"
@@ -213,6 +214,20 @@
 	tool = vimdiff
 	mnemonicPrefix = true
 	colorMoved = default # uses blue/purple for moved lines. Very pretty :)
+[delta]
+	# Leverage delta features to get cool behaviors. Our default-feature sets tabs to 4. That means
+	# that I'll get that whenever I invoke the delta executable directly.
+	# But that gets overwritten when we're using 'delta.exe' in our 'git-delta' alias because those commands
+	# specifically specify those --features.
+	# When that happens, the git-delta pagers end up using natural tabs instead of configured-width tabs
+	features = default-feature
+	tabs = 0 # print tabs naturally - respect `tabs` setting in the terminal
+[delta "default-feature"]
+	tabs = 4
+[delta "diff-filter"]
+	color-only = true
+[delta "git-pager"]
+	max-line-length = 0 # Don't wrap lines
 [blame]
 	date = human-local
 [submodule]
