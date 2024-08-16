@@ -144,7 +144,10 @@ set viminfofile=$XDG_STATE_HOME/vim/viminfo
 
 " This is cargo-culted from https://github.com/tpope/vim-git/blob/master/ftdetect/git.vim
 " I did at least figure out how to inline a function, and what au means
+" TODO: what values can filetype take?
+"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/git/work-config let &filetype = "gitconfig"
+autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/config let &filetype = "dosini"
 autocmd BufNewFile,BufRead *.bash let &filetype = "bash"
 
 " Make those folders automatically if they don't already exist.
