@@ -54,6 +54,10 @@ declare -A ALWAYS_WSL_COMMANDS
 ALWAYS_WSL_COMMANDS[config]=
 ALWAYS_WSL_COMMANDS[help]=
 ALWAYS_WSL_COMMANDS[symbolic-ref]=
+
+# git-extras commands (TODO: the rest)
+ALWAYS_WSL_COMMANDS[ignore-io]=
+
 # My own ~/bin commands, which aren't in window
 ALWAYS_WSL_COMMANDS[config-debug]=
 ALWAYS_WSL_COMMANDS[dump-env]=
