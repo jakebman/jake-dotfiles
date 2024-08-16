@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: this might be able to be rolled into .gitconfig
+
 function helper {
 	git config --show-origin --show-scope "$@"
 }
