@@ -55,6 +55,7 @@
 	bare = clone --bare
 	branches = branch -a # Originally a typo from bash-land, I realized this could be an even better command
 	bp = "!f() { \
+		: big-picture; \
 		if test \"$#\" -eq 0; then \
 			git big-picture -v x-www-browser; \
 		else \
@@ -75,6 +76,7 @@
 
 	# borrowed from my bash-implicit-git function `remote`, which we can't offer here, but its `remotes` alias can be duplicated here
 	remotes = "!f() { \
+		: remote; \
 		if test \"$#\" -eq 0 || test show = \"$1\"; then \
 			git remote -v \"$@\"; \
 		else \
@@ -133,9 +135,9 @@
 	## Utilities ("I didn't expect this to work, but I'm causing it to work anyway :D")
 	# These'll more likely than not use the function tech from https://www.atlassian.com/blog/git/advanced-git-aliases
 	# Also, multiline functions are strings with backslashes on the newlines. See https://stackoverflow.com/a/28502292/285944
-	# I only really feel that to be useful if there's more than one relevant command in the function
+	# (and also the `: <git-command>` completion assistance is covered in a comment there
+	# I only really feel these tools to be useful if there's more than one relevant command in the function
 	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
-	# TODO: /usr/share/bash-completion/completions has smarts about using the null command for completion that I don't understand
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
 
 	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
