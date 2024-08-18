@@ -197,6 +197,7 @@
 	renamed-by-author = by-author R # Renames - the NEW name
 
 	# TODO: if stdout is tty, print "$1 exists" or "$1 doesn't exist in git as a commitish object"
+	# ref: EXAMPLES section of `man git-rev-parse`
 	commit-ish-exists = "!f() { git rev-parse --verify --end-of-options ${1?}^{commit} >/dev/null 2>&1 ; } ; f"
 	# ref: https://stackoverflow.com/questions/6245570/how-do-i-get-the-current-branch-name-in-git
 	# NB: git branch --show-current is less good - succeeds with empty string in detached head state
