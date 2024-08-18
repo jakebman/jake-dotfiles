@@ -59,6 +59,7 @@ function j-preview {
 function j-fzf-common {
 	# TODO: what if the paths were abbreviated if there were more than ~12 characters worth of them?
 	# TODO: what in tarnation does this preview window setting mean?
+	# TODO: it would be nice if <right-arrow> and <right-end-of-input> forwards a <scoot preview lens right>
 	tee "$ALLRESULTS_FILE" \
 		| fzf --preview='j-preview {1} {2}' \
 			--ansi \
