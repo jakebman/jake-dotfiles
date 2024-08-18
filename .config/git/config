@@ -63,8 +63,8 @@
 		fi \n\
 		} ; f"
 	co = checkout
-	config-editg = config -e --global
-	config-editl = config -e --local
+	config-editg = config edit --global
+	config-editl = config edit --local # --local is unnecessary, but provides clarity
 	config-edit = config-editg
 	# delta is a utility defined below
 	delta-add = delta add --patch # --patch is implied if you're adding with delta
@@ -190,7 +190,7 @@
 	# (THESE FILES ARE NOT GUARANTEED TO EXIST b/c they can later be deleted)
 	# see https://superuser.com/a/1792567/137598
 	# The factored-out common worker. First argument is a diff-filter, second is the optional author regex
-	by-author = "!f() { git log --author=\"${2:-$(git config user.name)}\" --format='' --diff-filter=\"$1\" --name-only --no-commit-id | sort | uniq ; } ; f"
+	by-author = "!f() { git log --author=\"${2:-$(git config get user.name)}\" --format='' --diff-filter=\"$1\" --name-only --no-commit-id | sort | uniq ; } ; f"
 	created-by-author = by-author A
 	deleted-by-author = by-author D
 	touched-by-author = by-author r # Anything except a Rename
@@ -208,7 +208,8 @@
 	delta = !git -c core.pager='delta --features=git-pager' -c interactive.diffFilter='delta --features=diff-filter'
 	env = "!f() { echo EDITOR=$EDITOR; set ; } ; f"
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
-	ignore-untracked =  "!f() { git config --local status.showUntrackedFiles no ; } ; f"
+	# --local is unnecessary, but provides clarity
+	ignore-untracked =  "!f() { git config set --local status.showUntrackedFiles no ; } ; f"
 	# this isn't ideal - some "natural" answers actually don't work (and are grep -v'd away) like git-svn
 	# I'd like to use `git help $x`, but that fails for git-j, git-rscp and others w/o man pages
 	# The grep -v phrasing excludes some specific external commands that are false positives
@@ -220,7 +221,8 @@
 	# TODO: `git is-valid-git-command --help` succeds by printing this alias.
 	# But `git is-valid-git-command -- --help` fails, because `--` is not a command.
 	is-valid-git-command = "!f() { git help -a | grep -v -E '^\\s(cvs|p4|send-email|sh-)' | grep -q -s -E \"^\\s+${1?Need a value}\\b\" ; } ; f"
-	silence-mr-pull =  "!f() { git config --local merge.stat no ; } ; f"
+	# --local is unnecessary, but provides clarity
+	silence-mr-pull =  "!f() { git config set --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	show-git-dir = rev-parse --git-dir
