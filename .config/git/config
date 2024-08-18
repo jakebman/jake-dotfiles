@@ -143,7 +143,22 @@
 	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
 	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
 	#  branch for main
-	alias-main-for-master = "!f() { git symbolic-ref refs/heads/main refs/heads/master ; } ; f"
+	branch-alias = "!f() { \
+		local newBranch existingBranch; \
+		newBranch=${1?need a name for the new branch}; \
+		existingBranch=${2}; \
+		if ! git commit-ish-exists \"$existingBranch\"; then \
+			echo \"cannot create alias $newBranch for $existingBranch - $existingBranch does not exist \"; \
+			return 1; \
+		elif git commit-ish-exists \"$newBranch\"; then \
+			echo \"cannot create alias $newBranch for $existingBranch - $newBranch already exists\"; \
+			return 1; \
+		else \
+			git symbolic-ref refs/heads/main refs/heads/master && \
+			echo \"successfully aliased  $newBranch for $existingBranch\"; \
+		fi \
+		} ; f"
+	branch-alias-main-for-master = branch-alias main master
 
 	arguments-debug = "!f(){ \
 		for i; do \
@@ -175,6 +190,8 @@
 	touched-by-author = by-author r # Anything except a Rename
 	renamed-by-author = by-author R # Renames - the NEW name
 
+	# TODO: if stdout is tty, print "$1 exists" or "$1 doesn't exist in git as a commitish object"
+	commit-ish-exists = "!f() { git rev-parse --verify --end-of-options ${1?}^{commit} >/dev/null 2>&1 ; } ; f"
 	# Read this as "run git in a delta-like mode for this current interaction"
 	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
 	# NB: the [delta] sections below configures the particular --features I'm using here
