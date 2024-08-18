@@ -60,6 +60,7 @@ function j-fzf-common {
 	# TODO: what if the paths were abbreviated if there were more than ~12 characters worth of them?
 	# TODO: what in tarnation does this preview window setting mean?
 	# TODO: it would be nice if <right-arrow> and <right-end-of-input> forwards a <scoot preview lens right>
+	# TODO: it would be nice to Ctrl+S the current results into a file that j might auto-load sometimes?
 	tee "$ALLRESULTS_FILE" \
 		| fzf --preview='j-preview {1} {2}' \
 			--ansi \
@@ -192,6 +193,7 @@ else
 			;;
 
 		# special 'leading ack' case, where I went `j !!` instead of `j !*`
+		# (j!! is handled by an `alias jack=j`)
 		# (we don't need "implicit -x" handling here - `cat|ack` becomes nonsense under j!!
 		ack)
 			shift
