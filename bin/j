@@ -192,6 +192,7 @@ else
 			;;
 
 		# special 'leading ack' case, where I went `j !!` instead of `j !*`
+		# (we don't need "implicit -x" handling here - `cat|ack` becomes nonsense under j!!
 		ack)
 			shift
 			ITEMS=matches
@@ -201,7 +202,17 @@ else
 		# Finally, any other starting argument means "delegate all these arguments to ack".
 		*)
 			ITEMS=matches
-			j-ack "$@" | j-fzf-ack
+
+			# Implicit -x/--files-from=- when STDIN isn't the terminal.
+			# To wit: you piped something into this command. Why else pipe into here if we shouldn't read from it?
+			if [ ! -t 0 ]; then
+				ITEMS+="from stdin"
+				echo "$(basename "$0") - stdin not from /dev/tty - interpreting stdin as --files-from location"
+				j-ack --files-from=- "$@" | j-fzf-ack
+			else
+				j-ack "$@" | j-fzf-ack
+			fi
+
 			;;
 	esac
 fi
