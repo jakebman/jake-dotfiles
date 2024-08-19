@@ -8,6 +8,7 @@
 	ad = add
 	addp = add -p
 	aliases = alias # git-alias is in git-extras. Sometimes I expect the plural to work
+	alais = alias
 	alises = aliases
 	pb = bp # alias defined below to do big-picture stuff implicitly
 	comit = commit
@@ -161,7 +162,7 @@
 			>&2 echo \"Too many arguments\"; \n\
 			cat <<-'HEREDOC'; \n\
 			usage: git alias                  # list aliases \n\
-			   or: git alias <regex>          # aliases matching a regex \n\
+			   or: git alias <regex>          # aliases matching a regex (impl. hiccup: the values can also be matched) \n\
 			   or: git alias <name> <command> # create alias \n\
 			HEREDOC\n\
 			# NB: HEREDOC requires no space before line termination \n\
