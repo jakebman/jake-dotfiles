@@ -157,6 +157,11 @@
 		;; \n\
 		*) \n\
 			>&2 echo \"Too many arguments\"; \n\
+			cat <<-'HEREDOC' ; \n\
+			usage: git alias                  # list aliases \n\
+			   or: git alias <regex>          # aliases matching a regex\n\
+			   or: git alias <name> <command> # create alias\n\
+			HEREDOC\n\
 			return 1; \n\
 		;; \n\
 		esac \n\
