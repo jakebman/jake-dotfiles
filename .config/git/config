@@ -249,7 +249,7 @@
 	# And categories are listed in https://github.com/git/git/blob/master/command-list.txt, used by https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/help.c#L382
 	# But: Heads up! git --list-cmds=list-foreignscminterface still lists these cvs-y things, so is still over-broad
 	# This seems to be because those commands live as dependencies of apt's git-all
-	# TODO: `git is-valid-git-command --help` succeds by printing this alias.
+	# TODO: `git is-valid-git-command --help` incorrectly reports that --help is a git command, and coincidentally prints this alias. (thanks git-help!)
 	# But `git is-valid-git-command -- --help` fails, because `--` is not a command.
 	is-valid-git-command = "!f() { git help -a | grep -v -E '^\\s(cvs|p4|send-email|sh-)' | grep -q -s -E \"^\\s+${1?Need a value}\\b\" ; } ; f"
 	# --local is unnecessary, but provides clarity
