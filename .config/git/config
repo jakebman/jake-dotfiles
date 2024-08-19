@@ -147,7 +147,7 @@
 		0|1) \n\
 			git config get --all --show-names --regexp -z '^alias\\.' | \n\
 				sed -z -E 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
-				grep -z -E \"$1\" | \n\
+				grep -z -E -e \"$1\" | \n\
 				sort -z | \n\
 				tr '\\0' '\\n' | \n\
 				$(git var GIT_PAGER) \n\
