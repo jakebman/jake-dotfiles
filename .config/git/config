@@ -141,6 +141,27 @@
 	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
 
+	# re-implementing git-alias from git-extras to respect multi-line strings and use git-config subcommands
+	alias2 = "!f() { \n\
+		case $# in \n\
+		0) \n\
+			git config get --all --show-names --regexp -z '^alias\\.' | \n\
+				sed -z -E 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
+				sort -z | \n\
+				tr '\\0' '\\n' | \n\
+				$(git var GIT_PAGER) \n\
+		;; \n\
+		# TODO: 1) \n\
+		2) \n\
+			git config set --global \"$1\" \"$2\"  \n\
+		;; \n\
+		*) \n\
+			>&2 echo \"Too many arguments\"; \n\
+			return 1; \n\
+		;; \n\
+		esac \n\
+		} ; f"
+
 	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
 	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
 	#  branch for main
