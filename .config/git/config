@@ -144,14 +144,14 @@
 	# re-implementing git-alias from git-extras to respect multi-line strings and use git-config subcommands
 	alias2 = "!f() { \n\
 		case $# in \n\
-		0) \n\
+		0|1) \n\
 			git config get --all --show-names --regexp -z '^alias\\.' | \n\
 				sed -z -E 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
+				grep -z -E \"$1\" | \n\
 				sort -z | \n\
 				tr '\\0' '\\n' | \n\
 				$(git var GIT_PAGER) \n\
 		;; \n\
-		# TODO: 1) \n\
 		2) \n\
 			git config set --global \"$1\" \"$2\"  \n\
 		;; \n\
