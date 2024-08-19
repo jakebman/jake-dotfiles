@@ -23,6 +23,9 @@ q goto-end Q
 # what G does, which is goto-end
 ^g goto-end
 
+# TODO: Enhancement: what if these "spill the buffers and leave" somehow magically kept the buffer in a /tmp file
+# and less was smart enough to open the most recent of them on startup if no other input is provided?
+
 # "Next commit" - typing c gets you to search for the next commit-like label
 # by essentially being the / action, but the regex is always baked in
 c forw-search \^commit:? [0-9a-zA-Z]+\n
