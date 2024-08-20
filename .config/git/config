@@ -30,7 +30,8 @@
 		"
 	# NB: these are not used by git but instead by my custom command checking aliases below
 	categories = list-ancillaryinterrogators,list-ancillarymanipulators,list-complete,list-developerinterfaces,list-foreignscminterface,list-guide,list-mainporcelain,list-plumbinginterrogators,list-plumbingmanipulators,list-purehelpers,list-synchelpers,list-synchingrepositories,list-userinterfaces
-	failing-commands =
+	# Commands that, despite all evidence to the contrary, git considers to potentially be valid git commands. Formatted to be compatible with completion.commands
+	failing-commands = -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
@@ -297,7 +298,28 @@
 					}' \n\
 			)\" \n\
 		} ; f"
-	list-all-valid-git-commands = "!f() { git --list-cmds=$(git config get completion.categories),others,nohelpers,alias | sort | uniq ; } ; f"
+	# pretend there are no failing commands (which also pretends that there are no ignored completion commands)
+	# This includes all values for list-cmds EXCEPT FOR nohelpers, which is only a removal filter
+	list-all-git-commands = -c completion.failing-commands= list-all-valid-git-commands builtins parseopts main others alias config
+	list-all-valid-git-commands = "!bash -x -c '\n\
+		f() { \n\
+			local -a ARGS; \n\
+			ARGS+=($(git config get completion.categories)); \n\
+			if [[ $# -gt 0 ]]; then \n\
+				ARGS+=(\"$@\"); \n\
+			else \n\
+				# TODO: these probably aren't complete, and 'nohelpers' probably removes items. Not sure though \n\
+				ARGS+=(others nohelpers alias); \n\
+			fi \n\
+		\n\
+			# Join array on comma \n\
+			LIST_CMDS=$(IFS=, ; echo \"${ARGS[*]}\"); \n\
+		\n\
+			# Only omit the failing commands from this entire listing \n\
+			git -c \"completion.commands=$(git config get completion.failing-commands)\" --list-cmds=\"$LIST_CMDS\" | \n\
+				sort | \n\
+				uniq \n\
+		} ; f \"$@\"' bashs-diagnostic-name-for-list-all-valid-git-commands"
 	list-reasonable-git-commands = !git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config
 	# NB: a digression from !f() - I need bash's process substitution for this to be at all short
 	list-unreasonable-git-commands = "!bash -c 'f() { \n\
