@@ -3,12 +3,27 @@
 	name = Jake Boeckerman
 	email = jakebman@gmail.com
 [completion]
+	# NB: these values must all have a space before them - NOT A TAB!!!
+	# NB: the cases aren't as you expect - the deltaAdd alias is removed via -deltaadd
+
 	commands = "\
+	    -"traditional-typos" \
 	    -pb -ad -addp -alais -alises -comit -comm0t -comm9t -comm-t \
 	    -commt -config-deubg -dff -dif -idff -tgui -thelp -ehlp -hlep \
 	    -oroboros -pus -tpush -statu -stashs -tatus \
-	\
-	    -d -r"
+	    -ocmmit -aliases \
+		\
+	    -"convenient-names" \
+	    -d -r \
+	    -delta-add -deltaadd -delta-diff -deltadiff -delta-log -deltalog \
+	    -intent -workdir \
+		\
+	    -"commands-I-don't-care-for" \
+	    -am -force-clone \
+		\
+	    -"commands-that-confound-and/or-confuse-me" \
+	    -pbuilder -deborig \
+		"
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
