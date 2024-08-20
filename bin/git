@@ -68,6 +68,12 @@ ALWAYS_WSL_COMMANDS[jump]='' # technically vendored
 #ALWAYS_WSL_COMMANDS[implicitdiff]= # I don't know. Shortcutted this by aliasing it to plain git-diff in windows-land
 # TODO: tab completion isn't... able to follow what I'm doing here. Anything I can do to help it along?
 
+# TODO: git doesn't allow us to override builtins with aliases. I figure an [alias "allow-override-builtins"] section might be nice to read from here?
+# Or, write an alias that... figures out which aliases can work?
+# See https://stackoverflow.com/questions/3538774/is-it-possible-to-override-git-command-by-git-alias for discussion.
+# Git is valid to not do this. I might figure out a way that makes sense for me. A la `alias git="GIT_IS_ON_CLI_AND_PERMITS_ALIASES_TO_OVERRIDE_BUILTINS=1 git "` or `alias git='git allow-aliases'`?
+# plus a `git-unaliased` command which... sets that to zero or otherwise makes it inapplicable
+
 # Windows dirs are exported to WSL via v9fs. This is the fastest check I can run
 if [[ v9fs = "$(stat --file-system . --format=%T)" ]]; then
 	IS_WINDOWSY=true
