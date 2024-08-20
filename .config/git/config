@@ -98,6 +98,7 @@
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
 	intent-to-add = add --intent-to-add
 	no-columns = !git -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
+	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
 	no-pager = !git --no-pager
 
 	# borrowed from my bash-implicit-git function `remote`, which we can't offer here, but its `remotes` alias can be duplicated here
@@ -234,7 +235,6 @@
 	# NB: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
 	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME.  Hence, why I'm calling it psychotic.
 	authors = "!f() { git shortlog -s -e \"$@\" | awk '{$1=\"\";print}' | sort -f ; } ; f"
-	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
 	authors-raw = no-mailmap authors
 	# sort:
 	# -t: field separator
