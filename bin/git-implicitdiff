@@ -32,7 +32,13 @@ if [ "$RET" -eq 1 ]; then
 elif [ "$RET" -eq 0 ]; then
 	# "Success" - there is no difference, and we should supplement
 	# the lack-of-output from git diff
-	git status
+	# First: we check if there are any staged changes:
+	if ! git diff --quiet --staged 2> /dev/null; then
+		git diff --staged
+		git status # politely attempt to communicate that the staged diff is purely staged
+	else
+		git status
+	fi
 elif [ "$RET" -eq 129 ]; then
 	# "Not in git directory". git status prints a good error message for this case
 	git status
