@@ -145,7 +145,7 @@ set viminfofile=$XDG_STATE_HOME/vim/viminfo
 " This is cargo-culted from https://github.com/tpope/vim-git/blob/master/ftdetect/git.vim
 " I did at least figure out how to inline a function, and what au means
 " TODO: what values can filetype take?
-"
+" TODO: Thanks, past Jake for knowing what au means. Care to share with the class?
 autocmd BufNewFile,BufRead .mrconfig let &filetype = "gitconfig"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/git/work-config let &filetype = "gitconfig"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/config let &filetype = "dosini"
