@@ -3,12 +3,12 @@
 	name = Jake Boeckerman
 	email = jakebman@gmail.com
 [completion]
-	# These... should be working, but they... aren't. A bug? Me be wrong? Unpossible!
-	commands = -pb
-	commands = -ad
-	commands = -addp
-	commands = -alais
-	commands = -alises
+	commands = "\
+	    -pb -ad -addp -alais -alises -comit -comm0t -comm9t -comm-t \
+	    -commt -config-deubg -dff -dif -idff -tgui -thelp -ehlp -hlep \
+	    -oroboros -pus -tpush -statu -stashs -tatus \
+	\
+	    -d -r"
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
