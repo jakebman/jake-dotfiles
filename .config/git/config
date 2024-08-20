@@ -24,6 +24,9 @@
 		\
 	    -"commands-that-confound-and/or-confuse-me" \
 	    -pbuilder -deborig \
+		\
+	    -"git--list-cmds=list-foreignscminterface(the-broken-ones-at-least)" \
+	    -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -svn \
 		"
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
@@ -266,18 +269,14 @@
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
 	# --local is unnecessary, but provides clarity
 	ignore-untracked =  "!f() { git config set --local status.showUntrackedFiles no ; } ; f"
-	# this isn't ideal - some "natural" answers actually don't work (and are grep -v'd away) like git-svn
-	# I'd like to use `git help $x`, but that fails for git-j, git-rscp and others w/o man pages
-	# The grep -v phrasing excludes some specific external commands that are false positives
-	# This might also be improved if we leverage the `git --list-cmds=...` INTERNAL/EXPERIMENTAL tech from /usr/share/bash-completion/completions/git
-	# The list of values is in https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/git.c#L88
-	# And categories are listed in https://github.com/git/git/blob/master/command-list.txt, used by https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/help.c#L382
-	# But: Heads up! git --list-cmds=list-foreignscminterface still lists these cvs-y things, so is still over-broad
+	# WARNING: this API is still experimental, so I might need to act fluidly around it
+	# NOTE: categories for `list-X` are listed in https://github.com/git/git/blob/master/command-list.txt, used by https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/help.c#L382
+	# But: Heads up! git --list-cmds=list-foreignscminterface still lists git-p4, git-cvs*, and git-svn, which aren't shipped with bare git. That's why they're in complete.commands
 	# This seems to be because those commands live as dependencies of apt's git-all
 	# TODO: `git is-valid-git-command --help` incorrectly reports that --help is a git command, and coincidentally prints this alias. (thanks git-help!)
 	# But `git is-valid-git-command -- --help` fails, because `--` is not a command.
-	list-valid-git-commands = "!f() { git help -a | grep -v -E '^\\s*(cvs|p4|send-email|sh-)' ; } ; f"
-	is-valid-git-command = "!f() { git list-valid-git-commands | grep -q -s -E \"^\\s+${1?Need a value}\\b\" ; } ; f"
+	list-valid-git-commands = !git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config
+	is-valid-git-command = "!f() { git list-valid-git-commands | grep -q -s --line-regexp --fixed-strings \"${1?Need a value}\" ; } ; f"
 	# --local is unnecessary, but provides clarity
 	silence-mr-pull =  "!f() { git config set --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
