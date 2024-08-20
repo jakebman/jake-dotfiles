@@ -335,6 +335,10 @@
 				fi \n\
 			done \n\
 		} ; f"
+	update-failing-git-commands = "!f() { \n\
+			FAILS=\"$(git list-failing-git-commands | sed 's/^/-/g' | tr \"\\n\" ' ')\" \n\
+			git config set --global completion.failing-commands \"$FAILS\"; \n\
+		} ; f"
 
 
 	is-valid-git-command = "!f() { git list-valid-git-commands | grep -q -s --line-regexp --fixed-strings \"${1?Need a value}\" ; } ; f"
