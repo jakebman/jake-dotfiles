@@ -1,0 +1,68 @@
+# Docs: https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-alias.html
+# Examples: https://github.com/awslabs/awscli-aliases/blob/master/alias
+[toplevel]
+# This command is *really* pretty with --output table
+whoami =
+  !f() {
+    if [ "$#" -gt 0 ]; then
+      aws sts get-caller-identity "$@"
+    else
+      # "$@" is unnecessary, but keeps parallel structure better
+      aws sts get-caller-identity --output yaml "$@"
+    fi
+  }; f
+
+# NB: not actually SSH
+ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
+
+# NB: INCREDIBLY NOT aws sso login. Jake's ~/bin/awslogin script. Logs into docker, too
+login = !awslogin
+
+
+# springboard down to other commands. Sometimes aliases.
+regions = ec2 regions
+loggedin = sso loggedin
+logout = sso logout
+
+forward =
+  !f() {
+    # NB: all parameter strings are concatenated together. I'm a little uncertain of the mechanism
+    # but it's necessary and also useful
+    # NB: these parameters are subject to SQL-like injection.
+    # ex: aws forward instance "aHost,aNewParameter=aNewValue"
+    # TODO: it'd be nice if I could default these values in the aws config (aws configure get myVariableName)
+    local instance_id="${1:-i-02f3ee2b125396511}"
+    local host="${2:-nns-cache-default-pmtestnnd.redis.nns}"
+    local hostPort="${3:-6379}"
+    local localPort="${4:-${hostPort}}"
+    aws ssm start-session --target "${instance_id:?}" \
+      --document-name AWS-StartPortForwardingSessionToRemoteHost \
+      --parameters "host=${host},"\
+                   "portNumber=${hostPort},"\
+                   "localPortNumber=${localPort}"
+  } ; f
+
+forward-daemon =
+  !f() {
+    while true; do
+      aws forward "$@"
+    done
+  } ; f
+
+[command sso]
+# aws doesn't natively have this command. Weird. Also, surprisingly verbose
+loggedin =
+  !f() {
+    if aws sts get-caller-identity > /dev/null 2>&1; then
+      echo "you're logged in"
+    else
+      # preserve sts's return code, for whatever that's worth
+      local code="$?"
+      echo "you are not logged in"
+      return "$code"
+    fi
+  }; f
+
+# Example from the docs
+[command ec2]
+regions = describe-regions --query Regions[].RegionName
