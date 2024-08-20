@@ -223,6 +223,8 @@
 		} ; f"
 	branch-alias-main-for-master = branch-alias main master
 
+	# run an alias under tracing
+	alias-debug = "!f() { : git; export GIT_TRACE=1; git \"$@\" ; } ; f"
 	arguments-debug = "!f(){ \n\
 		for i; do \n\
 			echo \"'$i'\"; \n\
