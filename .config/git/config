@@ -16,7 +16,7 @@
 	    -"convenient-names" \
 	    -d -r \
 	    -delta-add -deltaadd -delta-diff -deltadiff -delta-log -deltalog \
-	    -intent -workdir \
+	    -intent -workdir -idiff \
 		\
 	    -"commands-I-don't-care-for" \
 	    -am -force-clone \
