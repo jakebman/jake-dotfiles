@@ -98,6 +98,7 @@
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
 	intent-to-add = add --intent-to-add
 	no-columns = -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
+	no-pager = !git --no-pager
 
 	# borrowed from my bash-implicit-git function `remote`, which we can't offer here, but its `remotes` alias can be duplicated here
 	remotes = "!f() { \n\
@@ -281,7 +282,7 @@
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	show-git-dir = rev-parse --git-dir
-	unpaged = !git --no-pager
+	unpaged = no-pager
 
 	# Stolen from mr's git_status action
 	# TODO: --simplify-by-decoration is a good "trim the tree to relevant bits" flag. Potentially use it in more places
