@@ -20,6 +20,7 @@
 		\
 	    -"commands-I-don't-care-for" \
 	    -am -force-clone \
+		-mr -pr \
 		\
 	    -"commands-that-confound-and/or-confuse-me" \
 	    -pbuilder -deborig \
