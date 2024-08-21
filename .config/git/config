@@ -361,9 +361,7 @@
 	# Because I have configured completion.commands, this is the "most-unmodified" call to --list-cmds,
 	#      upon which I can build other functions by *specifying* further behavior
 	# Be aware: list-reasonable-commands *needs* to pass config as the last element, which is why we're a helper and not a full command
-	# TODO: after a refactor, I don't think I need bash for this anymore :D
-	list-reasonable-commands--helper = "!bash -c '\n\
-		f() { \n\
+	list-reasonable-commands--helper = "!f() { \n\
 			# Join arg array on comma \n\
 			LIST_CMDS=$(IFS=, ; echo \"$*\"); \n\
 		\n\
@@ -371,7 +369,7 @@
 				sort | \n\
 				uniq | \n\
 				$(git var GIT_PAGER); \n\
-		} ; f \"$@\"' bashs-diagnostic-name-for-list-valid-commands"
+		} ; f"
 
 	# The list of commands I consider reasonable. Until I decide better, I'm using the list of categories from
 	# /usr/share/bash-completion/completions/git, which does take into account my completion.commands configuration, above.
