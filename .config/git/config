@@ -307,34 +307,52 @@
 	# Implemented via: "Pretend there are no invalid commands, and then ask for every command that isn't invalid"
 	# Detail: This effectively removes any '-dont-complete-me' entries from completion.commands, because list-commands
 	#           implicitly replaces those with the value of invalid-commands, which we just told it is empty :D
-	# We then ask for all list-cmds categories EXCEPT FOR nohelpers, which is only a removal filter,
-	# and parseopt, which seems to be considered invalid next to any other values, but is fine as a single value
-	# TODO: does parseopt have an identity relationship with any other set of categories
-	list-all-commands = "!f() { \n\
-			#NB: config is not specified here - it is unconditionally appended by list-commands \n\
-			git -c completion.invalid-commands= \
-				list-commands \"$(git config get completion.categories)\" \
-				builtins main others alias \"$@\"; \n\
+	list-commands-including-invalid = "!f() { \n\
+			# NB: config is not specified here - it is unconditionally appended by list-commands \n\
+			git -c completion.invalid-commands= list-all-commands \"$@\"; \n\
 		} ; f"
 
-	# List all commands that aren't *specifically* considered invalid
-	# see ...--helper
+	# List all the commands in all categories I'm aware of.
+	# This function serves as the SOURCE OF TRUTH for the non-(list-) --list-cmds values I am aware of
+	# You *can* call this with parameters, but mostly, that shouldn't do anything.
+	# Except nohelpers, which is a filter.
+	#
+	# We ask list-commands for all list-cmds categories EXCEPT FOR:
+	# * nohelpers, which is only a removal filter
+	# * config, which list-commands unconditionally automatically appends
+	# * parseopt, which seems to be considered invalid next to any other values, but is fine as a single value
+	# TODO: does parseopt have an identity relationship with any other set of categories
+	list-all-commands = "!f() { \n\
+			# famous last words: completion.categories can 'probably' remain unquoted \n\
+			# list-commands automatically appends config, so we do not specify it here \n\
+			git list-commands $(git config get completion.categories) builtins main others alias \"$@\"; \n\
+		} ; f"
+
+	# List the commands in a given set of categories that aren't *specifically* considered invalid
+	# Mutually recursive with list-all-commands
+	# This is the UI wrapped around the naive helper method. It's responsible for two behaviors:
+	# * always pass config at the end
+	# * have a sane (non-empty) set of defaults
+	#
 	list-commands = "!f() { \n\
 		if [ $# -gt 0 ]; then \n\
 			# we're responsible for always passing config as the last entry to --list args. ...--helpers are not \n\
 			git list-commands--helper \"$@\" config; \n\
 		else \n\
-			# 'default to all' \n\
-			# famous last words: completion.categories can 'probably' remain unquoted \n\
-			git list-commands--helper $(git config get completion.categories) builtins main others alias config; \n\
+			# 'default to reasonable'. The list of categories is borrowed from list-reasonable-categories \n\
+			# $@ is unnecesary, but remains good practice \n\
+			git list-commands--helper list-mainporcelain others nohelpers alias list-complete \"$@\" config; \n\
+			# Contrast to 'default to all', which is `git list-all-commands` \"$@\", and returns a few too many unreasonable elements \n\
 		fi \n\
 		} ; f"
 
-	# to wit: "Pretend that Jake's "remove all these unreasonable commands" configuration was only the barest possible value -
+	# to wit: "Pretend that Jake's "remove all these unreasonable commands" configuration had only the barest possible value -
 	# one that only excludes truly-invalid commands. Then, ask for what the reasonable commands are.
 	# We're essentially "list-reasonable-commands--helper" under s/reasonable/not-invalid/
 	list-commands--helper = "!f() { \n\
 			# only consider previously-found, truly-invalid commands to be removed by --list-cmds=config \n\
+			# TODO: there might actually be *positive* (non-removal) elements in completion.commands... \n\
+			# it would be nice to preserve those entries \n\
 			git -c \"completion.commands=$(git config get completion.invalid-commands)\" \
 				list-reasonable-commands--helper \"$@\"; \n\
 		} ; f"
@@ -363,13 +381,16 @@
 				list-mainporcelain others nohelpers alias list-complete \"$@\" config; \n\
 		} ; f"
 
+	# List the commands that aren't invalid, but are still unreasonable.
 	# NB: a digression from !f() - I need bash's process substitution for this to be at all short
 	list-unreasonable-commands = "!bash -c 'f() { \n\
-			comm -23 <(git list-valid-commands | sort | uniq) <(git list-reasonable-commands | sort | uniq) | \n\
+			comm -23 <(git list-commands | sort | uniq) <(git list-reasonable-commands | sort | uniq) | \n\
 				$(git var GIT_PAGER); \n\
 		} ; f'"
+	# List the commands that aren't invalid and considered helpers
+	# NB: there might be invalid helpers. I could not care less. Not worth listing them.
 	list-helper-commands = "!bash -c 'f() { \n\
-			comm -23 <(git list-all-commands | sort | uniq) <(git list-all-commands nohelpers | sort | uniq) | \n\
+			comm -23 <(git list-commands | sort | uniq) <(git list-commands nohelpers | sort | uniq) | \n\
 				$(git var GIT_PAGER); \n\
 		} ; f'"
 
@@ -390,6 +411,8 @@
 				fi \n\
 			done \n\
 		} ; f"
+
+	# TODO: it'd be nice to follow the progress of candidates as they're discovered. [ -t and /dev/tty checking?
 	update-invalid-commands = "!f() { \n\
 			candidates=\"$(git discover-invalid-commands | sed 's/^/-/g' | tr \"\\n\" ' ')\"; \n\
 			git config set --global completion.invalid-commands \"$candidates\"; \n\
