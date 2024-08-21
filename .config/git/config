@@ -390,13 +390,13 @@
 	# List the commands that aren't invalid, but are still unreasonable.
 	# NB: a digression from !f() - I need bash's process substitution for this to be at all short
 	list-unreasonable-commands = "!bash -c 'f() { \n\
-			comm -23 <(git list-commands | sort | uniq) <(git list-reasonable-commands | sort | uniq) | \n\
+			comm -23 <(git list-commands) <(git list-reasonable-commands) | \n\
 				$(git var GIT_PAGER); \n\
 		} ; f'"
 	# List the commands that aren't invalid and considered helpers
 	# NB: there might be invalid helpers. I could not care less. Not worth listing them.
 	list-helper-commands = "!bash -c 'f() { \n\
-			comm -23 <(git list-commands | sort | uniq) <(git list-commands nohelpers | sort | uniq) | \n\
+			comm -23 <(git list-all-commands) <(git list-all-commands nohelpers) | \n\
 				$(git var GIT_PAGER); \n\
 		} ; f'"
 
