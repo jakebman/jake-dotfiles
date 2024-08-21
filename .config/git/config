@@ -307,7 +307,7 @@
 	# Implemented via: "Pretend there are no invalid commands, and then ask for every command that isn't invalid"
 	# Detail: This effectively removes any '-dont-complete-me' entries from completion.commands, because list-commands
 	#           implicitly replaces those with the value of invalid-commands, which we just told it is empty :D
-	list-commands-including-invalid = "!f() { \n\
+	list-all-commands-including-invalid = "!f() { \n\
 			# NB: config is not specified here - it is unconditionally appended by list-commands \n\
 			git -c completion.invalid-commands= list-all-commands \"$@\"; \n\
 		} ; f"
@@ -329,7 +329,9 @@
 		} ; f"
 
 	# List the commands in a given set of categories that aren't *specifically* considered invalid
-	# Mutually recursive with list-all-commands
+	# By default, this matches the list of categories in list-reasonable-commands, but minimizing the completion.commmands filtering
+	# to only truly-invalid commands.
+	# Otherwise, you are allowed to choose your own set of categories (except that config is always applied)
 	# This is the UI wrapped around the naive helper method. It's responsible for two behaviors:
 	# * always pass config at the end
 	# * have a sane (non-empty) set of defaults
