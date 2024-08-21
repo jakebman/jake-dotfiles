@@ -349,7 +349,7 @@
 			# NB: word splitting and the rules for git commands mean I don't fear not-quoting $i here \n\
 			# NB: helpers should always be considered valid. Also - they don't respond to these queries well. :shrug: \n\
 			for i in $(git list-all-commands nohelpers); do \n\
-				if ! (git help $i || git $i help) >/dev/null 2>&1; then \n\
+				if ! (git help $i || git $i --help) >/dev/null 2>&1; then \n\
 					echo $i # found an invalid command! \n\
 				fi \n\
 			done \n\
