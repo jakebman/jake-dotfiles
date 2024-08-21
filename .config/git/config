@@ -3,31 +3,30 @@
 	name = Jake Boeckerman
 	email = jakebman@gmail.com
 [completion]
-	# NB: these values must all have a space before them - NOT A TAB!!!
+	# NB: tabs in this string are considered command words - \t-command is considered a positive entry
 	# NB: the cases aren't as you expect - the deltaAdd alias is removed via -deltaadd
+	commands = \
+        -"traditional-typos" \
+        -pb -ad -addp -alais -alises -comit -comm0t -comm9t -comm-t \
+        -commt -config-deubg -dff -dif -idff -tgui -thelp -ehlp -hlep \
+        -oroboros -pus -tpush -statu -stashs -tatus \
+        -ocmmit -aliases \
+    \
+        -"convenient-names" \
+        -d -r \
+        -delta-add -deltaadd -delta-diff -deltadiff -delta-log -deltalog \
+        -intent -workdir -idiff \
+    \
+        -"commands-I-don't-care-for" \
+        -am -force-clone \
+        -mr -pr \
+    \
+        -"commands-that-confound-and/or-confuse-me" \
+        -pbuilder -deborig \
+    \
+        -"git--list-cmds=list-foreignscminterface(the-broken-ones-at-least)" \
+        -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -svn \
 
-	commands = "\
-	    -"traditional-typos" \
-	    -pb -ad -addp -alais -alises -comit -comm0t -comm9t -comm-t \
-	    -commt -config-deubg -dff -dif -idff -tgui -thelp -ehlp -hlep \
-	    -oroboros -pus -tpush -statu -stashs -tatus \
-	    -ocmmit -aliases \
-		\
-	    -"convenient-names" \
-	    -d -r \
-	    -delta-add -deltaadd -delta-diff -deltadiff -delta-log -deltalog \
-	    -intent -workdir -idiff \
-		\
-	    -"commands-I-don't-care-for" \
-	    -am -force-clone \
-		-mr -pr \
-		\
-	    -"commands-that-confound-and/or-confuse-me" \
-	    -pbuilder -deborig \
-		\
-	    -"git--list-cmds=list-foreignscminterface(the-broken-ones-at-least)" \
-	    -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -svn \
-		"
 	# NB: these are not used by git but instead by my custom command checking aliases below
 	categories = list-ancillaryinterrogators,list-ancillarymanipulators,list-complete,list-developerinterfaces,list-foreignscminterface,list-guide,list-mainporcelain,list-plumbinginterrogators,list-plumbingmanipulators,list-purehelpers,list-synchelpers,list-synchingrepositories,list-userinterfaces
 	# Commands that, despite all evidence to the contrary, git considers to potentially be valid git commands. Formatted to be compatible with completion.commands
