@@ -432,11 +432,12 @@
 			sort; \n\
 		} ; f"
 
-	discover-invalid-commands = "!f() { \n\
+	discover-invalid-commands = commands--include-invalid discover-new-invalid-commands
+	discover-new-invalid-commands = "!f() { \n\
 			local i; \n\
 			# NB: word splitting and the rules for git commands mean I don't fear not-quoting $i here \n\
 			# NB: helpers should always be considered valid. Also - they don't respond to these queries well. :shrug: \n\
-			for i in $(git list-all-commands-including-invalid nohelpers); do \n\
+			for i in $(git list-all-commands nohelpers); do \n\
 				if ! (git help $i || git $i --help) >/dev/null 2>&1; then \n\
 					echo $i # found an invalid command! \n\
 				fi \n\
@@ -447,6 +448,10 @@
 	update-invalid-commands = "!f() { \n\
 			candidates=\"$(git discover-invalid-commands | sed 's/^/-/g' | tr \"\\n\" ' ')\"; \n\
 			git config set --global completion.invalid-commands \"$candidates\"; \n\
+		} ; f"
+	update-new-invalid-commands = "!f() { \n\
+			candidates=\"$(git discover-new-invalid-commands | sed 's/^/-/g' | tr \"\\n\" ' ')\"; \n\
+			git config set --global --append completion.invalid-commands \"$candidates\"; \n\
 		} ; f"
 
 	# TODO: remove '-git' from here. But later, after coordination with users of it
