@@ -320,7 +320,7 @@
 	# List all commands that aren't *specifically* considered invalid
 	# see ...--helper
 	list-commands = "!f() { \n\
-		if [[ $# -gt 0 ]]; then \n\
+		if [ $# -gt 0 ]; then \n\
 			# we're responsible for always passing config as the last entry to --list args. ...--helpers are not \n\
 			git list-commands--helper \"$@\" config; \n\
 		else \n\
