@@ -334,6 +334,9 @@
 	list-unreasonable-commands = "!bash -c 'f() { \n\
 			comm -23 <(git list-valid-commands | sort | uniq) <(git list-reasonable-commands | sort | uniq) ; \n\
 		} ; f'"
+	list-helper-commands = "!bash -c 'f() { \n\
+			comm -23 <(git list-all-commands | sort | uniq) <(git list-all-commands nohelpers | sort | uniq) ; \n\
+		} ; f'"
 
 	discover-invalid-commands = "!f() { \n\
 			local i; \n\
