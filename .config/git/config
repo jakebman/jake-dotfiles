@@ -404,6 +404,10 @@
 				$( (git config get --all completion.list-categories; \n\
 					git config get --all completion.most-categories) | sort | uniq ); \n\
 			return; \n\
+		elif [ $# -eq 1 ]; then \n\
+			# no need for all the rigamaroll \n\
+			git list-commands \"$@\"; \n\
+			return; \n\
 		fi \n\
 		\n\
 		local category; \n\
