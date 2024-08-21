@@ -346,7 +346,7 @@
 	list-reasonable-commands--helper = "!bash -c '\n\
 		f() { \n\
 			# Join arg array on comma \n\
-			LIST_CMDS=$(IFS=, ; echo \"$@\"); \n\
+			LIST_CMDS=$(IFS=, ; echo \"$*\"); \n\
 		\n\
 			git --list-cmds=\"$LIST_CMDS\" | \n\
 				sort | \n\
