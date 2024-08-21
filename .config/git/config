@@ -300,7 +300,7 @@
 		} ; f"
 	# pretend there are no failing commands (which also pretends that there are no ignored completion commands)
 	# This includes all values for list-cmds EXCEPT FOR nohelpers, which is only a removal filter
-	list-all-git-commands = -c completion.failing-commands= list-all-valid-git-commands builtins parseopts main others alias config
+	list-all-git-commands = -c completion.failing-commands= list-all-valid-git-commands builtins main others alias config
 	# NB: We're in a SUPER embedded context - I cannot abbreviate "aren't" in the TODO below, because it ends the:
 	# * second argument to bash (the first is -c)
 	# * in the second argument to sh (the first is -c)
