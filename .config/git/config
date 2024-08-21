@@ -29,6 +29,16 @@
 
 	# NB: these are not used by git but instead by my custom command checking aliases below
 	list-categories = list-ancillaryinterrogators,list-ancillarymanipulators,list-complete,list-developerinterfaces,list-foreignscminterface,list-guide,list-mainporcelain,list-plumbinginterrogators,list-plumbingmanipulators,list-purehelpers,list-synchelpers,list-synchingrepositories,list-userinterfaces
+	# all non-(list-) categories except nohelpers, parseopts and config, which are special/filtering/weird
+	# This config serves as my source of truth for the non-(list-) --list-cmds values I am aware of
+	# This is "most list-cmds categories EXCEPT FOR:
+	# * nohelpers, which is only a removal filter
+	# * config, which list-commands unconditionally automatically appends
+	# * parseopt, which seems to be considered invalid next to any other values, but is fine as a single value
+	most-categories = builtins main others alias
+	# The list of categories used by normal bash completion.
+	# If GIT_COMPLETION_SHOW_ALL_COMMANDS is specified, builtins is also pre-pended
+	most-bash-completion-categories = list-mainporcelain others nohelpers alias list-complete
 	# Commands that, despite all evidence to the contrary, git considers to potentially be valid git commands. Formatted to be compatible with completion.commands
 	invalid-commands = -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn
 [alias]
@@ -312,19 +322,14 @@
 		} ; f"
 
 	# List all the commands in all categories I'm aware of.
-	# This function serves as the SOURCE OF TRUTH for the non-(list-) --list-cmds values I am aware of
 	# You *can* call this with parameters, but mostly, that shouldn't do anything.
 	# Except nohelpers, which is a filter.
 	#
-	# We ask list-commands for all list-cmds categories EXCEPT FOR:
-	# * nohelpers, which is only a removal filter
-	# * config, which list-commands unconditionally automatically appends
-	# * parseopt, which seems to be considered invalid next to any other values, but is fine as a single value
 	# TODO: does parseopt have an identity relationship with any other set of categories
 	list-all-commands = "!f() { \n\
 			# famous last words: completion.list-categories can 'probably' remain unquoted \n\
 			# list-commands automatically appends config, so we do not specify it here \n\
-			git list-commands $(git config get completion.list-categories) builtins main others alias \"$@\"; \n\
+			git list-commands $(git config get completion.list-categories) $(git config get completion.most-categories) \"$@\"; \n\
 		} ; f"
 
 	# List the commands in a given set of categories that aren't *specifically* considered invalid
@@ -340,9 +345,8 @@
 			# we're responsible for always passing config as the last entry to --list args. ...--helpers are not \n\
 			git list-commands--helper \"$@\" config; \n\
 		else \n\
-			# 'default to reasonable'. The list of categories is borrowed from list-reasonable-categories \n\
 			# $@ is unnecesary, but remains good practice \n\
-			git list-commands--helper list-mainporcelain others nohelpers alias list-complete \"$@\" config; \n\
+			git list-commands--helper $(git config get completion.most-bash-completion-categories) \"$@\" config; \n\
 			# Contrast to 'default to all', which is `git list-all-commands` \"$@\", and returns a few too many unreasonable elements \n\
 		fi \n\
 		} ; f"
@@ -377,7 +381,7 @@
 	#     in completion.commands.
 	list-reasonable-commands = "!f() { \n\
 			git list-reasonable-commands--helper \
-				list-mainporcelain others nohelpers alias list-complete \"$@\" config; \n\
+				$(git config get completion.most-bash-completion-categories) \"$@\" config; \n\
 		} ; f"
 
 	# List the commands that aren't invalid, but are still unreasonable.
