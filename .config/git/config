@@ -330,7 +330,10 @@
 				uniq | \n\
 				$(git var GIT_PAGER); \n\
 		} ; f \"$@\"' bashs-diagnostic-name-for-list-valid-commands"
-	list-reasonable-commands = !git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config
+	list-reasonable-commands = "!f() { \n\
+			git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config | \n\
+				$(git var GIT_PAGER); \n\
+		} ; f"
 	# NB: a digression from !f() - I need bash's process substitution for this to be at all short
 	list-unreasonable-commands = "!bash -c 'f() { \n\
 			comm -23 <(git list-valid-commands | sort | uniq) <(git list-reasonable-commands | sort | uniq) | \n\
