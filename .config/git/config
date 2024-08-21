@@ -408,7 +408,7 @@
 		\n\
 		local category; \n\
 		for category in \"$@\"; do \n\
-			git list-commands $i | \n\
+			git list-commands \"$category\" | \n\
 				sed \"s/^/${category} /g\"; \n\
 		done | \n\
 			awk ' \n\
