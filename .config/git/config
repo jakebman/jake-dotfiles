@@ -42,10 +42,19 @@
 	most-bash-completion-categories = list-mainporcelain others nohelpers alias list-complete
 	# Commands that, despite all evidence to the contrary, git considers to potentially be valid git commands. Formatted to be compatible with completion.commands
 	invalid-commands = \
--"commands-that-do-not-work" \
--archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn \
--"commands-that-do-work-but-do-not-have-help" \
-config-debug export implicitdiff j jump
+        -"commands-that-do-not-work" \
+        -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn \
+    \
+        -"commands-that-do-work-but-do-not-have-help--this-section-doesn't-help" \
+        config-debug export implicitdiff j jump \
+    \
+        -"commands-that-were-found-later" \
+        -lfs \
+        -merge-octopus -merge-ours -merge-recursive -merge-recursive-ours \
+        -merge-recursive-theirs -merge-resolve -merge-subtree \
+        -pickaxe \
+        -remote-ftp -remote-ftps -remote-http -remote-https \
+        -rscp -vendor
 
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
