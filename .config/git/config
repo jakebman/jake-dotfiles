@@ -405,7 +405,7 @@
 		if [ $# -eq 0 ]; then \n\
 			git list-commands-by-category \
 				$( (git config get --all completion.list-categories; \n\
-					git config get --all completion.most-categories) | sort | uniq ); \n\
+					git config get --all completion.most-categories) | tr ' ' \"\\n\" | sort | uniq ); \n\
 			return; \n\
 		elif [ $# -eq 1 ]; then \n\
 			# no need for all the rigamaroll \n\
