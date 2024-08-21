@@ -359,7 +359,8 @@
 	# For correctness's sake, config is always added at THE END, because that removes any commands I've `config`ured as 'unreasonable'
 	#     in completion.commands.
 	list-reasonable-commands = "!f() { \n\
-		list-reasonable-commands--helper list-mainporcelain others nohelpers alias list-complete \"$@\" config; \n\
+			git list-reasonable-commands--helper \
+				list-mainporcelain others nohelpers alias list-complete \"$@\" config; \n\
 		} ; f"
 
 	# NB: a digression from !f() - I need bash's process substitution for this to be at all short
