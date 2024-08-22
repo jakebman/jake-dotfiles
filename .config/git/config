@@ -51,14 +51,6 @@
         -merge-recursive-theirs -merge-resolve -merge-subtree \
         -pickaxe \
         -remote-ftp -remote-ftps -remote-http -remote-https
-	# These commands fail "has-help", but if git lists them in the 'other' category, they're allowed to be considered valid
-	has-help-exceptions = config-debug
-	has-help-exceptions = export
-	has-help-exceptions = implicitdiff
-	has-help-exceptions = j
-	has-help-exceptions = jump
-	has-help-exceptions = rscp
-	has-help-exceptions = vendor
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
@@ -472,11 +464,8 @@
 		} ; f"
 
 	potentially-valid-git-command = "!f() { \n\
-		git has-help \"$1\" || \n\
-			git config get --value=\"$1\" --fixed-value completion.has-help-exceptions \n\
-		} ; f"
-	has-help-entry = "!f() { \n\
-			git help \"$1\" || git \"$1\" --help; \n\
+			git help \"$1\" || \n\
+			git \"$1\" --help 2>&1 | grep -s -q --line-regexp \"No manual entry for git-${1}\"; \n\
 		} ; f"
 	# TODO: remove '-git' from here. But later, after coordination with users of it
 	is-valid-git-command = "!f() { git list-all-commands | grep -q -s --line-regexp --fixed-strings \"${1?Need a value}\" ; } ; f"
