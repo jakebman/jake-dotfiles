@@ -47,6 +47,11 @@ docker-login =
       PROFILE=default
     fi
 
+    if aws configure get docker_login_skip_this_profile --profile "$PROFILE" >/dev/null 2>&1; then
+      echo "Not logging into docker for profile $PROFILE - docker_login_skip_this_profile is present"
+      return
+    fi
+
     ACCOUNT="$(aws sts get-caller-identity --query 'Account' --output text --profile "${PROFILE}" "$@")"
     WHERE="https://${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
     echo  "Logging into docker for aws account ${ACCOUNT} using the ${PROFILE} profile at url ${WHERE} ..."
