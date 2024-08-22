@@ -47,10 +47,7 @@
     \
         -"commands-that-were-found-later" \
         -lfs \
-        -merge-octopus -merge-ours -merge-recursive -merge-recursive-ours \
-        -merge-recursive-theirs -merge-resolve -merge-subtree \
-        -pickaxe \
-        -remote-ftp -remote-ftps -remote-http -remote-https
+
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
