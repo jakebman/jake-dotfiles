@@ -45,17 +45,20 @@
         -"commands-that-do-not-work" \
         -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn \
     \
-        -"commands-that-do-work-but-do-not-have-help--this-section-doesn't-help" \
-        config-debug export implicitdiff j jump \
-    \
         -"commands-that-were-found-later" \
         -lfs \
         -merge-octopus -merge-ours -merge-recursive -merge-recursive-ours \
         -merge-recursive-theirs -merge-resolve -merge-subtree \
         -pickaxe \
-        -remote-ftp -remote-ftps -remote-http -remote-https \
-        -rscp -vendor
-
+        -remote-ftp -remote-ftps -remote-http -remote-https
+	# These commands fail "has-help", but if git lists them in the 'other' category, they're allowed to be considered valid
+	has-help-exceptions = config-debug
+	has-help-exceptions = export
+	has-help-exceptions = implicitdiff
+	has-help-exceptions = j
+	has-help-exceptions = jump
+	has-help-exceptions = rscp
+	has-help-exceptions = vendor
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
@@ -452,7 +455,7 @@
 			# NB: word splitting and the rules for git commands mean I don't fear not-quoting $i here \n\
 			# NB: helpers should always be considered valid. Also - they don't respond to these queries well. :shrug: \n\
 			for i in $(git list-all-commands nohelpers); do \n\
-				if ! git has-help-entry $i >/dev/null 2>&1; then \n\
+				if ! git potentially-valid-git-command $i >/dev/null 2>&1; then \n\
 					echo $i # found an invalid command! \n\
 				fi \n\
 			done \n\
@@ -468,6 +471,10 @@
 			git config set --global --append completion.invalid-commands \"$candidates\"; \n\
 		} ; f"
 
+	potentially-valid-git-command = "!f() { \n\
+		git has-help \"$1\" || \n\
+			git config get --value=\"$1\" --fixed-value completion.has-help-exceptions \n\
+		} ; f"
 	has-help-entry = "!f() { \n\
 			git help \"$1\" || git \"$1\" --help; \n\
 		} ; f"
