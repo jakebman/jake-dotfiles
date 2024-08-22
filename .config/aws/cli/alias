@@ -47,7 +47,7 @@ docker-login =
       PROFILE=default
     fi
 
-    if aws configure get docker_login_skip_this_profile --profile "$PROFILE" >/dev/null 2>&1; then
+    if aws configure get docker_login_skip_this_profile --profile "$PROFILE" "$@" >/dev/null 2>&1; then
       echo "Not logging into docker for profile $PROFILE - docker_login_skip_this_profile is present"
       return
     fi
