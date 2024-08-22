@@ -22,7 +22,7 @@ login =
     if ! aws loggedin-silent; then
       aws sso login || return
     fi
-    echo starting async
+
     for profile in $(aws configure list-profiles); do
       # NB: profile argument is given as string, not --profile=... so that it can be output
       aws docker-login "$profile" &
