@@ -18,14 +18,21 @@ ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics rel
 # NB: INCREDIBLY NOT aws sso login. Jake's ~/bin/awslogin script. Logs into docker, too
 login =
   !f() {
+    local jobs # jobs -p doesn't report. Manually tracking it via $!
     if ! aws loggedin-silent; then
       aws sso login || return
     fi
-
+    echo starting async
     for profile in $(aws configure list-profiles); do
-      aws docker-login "$profile" # NB: profile argument is given as string, not --profile=... so that it can be output
+      # NB: profile argument is given as string, not --profile=... so that it can be output
+      aws docker-login "$profile" &
+      jobs="${jobs} ${!}" # pid of most-recently-backgrounded process
     done
 
+    local pid
+    for pid in $jobs; do
+      wait $pid || echo $pid failed somehow
+    done
   } ; f
 
 docker-login =
