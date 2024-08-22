@@ -15,7 +15,8 @@ whoami =
 # NB: not actually SSH
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
 
-# NB: INCREDIBLY NOT aws sso login. Jake's ~/bin/awslogin script. Logs into docker, too
+# NB: INCREDIBLY NOT aws sso login. Based on Jake's ~/bin/awslogin script. Logs into docker, too
+# NB: This doesn't really respect any aws flags. TODO: maybe do that?
 login =
   !f() {
     local jobs # jobs -p doesn't report. Manually tracking it via $!
