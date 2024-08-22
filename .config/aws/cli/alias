@@ -16,12 +16,40 @@ whoami =
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
 
 # NB: INCREDIBLY NOT aws sso login. Jake's ~/bin/awslogin script. Logs into docker, too
-login = !awslogin
+login =
+  !f() {
+    if ! aws loggedin-silent; then
+      aws sso login || return
+    fi
 
+    for profile in $(aws configure list-profiles); do
+      aws docker-login "$profile" # NB: profile argument is given as string, not --profile=... so that it can be output
+    done
 
+  } ; f
+
+docker-login =
+  !f() {
+    local PROFILE ACCOUNT WHERE
+
+    # PROFILE=${1-default}, but with shifting the arg if it is present
+    if [ -n "$1" ]; then
+      PROFILE="${1}"
+      shift
+    else
+      PROFILE=default
+    fi
+
+    ACCOUNT="$(aws sts get-caller-identity --query 'Account' --output text --profile "${PROFILE}" "$@")"
+    WHERE="https://${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
+    echo  "Logging into docker for aws account ${ACCOUNT} using the ${PROFILE} profile at url ${WHERE} ..."
+    aws ecr get-login-password | docker login -u AWS --password-stdin "$WHERE" >/dev/null
+    echo "Successfully logged into ${WHERE}"
+  } ; f
 # springboard down to other commands. Sometimes aliases.
 regions = ec2 regions
 loggedin = sso loggedin
+loggedin-silent = ! aws loggedin >/dev/null 2>&1
 logout = sso logout
 
 forward =
