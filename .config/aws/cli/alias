@@ -22,6 +22,8 @@ login =
     local jobs # jobs -p doesn't report. Manually tracking it via $!
     if ! aws loggedin-silent; then
       aws sso login || return
+    else
+      echo "You're still logged in :D"
     fi
 
     for profile in $(aws configure list-profiles); do
@@ -56,7 +58,7 @@ docker-login =
     fi
 
     if aws configure get docker_login_skip_this_profile --profile "$PROFILE" "$@" >/dev/null 2>&1; then
-      echo "Not logging into docker for profile $PROFILE - docker_login_skip_this_profile is present"
+      echo "Skipping docker login for profile $PROFILE - docker_login_skip_this_profile is present"
       return
     fi
 
@@ -71,7 +73,7 @@ docker-login =
           "${DOCKER_CONFIG}" \
           >/dev/null \
           2>&1 ; then
-        echo "Already found ${PROFILE} credentials for ${ACCOUNT} in ${DOCKER_CONFIG}"
+        echo "Already found '${PROFILE}' credentials for ${ACCOUNT} repository in ${DOCKER_CONFIG}"
         return
     fi
 
