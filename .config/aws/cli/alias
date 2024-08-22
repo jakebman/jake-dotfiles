@@ -64,7 +64,8 @@ docker-login =
     WHERE="${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
     DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${HOME}/P2776931/.docker/config.json}"
 
-    if jq --exit-status \
+    if type jq >/dev/null &&
+       jq --exit-status \
           --arg registryUrl "$WHERE" \
           '.auths | has($registryUrl)' \
           "${DOCKER_CONFIG}" \
