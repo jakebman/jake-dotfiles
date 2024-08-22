@@ -41,12 +41,22 @@
 	# If GIT_COMPLETION_SHOW_ALL_COMMANDS is specified, builtins is also pre-pended
 	most-bash-completion-categories = list-mainporcelain others nohelpers alias list-complete
 	# Commands that, despite all evidence to the contrary, git considers to potentially be valid git commands. Formatted to be compatible with completion.commands
+	# Vaguely, these are essentially 'other' commands that git sorta just expects to exist
+	# They come from list-foreignscminterface and list-purehelpers, and aren't in any other categories
+	# Oddly, git-lfs is *actually* an 'other' command, but is still listed, evn if it's missing. That tastes like a bug.
+	# I speculate it gets introduced by CI scripts that install git-lfs I'll.. just live with that
+	# edit: NOPE!!!! IT IS git-lfs.exe from the WINDOWS PATH that got brought in!
+	# (12:03:20) ○ [jakebman@Ubuntu] /mnt/c/Program Files/Git/cmd
+	# → IFS=: read -ra ELEM <<<"$PATH"
+	# (12:03:55) ○ [jakebman@Ubuntu] /mnt/c/Program Files/Git/cmd
+	# → for i in "${ELEM[@]}"; do PATH="$i" /usr/bin/git -c completion.commands= --list-cmds=others | grep lfs && echo $i; done
+	# lfs
+	# /mnt/c/Program Files/Git/cmd
 	invalid-commands = \
         -"commands-that-do-not-work" \
         -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn \
     \
         -"commands-that-were-found-later" \
-        -lfs \
 
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
