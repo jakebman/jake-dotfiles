@@ -55,7 +55,7 @@ docker-login =
     ACCOUNT="$(aws sts get-caller-identity --query 'Account' --output text --profile "${PROFILE}" "$@")"
     WHERE="https://${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
     echo  "Logging into docker for aws account ${ACCOUNT} using the ${PROFILE} profile at url ${WHERE} ..."
-    aws ecr get-login-password | docker login -u AWS --password-stdin "$WHERE" >/dev/null
+    aws ecr get-login-password --profile "$PROFILE" | docker login -u AWS --password-stdin "$WHERE" >/dev/null
     echo "Successfully logged into ${WHERE}"
   } ; f
 # springboard down to other commands. Sometimes aliases.
