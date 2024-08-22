@@ -36,9 +36,16 @@ login =
     done
   } ; f
 
+# disable optimism on docker-login
+docker-login-force =
+  !f() {
+    JAKE_AWS_DOCKER_LOGIN_CONFIG="" aws docker-login
+  } ; f
+
+
 docker-login =
   !f() {
-    local PROFILE ACCOUNT WHERE
+    local PROFILE ACCOUNT WHERE DOCKER_CONFIG
 
     # PROFILE=${1-default}, but with shifting the arg if it is present
     if [ -n "$1" ]; then
@@ -54,7 +61,19 @@ docker-login =
     fi
 
     ACCOUNT="$(aws sts get-caller-identity --query 'Account' --output text --profile "${PROFILE}" "$@")"
-    WHERE="https://${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
+    WHERE="${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
+    DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${HOME}/P2776931/.docker/config.json}"
+
+    if jq --exit-status \
+          --arg registryUrl "$WHERE" \
+          '.auths | has($registryUrl)' \
+          "${DOCKER_CONFIG}" \
+          >/dev/null \
+          2>&1 ; then
+        echo "Already found ${PROFILE} credentials for ${ACCOUNT} in ${DOCKER_CONFIG}"
+        return
+    fi
+
     echo  "Logging into docker for aws account ${ACCOUNT} using the ${PROFILE} profile at url ${WHERE} ..."
     aws ecr get-login-password --profile "$PROFILE" | docker login -u AWS --password-stdin "$WHERE" >/dev/null
     echo "Successfully logged into ${WHERE}"
