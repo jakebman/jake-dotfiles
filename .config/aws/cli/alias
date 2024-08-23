@@ -62,7 +62,9 @@ docker-login =
       return
     fi
 
-    ACCOUNT="$(aws sts get-caller-identity --query 'Account' --output text --profile "${PROFILE}" "$@")"
+    # ACCOUNT="$(aws sts get-caller-identity --query 'Account' --output text --profile "${PROFILE}" "$@")"
+    # this command is faster:
+    ACCOUNT="$(aws configure get sso_account_id --profile "${PROFILE}" "$@")"
     WHERE="${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
     DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${HOME}/P2776931/.docker/config.json}"
 
