@@ -520,7 +520,13 @@
 [core]
 	# almost every paged output that I care about is going to prefix the tabbed output with a +/-/' ' character
 	# this shifts my normal --tabs=2 over by that one character
-	pager = less --tabs=3,5 --lesskey-src ~/.config/lesskey-no-gotoend-on-q
+	# The --lesskey-src file is mostly empty, but re-overrwrites the q command in less to just quit (and not scroll to the end beforehand,
+	# which is an enhanced behavior that I ususally enjoy)
+	# The -O argument asks less to flush its stdin paged output to the given file. This is a second way I'm experiementing about
+	# preventing SIGPIPE errors in git when less 'exits suddenly' on q, and therefore 'doesn't properly consume all the git log output'
+	# (The other is simply having my ~/bin/git wrapper take the sigpipe error code and... just turn it into a success)
+	# NB: -O overwrites automatically. None of -o, --log-file, nor --LOG-FILE do.
+	pager = less --tabs=3,5 --lesskey-src ~/.config/lesskey-no-gotoend-on-q -O /dev/null
 [pager]
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
