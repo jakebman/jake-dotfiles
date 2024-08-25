@@ -68,12 +68,14 @@ function j-fzf-common {
 			--select-1 \
 			--no-sort \
 			--reverse \
+			--wrap \
 			--multi \
 			--history "${JAKE_J_HISTORY_FILE:-${XDG_STATE_HOME:-${HOME}/.local/state}/jake-j/history}" \
 			--header "Ctrl+Space to preview" \
 			--bind "ctrl-space:execute(vim -q <(echo {}) </dev/tty >/dev/tty)" \
 			--bind "ctrl-a:select-all" \
 			--bind "ctrl-n:deselect-all" \
+			--bind "ctrl-w:toggle-wrap" \
 			--bind "q:abort" \
 			--bind "change:unbind(q)" \
 			--bind "backward-eof:rebind(q)" \
