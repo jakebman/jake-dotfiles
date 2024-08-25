@@ -15,13 +15,15 @@ whoami =
 # NB: not actually SSH
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
 
-# NB: INCREDIBLY NOT aws sso login. Based on Jake's ~/bin/awslogin script. Logs into docker, too
-# NB: This doesn't really respect any aws flags. TODO: maybe do that?
+# aws sso login, plus other useful stuff. Logs into docker, too
+# NB: sso login applies across all profiles that share an sso session
+# TODO: this should pay attention to all other sso sessions.
+# Best we can do so far is allow choosing either a --profile or --sso-session
 login =
   !f() {
     local jobs # jobs -p doesn't report. Manually tracking it via $!
     if ! aws loggedin-silent; then
-      aws sso login || return
+      aws sso login "$@" || return
     else
       echo "You're still logged in :D"
     fi
