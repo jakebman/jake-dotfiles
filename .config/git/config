@@ -484,12 +484,27 @@
 	unpaged = no-pager
 
 	pager = "!f() { \n\
-		if [ -t 1 ]; then \n\
-			# stdout is terminal \n\
-			eval \"$(git var GIT_PAGER)\"; \n\
-		else \n\
-			cat; \n\
-		fi \n\
+			if ! [ -t 1 ]; then \n\
+				# stdout is not terminal \n\
+				cat; \n\
+				return; \n\
+			fi \n\
+			if [ -z \"$1\" ]; then \n\
+				>&2 echo 'please specify a subcommand. Using pager as command name'; \n\
+			fi \n\
+			local pager=\"$(git var GIT_PAGER)\"; \n\
+			if pager=$(git config get \"pager.${1:-pager}\"); then \n\
+				case \"$pager\" in \n\
+					no|off|false|0|'') \n\
+						echo disabled pager; \n\
+						cat; \n\
+						return; \n\
+					;; \n\
+				esac \n\
+			else \n\
+				local pager=\"$(git var GIT_PAGER)\"; \n\
+			fi \n\
+			eval \"$pager\"; \n\
 		} ; f"
 
 	# Stolen from mr's git_status action
