@@ -567,7 +567,8 @@
 	# preventing SIGPIPE errors in git when less 'exits suddenly' on q, and therefore 'doesn't properly consume all the git log output'
 	# (The other is simply having my ~/bin/git wrapper take the sigpipe error code and... just turn it into a success)
 	# NB: -O overwrites automatically. None of -o, --log-file, nor --LOG-FILE do.
-	log = less --lesskey-src ~/.config/lesskey-no-gotoend-on-q -O /dev/null
+	# NB: I have removed -O /dev/null - it takes 11s to `LESS+=+Q logp` in the maven repo. 0.07s when -O is removed
+	log = less --lesskey-src ~/.config/lesskey-no-gotoend-on-q
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
