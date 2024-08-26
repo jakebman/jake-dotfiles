@@ -89,6 +89,9 @@
 ## Google Protobuf
 --type-add=proto:ext:proto
 
+## RPM .spec files
+--type-add=spec:ext:spec
+
 ## Properties files
 --type-add=properties:ext:properties
 ### (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
