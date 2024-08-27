@@ -129,6 +129,7 @@
 	delta-diff = delta diff
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
+	#TODO: it would be nice if this also `touch`'d the file to make it exist if it doesn't
 	intent-to-add = add --intent-to-add
 	no-columns = !git -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
 	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
@@ -306,6 +307,9 @@
 	# A variant of ls-files that lists untracked files
 	# this is not the most obvious spelling, but '--other --no-ignored' doesn't actually... work
 	ls-untracked = ls-files --other --exclude-standard
+
+	# "Status, if it would have any output. Show otherwise."
+	# TODO: Except there's a bug. If there's an untracked file, I'd expect status to show it. But we don't catch it here.
 	status-or-show = "!f() { \n\
 		if git diff --quiet && git diff --staged --quiet; then \n\
 			git show \"$@\"; \n\
