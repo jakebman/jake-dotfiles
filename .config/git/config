@@ -305,21 +305,30 @@
 	ignore-untracked =  "!f() { git config set --local status.showUntrackedFiles no ; } ; f"
 
 	# TODO: generate a git-follow-refspec that can back-rewrite the fetch refspec to allow for actual, non-regex-modified, text comparison
+	# Because this only works on normal remotes that are configured with 'remote.<name>.fetch = +refs/heads/*:refs/remotes/origin/*'
+	# TODO: not all remotes have HEADs. We can ask to find one with `git remote set-head origin --auto`
 	is-mainline = "!f() { \n\
-		echo Warning - this only works on normal remotes that are configured with 'remote.<name>.fetch = +refs/heads/*:refs/remotes/origin/*'; \n\
-		local local remote remoteBranch remoteHead; \n\
+		local local remote remoteBranch remoteHead same; \n\
 		local=$(git current-branch); \n\
-		# git remote set-head origin --auto \n\
 		remote=$(git config get \"branch.${local}.remote\"); \n\
 		remoteBranch=$(git config get \"branch.${local}.merge\"); \n\
 		remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\"); \n\
-		echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
-		echo After prefix removal that looks like:; \n\
+		# echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
+		# echo After prefix removal that looks like:; \n\
 		\n\
+		# TODO: this can become more robust if it becomes a standalone git-follow-refspec command \n\
 		remoteHead=${remoteHead#${remote}}; # # is bash's prefix removal symbol \n\
 		remoteBranch=${remoteBranch#refs/heads}; # # is bash's prefix removal symbol \n\
-		echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
-		test \"x$remoteHead\" = \"x$remoteBranch\"; \n\
+		\n\
+		# NB: the x-prefix is necessary in case either of these gets a dash prefix\n\
+		if [ \"x$remoteHead\" = \"x$remoteBranch\" ]; then \n\
+			echo \"Local branch $local is configured to push to the remote mainline branch for $remote - $remoteHead.\"; \n\
+			return 0; \n\
+		else \n\
+			echo \"Local branch $local is not configured to push to the remote mainline branch for $remote - $remoteHead. Instead, it pushes to $remoteBranch.\"; \n\
+			return 1; \n\
+		fi \n\
+		\n\
 		} ; f"
 
 
