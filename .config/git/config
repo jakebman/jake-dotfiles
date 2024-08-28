@@ -304,6 +304,25 @@
 	# --local is unnecessary, but provides clarity
 	ignore-untracked =  "!f() { git config set --local status.showUntrackedFiles no ; } ; f"
 
+	# TODO: generate a git-follow-refspec that can back-rewrite the fetch refspec to allow for actual, non-regex-modified, text comparison
+	is-mainline = "!f() { \n\
+		echo Warning - this only works on normal remotes that are configured with 'remote.<name>.fetch = +refs/heads/*:refs/remotes/origin/*'; \n\
+		local local remote remoteBranch remoteHead; \n\
+		local=$(git current-branch); \n\
+		# git remote set-head origin --auto \n\
+		remote=$(git config get \"branch.${local}.remote\"); \n\
+		remoteBranch=$(git config get \"branch.${local}.merge\"); \n\
+		remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\"); \n\
+		echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
+		echo After prefix removal that looks like:; \n\
+		\n\
+		remoteHead=${remoteHead#${remote}}; # # is bash's prefix removal symbol \n\
+		remoteBranch=${remoteBranch#refs/heads}; # # is bash's prefix removal symbol \n\
+		echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
+		test \"x$remoteHead\" = \"x$remoteBranch\"; \n\
+		} ; f"
+
+
 	# A variant of ls-files that lists untracked files
 	# this is not the most obvious spelling, but '--other --no-ignored' doesn't actually... work
 	ls-untracked = ls-files --other --exclude-standard
