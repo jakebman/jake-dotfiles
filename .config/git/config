@@ -312,7 +312,7 @@
 		local=$(git current-branch); \n\
 		remote=$(git config get \"branch.${local}.remote\"); \n\
 		remoteBranch=$(git config get \"branch.${local}.merge\"); \n\
-		remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\"); \n\
+		remoteHead=$(git is-mainline--find-remote-head \"$remote\"); \n\
 		# echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
 		# echo After prefix removal that looks like:; \n\
 		\n\
@@ -329,6 +329,29 @@
 			return 1; \n\
 		fi \n\
 		\n\
+		} ; f"
+	# Helper - try to figure out where $remote/HEAD points, if it's not present
+	is-mainline--find-remote-head = "!f() { \n\
+		local remote remoteHead; \n\
+		remote=${1:-origin}; \n\
+		if remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\" 2>/dev/null); then \n\
+			echo $remoteHead; \n\
+			return; \n\
+		fi \n\
+		\n\
+		if ! git remote set-head \"$remote\" --auto >&2; then \n\
+			>&2 echo Cannot find a remote head for $remote; \n\
+			return 1; \n\
+		fi \n\
+		\n\
+		# NB: No stderr redirection here. We do want errors to go to the user, if there are any on this retry \n\
+		if remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\"); then \n\
+			echo $remoteHead; \n\
+			return; \n\
+		else \n\
+			>&2 echo Cannot determine remote head for $remote; \n\
+			return 1; \n\
+		fi \n\
 		} ; f"
 
 
