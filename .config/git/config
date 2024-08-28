@@ -306,7 +306,6 @@
 
 	# TODO: generate a git-follow-refspec that can back-rewrite the fetch refspec to allow for actual, non-regex-modified, text comparison
 	# Because this only works on normal remotes that are configured with 'remote.<name>.fetch = +refs/heads/*:refs/remotes/origin/*'
-	# TODO: not all remotes have HEADs. We can ask to find one with `git remote set-head origin --auto`
 	is-mainline = "!f() { \n\
 		local local remote remoteBranch remoteHead same; \n\
 		local=$(git current-branch); \n\
