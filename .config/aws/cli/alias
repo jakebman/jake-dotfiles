@@ -136,7 +136,7 @@ describe-clusters =
     aws eks list-clusters |
       jq -j '.clusters | join ("\u0000")' |
       xargs --null -L 1 aws eks describe-cluster --name |
-      jq --slurp .
+      jq --slurp 'reduce (.[] | .cluster | {(.name):.}) as $item ({}; . + $item)'
   }; f
 
 # Example from the docs
