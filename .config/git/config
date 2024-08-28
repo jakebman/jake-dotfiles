@@ -318,6 +318,8 @@
 		fi \n\
 		} ; f"
 
+	# TODO: Let's get a "pull, but also for non-checked-out branches"
+
 	# WARNING: this API is still experimental, so I might need to act fluidly around it
 	# NOTE: categories for `list-X` are listed in https://github.com/git/git/blob/master/command-list.txt, used by https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/help.c#L382
 	# But: Heads up! git --list-cmds=list-foreignscminterface still lists git-p4, git-cvs*, and git-svn, which aren't shipped with bare git. That's why they're in complete.commands
