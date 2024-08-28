@@ -130,6 +130,15 @@ loggedin =
     fi
   }; f
 
+[command eks]
+describe-clusters =
+  !f() {
+    aws eks list-clusters |
+      jq -j '.clusters | join ("\u0000")' |
+      xargs --null -L 1 aws eks describe-cluster --name |
+      jq --slurp .
+  }; f
+
 # Example from the docs
 [command ec2]
 regions = describe-regions --query Regions[].RegionName
