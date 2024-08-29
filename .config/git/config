@@ -58,6 +58,10 @@
     \
         -"commands-that-were-found-later" \
 
+# A variant of safe.directory; a whitelist for my git-allow-aliases-to-shadow-builtins command
+[safe "aliases"]
+	alias = ls-files
+
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
 	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
@@ -513,7 +517,7 @@
 			' | \n\
 			sort; \n\
 		} ; f"
-
+	ls-files = !echo hello and other agurments
 	discover-invalid-commands = commands--include-invalid discover-new-invalid-commands
 	discover-new-invalid-commands = "!f() { \n\
 			local i; \n\
@@ -575,6 +579,29 @@
 				pager=\"$(git var GIT_PAGER)\"; \n\
 			fi \n\
 			eval \"$pager\"; \n\
+		} ; f"
+
+	# git config, but with no way to access local or worktree configs.
+	# This leaves only the 'protected configurations' from `git help config`
+	# From the docs:
+	#   *  Protected configuration refers to the system, global, and command scopes.
+	#   * [all SCOPES  are: system, global, local, worktree, and command]
+	# So, to get protected configurations, we disregard the local and worktree scopes...
+	#     and implicitly the -c/command scopes
+	# We do that by ensuring git cannot read any local GIT_DIR stuff.
+	protected-config = "!f() { \n\
+		# This *should* be the most you-can't-read-this-folder folder name possible. \n\
+		# No files are allowed to have the null byte (otherwise find -print0 would be useless) \n\
+		# And I want it as short as possible, while still being self-documenting \n\
+		local NOT_A_FOLDER; \n\
+		printf -v NOT_A_FOLDER '%s\\0' disabled - not a folder; \n\
+		NOT_A_FOLDER=\"/$NOT_A_FOLDER\"; \n\
+		GIT_DIR=\"$NOT_A_FOLDER\" GIT_COMMON_DIR=\"$NOT_A_FOLDER\" git config \"$@\"; \n\
+		} ; f"
+
+	permit-aliases-to-shadow-builtins = "!f() { \n\
+		echo The aliases that are permitted to shadow builtins are: \n\
+		git protected-config get --all safe.aliases.alias; \n\
 		} ; f"
 
 	# Stolen from mr's git_status action
