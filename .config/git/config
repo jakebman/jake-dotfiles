@@ -313,6 +313,7 @@
 
 	# TODO: generate a git-follow-refspec that can back-rewrite the fetch refspec to allow for actual, non-regex-modified, text comparison
 	# Because this only works on normal remotes that are configured with 'remote.<name>.fetch = +refs/heads/*:refs/remotes/origin/*'
+	# TODO: fail if any of these commands fail. That's `(set -o errexit; {... your code})`
 	is-mainline = "!f() { \n\
 		local local remote remoteBranch remoteHead same; \n\
 		local=$(git current-branch); \n\
@@ -553,6 +554,7 @@
 	show-git-dir = rev-parse --git-dir
 	unpaged = no-pager
 
+	# TODO: use --default in git config get here.
 	pager = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal \n\
@@ -602,6 +604,8 @@
 		GIT_DIR=\"$NOT_A_FOLDER\" GIT_COMMON_DIR=\"$NOT_A_FOLDER\" git config \"$@\"; \n\
 		} ; f"
 
+	# see handle_alias in git's git.c
+	# TODO: squawk if there *is* an available alias, but it is NOT on the whitelist
 	permit-aliases-to-shadow-builtins = "!f() { \n\
 		echo The aliases that are permitted to shadow builtins are: \n\
 		git protected-config get --all safe.aliases.alias; \n\
@@ -610,6 +614,7 @@
 	# Stolen from mr's git_status action
 	# TODO: --simplify-by-decoration is a good "trim the tree to relevant bits" flag. Potentially use it in more places
 	# TODO: I'd also like the upstream mr-status to list commits from local branches that aren't pushed to their tracked branches
+	# TODO: it would also be nice to report on is-mainline
 	mr-status = "!f() { \n\
 			git status -s \"$@\"; \n\
 			git --no-pager log --branches --not --remotes --simplify-by-decoration --decorate --oneline; \n\
@@ -668,6 +673,8 @@
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
+	# Read and used by my git-pager alias:
+	# TODO: it would be nice if this bat coloring respected color.alias too, somehow. (See git config --get-colorbool)
 	alias = bat --style=plain --language=bash
 [column]
 	ui = auto
