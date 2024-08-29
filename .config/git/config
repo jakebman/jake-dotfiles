@@ -304,12 +304,16 @@
 	# --local is unnecessary, but provides clarity
 	ignore-untracked =  "!f() { git config set --local status.showUntrackedFiles no ; } ; f"
 
+	remote-for-branch = "!f() { \n\
+		git config get \"branch.${1:-$(git current-branch)}.remote\"; \n\
+		} ; f"
+
 	# TODO: generate a git-follow-refspec that can back-rewrite the fetch refspec to allow for actual, non-regex-modified, text comparison
 	# Because this only works on normal remotes that are configured with 'remote.<name>.fetch = +refs/heads/*:refs/remotes/origin/*'
 	is-mainline = "!f() { \n\
 		local local remote remoteBranch remoteHead same; \n\
 		local=$(git current-branch); \n\
-		remote=$(git config get \"branch.${local}.remote\"); \n\
+		remote=$(git remote-for-branch \"$local\"); \n\
 		remoteBranch=$(git config get \"branch.${local}.merge\"); \n\
 		remoteHead=$(git is-mainline--find-remote-head \"$remote\"); \n\
 		# echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
@@ -320,19 +324,15 @@
 		remoteBranch=${remoteBranch#refs/heads}; # # is bash's prefix removal symbol \n\
 		\n\
 		# NB: the x-prefix is necessary in case either of these gets a dash prefix\n\
-		if [ \"x$remoteHead\" = \"x$remoteBranch\" ]; then \n\
-			echo \"Local branch $local is configured to push to the remote mainline branch for $remote - $remoteHead.\"; \n\
-			return 0; \n\
-		else \n\
-			echo \"Local branch $local is not configured to push to the remote mainline branch for $remote - $remoteHead. Instead, it pushes to $remoteBranch.\"; \n\
-			return 1; \n\
-		fi \n\
-		\n\
+		[ \"x$remoteHead\" = \"x$remoteBranch\" ]; \n\
+		} ; f"
+	is-mainline-printed = "!f() { \n\
+		git is-mainline >/dev/null 2>&1 || echo local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), the remote master-like branch; \n\
 		} ; f"
 	# Helper - try to figure out where $remote/HEAD points, if it's not present
 	is-mainline--find-remote-head = "!f() { \n\
 		local remote remoteHead; \n\
-		remote=${1:-origin}; \n\
+		remote=${1:-$(git remote-for-branch)}; \n\
 		if remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\" 2>/dev/null); then \n\
 			echo $remoteHead; \n\
 			return; \n\
