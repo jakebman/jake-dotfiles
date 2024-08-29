@@ -203,7 +203,6 @@
 
 	# re-implementing git-alias from git-extras to respect multi-line strings and use git-config subcommands
 	# TODO: I think the grep phrase is the best filtering I can do - it permits ^
-	# TODO: some magic to set a pager of `bat --language=bash` for this command only? [pager]alias=... perhaps?
 	# TODO: these short flags should be longer (esp. to grep)
 	# TODO: it would be cool to take some config --flags like --names-only
 	alias = "!f() { \n\
@@ -639,6 +638,7 @@
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
+	alias = bat --style=plain --language=bash
 [column]
 	ui = auto
 [diff]
