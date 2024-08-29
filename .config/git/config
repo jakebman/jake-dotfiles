@@ -621,13 +621,16 @@
 			# see: https://stackoverflow.com/questions/10218474/how-to-obtain-the-first-letter-in-a-bash-variable \n\
 			aliasRest=${alias#?}; \n\
 			aliasSigil=${alias%$aliasRest}; \n\
-			if [ 'x!' = \"x${aliasSigil}\" ]; then \n\
-				# TODO: prepare_shell_cmd puts $@ into the shell command if there are more args \n\
-				sh -c \"$aliasRest\" \"overridingGitBuiltin $aliasName\" \"$@\"; \n\
-			else \n\
-				# Let string expansion apply. Does $* work better here? \n\
+			if [ 'x!' != \"x${aliasSigil}\" ]; then \n\
+				# A within-git alias. Let string expansion apply. Does $* work better here? \n\
 				git $alias \"$@\"; \n\
+				return; \n\
 			fi \n\
+			if [ $# -gt 0 ]; then \n\
+				# prepare_shell_cmd puts $@ into the shell command if there are more args \n\
+				aliasRest=$(printf '%s \"$@\"' \"$aliasRest\"); \n\
+			fi \n\
+			sh -c \"$aliasRest \" \"permit-aliases-to-shadow-builtins $aliasName\" \"$@\"; \n\
 		else \n\
 			git \"$@\"; \n\
 		fi \n\
