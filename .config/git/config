@@ -518,7 +518,7 @@
 			' | \n\
 			sort; \n\
 		} ; f"
-	config = config get --all
+	config = config list
 	ls-files = !echo hello and other agurments
 	discover-invalid-commands = commands--include-invalid discover-new-invalid-commands
 	discover-new-invalid-commands = "!f() { \n\
