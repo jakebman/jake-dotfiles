@@ -613,9 +613,9 @@
 		git protected-config get --all safe.aliases.alias; \n\
 		if git protected-config get --all -z safe.aliases.alias | \n\
 				grep -q -s -z \"${1?need an alias to expand}\"; then \n\
-			echo Excuse me, do you mind please running this:; \n\
 			alias=$(git protected-config get \"alias.${1}\"); \n\
-			echo $alias; \n\
+			# move the alias name out of $@ \n\
+			shift; \n\
 			# ! is meaningful to [ and test. I'm using x-prefix trick out of caution \n\
 			# ${alias:0:1} is only availble in bash. ${alias%${alias#?}} is portable \n\
 			# see: https://stackoverflow.com/questions/10218474/how-to-obtain-the-first-letter-in-a-bash-variable \n\
