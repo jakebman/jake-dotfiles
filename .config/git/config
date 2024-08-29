@@ -613,7 +613,14 @@
 	permit-aliases-to-shadow-builtins = "!f() { \n\
 		local aliasName alias aliasSigil aliasRest; \n\
 		aliasName=${1?need an alias to expand}; \n\
-		if ! git protected-config get --all --value=\"$aliasName\" --fixed-value safe.aliases.alias; then \n\
+		if ! git protected-config \
+				get \
+				--all \
+				--value=\"$aliasName\" \
+				--fixed-value \
+				safe.aliases.alias \
+				>/dev/null \
+				2>&1; then \n\
 			git \"$@\"; \n\
 			return \n\
 		fi \n\
