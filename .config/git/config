@@ -609,6 +609,13 @@
 	permit-aliases-to-shadow-builtins = "!f() { \n\
 		echo The aliases that are permitted to shadow builtins are: \n\
 		git protected-config get --all safe.aliases.alias; \n\
+		if git protected-config get --all -z safe.aliases.alias | \n\
+				grep -q -s -z \"${1?need an alias to expand}\"; then \n\
+			echo Excuse me, do you mind please running this: \n\
+			git protected-config get \"alias.${1}\" \n\
+		else \n\
+			git \"$@\"; \n\
+		fi \n\
 		} ; f"
 
 	# Stolen from mr's git_status action
