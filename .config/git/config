@@ -596,8 +596,8 @@
 		# This *should* be the most you-can't-read-this-folder folder name possible. \n\
 		# No files are allowed to have the null byte (otherwise find -print0 would be useless) \n\
 		# And I want it as short as possible, while still being self-documenting \n\
-		local NOT_A_FOLDER; \n\
-		printf -v NOT_A_FOLDER '%s\\0' disabled - not a folder; \n\
+		# printf -v NOT_A_FOLDER '%s\\0' disabled - not a folder \n\
+		local NOT_A_FOLDER=\"$(printf '%s\\0' disabled - not a folder)\"; \n\
 		NOT_A_FOLDER=\"/$NOT_A_FOLDER\"; \n\
 		GIT_DIR=\"$NOT_A_FOLDER\" GIT_COMMON_DIR=\"$NOT_A_FOLDER\" git config \"$@\"; \n\
 		} ; f"
