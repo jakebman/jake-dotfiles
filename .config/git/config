@@ -608,6 +608,7 @@
 
 	# see handle_alias in git's git.c
 	# TODO: squawk if there *is* an available alias, but it is NOT on the whitelist
+	# TODO: enable set -x if GIT_TRACE is defined :D
 	permit-aliases-to-shadow-builtins = "!f() { \n\
 		local aliasName alias aliasSigil aliasRest; \n\
 		aliasName=${1?need an alias to expand}; \n\
