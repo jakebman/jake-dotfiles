@@ -332,7 +332,13 @@
 		[ \"x$remoteHead\" = \"x$remoteBranch\" ]; \n\
 		} ; f"
 	is-mainline-printed = "!f() { \n\
-		git is-mainline >/dev/null 2>&1 || echo local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), the remote master-like branch; \n\
+		if git is-mainline >/dev/null 2>&1; then \n\
+			return; # propagates the success \n\
+		else \n\
+			local ret=$?; \n\
+			echo local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), the remote master-like branch; \n\
+			return $ret; # propagate the failure \n\
+		fi \n\
 		} ; f"
 	# Helper - try to figure out where $remote/HEAD points, if it's not present
 	is-mainline--find-remote-head = "!f() { \n\
@@ -417,7 +423,10 @@
 	list-commands--all-categories = commands--ensure-config-last list-commands--all-categories--raw
 	list-commands--all-categories--raw = "!f() { \n\
 			# impl. note: these config values are INTENDED to split on whitespace/contain multiple values \n\
-			git list-commands--raw $(git config get --all completion.list-categories) $(git config get --all completion.most-categories) \"$@\"; \n\
+			# NB: first arg set is LIST-categories. Second is MOST-categories \n\
+			git list-commands--raw $(git config get --all completion.list-categories) \\\n\
+			                       $(git config get --all completion.most-categories) \\\n\
+			                       \"$@\"; \n\
 		} ; f"
 
 	# List the commands in a given set of categories that aren't *specifically* considered invalid
@@ -471,29 +480,35 @@
 	#     in completion.commands.
 	list-reasonable-commands = commands--ensure-config-last list-reasonable-commands--raw
 	list-reasonable-commands--raw = "!f() { \n\
-			git commands--helper \
-				$(git config get --all completion.most-bash-completion-categories) \"$@\"; \n\
+			git commands--helper \\\n\
+				$(git config get --all completion.most-bash-completion-categories) \\\n\
+				\"$@\"; \n\
 		} ; f"
 
 	# List the commands that aren't invalid, but are still unreasonable.
 	# NB: a digression from !f() - I need bash's process substitution for this to be at all short
 	list-unreasonable-commands = "!bash -c 'f() { \n\
-			comm -23 <(git list-commands) <(git list-reasonable-commands) | \n\
+			comm -23 <(git list-commands) \\\n\
+			         <(git list-reasonable-commands) | \n\
 				git pager commands; \n\
 		} ; f'"
 	# List the commands that aren't invalid and considered helpers
-	# NB: there might be invalid helpers. I could not care less. Not worth listing them.
 	list-helper-commands = "!bash -c 'f() { \n\
-			comm -23 <(git list-all-commands) <(git list-all-commands nohelpers) | \n\
+			# NB: there might be invalid helpers. I could not care less. Not worth listing them. \n\
+			comm -23 <(git list-all-commands) \\\n\
+					 <(git list-all-commands nohelpers) | \n\
 				git pager commands; \n\
 		} ; f'"
 
 	list-commands-by-category = "!f() { \n\
 		# default arguments via recursion \n\
 		if [ $# -eq 0 ]; then \n\
-			git list-commands-by-category \
+			git list-commands-by-category \\\n\
 				$( (git config get --all completion.list-categories; \n\
-					git config get --all completion.most-categories) | tr ' ' \"\\n\" | sort | uniq ); \n\
+					git config get --all completion.most-categories) | \n\
+						tr ' ' \"\\n\" | \n\
+						sort | \n\
+						uniq ); \n\
 			return; \n\
 		elif [ $# -eq 1 ]; then \n\
 			# no need for all the rigamaroll \n\
@@ -613,13 +628,13 @@
 	permit-aliases-to-shadow-builtins = "!f() { \n\
 		local aliasName alias aliasSigil aliasRest; \n\
 		aliasName=${1?need an alias to expand}; \n\
-		if ! git protected-config \
-				get \
-				--all \
-				--value=\"$aliasName\" \
-				--fixed-value \
-				safe.aliases.alias \
-				>/dev/null \
+		if ! git protected-config \\\n\
+				get \\\n\
+				--all \\\n\
+				--value=\"$aliasName\" \\\n\
+				--fixed-value \\\n\
+				safe.aliases.alias \\\n\
+				>/dev/null \\\n\
 				2>&1; then \n\
 			git \"$@\"; \n\
 			return \n\
@@ -661,8 +676,8 @@
 	# Pulling the fetch out first seems to succeed, but isn't intuitive
 	# (I'm still doing it so I can have this script work better)
 	pull-shallow = "!f() { \n\
-		git fetch --no-tags --depth 1 \"$@\" && \
-			(git diff --stat HEAD origin/HEAD || echo 'failure in diff --stat') && \
+		git fetch --no-tags --depth 1 \"$@\" && \n\
+			(git diff --stat HEAD origin/HEAD || echo 'failure in diff --stat') && \n\
 			git pull --no-tags --rebase --depth 1 --quiet \"$@\"; \n\
 		} ; f"
 
