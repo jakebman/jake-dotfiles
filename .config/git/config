@@ -520,6 +520,7 @@
 		} ; f"
 	config = config list
 	ls-files = !echo hello and other agurments
+	ls-files2 = !echo hello and other agurments
 	discover-invalid-commands = commands--include-invalid discover-new-invalid-commands
 	discover-new-invalid-commands = "!f() { \n\
 			local i; \n\
