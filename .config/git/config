@@ -61,6 +61,7 @@
 # A variant of safe.directory; a whitelist for my git-allow-aliases-to-shadow-builtins command
 [safe "aliases"]
 	alias = ls-files
+	alias = config
 
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
