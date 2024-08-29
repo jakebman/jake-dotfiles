@@ -623,7 +623,7 @@
 				echo that is a sh-bang alias. Use eval, please; \n\
 			else \n\
 				# Let string expansion apply. Does $* work better here? \n\
-				git $@; \n\
+				git $alias \"$@\"; \n\
 			fi \n\
 		else \n\
 			git \"$@\"; \n\
