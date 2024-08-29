@@ -589,6 +589,9 @@
 	# So, to get protected configurations, we disregard the local and worktree scopes...
 	#     and implicitly the -c/command scopes
 	# We do that by ensuring git cannot read any local GIT_DIR stuff.
+	# BUT!!!!!!!!
+	# BEWARE!!!!!!
+	# LOCAL CONFIGS CAN OVERRIDE THIS ALIAS ITSELF!!!!!!!!!
 	protected-config = "!f() { \n\
 		# This *should* be the most you-can't-read-this-folder folder name possible. \n\
 		# No files are allowed to have the null byte (otherwise find -print0 would be useless) \n\
