@@ -609,19 +609,21 @@
 	# see handle_alias in git's git.c
 	# TODO: squawk if there *is* an available alias, but it is NOT on the whitelist
 	permit-aliases-to-shadow-builtins = "!f() { \n\
-		local alias; \n\
-		echo The aliases that are permitted to shadow builtins are: \n\
-		git protected-config get --all safe.aliases.alias; \n\
+		local aliasName alias aliasSigil aliasRest; \n\
+		aliasName=${1?need an alias to expand}; \n\
 		if git protected-config get --all -z safe.aliases.alias | \n\
-				grep -q -s -z \"${1?need an alias to expand}\"; then \n\
-			alias=$(git protected-config get \"alias.${1}\"); \n\
+				grep -q -s -z \"$aliasName\"; then \n\
+			alias=$(git protected-config get \"alias.${aliasName}\"); \n\
 			# move the alias name out of $@ \n\
 			shift; \n\
 			# ! is meaningful to [ and test. I'm using x-prefix trick out of caution \n\
 			# ${alias:0:1} is only availble in bash. ${alias%${alias#?}} is portable \n\
 			# see: https://stackoverflow.com/questions/10218474/how-to-obtain-the-first-letter-in-a-bash-variable \n\
-			if [ 'x!' = \"x${alias%\"${alias#?}\"}\" ]; then \n\
-				echo that is a sh-bang alias. Use eval, please; \n\
+			aliasRest=${alias#?}; \n\
+			aliasSigil=${alias%$aliasRest}; \n\
+			if [ 'x!' = \"x${aliasSigil}\" ]; then \n\
+				# TODO: prepare_shell_cmd puts $@ into the shell command if there are more args \n\
+				sh -c \"$aliasRest\" \"overridingGitBuiltin $aliasName\" \"$@\"; \n\
 			else \n\
 				# Let string expansion apply. Does $* work better here? \n\
 				git $alias \"$@\"; \n\
