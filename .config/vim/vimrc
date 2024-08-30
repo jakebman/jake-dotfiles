@@ -28,6 +28,11 @@ set listchars=tab:␉·,trail:␠
 set ignorecase
 set smartcase
 
+" I have no idea why this is necessary, but my home vim just randomly started
+" reading from ron, but lying about it (`:colorscheme` reports default,
+" g:colors_name is unset)
+" My default is somehow reading from ron? But not /usr/share/vim/vim82/colors/ron.vim, that's safe
+colorscheme default
 highlight ColorColumn ctermbg=cyan guibg=blue
 let g:EditorConfig_max_line_indicator = "exceeding"
 
