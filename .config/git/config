@@ -707,7 +707,15 @@
 			# prepare_shell_cmd puts $@ into the shell command if there are more args \n\
 			aliasRest=$(printf '%s \"$@\"' \"$aliasRest\"); \n\
 		fi \n\
-		sh -c \"$aliasRest \" \"run-alias $aliasName\" \"$@\"; \n\
+		local sh_args command_name=\"run-alias $aliasName\"; \n\
+		case \"$GIT_TRACE\" in \n\
+			1|2|true)  \n\
+				echo GIT_TRACE is enabled - turning on alias debugging; \n\
+				sh_args='-x'; \n\
+				command_name=$aliasRest; \n\
+			;; \n\
+		esac \n\
+		sh $sh_args -c \"$aliasRest \" \"$command_name\" \"$@\"; \n\
 		} ; f"
 
 	# Stolen from mr's git_status action, and modified for my purposes
