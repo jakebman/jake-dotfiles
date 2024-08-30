@@ -352,22 +352,24 @@
 
 	# TODO: generate a git-follow-refspec that can back-rewrite the fetch refspec to allow for actual, non-regex-modified, text comparison
 	# Because this only works on normal remotes that are configured with 'remote.<name>.fetch = +refs/heads/*:refs/remotes/origin/*'
-	# TODO: fail if any of these commands fail. That's `(set -o errexit; {... your code})`
 	# NB: we use `git rev-parse --symbolic-full-name @{push}` to hopefully figure out the complex dance
 	# between branch.<name>.remote, remote.pushDefault, and branch.<name>.pushRemote
 	# see https://stackoverflow.com/questions/2016901/how-to-list-unpushed-git-commits-local-but-not-on-origin
 	is-mainline = "!f() { \n\
-		local local remote remoteBranch remoteHead; \n\
-		local=$(git current-branch); \n\
-		remote=$(git remote-for-branch \"$local\"); \n\
-		remoteBranch=$(git rev-parse --symbolic-full-name @{push}); \n\
-		remoteHead=$(git is-mainline--find-remote-head \"${remote}\"); \n\
-		echo \"Local branch $local is configured to push to $remoteBranch on $remote.\"; \n\
-		echo \"The HEAD on $remote is $remoteHead.\"; \n\
-		\n\
-		# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
-		# Defensive coding! \n\
-		[ \"x$remoteHead\" = \"x$remoteBranch\" ]; \n\
+		( \n\
+			set -o errexit; \n\
+			local local remote remoteBranch remoteHead; \n\
+			local=$(git current-branch); \n\
+			remote=$(git remote-for-branch \"$local\"); \n\
+			remoteBranch=$(git rev-parse --symbolic-full-name @{push}); \n\
+			remoteHead=$(git is-mainline--find-remote-head \"${remote}\"); \n\
+			echo \"Local branch $local is configured to push to $remoteBranch on $remote.\"; \n\
+			echo \"The HEAD on $remote is $remoteHead.\"; \n\
+			\n\
+			# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
+			# Defensive coding! \n\
+			[ \"x$remoteHead\" = \"x$remoteBranch\" ]; \n\
+		) \n\
 		} ; f"
 	is-mainline-print-on-failure = "!f() { \n\
 		if git is-mainline >/dev/null 2>&1; then \n\
