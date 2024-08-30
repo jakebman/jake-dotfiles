@@ -302,9 +302,31 @@
 	touched-by-author = by-author r # Anything except a Rename
 	renamed-by-author = by-author R # Renames - the NEW name
 
-	# TODO: if stdout is tty, print "$1 exists" or "$1 doesn't exist in git as a commitish object"
 	# ref: EXAMPLES section of `man git-rev-parse`
-	commit-ish-exists = "!f() { git rev-parse --verify --end-of-options \"${1?}^{commit}\" >/dev/null 2>&1 ; } ; f"
+	commit-ish-exists = "!f() { \n\
+		local return parsed; \n\
+		git rev-parse \\\n\
+				--verify \\\n\
+				--end-of-options \\\n\
+				\"${1?need a commit object}^{commit}\" \\\n\
+				>/dev/null \\\n\
+				2>&1; \n\
+		return=$?; \n\
+		if ! [ -t 1 ]; then \n\
+			return $return; \n\
+		fi \n\
+		parsed=$(git rev-parse \\\n\
+						--abbrev-ref \\\n\
+						\"${1}\" \\\n\
+						2>&1); \n\
+		if [ 0 -eq $return ]; then \n\
+			# parameter expansion - add (...) if parsed is not empty \n\
+			echo \"${1} exists ${parsed:+(sounds like ${parsed})}\"; \n\
+		else \n\
+			echo $1 does not exist in git as a commitish object; \n\
+		fi \n\
+		return $return; \n\
+		} ; f"
 	# ref: https://stackoverflow.com/questions/6245570/how-do-i-get-the-current-branch-name-in-git
 	# NB: git branch --show-current is less good - succeeds with empty string in detached head state
 	current-branch = "!f() { git symbolic-ref --short HEAD ; } ; f"
