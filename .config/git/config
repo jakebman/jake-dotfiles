@@ -669,8 +669,7 @@
 	# The git commands you run in *any* alias do not automatically have the permit-... tech applied
 	# You. Must. Opt. In.
 	permit-aliases-to-shadow-builtins = "!f() { \n\
-		local aliasName alias aliasSigil aliasRest; \n\
-		aliasName=${1?need an alias to expand}; \n\
+		local aliasName=${1?need an alias to expand}; \n\
 		if ! git protected-config \\\n\
 				get \\\n\
 				--all \\\n\
@@ -689,6 +688,7 @@
 	# THERE IS NO CHECKING ON THIS. You asked for this behavior by invoking this command.
 	# If you want to be safer, check out permit-aliases-to-shadow-builtins
 	run-alias = "!f() { \n\
+		local aliasName alias aliasSigil aliasRest; \n\
 		aliasName=${1?need an alias to expand}; \n\
 		alias=$(git protected-config get \"alias.${aliasName}\"); \n\
 		# move the alias name out of $@ \n\
