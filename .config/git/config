@@ -148,6 +148,7 @@
 	no-pager = !git --no-pager
 
 	# borrowed from my bash-implicit-git function `remote`, which we can't offer here, but its `remotes` alias can be duplicated here
+	# TODO: Boy, does permit-aliases-to-shadow-builtins have good news for you!
 	remotes = "!f() { \n\
 		: remote; \n\
 		if test \"$#\" -eq 0 || test show = \"$1\"; then \n\
@@ -270,6 +271,7 @@
 	branch-alias-main-for-master = branch-alias main master
 
 	# run an alias under tracing
+	# TODO: can we borrow the permit-aliases-to-shadow-builtins tech to add -x to the `sh -c ...` invocation
 	alias-debug = "!f() { : git; export GIT_TRACE=1; git \"$@\" ; } ; f"
 	arguments-debug = "!f(){ \n\
 		for i; do \n\
