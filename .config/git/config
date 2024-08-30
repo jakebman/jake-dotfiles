@@ -564,9 +564,6 @@
 			' | \n\
 			sort; \n\
 		} ; f"
-	config = config list
-	ls-files = !echo hello and other agurments
-	ls-files2 = !echo hello and other agurments
 	discover-invalid-commands = commands--include-invalid discover-new-invalid-commands
 	discover-new-invalid-commands = "!f() { \n\
 			local i; \n\
@@ -652,6 +649,10 @@
 		GIT_DIR=\"$NOT_A_FOLDER\" GIT_COMMON_DIR=\"$NOT_A_FOLDER\" git config \"$@\"; \n\
 		} ; f"
 
+	# intermediate test aliases
+	config = config list
+	ls-files = !echo hello and other agurments
+	ls-files2 = !echo hello and other agurments
 	# see handle_alias in git's git.c
 	# TODO: squawk if there *is* an available alias, but it is NOT on the whitelist
 	# TODO: enable set -x if GIT_TRACE is defined :D
