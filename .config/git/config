@@ -740,6 +740,7 @@
 	autoCorrect = prompt
 [core]
 	# almost every paged output that I care about is going to prefix the tabbed output with a +/-/' ' character
+	# at a minimum that's: logp, show, diff
 	# this shifts my normal --tabs=2 over by that one character
 	pager = less --tabs=3,5
 [pager]
