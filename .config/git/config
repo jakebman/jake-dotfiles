@@ -726,7 +726,7 @@
 	mr-status = "!f() { \n\
 			git status -s \"$@\"; \n\
 			git --no-pager log --branches --not --remotes --simplify-by-decoration --decorate --oneline; \n\
-			git --no-pager log --simplify-by-decoration --decorate --oneline @{upstream}.. --; \n\
+			# git --no-pager log --simplify-by-decoration --decorate --oneline @{upstream}.. --; \n\
 			git --no-pager stash list; \n\
 			git is-mainline-print-on-failure; \n\
 		} ; f"
