@@ -78,7 +78,6 @@
 	comm-t = commit
 	commt = commit
 	ocmmit = commit
-	commitm = commit -m # TODO: would be nice if no-args to this didn't produce an error, but instead a message editor
 	commitmp = commitpm
 	commitp = commitpm
 	commitpm = addp-and-commitm
@@ -126,6 +125,14 @@
 		fi \n\
 		} ; f"
 	co = checkout
+	# This "should" be a typo of 'commit -m', but I want the ergonomics of no complaints if no arguments
+	commitm = "!f() { \n\
+		if test \"$#\" -eq 0; then \n\
+			git commit; \n\
+		else \n\
+			git commit -m \"$@\"; \n\
+		fi \n\
+		} ; f"
 	config-editg = config edit --global
 	config-editl = config edit --local # --local is unnecessary, but provides clarity
 	config-edit = config-editg
