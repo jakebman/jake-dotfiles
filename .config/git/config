@@ -683,7 +683,7 @@
 			return \n\
 		fi \n\
 		\n\
-		git run-alias \"$aliasName\" \"$@\"; \n\
+		git run-alias \"$@\"; \n\
 		} ; f"
 	# Runs any alias, including those that shadow builtins.
 	# THERE IS NO CHECKING ON THIS. You asked for this behavior by invoking this command.
