@@ -330,7 +330,7 @@
 		# Defensive coding! \n\
 		[ \"x$remoteHead\" = \"x$remoteBranch\" ]; \n\
 		} ; f"
-	is-mainline-printed = "!f() { \n\
+	is-mainline-print-on-failure = "!f() { \n\
 		if git is-mainline >/dev/null 2>&1; then \n\
 			return; # propagates the success \n\
 		fi \n\
@@ -661,12 +661,12 @@
 	# Stolen from mr's git_status action
 	# TODO: --simplify-by-decoration is a good "trim the tree to relevant bits" flag. Potentially use it in more places
 	# TODO: I'd also like the upstream mr-status to list commits from local branches that aren't pushed to their tracked branches
-	# TODO: it would also be nice to report on is-mainline
 	mr-status = "!f() { \n\
 			git status -s \"$@\"; \n\
 			git --no-pager log --branches --not --remotes --simplify-by-decoration --decorate --oneline; \n\
 			git --no-pager log --not --remotes --simplify-by-decoration --decorate --oneline @{u}.. --; \n\
 			git --no-pager stash list; \n\
+			git is-mainline-print-on-failure; \n\
 		} ; f"
 
 	# Migrated from junk drawer - "pull, but reshallow"
