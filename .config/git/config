@@ -321,32 +321,28 @@
 		local local remote remoteBranch remoteHead same; \n\
 		local=$(git current-branch); \n\
 		remote=$(git remote-for-branch \"$local\"); \n\
-		remoteBranch=$(git config get \"branch.${local}.merge\"); \n\
-		remoteHead=$(git is-mainline--find-remote-head \"$remote\"); \n\
-		# echo \"Local branch $local is configured to push to $remoteBranch on $remote. Is that the same as $remoteHead?\"; \n\
-		# echo After prefix removal that looks like:; \n\
+		remoteBranch=$(git rev-parse --symbolic-full-name @{push}); \n\
+		remoteHead=$(git is-mainline--find-remote-head \"${remote}\"); \n\
+		echo \"Local branch $local is configured to push to $remoteBranch on $remote.\"; \n\
+		echo \"The HEAD on $remote is $remoteHead\"; \n\
 		\n\
-		# TODO: this can become more robust if it becomes a standalone git-follow-refspec command \n\
-		remoteHead=${remoteHead#${remote}}; # # is bash's prefix removal symbol \n\
-		remoteBranch=${remoteBranch#refs/heads}; # # is bash's prefix removal symbol \n\
-		\n\
-		# NB: the x-prefix is necessary in case either of these gets a dash prefix\n\
+		# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
+		# Defensive coding! \n\
 		[ \"x$remoteHead\" = \"x$remoteBranch\" ]; \n\
 		} ; f"
 	is-mainline-printed = "!f() { \n\
 		if git is-mainline >/dev/null 2>&1; then \n\
 			return; # propagates the success \n\
-		else \n\
-			local ret=$?; \n\
-			echo local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), the remote master-like branch; \n\
-			return $ret; # propagate the failure \n\
 		fi \n\
+		local ret=$?; \n\
+		echo local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), the remote master-like branch; \n\
+		return $ret; # propagate the failure \n\
 		} ; f"
 	# Helper - try to figure out where $remote/HEAD points, if it's not present
 	is-mainline--find-remote-head = "!f() { \n\
 		local remote remoteHead; \n\
 		remote=${1:-$(git remote-for-branch)}; \n\
-		if remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\" 2>/dev/null); then \n\
+		if remoteHead=$(git rev-parse --symbolic-full-name \"${remote}/HEAD\" 2>/dev/null); then \n\
 			echo $remoteHead; \n\
 			return; \n\
 		fi \n\
@@ -357,7 +353,7 @@
 		fi \n\
 		\n\
 		# NB: No stderr redirection here. We do want errors to go to the user, if there are any on this retry \n\
-		if remoteHead=$(git symbolic-ref --short \"refs/remotes/${remote}/HEAD\"); then \n\
+		if remoteHead=$(git rev-parse --symbolic-full-name \"${remote}/HEAD\"); then \n\
 			echo $remoteHead; \n\
 			return; \n\
 		else \n\
