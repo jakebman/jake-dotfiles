@@ -663,6 +663,11 @@
 	# see handle_alias in git's git.c
 	# TODO: squawk if there *is* an available alias, but it is NOT on the whitelist
 	# TODO: enable set -x if GIT_TRACE is defined :D
+	# Heads up - this is not 'infectious' - only the most-immediate command is allowed to shadow builtins.
+	# To wit: you can shadow `ls-files = ls-files --default-arguments...` and not produce an infinite loop
+	# Nor will `commit=push; push=commit`. Running `git permit... commit` simply means push, and vice-versa
+	# The git commands you run in *any* alias do not automatically have the permit-... tech applied
+	# You. Must. Opt. In.
 	permit-aliases-to-shadow-builtins = "!f() { \n\
 		local aliasName alias aliasSigil aliasRest; \n\
 		aliasName=${1?need an alias to expand}; \n\
@@ -678,11 +683,18 @@
 			return \n\
 		fi \n\
 		\n\
+		git run-alias \"$aliasName\" \"$@\"; \n\
+		} ; f"
+	# Runs any alias, including those that shadow builtins.
+	# THERE IS NO CHECKING ON THIS. You asked for this behavior by invoking this command.
+	# If you want to be safer, check out permit-aliases-to-shadow-builtins
+	run-alias = "!f() { \n\
+		aliasName=${1?need an alias to expand}; \n\
 		alias=$(git protected-config get \"alias.${aliasName}\"); \n\
 		# move the alias name out of $@ \n\
 		shift; \n\
 		# ! is meaningful to [ and test. I'm using x-prefix trick out of caution \n\
-		# ${alias:0:1} is only availble in bash. ${alias%${alias#?}} is portable \n\
+		# ${alias:0:1} is only availble in bash. ${alias%${alias#?}} is portable to sh \n\
 		# see: https://stackoverflow.com/questions/10218474/how-to-obtain-the-first-letter-in-a-bash-variable \n\
 		aliasRest=${alias#?}; \n\
 		aliasSigil=${alias%$aliasRest}; \n\
@@ -695,7 +707,7 @@
 			# prepare_shell_cmd puts $@ into the shell command if there are more args \n\
 			aliasRest=$(printf '%s \"$@\"' \"$aliasRest\"); \n\
 		fi \n\
-		sh -c \"$aliasRest \" \"permit-aliases-to-shadow-builtins $aliasName\" \"$@\"; \n\
+		sh -c \"$aliasRest \" \"run-alias $aliasName\" \"$@\"; \n\
 		} ; f"
 
 	# Stolen from mr's git_status action, and modified for my purposes
