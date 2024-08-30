@@ -349,7 +349,7 @@
 	# TODO: this might be simplified via `git rev-parse --symbolic-full-name @{push}`
 	# see https://stackoverflow.com/questions/2016901/how-to-list-unpushed-git-commits-local-but-not-on-origin
 	is-mainline = "!f() { \n\
-		local local remote remoteBranch remoteHead same; \n\
+		local local remote remoteBranch remoteHead; \n\
 		local=$(git current-branch); \n\
 		remote=$(git remote-for-branch \"$local\"); \n\
 		remoteBranch=$(git rev-parse --symbolic-full-name @{push}); \n\
