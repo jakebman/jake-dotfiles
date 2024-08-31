@@ -142,11 +142,16 @@
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
 	# add --intent-to-add, but also implicitly `touch` files that don't exist, including their parent folders
-	# TODO: ensure the ultimately `mkdir`d dir's and `touch`d files all live in the repo.
 	intent-to-add = "!f() { \n\
 		for arg; do \n\
 			# TODO: getopt, git-rev-parse, or *something* more canoncial than 'skip arguments if they start with dash' \n\
 			if [ \"x${arg}\" = \"x${arg#-}\" ] && ! [ -f \"${arg}\" ]; then \n\
+				arg=$(realpath --relative-to=\"$(git rev-parse --show-toplevel)\" \"$arg\"); \n\
+				case \"$arg\" in \n\
+				..*) # relative path from git's toplevel is *outside* toplevel. No good \n\
+					continue; \n\
+				;; \n\
+				esac \n\
 				if ! [ -d \"$(dirname \"$arg\")\" ]; then \n\
 					mkdir -p \"$(dirname \"$arg\")\"; \n\
 				fi \n\
