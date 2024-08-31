@@ -233,6 +233,7 @@
 
 	# re-implementing git-alias from git-extras to respect multi-line strings and use git-config subcommands
 	# TODO: it would be cool to take some config --flags like --names-only
+	# TODO: once I figure out the 'type expands aliases deeply' tech in bash-land, borrow it here.
 	alias = "!f() { \n\
 		case $# in \n\
 		0|1) \n\
