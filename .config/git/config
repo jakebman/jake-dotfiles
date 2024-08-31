@@ -726,9 +726,13 @@
 				>/dev/null \\\n\
 				2>&1; then \n\
 			# NB: if aliasName matches a git command, especially a builtin one? It's safe to leave unquoted here \n\
-			echo 'A non-whitelisted alias exists for' $aliasName; \n\
-			echo 'Consider deleting it or adding it to safe.aliases.alias' \n\
-			echo 'via: git config --global set --append safe.aliases.alias' $aliasName \n\
+			trap \" \n\
+					echo \n\
+					echo 'A non-whitelisted alias exists for' $aliasName; \n\
+					echo 'Consider deleting it or adding it to safe.aliases.alias' \n\
+					echo 'via: git config --global set --append safe.aliases.alias' $aliasName \n\
+					echo \n\
+				\" EXIT; \n\
 		fi \n\
 		\n\
 		git \"$@\"; \n\
