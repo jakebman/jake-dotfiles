@@ -106,6 +106,7 @@ elif ! [ -v IS_WINDOWSY ] && [ "$1" != clone ] && [ "$1" != init ] && ! "$GIT" r
 
 	# TODO: better message if BASH_IT_DOTFILES_GIT_REPO is unset (for some reason?)
 	HOW+=". Implicit GIT_DIR=\"$(summarize_path "$BASH_IT_DOTFILES_GIT_REPO")\""
+	# TODO: potentially also call out "GIT_WORK_TREE unset, but `core.worktree` is ..."
 	# :? fails if the variable is unset, with a reasonable error
 	export GIT_DIR="${BASH_IT_DOTFILES_GIT_REPO:?}"
 
