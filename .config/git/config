@@ -697,7 +697,6 @@
 	ls-files = !echo hello and other agurments
 	ls-files2 = !echo hello and other agurments
 	# see handle_alias in git's git.c
-	# TODO: squawk if there *is* an available alias, but it is NOT on the whitelist
 	# Heads up - this is not 'infectious' - only the most-immediate command is allowed to shadow builtins.
 	# To wit: you can shadow `ls-files = ls-files --default-arguments...` and not produce an infinite loop
 	# Nor will `commit=push; push=commit`. Running `git permit... commit` simply means push, and vice-versa
@@ -715,6 +714,21 @@
 				2>&1; then \n\
 			git run-alias \"$@\"; \n\
 			return \n\
+		fi \n\
+		if git protected-config \\\n\
+				get \\\n\
+				--all \\\n\
+				\"alias.$aliasName\" \\\n\
+				>/dev/null \\\n\
+				2>&1 && \n\
+			git list-commands builtins | \n\
+				grep --line-regexp --fixed-string \"$aliasName\" \\\n\
+				>/dev/null \\\n\
+				2>&1; then \n\
+			# NB: if aliasName matches a git command, especially a builtin one? It's safe to leave unquoted here \n\
+			echo 'A non-whitelisted alias exists for' $aliasName; \n\
+			echo 'Consider deleting it or adding it to safe.aliases.alias' \n\
+			echo 'via: git config --global set --append safe.aliases.alias' $aliasName \n\
 		fi \n\
 		\n\
 		git \"$@\"; \n\
