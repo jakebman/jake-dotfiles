@@ -728,9 +728,12 @@
 			# NB: if aliasName matches a git command, especially a builtin one? It's safe to leave unquoted here \n\
 			trap \" \n\
 					echo \n\
+					echo '=========== CAUTION! permit-aliases-to-shadow-builtins ============'; \n\
 					echo 'A non-whitelisted alias exists for' $aliasName; \n\
-					echo 'Consider deleting it or adding it to safe.aliases.alias' \n\
-					echo 'via: git config --global set --append safe.aliases.alias' $aliasName \n\
+					echo 'Consider deleting it or adding it to safe.aliases.alias'; \n\
+					echo 'via: git config unset --global --all' alias.$aliasName; \n\
+					echo 'or: git config set --global --append safe.aliases.alias' $aliasName; \n\
+					echo '=========== CAUTION! permit-aliases-to-shadow-builtins ============'; \n\
 					echo \n\
 				\" EXIT; \n\
 		fi \n\
