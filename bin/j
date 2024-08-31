@@ -134,6 +134,8 @@ ITEMS=differences # default is git jump diff -> differences
 # TODO: I'm at the point of wanting better argument parsing. My options are:
 # https://github.com/docopt/docopts - parsing from a template file
 # https://www.baeldung.com/linux/bash-parse-command-line-arguments getopts - a program that helps iterate over argument
+
+# TODO: Wouldn't it be nice if invoking the same `j ...` command resumes the filter and cursor positions?
 if [ "$#" -eq 0 ]; then
 	# implicitly do a --jump
 	git jump --stdout diff "$@" | j-fzf-diff
