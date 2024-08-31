@@ -61,8 +61,6 @@
 # A variant of safe.directory; a whitelist for my git-allow-aliases-to-shadow-builtins command
 [safe "aliases"]
 	alias = remote
-	alias = ls-files
-	alias = config
 
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
@@ -692,10 +690,6 @@
 		GIT_DIR=\"$NOT_A_FOLDER\" GIT_COMMON_DIR=\"$NOT_A_FOLDER\" git config \"$@\"; \n\
 		} ; f"
 
-	# intermediate test aliases
-	config = config list
-	ls-files = !echo hello and other agurments
-	ls-files2 = !echo hello and other agurments
 	# see handle_alias in git's git.c
 	# Heads up - this is not 'infectious' - only the most-immediate command is allowed to shadow builtins.
 	# To wit: you can shadow `ls-files = ls-files --default-arguments...` and not produce an infinite loop
