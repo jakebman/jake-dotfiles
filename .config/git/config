@@ -146,7 +146,8 @@
 		for arg; do \n\
 			# TODO: getopt, git-rev-parse, or *something* more canoncial than 'skip arguments if they start with dash' \n\
 			if [ \"x${arg}\" = \"x${arg#-}\" ] && ! [ -f \"${arg}\" ]; then \n\
-				arg=$(realpath --relative-to=\"$(git rev-parse --show-toplevel)\" \"$arg\"); \n\
+				# https://unix.stackexchange.com/questions/573047/how-to-get-the-relative-path-between-two-directories \n\
+				arg=$(realpath --canonicalize-missing --relative-to=\"$(git rev-parse --show-toplevel)\" \"$arg\"); \n\
 				case \"$arg\" in \n\
 				..*) # relative path from git's toplevel is *outside* toplevel. No good \n\
 					continue; \n\
