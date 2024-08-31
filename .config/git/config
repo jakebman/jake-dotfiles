@@ -137,6 +137,7 @@
 	config-editg = config edit --global
 	config-editl = config edit --local # --local is unnecessary, but provides clarity
 	config-edit = config-editg
+	config-todos = !j TODO $(git var GIT_CONFIG_GLOBAL)
 	# delta is a utility defined below
 	delta-add = delta add --patch # --patch is implied if you're adding with delta
 	delta-diff = delta diff
