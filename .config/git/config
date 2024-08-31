@@ -839,12 +839,15 @@
 		} ; f"
 	# TODO: in progress
 	extract-aliases-to-library = "!f() { \n\
-		local candidates; \n\
-		candidates=$(git alias-grep--helper \" = !f\" | \n\
+		local candidate candidates; \n\
+		candidates=$(git alias-grep--helper \" = !\" | \n\
 			sed --null-data 's/ .*//' | \n\
 			tr '\\0' '\\n' | \n\
 			cat); \n\
 		echo $candidates; \n\
+		for candidate in $candidates; do \n\
+			git unpaged alias ^$candidate$; \n\
+		done; \n\
 		} ; f"
 
 [fetch]
