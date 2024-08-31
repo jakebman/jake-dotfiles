@@ -235,14 +235,22 @@
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
 
 	# re-implementing git-alias from git-extras to respect multi-line strings and use git-config subcommands
-	# TODO: I think the grep phrase is the best filtering I can do - it permits ^
 	# TODO: it would be cool to take some config --flags like --names-only
 	alias = "!f() { \n\
 		case $# in \n\
 		0|1) \n\
-			git config get --all --show-names --null --regexp '^alias\\.' | \n\
-				sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
-				grep -E --null-data  --regexp=\"$1\" | \n\
+			# NB: git config keys cannot contain shell-y characters - $match is safe unquoted here \n\
+			# docs: The variable names are case-insensitive, \n\
+			# allow only alphanumeric characters and -, \n\
+			# and must start with an alphabetic character. \n\
+			for match in $(git config list --name-only | \n\
+			                   grep '^alias\\.' | \n\
+			                   sed s/^alias.// | \n\
+			                   grep -E \"$1\" | \n\
+			                   sed s/^/alias./); do \n\
+				git config get --all --show-names --null $match | \n\
+					sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g'; \n\
+			done | \n\
 				sort --zero-terminated | \n\
 				tr '\\0' '\\n' | \n\
 				git pager alias; \n\
@@ -254,7 +262,7 @@
 			>&2 echo \"Too many arguments\"; \n\
 			cat <<-'HEREDOC'; \n\
 			usage: git alias                  # list aliases \n\
-			   or: git alias <regex>          # aliases matching a regex (impl. hiccup: the values can also be matched) \n\
+			   or: git alias <regex>          # aliases with names matching a regex \n\
 			   or: git alias <name> <command> # create alias \n\
 			HEREDOC\n\
 			# NB: HEREDOC requires no space before line termination \n\
