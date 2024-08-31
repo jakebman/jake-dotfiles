@@ -150,6 +150,7 @@
 				arg=$(realpath --canonicalize-missing --relative-to=\"$(git rev-parse --show-toplevel)\" \"$arg\"); \n\
 				case \"$arg\" in \n\
 				..*) # relative path from git's toplevel is *outside* toplevel. No good \n\
+					# No need to fix it, though. git-add will complain well enough anyway \n\
 					continue; \n\
 				;; \n\
 				esac \n\
