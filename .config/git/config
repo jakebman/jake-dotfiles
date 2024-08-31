@@ -159,11 +159,10 @@
 	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
 	no-pager = !git --no-pager
 
-	# borrowed from my bash-implicit-git function `remote`.
-	# This name is a typo in bash-land, but makes a good first-class citizen in git-alias-land
-	# because it lets us to permit-aliases-to-shadow-builtins the builtin with this command.
-	# TODO: we might as well implement bash's `remote` as ``git permit-aliases-to-shadow-builtins remote`, too
-	# ... do that once the tech is more stable and I'm more comfortable with it
+	# promoted from my bash-implicit-git function `remote`.
+	# This name was originally a typo in bash-land, but makes a good first-class citizen in git-alias-land
+	# because it lets us to have a simple declaration (remote=remotes) that can be leveraged
+	# by permit-aliases-to-shadow-builtins.
 	remotes = "!f() { \n\
 		: remote; \n\
 		if test \"$#\" -eq 0 || test show = \"$1\"; then \n\
