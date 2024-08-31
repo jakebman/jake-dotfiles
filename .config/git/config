@@ -837,6 +837,16 @@
 			git pull --rebase --no-tags --depth 1; \n\
 			git gc --prune=all; \n\
 		} ; f"
+	# TODO: in progress
+	extract-aliases-to-library = "!f() { \n\
+		local candidates; \n\
+		candidates=$(git alias-grep--helper \" = !f\" | \n\
+			sed --null-data 's/ .*//' | \n\
+			tr '\\0' '\\n' | \n\
+			cat); \n\
+		echo $candidates; \n\
+		} ; f"
+
 [fetch]
 	all = true   # Fetch should assume --all. Thank you git 2.44 :D. Oh. This is all 'remotes', not all 'branches'. Boo.
 	parallel = 0 # zero means "some reasonable (non-1) default"; the default value is 1
