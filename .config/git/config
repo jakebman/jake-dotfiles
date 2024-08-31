@@ -164,8 +164,8 @@
 	# because it lets us to have a simple declaration (remote=remotes) that can be leveraged
 	# by permit-aliases-to-shadow-builtins.
 	# TODO: Potential naming convention for these: `remote-enhanced`, which is removed from autocomplete?
-	remotes = "!f() { \n\
-		: remote; \n\
+	# TODO: tab-completion isn't noticing this as a remote-variant
+	remotes = "!f() { : remote; \n\
 		if test \"$#\" -eq 0 || test show = \"$1\"; then \n\
 			git remote -v \"$@\"; \n\
 		else \n\
