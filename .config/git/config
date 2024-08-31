@@ -143,8 +143,20 @@
 	delta-diff = delta diff
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
-	#TODO: it would be nice if this also `touch`'d the file to make it exist if it doesn't
-	intent-to-add = add --intent-to-add
+	# add --intent-to-add, but also implicitly `touch` files that don't exist, including their parent folders
+	# TODO: ensure the ultimately `mkdir`d dir's and `touch`d files all live in the repo.
+	intent-to-add = "!f() { \n\
+		for arg; do \n\
+			# TODO: getopt, git-rev-parse, or *something* more canoncial than 'skip arguments if they start with dash' \n\
+			if [ \"x${arg}\" = \"x${arg#-}\" ] && ! [ -f \"${arg}\" ]; then \n\
+				if ! [ -d \"$(dirname \"$arg\")\" ]; then \n\
+					mkdir -p \"$(dirname \"$arg\")\"; \n\
+				fi \n\
+				touch \"${arg}\"; \n\
+			fi \n\
+		done \n\
+		add --intent-to-add \"$@\" \n\
+		} ; f"
 	no-columns = !git -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
 	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
 	no-pager = !git --no-pager
