@@ -153,7 +153,7 @@
 				touch \"${arg}\"; \n\
 			fi \n\
 		done \n\
-		add --intent-to-add \"$@\" \n\
+		git add --intent-to-add \"$@\" \n\
 		} ; f"
 	no-columns = !git -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
 	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
