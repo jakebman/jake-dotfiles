@@ -705,7 +705,7 @@
 	# You. Must. Opt. In.
 	permit-aliases-to-shadow-builtins = "!f() { \n\
 		local aliasName=${1?need an alias to expand}; \n\
-		if ! git protected-config \\\n\
+		if git protected-config \\\n\
 				get \\\n\
 				--all \\\n\
 				--value=\"$aliasName\" \\\n\
@@ -713,11 +713,11 @@
 				safe.aliases.alias \\\n\
 				>/dev/null \\\n\
 				2>&1; then \n\
-			git \"$@\"; \n\
+			git run-alias \"$@\"; \n\
 			return \n\
 		fi \n\
 		\n\
-		git run-alias \"$@\"; \n\
+		git \"$@\"; \n\
 		} ; f"
 	# Runs any alias, including those that shadow builtins.
 	# THERE IS NO CHECKING ON THIS. You asked for this behavior by invoking this command.
