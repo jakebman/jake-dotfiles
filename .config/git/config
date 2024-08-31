@@ -644,6 +644,7 @@
 	silence-mr-pull =  "!f() { git config set --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
+	# NB: git-extras has git-root, which is essentially rev-parse --show-toplevel
 	show-git-dir = rev-parse --git-dir
 	unpaged = no-pager
 
