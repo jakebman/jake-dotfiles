@@ -724,7 +724,12 @@
 			git list-commands builtins | \n\
 				grep --line-regexp --fixed-string \"$aliasName\" \\\n\
 				>/dev/null \\\n\
-				2>&1; then \n\
+				2>&1 && \n\
+			[ true = $(git config \\\n\
+						get \\\n\
+						--type=bool \\\n\
+						--default=true \\\n\
+						advice.aliasShadowingBuiltinNotOnWhitelist) ]; then \n\
 			# NB: if aliasName matches a git command, especially a builtin one? It's safe to leave unquoted here \n\
 			trap \" \n\
 					echo \n\
@@ -732,7 +737,9 @@
 					echo 'A non-whitelisted alias exists for' $aliasName; \n\
 					echo 'Consider deleting it or adding it to safe.aliases.alias'; \n\
 					echo 'via: git config unset --global --all' alias.$aliasName; \n\
-					echo 'or: git config set --global --append safe.aliases.alias' $aliasName; \n\
+					echo ' or: git config set --global --append safe.aliases.alias' $aliasName; \n\
+					echo ' or Disable this message with:'; \n\
+					echo '   git config set --global advice.aliasShadowingBuiltinNotOnWhitelist false'; \n\
 					echo '=========== CAUTION! permit-aliases-to-shadow-builtins ============'; \n\
 					echo \n\
 				\" EXIT; \n\
