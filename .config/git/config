@@ -278,8 +278,9 @@
 	branch-alias-main-for-master = branch-alias main master
 
 	# run an alias under tracing
-	# TODO: can we borrow the permit-aliases-to-shadow-builtins tech to add -x to the `sh -c ...` invocation
-	alias-debug = "!f() { : git; export GIT_TRACE=1; git \"$@\" ; } ; f"
+	# run-alias supports GIT_TRACE, but this quick-and-dirty way *does* also grab the expansion of run-alias.
+	# Meh? I think it's even a little bit useful to call out what happens *before* the alias you want to trace, too.
+	alias-debug = !GIT_TRACE=1 git run-alias
 	arguments-debug = "!f(){ \n\
 		for i; do \n\
 			echo \"'$i'\"; \n\
