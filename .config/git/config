@@ -252,9 +252,9 @@
 		esac \n\
 		} ; f"
 
-	# TODO: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
-	#  and I'm not certain if it has any nasty consequences if I later want to create a proper
-	#  branch for main
+	# NB: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
+	# and I'm not certain if it has any nasty consequences if I later want to create a proper
+	# branch for main
 	branch-alias = "!f() { \n\
 		local newBranch existingBranch; \n\
 		newBranch=${1:?need a name for the new branch}; \n\
