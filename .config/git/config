@@ -770,7 +770,8 @@
 		# in bash, this line is just spelled `case \"${GIT_TRACE,,}\" in` \n\
 		case \"$(GIT_TRACE=\"$GIT_TRACE\" bash -c 'echo \"${GIT_TRACE,,}\"')\" in \n\
 			1|2|true)  \n\
-				echo GIT_TRACE is enabled - turning on alias debugging; \n\
+				echo 'GIT_TRACE is enabled - turning on alias debugging'; \n\
+				echo 'sh -x output will appear on stderr'; \n\
 				sh_args='-x'; \n\
 				command_name=$aliasRest; \n\
 			;; \n\
