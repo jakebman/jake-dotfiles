@@ -766,10 +766,20 @@
 			aliasRest=$(printf '%s \"$@\"' \"$aliasRest\"); \n\
 		fi \n\
 		local sh_args command_name=\"run-alias $aliasName\"; \n\
+		# handle redirection to low-ish FDs or files. Enabling -x happens below. \n\
+		case \"${GIT_TRACE}\" in \n\
+			[3-9]) \n\
+				exec 2>&${GIT_TRACE}; \n\
+			;; \n\
+			/*) \n\
+				# NB: >> to append, not clobber, as the invoking git is probably also writing \n\
+				exec 2>>${GIT_TRACE}; \n\
+			;; \n\
+		esac \n\
 		# TODO: this might be the best 'just get the lower case of the argument once' I can do \n\
 		# in bash, this line is just spelled `case \"${GIT_TRACE,,}\" in` \n\
 		case \"$(GIT_TRACE=\"$GIT_TRACE\" bash -c 'echo \"${GIT_TRACE,,}\"')\" in \n\
-			1|2|true)  \n\
+		[1-9]|true|/*)  \n\
 				echo 'GIT_TRACE is enabled - turning on alias debugging'; \n\
 				echo 'sh -x output will appear on stderr'; \n\
 				sh_args='-x'; \n\
