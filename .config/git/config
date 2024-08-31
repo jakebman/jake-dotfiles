@@ -278,16 +278,19 @@
 		esac \n\
 		} ; f"
 
+	alias-grep--helper = "!f() { \n\
+		git config get --all --show-names --null --regexp '^alias\\.' | \n\
+			sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
+			grep -E --null-data  --regexp=\"$1\" | \n\
+			sort --zero-terminated; \n\
+		} ; f"
 	alias-grep = "!f() { \n\
 		if [ 1 -ne $# ]; then \n\
 			>&2 echo 'git alias-grep requires exactly one argument'; \n\
 			echo 'usage: git alias-grep <regex>   # aliases matching a regex, including value'; \n\
 			return 1; \n\
 		fi \n\
-		git config get --all --show-names --null --regexp '^alias\\.' | \n\
-			sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
-			grep -E --null-data  --regexp=\"$1\" | \n\
-			sort --zero-terminated | \n\
+		git alias-grep--helper \"$1\" | \n\
 			tr '\\0' '\\n' | \n\
 			git pager alias; \n\
 		} ; f"
