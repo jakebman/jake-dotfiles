@@ -236,15 +236,14 @@
 
 	# re-implementing git-alias from git-extras to respect multi-line strings and use git-config subcommands
 	# TODO: I think the grep phrase is the best filtering I can do - it permits ^
-	# TODO: these short flags should be longer (esp. to grep)
 	# TODO: it would be cool to take some config --flags like --names-only
 	alias = "!f() { \n\
 		case $# in \n\
 		0|1) \n\
-			git config get --all --show-names --regexp -z '^alias\\.' | \n\
-				sed -z -E 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
-				grep -z -E -e \"$1\" | \n\
-				sort -z | \n\
+			git config get --all --show-names --null --regexp '^alias\\.' | \n\
+				sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
+				grep -E --null-data  --regexp=\"$1\" | \n\
+				sort --zero-terminated | \n\
 				tr '\\0' '\\n' | \n\
 				git pager alias; \n\
 		;; \n\
