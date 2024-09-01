@@ -800,11 +800,9 @@
 
 	# NB: this WILL conflate aliasing of `a=b` and `a=!git b`. I'm not certain I have a problem with that.
 	alias--as-sh-able = "!f() { \n\
-		local aliasName alias aliasSigil aliasRest; \n\
-		aliasName=${1?need an alias to expand}; \n\
 		# A string not starting with ! gets 'git ' prepended \n\
 		# A prefix ! is removed \n\
-		git protected-config get --null \"alias.${aliasName}\" | \n\
+		git protected-config get --null \"alias.${1?need an alias to expand}\" | \n\
 			sed --null-data \\\n\
 				-e 's/^[^!]/git &/' \\\n\
 				-e 's/^!//'; \n\
