@@ -419,7 +419,9 @@
 	# Read this as "run git in a delta-like mode for this current interaction"
 	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
 	# NB: the [delta] sections below configures the particular --features I'm using here
-	delta = !git -c core.pager='delta --features=git-pager' -c interactive.diffFilter='delta --features=diff-filter'
+	delta = !GIT_PAGER='delta --features=git-pager' \
+		git -c core.pager='delta --features=git-pager' \
+			-c interactive.diffFilter='delta --features=diff-filter'
 	env = "!f() { echo EDITOR=$EDITOR; set | git pager env; } ; f"
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
 	# --local is unnecessary, but provides clarity
