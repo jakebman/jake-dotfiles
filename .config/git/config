@@ -904,11 +904,18 @@
 	# Alternatively, following github's "Here are your local changes. Please type the name of this repo to proceed" prompt might be cool, too
 	# I should also do something along the lines of "create a shallow (--depth=1) clone; compare its .git dir's size"
 	reshallow = "!f() { \n\
-			echo 'deleting tags:'; \n\
-			git show-ref --tags; \n\
-			git tag -d $(git tag -l); \n\
-			git pull --rebase --no-tags --depth 1; \n\
-			git gc --prune=all; \n\
+			echo pwd: $PWD; \n\
+			echo gitdir: $GIT_DIR; \n\
+			du -hs \"$GIT_DIR\"; \n\
+			local temp=$(mktemp -d --tmpdir git-reshallow); \n\
+			trap 'sleep 100;echo removing $temp in 30s; sleep 30; rm -r \"$temp\"' EXIT \n\
+			echo creating shallow clone at $temp \n\
+			git clone \\\n\
+				-- \\\n\
+				\"$GIT_DIR\" \\\n\
+				\"$temp\"; \n\
+			du -hs \"$temp\"; \n\
+			echo $temp will be deleted in 130 seconds. Please decide quickly; \n\
 		} ; f"
 	# TODO: in progress
 	alias-lib-dir = "!f() { echo \"${GIT_ALIAS_LIB_DIR:-${XDG_CONFIG_HOME:-${HOME}/.config}/git/alias-lib.d}\"; } ; f"
