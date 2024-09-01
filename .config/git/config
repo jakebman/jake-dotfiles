@@ -767,7 +767,7 @@
 		# ${alias:0:1} is only availble in bash. ${alias%${alias#?}} is portable to sh \n\
 		# see: https://stackoverflow.com/questions/10218474/how-to-obtain-the-first-letter-in-a-bash-variable \n\
 		aliasRest=${alias#?}; \n\
-		aliasSigil=${alias%$aliasRest}; \n\
+		aliasSigil=${alias%\"$aliasRest\"}; \n\
 		# ! is meaningful to [ and test. I'm using x-prefix trick out of caution \n\
 		if [ 'x!' != \"x${aliasSigil}\" ]; then \n\
 			echo git \"$alias\"; \n\
