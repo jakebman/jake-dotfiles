@@ -325,11 +325,16 @@
 	# run-alias supports GIT_TRACE, but this quick-and-dirty way *does* also grab the expansion of run-alias.
 	# Meh? I think it's even a little bit useful to call out what happens *before* the alias you want to trace, too.
 	alias-debug = !GIT_TRACE=1 git run-alias
-	arguments-debug = "!f(){ \n\
+	arguments-debug = "!f() { \n\
 		for i; do \n\
 			echo \"'$i'\"; \n\
 		done ; \n\
 		} ; f"
+	bash-arguments-debug = "!bash -c 'f() { \n\
+		for i; do \n\
+			echo \"<$i>\"; \n\
+		done ; \n\
+		} ; f \"$@\"' bash-arguments-debug"
 	# https://stackoverflow.com/questions/2363197/can-i-get-a-list-of-files-marked-assume-unchanged/2363495#2363495
 	# (leveraging the function tech defined below)
 	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
