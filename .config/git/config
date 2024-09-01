@@ -347,7 +347,8 @@
 	# (THESE FILES ARE NOT GUARANTEED TO EXIST b/c they can later be deleted)
 	# see https://superuser.com/a/1792567/137598
 	# The factored-out common worker. First argument is a diff-filter, second is the optional author regex
-	by-author = "!f() { git log --author=\"${2:-$(git config get user.name)}\" --format='' --diff-filter=\"$1\" --name-only --no-commit-id | sort | uniq ; } ; f"
+	# Neat shell-ism: there's no --diff-filter argument if 1 isn't present
+	by-author = "!f() { git log --author=\"${2:-$(git config get user.name)}\" --format='' ${1+--diff-filter=\"$1\"} --name-only --no-commit-id | sort | uniq ; } ; f"
 	created-by-author = by-author A
 	deleted-by-author = by-author D
 	touched-by-author = by-author r # Anything except a Rename
