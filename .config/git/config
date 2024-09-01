@@ -802,17 +802,12 @@
 	alias--as-sh-able = "!f() { \n\
 		local aliasName alias aliasSigil aliasRest; \n\
 		aliasName=${1?need an alias to expand}; \n\
-		alias=$(git protected-config get \"alias.${aliasName}\"); \n\
-		# ${alias:0:1} is only availble in bash. ${alias%${alias#?}} is portable to sh \n\
-		# see: https://stackoverflow.com/questions/10218474/how-to-obtain-the-first-letter-in-a-bash-variable \n\
-		aliasRest=${alias#?}; \n\
-		aliasSigil=${alias%\"$aliasRest\"}; \n\
-		# ! is meaningful to [ and test. I'm using x-prefix trick out of caution \n\
-		if [ 'x!' != \"x${aliasSigil}\" ]; then \n\
-			echo git \"$alias\"; \n\
-		else \n\
-			echo \"$aliasRest\"; \n\
-		fi \n\
+		# A string not starting with ! gets 'git ' prepended \n\
+		# A prefix ! is removed \n\
+		git protected-config get --null \"alias.${aliasName}\" | \n\
+			sed --null-data \\\n\
+				-e 's/^[^!]/git &/' \\\n\
+				-e 's/^!//'; \n\
 		} ; f"
 
 	# Runs any alias, including those that shadow builtins.
