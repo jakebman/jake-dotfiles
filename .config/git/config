@@ -907,7 +907,9 @@
 			sed \"s/^f()/${candidate}()/\" | \n\
 			sed \"s/^bash -c 'f()/${candidate}()/\" | \n\
 			sed -E \"s/;\\s+f\\s*'?\\s*$//\" | \n\
+			sed -E 's/\\) \\{(.*})/) {\\n\\1/g' | \n\
 			cat >\"${libDir}/${candidate}\"; \n\
+			shfmt -w \"${libDir}/${candidate}\"; \n\
 		done; \n\
 		} ; f"
 
