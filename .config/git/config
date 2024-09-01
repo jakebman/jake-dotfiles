@@ -349,20 +349,42 @@
 	# The factored-out common worker. First argument is a diff-filter, second is the optional author regex
 	# Neat shell-ism: there's no --diff-filter argument if 1 isn't present
 	by-author = "!f() { \n\
+		local authorParam diffFilterParam; \n\
+		authorParam=\"--author=${1:-$(git config get user.name)}\"; \n\
+		diffFilterParam=${2+--diff-filter=\"$2\"}; \n\
+		# shift out up to two arguments, in a way that doesn't proc errexit. Shouldn't matter, but that's what's up \n\
+		shift 2 || shift 1 || true; \n\
 		git log \\\n\
-				--author=\"${2:-$(git config get user.name)}\" \\\n\
 				--format='' \\\n\
-				${1+--diff-filter=\"$1\"} \\\n\
 				--name-only \\\n\
 				--no-commit-id \\\n\
-						| \n\
+				\"$authorParam\" \\\n\
+				${diffFilterParam} \\\n\
+				\"$@\" | \n\
 			sort | \n\
 			uniq; \n\
 		} ; f"
-	created-by-author = by-author A
-	deleted-by-author = by-author D
-	touched-by-author = by-author r # Anything except a Rename
-	renamed-by-author = by-author R # Renames - the NEW name
+
+	# allow the X-by-authors to essentially default-param the *second* parameter to by-author
+	by-author--helper = "!f() { \n\
+		case $# in \n\
+		0|1) \n\
+			# Abuse knowledge that authorParam is defaulted even if emptystring \n\
+			git by-author '' \"$@\"; \n\
+		;; \n\
+		*) \n\
+			# have enough arguments to swap \n\
+			local filter author; \n\
+			filter=$1; author=$2; \n\
+			shift 2; \n\
+			git by-author \"$author\" \"$filter\" \"$@\"; \n\
+		;; \n\
+		esac \n\
+		} ; f"
+	created-by-author = by-author--helper A
+	deleted-by-author = by-author--helper D
+	touched-by-author = by-author--helper r # Anything except a Rename
+	renamed-by-author = by-author--helper R # Renames - the NEW name
 
 	# ref: EXAMPLES section of `man git-rev-parse`
 	commit-ish-exists = "!f() { \n\
