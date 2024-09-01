@@ -906,18 +906,24 @@
 			local -; \n\
 			local temp; \n\
 			set -o errexit; \n\
-			echo pwd: $PWD; \n\
 			: ${GIT_DIR:=$(git gitdir)}; \n\
-			echo gitdir: $GIT_DIR; \n\
 			du -hs \"$GIT_DIR\"; \n\
 			temp=$(mktemp -d --tmpdir --suffix \"-$(basename \"$(pwd)\")\" git-reshallow-XXXXXXX); \n\
 			trap 'sleep 10;echo removing $temp in 120s; sleep 120; echo rm -r -- \"$temp\"' EXIT \n\
 			echo creating shallow clone at $temp; \n\
 			git clone \\\n\
+				--depth=1 \\\n\
+				--shallow-submodules \\\n\
+				--no-tags \\\n\
+				--progress \\\n\
+				--no-local \\\n\
+				--bare \\\n\
+				\"$@\" \\\n\
 				-- \\\n\
 				\"$GIT_DIR\" \\\n\
 				\"$temp\"; \n\
-			du -hs \"$temp/.git\"; \n\
+			du -hs \"$temp\"; \n\
+			# TODO: unbare \n\
 			echo $temp will be deleted in 130 seconds. Please decide quickly; \n\
 		} ; f"
 	# TODO: in progress
