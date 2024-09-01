@@ -918,11 +918,11 @@
 			shfmt -w \"${libDir}/${candidate}\"; \n\
 		done; \n\
 		} ; f"
-	run-library-alias = "!f() { \n\
-		local alias=${1?need an alias}; \n\
-		source \"$(git alias-lib-dir)/$alias\"; \n\
-		\"$alias\" \"$@\"; \n\
-		} ; f"
+	run-library-alias = "!bash -c 'f() { \n\
+			local alias=${1?need an alias}; \n\
+			source \"$(git alias-lib-dir)/$alias\"; \n\
+			\"$alias\" \"$@\"; \n\
+		} ; f \"$@\"' run-library-alias"
 
 [fetch]
 	all = true   # Fetch should assume --all. Thank you git 2.44 :D. Oh. This is all 'remotes', not all 'branches'. Boo.
