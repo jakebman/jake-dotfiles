@@ -870,7 +870,7 @@
 		mkdir -p \"$libDir\"; \n\
 		for candidate in $candidates; do \n\
 			echo progress: $candidate; \n\
-			git unpaged alias ^$candidate$ >\"${libDir}/${candidate}\"; \n\
+			git alias--as-sh-able $candidate >\"${libDir}/${candidate}\"; \n\
 		done; \n\
 		} ; f"
 
