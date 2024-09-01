@@ -81,6 +81,7 @@
 	commitp = commitpm
 	commitpm = addp-and-commitm
 	config-deubg = config-debug
+	debug-alias = alias-debug
 	deltaAdd = delta-add
 	deltaDiff = delta-diff
 	deltaLog = deltalog
