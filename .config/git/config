@@ -912,12 +912,13 @@
 			git alias--as-sh-able $candidate | \n\
 			sed \"s/^f()/${candidate}()/\" | \n\
 			sed \"s/^bash -c 'f()/${candidate}()/\" | \n\
-			sed -E \"s/;\\s+f\\s*'?\\s*$//\" | \n\
+			sed -E \"s/} ;\\s+f\\b.*$/}/\" | \n\
 			sed -E 's/\\) \\{(.*})/) {\\n\\1/g' | \n\
 			cat >\"${libDir}/${candidate}\"; \n\
 			shfmt -w \"${libDir}/${candidate}\"; \n\
 		done; \n\
 		} ; f"
+	# Style: We could drop the f(){} pretense here, but it makes it easier to export to bash
 	run-library-alias = "!bash -c 'f() { \n\
 			local alias=${1?need an alias}; \n\
 			source \"$(git alias-lib-dir)/$alias\"; \n\
