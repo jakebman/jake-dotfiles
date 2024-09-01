@@ -419,9 +419,13 @@
 	# Read this as "run git in a delta-like mode for this current interaction"
 	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
 	# NB: the [delta] sections below configures the particular --features I'm using here
-	delta = !GIT_PAGER='delta --features=git-pager' \
-		git -c core.pager='delta --features=git-pager' \
-			-c interactive.diffFilter='delta --features=diff-filter'
+	# Additionally, we need to include modified settings for each custom pager in [pager]
+	# TODO: that might be able to be done programatically?
+	delta = !git \
+			-c core.pager='delta --features=git-pager' \
+			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta --features=git-pager' \
+			-c interactive.diffFilter='delta --features=diff-filter' \
+
 	env = "!f() { echo EDITOR=$EDITOR; set | git pager env; } ; f"
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
 	# --local is unnecessary, but provides clarity
@@ -962,6 +966,7 @@
 	# Read and used by my git-pager alias:
 	# TODO: it would be nice if this bat coloring respected color.alias too, somehow. (See git config --get-colorbool)
 	alias = bat --style=plain --language=bash
+	# WARNING: adding custom pagers here goozles the delta alias. Adding a custom entry here should add one there
 [column]
 	ui = auto
 [diff]
