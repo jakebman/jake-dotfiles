@@ -685,7 +685,14 @@
 			git \"$1\" --help 2>&1 | grep -s -q --line-regexp \"No manual entry for git-${1}\"; \n\
 		} ; f"
 	# TODO: remove '-git' from here. But later, after coordination with users of it
-	is-valid-git-command = "!f() { git list-all-commands | grep -q -s --line-regexp --fixed-strings -- \"${1?Need a value}\" ; } ; f"
+	is-valid-git-command = "!f() { \n\
+		git list-all-commands | \n\
+			grep -q -s \\\n\
+				--line-regexp \\\n\
+				--fixed-strings \\\n\
+				-- \\\n\
+				\"${1?Need a value}\"; \n\
+		} ; f"
 	# --local is unnecessary, but provides clarity
 	silence-mr-pull =  "!f() { git config set --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
