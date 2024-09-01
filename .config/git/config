@@ -29,7 +29,7 @@
 
 	# NB: these are not used by git but instead by my custom command checking aliases below
 	list-categories = list-ancillaryinterrogators list-ancillarymanipulators list-complete list-developerinterfaces list-foreignscminterface list-guide list-mainporcelain list-plumbinginterrogators list-plumbingmanipulators list-purehelpers list-synchelpers list-synchingrepositories list-userinterfaces
-	# all non-(list-) categories except nohelpers, parseopts and config, which are special/filtering/weird
+	# all non-(list-) categories except nohelpers, parseopt, and config, which are special/filtering/weird
 	# This config serves as my source of truth for the non-(list-) --list-cmds values I am aware of
 	# This is "most list-cmds categories EXCEPT FOR:
 	# * nohelpers, which is only a removal filter
@@ -560,7 +560,12 @@
 	# * have a sane (non-empty) set of defaults
 	#
 	list-commands = "!f() { \n\
-		if [ $# -gt 0 ]; then \n\
+		if [ parseopt = \"$*\" ]; then \n\
+		# special case - we only have one argument, and it's 'parseopt'. We do not append config because \n\
+		# the --list-cmds flag rejects having parseot with other values \n\
+		# Also, the output is space-separated and not newline separated. Rude. :p \n\
+			git list-commands--raw \"$@\" | tr ' ' '\\n' | grep -v '^$'; \n\
+		elif [ $# -gt 0 ]; then \n\
 			# we're responsible for always passing config as the last entry to --list args. ...--raw isn't \n\
 			git list-commands--raw \"$@\" config; \n\
 		else \n\
