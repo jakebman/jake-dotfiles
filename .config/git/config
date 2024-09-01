@@ -674,7 +674,7 @@
 			git config set --global completion.invalid-commands \"$candidates\"; \n\
 		} ; f"
 	update-new-invalid-commands = "!f() { \n\
-			candidates=\"$(git discover-new-invalid-commands | sed 's/^/-/g' | tee stderr | tr \"\\n\" ' ')\"; \n\
+			candidates=\"$(git discover-new-invalid-commands | sed 's/^/-/g' | tee /dev/stderr | tr \"\\n\" ' ')\"; \n\
 			candidates=\"$(git config get completion.invalid-commands) $candidates\"; \n\
 			git config set --global completion.invalid-commands \\\n\
 				\"${candidates% }\"; \n\
