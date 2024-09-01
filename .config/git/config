@@ -842,7 +842,7 @@
 			git gc --prune=all; \n\
 		} ; f"
 	# TODO: in progress
-	alias-lib-dir = "!f() { echo \"${GIT_ALIAS_LIB_DIR:-${XDG_CONFIG_HOME:-${HOME}/.config}/git/alias-lib.d}}\"; } ; f"
+	alias-lib-dir = "!f() { echo \"${GIT_ALIAS_LIB_DIR:-${XDG_CONFIG_HOME:-${HOME}/.config}/git/alias-lib.d}\"; } ; f"
 	extract-aliases-to-library = "!f() { \n\
 		local candidate candidates libDir; \n\
 		candidates=$(git alias-grep--helper \" = !\" | \n\
@@ -850,10 +850,11 @@
 			tr '\\0' '\\n' | \n\
 			cat); \n\
 		echo $candidates; \n\
+		libDir=\"$(git alias-lib-dir)\"; \n\
+		mkdir -p \"$libDir\"; \n\
 		for candidate in $candidates; do \n\
-			libDir=\"$(git alias-lib-dir)\"; \n\
-			mkdir -p \"$libDir\"; \n\
-			git unpaged alias ^$candidate$ >\"${libDir}/$candidate\"; \n\
+			echo progress: $candidate; \n\
+			git unpaged alias ^$candidate$ >\"${libDir}/${candidate}\"; \n\
 		done; \n\
 		} ; f"
 
