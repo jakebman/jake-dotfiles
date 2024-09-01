@@ -870,7 +870,10 @@
 		mkdir -p \"$libDir\"; \n\
 		for candidate in $candidates; do \n\
 			echo progress: $candidate; \n\
-			git alias--as-sh-able $candidate >\"${libDir}/${candidate}\"; \n\
+			git alias--as-sh-able $candidate | \n\
+			sed \"s/^f()/${candidate}()/\" | \n\
+			sed -E 's/;\\s+f\\s*$//' | \n\
+			cat >\"${libDir}/${candidate}\"; \n\
 		done; \n\
 		} ; f"
 
