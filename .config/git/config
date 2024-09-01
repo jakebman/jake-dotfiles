@@ -52,11 +52,7 @@
 	# → for i in "${ELEM[@]}"; do PATH="$i" /usr/bin/git -c completion.commands= --list-cmds=others | grep lfs && echo $i; done
 	# lfs
 	# /mnt/c/Program Files/Git/cmd
-	invalid-commands = \
-        -"commands-that-do-not-work" \
-        -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn \
-    \
-        -"commands-that-were-found-later" \
+	invalid-commands = -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn
 
 # A variant of safe.directory; a whitelist for my git-allow-aliases-to-shadow-builtins command
 [safe "aliases"]
@@ -673,14 +669,13 @@
 			done \n\
 		} ; f"
 
-	# TODO: it'd be nice to follow the progress of candidates as they're discovered. [ -t and /dev/tty checking?
 	update-invalid-commands = "!f() { \n\
-			candidates=\"$(git discover-invalid-commands | sed 's/^/-/g' | tr \"\\n\" ' ')\"; \n\
+			candidates=\"$(git discover-invalid-commands | sed 's/^/-/g' | tee /dev/stderr | tr \"\\n\" ' ')\"; \n\
 			git config set --global completion.invalid-commands \"$candidates\"; \n\
 		} ; f"
 	update-new-invalid-commands = "!f() { \n\
-			candidates=\"$(git discover-new-invalid-commands | sed 's/^/-/g' | tr \"\\n\" ' ')\"; \n\
-			git config set --global --append completion.invalid-commands \"$candidates\"; \n\
+			candidates=\"$(git discover-new-invalid-commands | sed 's/^/-/g' | tee stderr | tr \"\\n\" ' ')\"; \n\
+			git config set --global completion.invalid-commands \"$(git config get completion.invalid-commands)\\n$candidates\"; \n\
 		} ; f"
 
 	potentially-valid-git-command = "!f() { \n\
