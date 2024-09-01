@@ -39,6 +39,7 @@
 	most-categories = builtins main others alias
 	# The list of categories used by normal bash completion.
 	# If GIT_COMPLETION_SHOW_ALL_COMMANDS is specified, builtins is also pre-pended
+	# Ex: ls-files is builtins list-plumbinginterrogators main, so it's not printed unless ..SHOW_ALL..
 	most-bash-completion-categories = list-mainporcelain others nohelpers alias list-complete
 	# Commands that, despite all evidence to the contrary, git considers to potentially be valid git commands. Formatted to be compatible with completion.commands
 	# Vaguely, these are essentially 'other' commands that git sorta just expects to exist
