@@ -277,14 +277,14 @@
 
 	alias-grep--helper = "!f() { \n\
 		git config get --all --show-names --null --regexp '^alias\\.' | \n\
-			sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
-			grep -E --null-data  --regexp=\"$1\" | \n\
+			sed  -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
+			grep -E --null-data --regexp=\"$1\" | \n\
 			sort --zero-terminated; \n\
 		} ; f"
 	alias-grep = "!f() { \n\
 		if [ 1 -ne $# ]; then \n\
 			>&2 echo 'git alias-grep requires exactly one argument'; \n\
-			echo 'usage: git alias-grep <regex>   # aliases matching a regex, including value'; \n\
+			echo 'usage: git alias-grep <regex>  # aliases matching a regex, including value'; \n\
 			return 1; \n\
 		fi \n\
 		git alias-grep--helper \"$1\" | \n\
@@ -336,7 +336,7 @@
 	assumed-unchanged = "!f() { git ls-files -v | grep \"^[[:lower:]]\" ; } ; f"
 
 	# NB: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
-	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME.  Hence, why I'm calling it psychotic.
+	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME. Hence, why I'm calling it psychotic.
 	authors = "!f() { git shortlog -s -e \"$@\" | awk '{$1=\"\";print}' | sort -f ; } ; f"
 	authors-raw = no-mailmap authors
 	# sort:
@@ -700,7 +700,7 @@
 				\"${1?Need a value}\"; \n\
 		} ; f"
 	# --local is unnecessary, but provides clarity
-	silence-mr-pull =  "!f() { git config set --local merge.stat no ; } ; f"
+	silence-mr-pull = "!f() { git config set --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	# NB: git-extras has git-root, which is essentially rev-parse --show-toplevel
@@ -858,7 +858,7 @@
 		# TODO: this might be the best 'just get the lower case of the argument once' I can do \n\
 		# in bash, this line is just spelled `case \"${GIT_TRACE,,}\" in` \n\
 		case \"$(GIT_TRACE=\"$GIT_TRACE\" bash -c 'echo \"${GIT_TRACE,,}\"')\" in \n\
-		[1-9]|true|/*)  \n\
+		[1-9]|true|/*) \n\
 				echo 'GIT_TRACE is enabled - turning on alias debugging'; \n\
 				echo 'sh -x output will appear on stderr'; \n\
 				sh_args='-x'; \n\
@@ -892,7 +892,7 @@
 			git pull --no-tags --rebase --depth 1 --quiet \"$@\"; \n\
 		} ; f"
 
-	# TODO: also need to expire the reflog with  git reflog expire --expire=all --all, per https://stackoverflow.com/a/62650346/285944
+	# TODO: also need to expire the reflog with git reflog expire --expire=all --all, per https://stackoverflow.com/a/62650346/285944
 	# TODO: also might need to repack, per a peer answer: https://stackoverflow.com/a/53245223/285944
 	# In fact, it might be nice to 'stash' two files - one for the tags and one for the reflog so they can be restored
 	# Alternatively, following github's "Here are your local changes. Please type the name of this repo to proceed" prompt might be cool, too
