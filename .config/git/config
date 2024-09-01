@@ -905,7 +905,8 @@
 			echo progress: $candidate; \n\
 			git alias--as-sh-able $candidate | \n\
 			sed \"s/^f()/${candidate}()/\" | \n\
-			sed -E 's/;\\s+f\\s*$//' | \n\
+			sed \"s/^bash -c 'f()/${candidate}()/\" | \n\
+			sed -E \"s/;\\s+f\\s*'?\\s*$//\" | \n\
 			cat >\"${libDir}/${candidate}\"; \n\
 		done; \n\
 		} ; f"
