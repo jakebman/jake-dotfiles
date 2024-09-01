@@ -758,28 +758,44 @@
 		\n\
 		git \"$@\"; \n\
 		} ; f"
-	# Runs any alias, including those that shadow builtins.
-	# THERE IS NO CHECKING ON THIS. You asked for this behavior by invoking this command.
-	# If you want to be safer, check out permit-aliases-to-shadow-builtins
-	run-alias = "!f() { \n\
+
+	# NB: this WILL conflate aliasing of `a=b` and `a=!git b`. I'm not certain I have a problem with that.
+	alias--as-sh-able = "!f() { \n\
 		local aliasName alias aliasSigil aliasRest; \n\
 		aliasName=${1?need an alias to expand}; \n\
 		alias=$(git protected-config get \"alias.${aliasName}\"); \n\
-		# move the alias name out of $@ \n\
-		shift; \n\
-		# ! is meaningful to [ and test. I'm using x-prefix trick out of caution \n\
 		# ${alias:0:1} is only availble in bash. ${alias%${alias#?}} is portable to sh \n\
 		# see: https://stackoverflow.com/questions/10218474/how-to-obtain-the-first-letter-in-a-bash-variable \n\
 		aliasRest=${alias#?}; \n\
 		aliasSigil=${alias%$aliasRest}; \n\
+		# ! is meaningful to [ and test. I'm using x-prefix trick out of caution \n\
 		if [ 'x!' != \"x${aliasSigil}\" ]; then \n\
-			# A within-git alias. Let string expansion apply. Does $* work better here? \n\
-			git $alias \"$@\"; \n\
-			return; \n\
+			echo git \"$alias\"; \n\
+		else \n\
+			echo \"$aliasRest\"; \n\
 		fi \n\
+		} ; f"
+
+	# Runs any alias, including those that shadow builtins.
+	# THERE IS NO CHECKING ON THIS. You asked for this behavior by invoking this command.
+	# If you want to be safer, check out permit-aliases-to-shadow-builtins
+	run-alias = "!f() { \n\
+		local aliasName alias; \n\
+		aliasName=${1?need an alias to expand}; \n\
+		alias=$(git alias--as-sh-able \"$aliasName\"); \n\
+		# move the alias name out of $@ \n\
+		shift; \n\
+		case \"$alias\" in \n\
+		git*) \n\
+			# A within-git alias. Let string expansion apply. \n\
+			# alias--as-sh-able already prepended git \n\
+			$alias \"$@\"; \n\
+			return; \n\
+		;; \n\
+		esac \n\
 		if [ $# -gt 0 ]; then \n\
 			# prepare_shell_cmd puts $@ into the shell command if there are more args \n\
-			aliasRest=$(printf '%s \"$@\"' \"$aliasRest\"); \n\
+			alias=$(printf '%s \"$@\"' \"$alias\"); \n\
 		fi \n\
 		local sh_args command_name=\"run-alias $aliasName\"; \n\
 		# handle redirection to low-ish FDs or files. Enabling -x happens below. \n\
@@ -799,10 +815,10 @@
 				echo 'GIT_TRACE is enabled - turning on alias debugging'; \n\
 				echo 'sh -x output will appear on stderr'; \n\
 				sh_args='-x'; \n\
-				command_name=$aliasRest; \n\
+				command_name=$alias; \n\
 			;; \n\
 		esac \n\
-		sh $sh_args -c \"$aliasRest \" \"$command_name\" \"$@\"; \n\
+		sh $sh_args -c \"$alias \" \"$command_name\" \"$@\"; \n\
 		} ; f"
 
 	# Stolen from mr's git_status action, and modified for my purposes
