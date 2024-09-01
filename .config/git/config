@@ -897,11 +897,7 @@
 			git pull --no-tags --rebase --depth 1 --quiet \"$@\"; \n\
 		} ; f"
 
-	# TODO: also need to expire the reflog with git reflog expire --expire=all --all, per https://stackoverflow.com/a/62650346/285944
-	# TODO: also might need to repack, per a peer answer: https://stackoverflow.com/a/53245223/285944
-	# In fact, it might be nice to 'stash' two files - one for the tags and one for the reflog so they can be restored
-	# Alternatively, following github's "Here are your local changes. Please type the name of this repo to proceed" prompt might be cool, too
-	# I should also do something along the lines of "create a shallow (--depth=1) clone; compare its .git dir's size"
+	# It would be cool if we could --reference-if-able="$GIT_DIR" and --dissociate, but $GIT_DIR is potentially shallow
 	reshallow = "!f() { \n\
 			local -; \n\
 			local temp; \n\
@@ -909,8 +905,8 @@
 			: ${GIT_DIR:=$(git gitdir)}; \n\
 			du -hs \"$GIT_DIR\"; \n\
 			temp=$(mktemp -d --tmpdir --suffix \"-$(basename \"$(pwd)\")\" git-reshallow-XXXXXXX); \n\
-			trap 'sleep 10;echo removing $temp in 120s; sleep 120; echo rm -r -- \"$temp\"' EXIT \n\
 			echo creating shallow clone at $temp; \n\
+			set -x; \n\
 			git clone \\\n\
 				--depth=1 \\\n\
 				--shallow-submodules \\\n\
@@ -921,10 +917,12 @@
 				\"$@\" \\\n\
 				-- \\\n\
 				\"$GIT_DIR\" \\\n\
-				\"$temp\"; \n\
+				\"$temp\" && set +x; \n\
+			# Magically auto-un-bares the cloned repo: \n\
+			cp \"$GIT_DIR/config\" \"$temp\"; \n\
 			du -hs \"$temp\"; \n\
-			# TODO: unbare \n\
-			echo $temp will be deleted in 130 seconds. Please decide quickly; \n\
+			mv --backup=numbered \"$GIT_DIR\" \".git-reshallow-history\"; \n\
+			mv \"$temp\" \".git\"; \n\
 		} ; f"
 	# TODO: in progress
 	alias-lib-dir = "!f() { echo \"${GIT_ALIAS_LIB_DIR:-${XDG_CONFIG_HOME:-${HOME}/.config}/git/alias-lib.d}\"; } ; f"
