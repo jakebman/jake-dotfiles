@@ -10,7 +10,7 @@
         -pb -ad -addp -alais -alises -comit -comm0t -comm9t -comm-t \
         -commt -config-deubg -dff -dif -idff -tgui -thelp -ehlp -hlep \
         -oroboros -pus -tpush -statu -stashs -tatus \
-        -ocmmit -aliases \
+        -ocmmit -aliases -config-todo \
     \
         -"convenient-names" \
         -d -r \
@@ -68,6 +68,7 @@
 	alais = alias
 	alises = aliases
 	pb = bp # alias defined below to do big-picture stuff implicitly
+	config-todo = config-todos
 	comit = commit
 	comm0t = commit
 	comm9t = commit
