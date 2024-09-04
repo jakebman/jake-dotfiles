@@ -26,6 +26,12 @@
     \
         -"git--list-cmds=list-foreignscminterface(the-broken-ones-at-least)" \
         -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -svn \
+    \
+        -"my-own-aliases" \
+        -alias--as-sh-able -alias--single-helper -alias-grep--helper -by-author--helper \
+        -commands--ensure-config-last -commands--helper -commands--include-invalid -commands--include-unreasonable \
+        -is-mainline--find-remote-head -is-mainline--find-remote-head -list-commands--all-categories \
+        -list-commands--all-categories--raw -list-commands--raw -list-reasonable-commands--raw \
 
 	# NB: these are not used by git but instead by my custom command checking aliases below
 	list-categories = list-ancillaryinterrogators list-ancillarymanipulators list-complete list-developerinterfaces list-foreignscminterface list-guide list-mainporcelain list-plumbinginterrogators list-plumbingmanipulators list-purehelpers list-synchelpers list-synchingrepositories list-userinterfaces
