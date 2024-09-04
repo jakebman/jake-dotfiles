@@ -483,7 +483,7 @@
 			return; # propagates the success \n\
 		fi \n\
 		local ret=$?; \n\
-		echo local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), that remote\\'s HEAD; \n\
+		echo '#' local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), that remote\\'s HEAD; \n\
 		return $ret; # propagate the failure \n\
 		} ; f"
 	# Helper - try to figure out where $remote/HEAD points, if it's not present
