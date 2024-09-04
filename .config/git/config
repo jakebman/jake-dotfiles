@@ -248,6 +248,7 @@
 	# TODO: it would be cool to take some config --flags like --names-only
 	# TODO: once I figure out the 'type expands aliases deeply' tech in bash-land, borrow it here.
 	# TODO: an analog for bash's `type`, too
+	# TODO: if there is a single exact match... I'd like to treat it specially, to promote it above others
 	alias--single-helper = "!f() { \n\
 			# NB: git config keys cannot contain shell-y characters - $match is safe unquoted here \n\
 			# docs: The variable names are case-insensitive, \n\
