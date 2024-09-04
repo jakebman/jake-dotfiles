@@ -255,13 +255,21 @@
 			# docs: The variable names are case-insensitive, \n\
 			# allow only alphanumeric characters and -, \n\
 			# and must start with an alphabetic character. \n\
-			for match in $(git config list --name-only | \n\
-			                   grep '^alias\\.' | \n\
-			                   sed s/^alias.// | \n\
-			                   grep -E \"$1\" | \n\
-			                   sed s/^/alias./); do \n\
-				git config get --all --show-names --null $match; \n\
-			done | \n\
+			local aliasConfigName=\"alias.$1\"; \n\
+			( \n\
+				if git config \"$aliasConfigName\" >/dev/null 2>&1; then \n\
+					git config get --all --show-names --null \"$aliasConfigName\"; \n\
+				else \n\
+					for aliasConfigName in $( \n\
+							git config list --name-only | \n\
+								grep '^alias\\.' | \n\
+								sed s/^alias.// | \n\
+								grep -E \"$1\" | \n\
+								sed s/^/alias./); do \n\
+						git config get --all --show-names --null $aliasConfigName; \n\
+					done \n\
+				fi \n\
+			) | \n\
 				sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
 				sort --zero-terminated | \n\
 				tr '\\0' '\\n' | \n\
