@@ -259,9 +259,9 @@
 			                   sed s/^alias.// | \n\
 			                   grep -E \"$1\" | \n\
 			                   sed s/^/alias./); do \n\
-				git config get --all --show-names --null $match | \n\
-					sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g'; \n\
+				git config get --all --show-names --null $match; \n\
 			done | \n\
+				sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
 				sort --zero-terminated | \n\
 				tr '\\0' '\\n' | \n\
 				git pager alias; \n\
