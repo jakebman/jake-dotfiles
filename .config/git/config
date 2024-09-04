@@ -259,6 +259,7 @@
 			( \n\
 				if git config \"$aliasConfigName\" >/dev/null 2>&1; then \n\
 					git config get --all --show-names --null \"$aliasConfigName\"; \n\
+					echo \"# ... Other aliases elided due to direct match. To see more results, choose a regex that doesn't match itself (append '[]')\"; \n\
 				else \n\
 					for aliasConfigName in $( \n\
 							git config list --name-only | \n\
@@ -286,9 +287,9 @@
 		*) \n\
 			>&2 echo \"Too many arguments\"; \n\
 			cat <<-'HEREDOC'; \n\
-			usage: git alias                  # list aliases \n\
-			   or: git alias <regex>          # aliases with names matching a regex \n\
-			   or: git alias <name> <command> # create alias \n\
+			usage: git alias                              # list aliases \n\
+			   or: git alias <regex-unless-exact-exists>  # aliases with names matching a regex, or the single literal match \n\
+			   or: git alias <name> <command>             # create alias \n\
 			HEREDOC\n\
 			# NB: HEREDOC requires no space before line termination \n\
 			return 1; \n\
