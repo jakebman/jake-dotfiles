@@ -248,9 +248,7 @@
 	# TODO: it would be cool to take some config --flags like --names-only
 	# TODO: once I figure out the 'type expands aliases deeply' tech in bash-land, borrow it here.
 	# TODO: an analog for bash's `type`, too
-	alias = "!f() { \n\
-		case $# in \n\
-		0|1) \n\
+	alias--single-helper = "!f() { \n\
 			# NB: git config keys cannot contain shell-y characters - $match is safe unquoted here \n\
 			# docs: The variable names are case-insensitive, \n\
 			# allow only alphanumeric characters and -, \n\
@@ -266,6 +264,11 @@
 				sort --zero-terminated | \n\
 				tr '\\0' '\\n' | \n\
 				git pager alias; \n\
+		} ; f"
+	alias = "!f() { \n\
+		case $# in \n\
+		0|1) \n\
+			git alias--single-helper \"$@\"; \n\
 		;; \n\
 		2) \n\
 			git config set --global \"$1\" \"$2\"; \n\
