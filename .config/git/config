@@ -257,7 +257,7 @@
 			( \n\
 				if git config \"$aliasConfigName\" >/dev/null 2>&1; then \n\
 					git config get --all --show-names --null \"$aliasConfigName\"; \n\
-					echo \"# ... Other aliases elided due to direct match. To see more results, choose a regex that doesn't match itself (append '[]')\"; \n\
+					echo \"# ... Other aliases elided due to direct match. To see more results, choose a regex that doesn't match itself (hint: enclose a single letter in '[]')\"; \n\
 				else \n\
 					for aliasConfigName in $( \n\
 							git config list --name-only | \n\
