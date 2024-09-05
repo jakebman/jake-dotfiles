@@ -100,6 +100,7 @@ function j-fzf-diff {
 }
 
 function j-ack {
+	# Vim accepts the forced color, and it's really nice to see this output later
 	ack --color --column --with-filename "$@" 2>/dev/null
 }
 
