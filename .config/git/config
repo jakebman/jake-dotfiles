@@ -1002,8 +1002,9 @@
 	show-branch = true # ditto
 	help = true
 	# Read and used by my git-pager alias:
-	# TODO: it would be nice if this bat coloring respected color.alias too, somehow. (See git config --get-colorbool)
-	alias = bat --style=plain --language=bash
+	# Also respects color.alias/color.ui settings, for what that's worth.
+	# CAREFUL: piping automatically turning off paging by and *means this command never even runs*
+	alias = bat --style=plain $(git config --get-colorbool color.alias && echo ' --force-colorization --language=bash')
 	# WARNING: adding custom pagers here goozles the delta alias. Adding a custom entry here should add one there
 [column]
 	ui = auto
