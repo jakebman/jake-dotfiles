@@ -272,7 +272,7 @@
 				sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
 				sort --zero-terminated | \n\
 				tr '\\0' '\\n' | \n\
-				git pager alias; \n\
+				git alias--paging-helper; \n\
 		} ; f"
 	alias = "!f() { \n\
 		case $# in \n\
@@ -295,6 +295,14 @@
 		esac \n\
 		} ; f"
 
+	alias--paging-helper = "!f() { \n\
+		if git config --get-colorbool color.alias; then \n\
+			bat --style=plain --force-colorization --language=bash --pager 'git pager alias'; \n\
+		else \n\
+			git pager alias; \n\
+		fi \n\
+		} ; f"
+
 	alias-grep--helper = "!f() { \n\
 		git config get --all --show-names --null --regexp '^alias\\.' | \n\
 			sed  -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
@@ -309,7 +317,7 @@
 		fi \n\
 		git alias-grep--helper \"$1\" | \n\
 			tr '\\0' '\\n' | \n\
-			git pager alias; \n\
+			git alias--paging-helper; \n\
 		} ; f"
 	# NB: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
 	# and I'm not certain if it has any nasty consequences if I later want to create a proper
@@ -1001,10 +1009,8 @@
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
-	# Read and used by my git-pager alias:
-	# Also respects color.alias/color.ui settings, for what that's worth.
-	# CAREFUL: piping automatically turning off paging by and *means this command never even runs*
-	alias = bat --style=plain $(git config --get-colorbool color.alias && echo ' --force-colorization --language=bash')
+	# Nonstandard, but my alias outputting commands check git-pager with this name
+	alias = true
 	# WARNING: adding custom pagers here goozles the delta alias. Adding a custom entry here should add one there
 [column]
 	ui = auto
