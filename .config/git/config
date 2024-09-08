@@ -27,11 +27,12 @@
         -"git--list-cmds=list-foreignscminterface(the-broken-ones-at-least)" \
         -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -svn \
     \
-        -"my-own-aliases" \
+        -"my-own-helper-aliases" \
         -alias--as-sh-able -alias--single-helper -alias-grep--helper -by-author--helper \
         -commands--ensure-config-last -commands--helper -commands--include-invalid -commands--include-unreasonable \
         -is-mainline--find-remote-head -is-mainline--find-remote-head -list-commands--all-categories \
         -list-commands--all-categories--raw -list-commands--raw -list-reasonable-commands--raw \
+        -alias--paging-helper \
 
 	# NB: these are not used by git but instead by my custom command checking aliases below
 	list-categories = list-ancillaryinterrogators list-ancillarymanipulators list-complete list-developerinterfaces list-foreignscminterface list-guide list-mainporcelain list-plumbinginterrogators list-plumbingmanipulators list-purehelpers list-synchelpers list-synchingrepositories list-userinterfaces
@@ -272,7 +273,7 @@
 				sed -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
 				sort --zero-terminated | \n\
 				tr '\\0' '\\n' | \n\
-				git pager alias; \n\
+				git alias--paging-helper; \n\
 		} ; f"
 	alias = "!f() { \n\
 		case $# in \n\
@@ -295,6 +296,14 @@
 		esac \n\
 		} ; f"
 
+	alias--paging-helper = "!f() { \n\
+		if git config --get-colorbool color.alias; then \n\
+			bat --style=plain --force-colorization --language=bash --pager 'git pager alias'; \n\
+		else \n\
+			git pager alias; \n\
+		fi \n\
+		} ; f"
+
 	alias-grep--helper = "!f() { \n\
 		git config get --all --show-names --null --regexp '^alias\\.' | \n\
 			sed  -E --null-data 's/^alias\\.([^\\n]+)\\n/\\1 = /g' | \n\
@@ -309,7 +318,7 @@
 		fi \n\
 		git alias-grep--helper \"$1\" | \n\
 			tr '\\0' '\\n' | \n\
-			git pager alias; \n\
+			git alias--paging-helper; \n\
 		} ; f"
 	# NB: this is from https://stackoverflow.com/questions/14365946/create-a-branch-alias
 	# and I'm not certain if it has any nasty consequences if I later want to create a proper
@@ -984,6 +993,9 @@
 	autoSetupRemote = true
 [help]
 	autoCorrect = prompt
+[color]
+	# Respected by my alias* tools, turns on color syntax highlighting. Read via --colorbool, so it respects color.ui, too
+	# alias = always
 [core]
 	# almost every paged output that I care about is going to prefix the tabbed output with a +/-/' ' character
 	# at a minimum that's: logp, show, diff
@@ -1001,9 +1013,8 @@
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
-	# Read and used by my git-pager alias:
-	# TODO: it would be nice if this bat coloring respected color.alias too, somehow. (See git config --get-colorbool)
-	alias = bat --style=plain --language=bash
+	# Nonstandard, but my alias outputting commands check git-pager with this name
+	alias = true
 	# WARNING: adding custom pagers here goozles the delta alias. Adding a custom entry here should add one there
 [column]
 	ui = auto
