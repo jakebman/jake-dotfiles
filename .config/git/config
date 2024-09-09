@@ -755,7 +755,7 @@
 				# GIT_PAGER is set to something. But remember: '' means 'cat' \n\
 				pager=${GIT_PAGER:-cat}; \n\
 			elif pager=$(git config get \"pager.${1:-pager}\"); then \n\
-				# TODO: case insensitivity \n\
+				# TODO: case insensitivity (${pager@l} in bash) \n\
 				case \"$pager\" in \n\
 					no|off|false|0|'') \n\
 						echo disabled pager; \n\
