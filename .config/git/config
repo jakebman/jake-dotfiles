@@ -3,6 +3,7 @@
 	name = Jake Boeckerman
 	email = jakebman@gmail.com
 [completion]
+	# TODO: it might be nice to refactor this completion section and the entire commands* alias suite into their own file
 	# NB: tabs in this string are considered command words - \t-command is considered a positive entry
 	# NB: the cases aren't as you expect - the deltaAdd alias is removed via -deltaadd
 	commands = \
