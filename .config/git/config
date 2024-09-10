@@ -451,6 +451,9 @@
 
 	cp = "!f() { \n\
 		echo See https://devblogs.microsoft.com/oldnewthing/20190919-00/?p=102904 for implementation \n\
+		echo Read more from raymond so we might do this in-flight, by googling 'old new thing mundane git', \n\
+		echo which starts at https://devblogs.microsoft.com/oldnewthing/20190506-00/?p=102478 \n\
+		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
 		} ; f"
 	# ref: https://stackoverflow.com/questions/6245570/how-do-i-get-the-current-branch-name-in-git
 	# NB: git branch --show-current is less good - succeeds with empty string in detached head state
