@@ -65,10 +65,18 @@
 # A variant of safe.directory; a whitelist for my git-allow-aliases-to-shadow-builtins command
 [safe "aliases"]
 	alias = remote
+	alias = push # TODO: implicit --force-with-lease
 
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
-	# Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
+
+	## Shadowing Aliases:
+	# Aliases that shadow a builtin. Not normally permitted. You must invoke it via:
+	# `git permit-aliases-to-shadow-builtins remote`, (or via bash alias git='git permit-aliases-to-shadow-builtins')
+	# Style: these should try to reference a different, always-accessible (non-shadowing) git command
+	remote = remotes # implicit -v
+
+	## Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
 	ad = add
 	addp = add -p
 	aliases = alias # git-alias is in git-extras. Sometimes I expect the plural to work
@@ -185,9 +193,6 @@
 			git remote \"$@\" ; \n\
 		fi \n\
 		} ; f"
-	# An alias that shadows a builtin. Not normally permitted. You must invoke it via:
-	# `git permit-aliases-to-shadow-builtins remote`, (or via bash alias git='git permit-aliases-to-shadow-builtins')
-	remote = remotes
 	submodules = submodule # arguably a typo, but I thought this was a proper command name
 
 	shallow = clone --depth 1
