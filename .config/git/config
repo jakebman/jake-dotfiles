@@ -448,6 +448,10 @@
 		fi \n\
 		return $return; \n\
 		} ; f"
+
+	cp = "!f() { \n\
+		echo See https://devblogs.microsoft.com/oldnewthing/20190919-00/?p=102904 for implementation \n\
+		} ; f"
 	# ref: https://stackoverflow.com/questions/6245570/how-do-i-get-the-current-branch-name-in-git
 	# NB: git branch --show-current is less good - succeeds with empty string in detached head state
 	current-branch = "!f() { git symbolic-ref --short HEAD ; } ; f"
