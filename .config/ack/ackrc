@@ -73,7 +73,9 @@
 --type-add=readme:match:/\b(?i:readme)\b/
 
 ## Docker files
---type-add=readme:is:Dockerfile
+--type-add=docker:is:Dockerfile
+--type-add=docker:ext:dockerfile
+--type-add=docker:match:dockerfile*
 
 ## Continuous integration files
 --type-add=ci:is:.gitlab-ci.yml
