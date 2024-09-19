@@ -449,16 +449,21 @@
 		return $return; \n\
 		} ; f"
 
-	cp = "!f() { \n\
-		echo See https://devblogs.microsoft.com/oldnewthing/20190919-00/?p=102904 for implementation \n\
-		echo Read more from raymond so we might do this in-flight, by googling 'old new thing mundane git', \n\
-		echo which starts at https://devblogs.microsoft.com/oldnewthing/20190506-00/?p=102478 \n\
-		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
+	# Calls out and fails if the working directory is dirty
+	is-clean = "!f() { \n\
 		# https://unix.stackexchange.com/questions/155046/determine-if-git-working-directory-is-clean-from-a-script \n\
 		if [ -n \"$(git status --porcelain)\" ]; then \n\
 			echo working directory is not clean. Please clean and then retry; \n\
 			return 1; \n\
 		fi \n\
+		} ; f"
+
+	cp = "!f() { \n\
+		echo See https://devblogs.microsoft.com/oldnewthing/20190919-00/?p=102904 for implementation \n\
+		echo Read more from raymond so we might do this in-flight, by googling 'old new thing mundane git', \n\
+		echo which starts at https://devblogs.microsoft.com/oldnewthing/20190506-00/?p=102478 \n\
+		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
+		git is-clean || return \n\
 		git checkout -b git-cp-impl-branch; \n\
 		git mv \"${1?need a source}\" \"${2?need a destination}\"; \n\
 		git commit -m \"duplicate $1 into $2 (1/3)\n\n  This uses Jake's custom git-cp tool, implemented as $(type f)\"; \n\
