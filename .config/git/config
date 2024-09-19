@@ -574,11 +574,15 @@
 	implicitdiff = "!f() { \n\
 		# The implicit --exit-code in --quiet disable the pager (because otherwise less's return code would be the one returned) \n\
 		# NB: --quiet doesn't suppress stderr if you're outside a git dir, and the output is elaborate \n\
-		if ! git diff --quiet 2> /dev/null; then \n\
+		if ! git rev-parse; then \n\
+			# rev-parse only fails if you're outside a git directory. That gets our other checking out of the way \n\
+			return; \n\
+		fi \n\
+		if ! git diff --quiet; then \n\
 			git diff; \n\
 			return; \n\
 		fi \n\
-		if ! git diff --quiet --staged 2> /dev/null; then \n\
+		if ! git diff --quiet --staged; then \n\
 			git diff --staged; \n\
 			# fallthrough to status politely implies that the printed diff was from staged changes \n\
 		fi \n\
