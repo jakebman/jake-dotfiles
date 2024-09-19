@@ -570,6 +570,22 @@
 		fi \n\
 		} ; f"
 
+	# 'promoted' from git-implicitdiff so windows-land can borrow it
+	implicitdiff = "!f() { \n\
+		# The implicit --exit-code in --quiet disable the pager (because otherwise less's return code would be the one returned) \n\
+		# NB: --quiet doesn't suppress stderr if you're outside a git dir, and the output is elaborate \n\
+		if ! git diff --quiet 2> /dev/null; then \n\
+			git diff; \n\
+			return; \n\
+		fi \n\
+		if ! git diff --quiet --staged 2> /dev/null; then \n\
+			git diff --staged; \n\
+			# fallthrough to status politely implies that the printed diff was from staged changes \n\
+		fi \n\
+		# Git status can either succeed or fail. It'll usually do so for the same reasons our --quiet'd diffs did. \n\
+		git status; \n\
+		} ; f"
+
 	# TODO: Let's get a "pull, but also for non-checked-out branches"
 
 	# WARNING: this API is still experimental, so I might need to act fluidly around it
