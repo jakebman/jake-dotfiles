@@ -451,11 +451,16 @@
 
 	# Calls out and fails if the working directory is dirty
 	is-clean = "!f() { \n\
-		# https://unix.stackexchange.com/questions/155046/determine-if-git-working-directory-is-clean-from-a-script \n\
-		if [ -n \"$(git status --porcelain)\" ]; then \n\
+		if ! git is-clean-quiet; then \n\
 			echo working directory is not clean. Please clean and then retry; \n\
 			return 1; \n\
 		fi \n\
+		} ; f"
+
+	# fails if the working directory is dirty
+	is-clean-quiet = "!f() { \n\
+		# https://unix.stackexchange.com/questions/155046/determine-if-git-working-directory-is-clean-from-a-script \n\
+		[ -z \"$(git status --porcelain)\" ]; \n\
 		} ; f"
 
 	cp = "!f() { \n\
@@ -556,9 +561,9 @@
 	ls-untracked = ls-files --other --exclude-standard
 
 	# "Status, if it would have any output. Show otherwise."
-	# TODO: Except there's a bug. If there's an untracked file, I'd expect status to show it. But we don't catch it here.
+	# TODO: Did I actually fix the bug that if there's an untracked file, I'd expect status to show it. But we don't catch it here.
 	status-or-show = "!f() { \n\
-		if git diff --quiet && git diff --staged --quiet; then \n\
+		if git is-clean-quiet; then \n\
 			git show \"$@\"; \n\
 		else \n\
 			git status \"$@\"; \n\
