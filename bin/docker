@@ -5,7 +5,7 @@
 : "${DOCKER:=/usr/bin/docker}"
 : "${BASH_IT_DOCKER_DESKTOP_LOCATION:=/mnt/c/Program Files/Docker/Docker/Docker Desktop.exe}"
 
-_BASH_IT_DOCKER_AUTOSTART_EXCEPTIONS+=(version)
+_BASH_IT_DOCKER_AUTOSTART_EXCEPTIONS+=()
 # It's worth adding your own exceptions
 # _BASH_IT_DOCKER_AUTOSTART_EXCEPTIONS+=(login loggedin logout)
 
