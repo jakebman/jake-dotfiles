@@ -463,6 +463,7 @@
 		[ -z \"$(git status --porcelain)\" ]; \n\
 		} ; f"
 
+	# TODO: the git-extras' version of this has... trouble being rebased over (unrelated?) changes. Does this do... better?
 	cp = "!f() { \n\
 		echo See https://devblogs.microsoft.com/oldnewthing/20190919-00/?p=102904 for implementation \n\
 		echo Read more from raymond so we might do this in-flight, by googling 'old new thing mundane git', \n\
