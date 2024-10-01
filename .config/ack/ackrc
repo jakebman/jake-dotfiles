@@ -45,6 +45,8 @@
 ## Foo-ly named files - foo.txt, asdf.foo, etc.
 --type-add=foo:match:/\b(?i:foo)\b/
 
+## --yaml exists, but sometimes I call it --yml
+--type-add=yml:ext:yaml,yml
 ## Bash-it
 --type-add=alias:match:/\.alias\.bash$/
 --type-add=plugin:match:/\.plugin\.bash$/
