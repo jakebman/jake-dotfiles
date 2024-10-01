@@ -1,1 +1,3 @@
+
+# If a 'directory' is a symlink, still include the / upon completion of its name, as-if it were a directory
 set mark-symlinked-directories on
