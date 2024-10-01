@@ -1,3 +1,10 @@
 
 # If a 'directory' is a symlink, still include the / upon completion of its name, as-if it were a directory
 set mark-symlinked-directories on
+
+# Get color in completion output (uncertain I want this, but playing)
+# (and I can control it via the custom suffix "readline-colored-completion-prefix", in LS_COLORS)
+set colored-completion-prefix on
+
+# Prevent the dumb double-suffix when you complete from in the middle of a word
+set skip-completed-text on
