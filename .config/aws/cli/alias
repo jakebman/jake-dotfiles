@@ -73,8 +73,8 @@ docker-login =
     # this command is faster:
     ACCOUNT="$(aws configure get sso_account_id --profile "${PROFILE}" "$@")"
     WHERE="${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
-    DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${HOME}/P2776931/.docker/config.json}"
-
+    DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${DOCKER_CONFIG-${HOME}/.docker/config.json}}"
+    echo "logging into using settings $DOCKER_CONFIG"
     if type jq >/dev/null &&
        jq --exit-status \
           --arg registryUrl "$WHERE" \
