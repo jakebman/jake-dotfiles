@@ -40,6 +40,8 @@ login =
     done
   } ; f
 
+login-docker = docker-login-force
+
 # disable optimism on docker-login
 docker-login-force =
   !f() {
