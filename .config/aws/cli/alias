@@ -58,7 +58,10 @@ docker-login =
       PROFILE="${1}"
       shift
     else
-      PROFILE=default
+      # The 'default' profile duplicates this, but calling docker-login in a loop *should* skip it for natnav.
+      # So, this is 'effectively' the default profile for logging in. But not exactly. But close enough?
+      # TODO: this should be configurable
+      PROFILE=natnav
     fi
 
     if aws configure get docker_login_skip_this_profile --profile "$PROFILE" "$@" >/dev/null 2>&1; then
