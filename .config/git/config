@@ -961,6 +961,7 @@
 	# Stolen from mr's git_status action, and modified for my purposes
 	# TODO: --simplify-by-decoration is a good "trim the tree to relevant bits" flag. Potentially use it in more places
 	# TODO: I'd also like the upstream mr-status to list commits from local branches that aren't pushed to their tracked branches
+	# TODO: this *might* want to also call out if a repo is sparse? (also - how do we do that?)
 	# WARNING: this *is not* respected by mr, unless you configure `git_status = git mr-status "$@"` AND ALL OTHER TYPES!!!
 	# (that's at least vcsh, git_fake_bare, and git_bare)
 	mr-status = "!f() { \n\
