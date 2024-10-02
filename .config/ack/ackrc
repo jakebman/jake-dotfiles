@@ -87,6 +87,13 @@
 ## Markdown files, or similar. Mostly the same as readme
 --type-add=md:ext:md
 
+## Cucumber (test) files
+--type-add=cucumber:ext:feature
+--type-add=cucumber:ext:story
+
+--type-add=feature:ext:feature
+--type-add=story:ext:story
+
 ## ALLCAPS files (README, LICENSE, CONTRIBUTING, AUTHORS, etc.)
 --type-add=caps:match:/^[A-Z_]+$/
 --type-add=CAPS:match:/^[A-Z_]+$/
