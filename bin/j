@@ -99,6 +99,11 @@ function j-fzf-diff {
 	j-fzf-common --with-nth 1,3..
 }
 
+# with quickfix files, I'm uncertain what we need to hide. So, hide nothing
+function j-fzf {
+	j-fzf-common
+}
+
 function j-ack {
 	# Vim accepts the forced color, and it's really nice to see this output later
 	ack --color --column --with-filename "$@" 2>/dev/null
