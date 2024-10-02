@@ -6,7 +6,7 @@
 --smart-case
 
 # I really like paged output
---pager=less
+--pager=less --lesskey-src ~/.config/lesskey-no-gotoend-on-q
 
 # some files I know ack can ignore
 ## Java
