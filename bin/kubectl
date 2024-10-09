@@ -3,7 +3,7 @@
 # A bin-ified version of the docker autostart bash scripts. This allows makefiles to proc autostart too :)
 
 : "${DOCKER:=/usr/bin/docker}"
-: "${KUBECTL:=/usr/bin/kubectl}"
+: "${KUBECTL:=/usr/local/bin/kubectl}"
 : "${BASH_IT_DOCKER_DESKTOP_LOCATION:=/mnt/c/Program Files/Docker/Docker/Docker Desktop.exe}"
 
 _BASH_IT_KUBECTL_AUTOSTART_EXCEPTIONS+=()
