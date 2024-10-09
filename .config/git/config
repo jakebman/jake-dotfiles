@@ -471,8 +471,10 @@
 		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
 		echo TODO: this might be causing something interesting if you try to git reset against it, if submodules are present. Something dies while holding index.lock. Might have been git-extras, too \n\
 		set -o errexit # a simple 'or die' for everything \n\
+		local BRANCH=git-cp-temp-impl-branch-$$; \n\
 		git is-clean || return # explicit 'or die' - definitely want to exit if we're not clean \n\
-		git checkout -b git-cp-impl-branch; \n\
+		git checkout -b \"$BRANCH\"; \n\
+		trap 'git branch -D \"$BRANCH\" || echo \"Please manually delete temporary branch $BRANCH\"' EXIT; \n\
 		git mv \"${1?need a source}\" \"${2?need a destination}\"; \n\
 		git commit -m \"duplicate $1 into $2 (1/3)\n\n  This uses Jake's custom git-cp tool, implemented as $(type f)\"; \n\
 		git checkout HEAD~ \"$1\"; \n\
