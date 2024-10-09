@@ -471,6 +471,8 @@
 		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
 		echo TODO: this might be causing something interesting if you try to git reset against it, if submodules are present. Something dies while holding index.lock. Might have been git-extras, too \n\
 		set -o errexit # a simple 'or die' for everything \n\
+		# Go to the working directory where the command ran, to allow reference to files from that location \n\
+		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
 		local BRANCH=git-cp-temp-impl-branch-$$; \n\
 		git is-clean || return # explicit 'or die' - definitely want to exit if we're not clean \n\
 		git checkout -b \"$BRANCH\"; \n\
