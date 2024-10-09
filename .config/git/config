@@ -482,7 +482,7 @@
 		git checkout HEAD~ \"$1\"; \n\
 		git commit -m \"duplicate $1 into $2 (2/3)\"; \n\
 		git checkout -; \n\
-		git merge --no-ff --no-commit git-cp-impl-branch; \n\
+		git merge --no-ff --no-commit \"$BRANCH\"; \n\
 		git commit -m \"duplicate $1 into $2 (3/3)\"; \n\
 		} ; f"
 	# ref: https://stackoverflow.com/questions/6245570/how-do-i-get-the-current-branch-name-in-git
