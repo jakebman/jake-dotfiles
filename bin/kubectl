@@ -3,16 +3,17 @@
 # A bin-ified version of the docker autostart bash scripts. This allows makefiles to proc autostart too :)
 
 : "${DOCKER:=/usr/bin/docker}"
+: "${KUBECTL:=/usr/bin/kubectl}"
 : "${BASH_IT_DOCKER_DESKTOP_LOCATION:=/mnt/c/Program Files/Docker/Docker/Docker Desktop.exe}"
 
-_BASH_IT_DOCKER_AUTOSTART_EXCEPTIONS+=()
+_BASH_IT_KUBECTL_AUTOSTART_EXCEPTIONS+=()
 # It's worth adding your own exceptions
-# _BASH_IT_DOCKER_AUTOSTART_EXCEPTIONS+=(login loggedin logout)
+# _BASH_IT_KUBECTL_AUTOSTART_EXCEPTIONS+=(login loggedin logout)
 
-function _docker-autostart-exception {
+function _kubectl-autostart-exception {
 	# https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
 	local exception
-	for exception in "${_BASH_IT_DOCKER_AUTOSTART_EXCEPTIONS[@]}"; do
+	for exception in "${_BASH_IT_KUBECTL_AUTOSTART_EXCEPTIONS[@]}"; do
 		if [ "$exception" = "$1" ]; then
 			return
 		fi
@@ -20,18 +21,18 @@ function _docker-autostart-exception {
 	return 1
 }
 
-function docker-autostart {
-	if _docker-autostart-exception "$@"; then
-		: _log_debug "Not automatically starting docker to run '$@' - it is an exception"
+function kubectl-autostart {
+	if _kubectl-autostart-exception "$@"; then
+		: _log_debug "Not automatically starting docker to run 'kubectl $@' - it is an exception"
 	elif ! docker-is-running; then
-		echo "Docker is not currently running. Starting it now."
+		echo "Docker Desktop is not currently running. Starting it now."
 		docker-start-and-wait || return
 		echo
 		echo "============= Now proceeding with your original '$1' command =================="
-		echo "==>" docker "$@"
+		echo "==>" kubectl "$@"
 		echo "============= Now proceeding with your original '$1' command =================="
 	fi
-	"$DOCKER" "$@"
+	"$KUBECTL" "$@"
 }
 
 function docker-start {
@@ -66,4 +67,4 @@ function docker-is-running {
 }
 
 
-docker-autostart "$@"
+kubectl-autostart "$@"
