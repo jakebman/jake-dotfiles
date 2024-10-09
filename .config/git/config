@@ -1133,7 +1133,7 @@
 	# ask git log to act as if --follow is always present
 	follow = true
 	# get relative dates when it's short, otherwise good dates anyway
-	# TODO: I added auto: here, because the docs imply that this means "use human-local, unless the pager is not in use"
+	# TODO: I added auto: here, because the git-config docs imply that this means "use human-local, unless the pager is not in use"
 	# ... that seems right, but I dunno
 	date = auto:human-local
 	# --diff-merges=on should behave like --diff-merges=first-parent. show -m, too.
