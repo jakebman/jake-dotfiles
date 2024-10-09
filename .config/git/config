@@ -466,7 +466,7 @@
 	# TODO: the git-extras' version of this has... trouble being rebased over (unrelated?) changes. Does this do... better?
 	cp = "!f() { \n\
 		echo See https://devblogs.microsoft.com/oldnewthing/20190919-00/?p=102904 for implementation \n\
-		echo Read more from raymond so we might do this in-flight, by googling 'old new thing mundane git', \n\
+		echo Read more from Raymond so we might do this in-flight, by googling 'old new thing mundane git', \n\
 		echo which starts at https://devblogs.microsoft.com/oldnewthing/20190506-00/?p=102478 \n\
 		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
 		echo TODO: this might be causing something interesting if you try to git reset against it, if submodules are present. Something dies while holding index.lock. Might have been git-extras, too \n\
