@@ -481,7 +481,7 @@
 		git checkout -b \"$BRANCH\"; \n\
 		trap \"git branch -D '$BRANCH' || echo 'Please manually delete temporary branch $BRANCH'\" EXIT; \n\
 		git mv \"${1?need a source}\" \"${2?need a destination}\"; \n\
-		git commit -m \"duplicate $1 into $2 (1/3)\n\n# Step 1: Rename $1 to $2 in a throwaway branch.\n\n  This was automated using Jake's custom git-cp tool, implemented as:\n\n$(git alias cp | tr -d '\\t')\"; \n\
+		git commit -m \"duplicate $1 into $2 (1/3)\n\n# Step 1: Rename $1 to $2 in a throwaway branch.\n\n  This was automated using Jake's custom git-cp tool, implemented as:\n\n$(git alias cp | grep -E '\\sgit')\"; \n\
 		git checkout HEAD~ \"$1\"; \n\
 		git commit -m \"duplicate $1 into $2 (2/3)\n\n# Step 2: Bring the original $1 file to the throwaway branch.\"; \n\
 		git checkout -; \n\
