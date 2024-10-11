@@ -473,24 +473,25 @@
 		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
 		echo TODO: this might be causing something interesting if you try to git reset against it, if submodules are present. Something dies while holding index.lock. Might have been git-extras, too \n\
 		set -o errexit # a simple 'or die' for everything \n\
-		: \"${1?need a source}\" \"${2?need a destination}\"; \n\
 		# Go to the working directory where the command ran, to allow reference to files from that location \n\
 		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
 		local branch=\"git-cp-temp-impl-branch-$$\"; \n\
+		local source=\"${1?need a source}\"; \n\
+		local destination=\"${2?need a destination}\"; \n\
 		git is-clean || return # explicit 'or die' - definitely want to exit if we're not clean \n\
 		git checkout -b \"$branch\"; \n\
 		trap \"git branch -D '$branch' || echo 'Please manually delete temporary branch $branch'\" EXIT; \n\
-		git mv \"${1?need a source}\" \"${2?need a destination}\"; \n\
-		git commit -m \"duplicate $1 into $2 (1/3)\" \\\n\
-			-m \"# Step 1: Rename $1 to $2 in a throwaway branch.\" \\\n\
+		git mv \"$source\" \"$destination\"; \n\
+		git commit -m \"duplicate $source into $destination (1/3)\" \\\n\
+			-m \"# Step 1: Rename $source to $destination in a throwaway branch.\" \\\n\
 			-m \"This was automated using Jake's custom git-cp tool, implemented as:\" \\\n\
 			-m \"$(git alias cp | grep -E '^\\s+git.*' | sed -E 's/\\t+/    /g')\"; \n\
-		git checkout HEAD~ \"$1\"; \n\
-		git commit -m \"duplicate $1 into $2 (2/3)\" \\\n\
-			-m \"# Step 2: Bring the original $1 file to the throwaway branch.\"; \n\
+		git checkout HEAD~ \"$source\"; \n\
+		git commit -m \"duplicate $source into $destination (2/3)\" \\\n\
+			-m \"# Step 2: Bring the original $source file to the throwaway branch.\"; \n\
 		git checkout -; \n\
 		git merge --no-ff --no-commit \"$branch\"; \n\
-		git commit -m \"duplicate $1 into $2 (3/3)\" \\\n\
+		git commit -m \"duplicate $source into $destination (3/3)\" \\\n\
 			-m '# Step 3: Merge the throwaway branch back in. Success!'; \n\
 		} ; f"
 	# ref: https://stackoverflow.com/questions/6245570/how-do-i-get-the-current-branch-name-in-git
