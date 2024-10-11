@@ -476,10 +476,10 @@
 		: \"${1?need a source}\" \"${2?need a destination}\"; \n\
 		# Go to the working directory where the command ran, to allow reference to files from that location \n\
 		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
-		local BRANCH=\"git-cp-temp-impl-branch-$$\"; \n\
+		local branch=\"git-cp-temp-impl-branch-$$\"; \n\
 		git is-clean || return # explicit 'or die' - definitely want to exit if we're not clean \n\
-		git checkout -b \"$BRANCH\"; \n\
-		trap \"git branch -D '$BRANCH' || echo 'Please manually delete temporary branch $BRANCH'\" EXIT; \n\
+		git checkout -b \"$branch\"; \n\
+		trap \"git branch -D '$branch' || echo 'Please manually delete temporary branch $branch'\" EXIT; \n\
 		git mv \"${1?need a source}\" \"${2?need a destination}\"; \n\
 		git commit -m \"duplicate $1 into $2 (1/3)\" \\\n\
 			-m \"# Step 1: Rename $1 to $2 in a throwaway branch.\" \\\n\
@@ -489,7 +489,7 @@
 		git commit -m \"duplicate $1 into $2 (2/3)\" \\\n\
 			-m \"# Step 2: Bring the original $1 file to the throwaway branch.\"; \n\
 		git checkout -; \n\
-		git merge --no-ff --no-commit \"$BRANCH\"; \n\
+		git merge --no-ff --no-commit \"$branch\"; \n\
 		git commit -m \"duplicate $1 into $2 (3/3)\" \\\n\
 			-m '# Step 3: Merge the throwaway branch back in. Success!'; \n\
 		} ; f"
