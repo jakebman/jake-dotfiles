@@ -129,5 +129,5 @@
 ### match on the word 'jenkins'
 --type-add=jenkins:is:Jenkinsfile
 --type-add=jenkins:is:JenkinsFile
---type-add=jenkins:match:jenkinsfile.*
+--type-add=jenkins:match:jenkinsfile
 --type-add=jenkins:match:.*-JenkinsFile

@@ -26,5 +26,6 @@
 #
 
 --map-syntax "README:Markdown"
+--map-syntax "*jenkinsfile*:Groovy"
 --map-syntax "*.bats:Bourne Again Shell (bash)"
 --map-syntax "*.pom:XML"

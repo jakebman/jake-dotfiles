@@ -157,6 +157,7 @@ autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/config let &filetype = "dosini"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/cli/alias let &filetype = "gitconfig" " NOT VALID, but better than dosini
 autocmd BufNewFile,BufRead *.bash let &filetype = "bash"
 autocmd BufNewFile,BufRead *.dockerfile let &filetype = "dockerfile"
+autocmd BufNewFile,BufRead *.Jenkinsfile,*.jenkinsfile,*Jenkinsfile* let &filetype= "Jenkinsfile"
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
