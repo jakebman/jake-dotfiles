@@ -7,6 +7,7 @@ import re
 import sys # for argv and stdout
 
 # r'\b', but only at the end of words - a \word character followed by a non-\Word character or eol
+# TODO: a barrier for SnakeCaseWordDelineation where a lowercase is followed by uppercase
 BARRIER=re.compile(r'(?<=\w)(?=\W|$)')
 ELISION_MARKER='…'
 
