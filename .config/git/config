@@ -466,6 +466,7 @@
 		} ; f"
 
 	# TODO: the git-extras' version of this has... trouble being rebased over (unrelated?) changes. Does this do... better?
+	# TODO: the labels added to the commit messages are the cli parameters (strings) relative to wherever you were (which could have even been outside the git worktree). I'd prefer to get the canonical names in the commit messages, please
 	cp = "!f() { \n\
 		echo See https://devblogs.microsoft.com/oldnewthing/20190919-00/?p=102904 for implementation \n\
 		echo Read more from Raymond so we might do this in-flight, by googling 'old new thing mundane git', \n\
