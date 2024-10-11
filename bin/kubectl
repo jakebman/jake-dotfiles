@@ -6,7 +6,7 @@
 : "${KUBECTL:=/usr/local/bin/kubectl}"
 : "${BASH_IT_DOCKER_DESKTOP_LOCATION:=/mnt/c/Program Files/Docker/Docker/Docker Desktop.exe}"
 
-_BASH_IT_KUBECTL_AUTOSTART_EXCEPTIONS+=()
+_BASH_IT_KUBECTL_AUTOSTART_EXCEPTIONS+=(completion)
 # It's worth adding your own exceptions
 # _BASH_IT_KUBECTL_AUTOSTART_EXCEPTIONS+=(login loggedin logout)
 
