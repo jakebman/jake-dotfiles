@@ -813,7 +813,6 @@
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	unpaged = no-pager
 
-	# TODO: use --default in git config get here.
 	pager = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal \n\
@@ -828,7 +827,7 @@
 			if [ -n \"${GIT_PAGER+git-pager-has-a-set-value-including-the-empty-string}\" ]; then \n\
 				# GIT_PAGER is set to something. But remember: '' means 'cat' \n\
 				pager=${GIT_PAGER:-cat}; \n\
-			elif pager=$(git config get \"pager.${1:-pager}\"); then \n\
+			elif pager=$(git config get --default \"$fallback_pager\" \"pager.${1:-pager}\"); then \n\
 				# TODO: case insensitivity (${pager@l} in bash) \n\
 				case \"$pager\" in \n\
 					no|off|false|0|'') \n\
