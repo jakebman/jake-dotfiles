@@ -838,7 +838,6 @@
 					;; \n\
 					yes|on|true|1) \n\
 						pager=\"$fallback_pager\"; \n\
-						return; \n\
 					;; \n\
 				esac \n\
 			else \n\
