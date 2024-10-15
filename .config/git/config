@@ -823,7 +823,8 @@
 			if [ -z \"$1\" ]; then \n\
 				>&2 echo 'please specify a subcommand. Using pager as command name'; \n\
 			fi \n\
-			local pager; \n\
+			local pager fallback_pager; \n\
+			fallback_pager=\"$(git var GIT_PAGER)\"; \n\
 			if [ -n \"${GIT_PAGER+git-pager-has-a-set-value-including-the-empty-string}\" ]; then \n\
 				# GIT_PAGER is set to something. But remember: '' means 'cat' \n\
 				pager=${GIT_PAGER:-cat}; \n\
@@ -836,12 +837,12 @@
 						return; \n\
 					;; \n\
 					yes|on|true|1) \n\
-						pager=\"$(git var GIT_PAGER)\"; \n\
+						pager=\"$fallback_pager\"; \n\
 						return; \n\
 					;; \n\
 				esac \n\
 			else \n\
-				pager=\"$(git var GIT_PAGER)\"; \n\
+				pager=\"$fallback_pager\"; \n\
 			fi \n\
 			eval \"$pager\"; \n\
 		} ; f"
