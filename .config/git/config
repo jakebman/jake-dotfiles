@@ -813,9 +813,8 @@
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	unpaged = no-pager
 
-	# A command that acts-like the pager for the named command.
-	# Essentially, `eval "$(git config get pager.$command)", but respecting $GIT_PAGER, core.pager, not-being-on-the-terminal, etc.
-	pager = "!f() { \n\
+	# Essentially,`git config get pager.$command`, but respecting $GIT_PAGER, core.pager, not-being-on-the-terminal, etc.
+	pager--command = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal \n\
 				cat; \n\
@@ -844,7 +843,12 @@
 			else \n\
 				pager=\"$fallback_pager\"; \n\
 			fi \n\
-			eval \"$pager\"; \n\
+			echo \"$pager\"; \n\
+		} ; f"
+
+	# A command that acts-like the pager for the named command.
+	pager = "!f() { \n\
+			eval \"$(git pager--command \"$@\")\"; \n\
 		} ; f"
 
 	# git config, but with no way to access local or worktree configs.
