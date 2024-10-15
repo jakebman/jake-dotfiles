@@ -813,6 +813,8 @@
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	unpaged = no-pager
 
+	# A command that acts-like the pager for the named command.
+	# Essentially, `eval "$(git config get pager.$command)", but respecting $GIT_PAGER, core.pager, not-being-on-the-terminal, etc.
 	pager = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal \n\
