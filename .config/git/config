@@ -238,8 +238,19 @@
 	# Abuse parameter passing - the 'yesterday' argument will pass to --since, but if we do something dumb, we'll get something dumb back.
 	# (Also, we choose since-as-filter to get around weird history hiccups that things like cherry-picking can introduce)
 	since = log --since-as-filter
-	# TODO: it'd be *really* cool if "yesterday" implicitly meant "Friday" if today is Monday (nb: `date +%A`)
-	yesterday = since yesterday
+
+	# Morally '= since yesterday', but smarter: we use Friday as 'yesterday' for both Monday and Sunday (in addition to Saturday)
+	yesterday = "!f() { \n\
+		# %u: day of week (1..7); 1 is Monday \n\
+		case \"$(date +%u)\" in \n\
+		1|7) \n\
+			git since 'last Friday' \"$@\"; \n\
+			;; \n\
+		*) \n\
+			git since yesterday \"$@\"; \n\
+			;; \n\
+		esac \n\
+		} ; f"
 	tags = tag -l
 	unstage = restore --staged
 
