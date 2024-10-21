@@ -823,6 +823,7 @@
 	silence-mr-pull = "!f() { git config set --local merge.stat no ; } ; f"
 	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
 	unpaged = no-pager
+	colored = !git -c color.ui=always
 
 	# Essentially,`git config get pager.$command`, but respecting $GIT_PAGER, core.pager, not-being-on-the-terminal, etc.
 	pager--command = "!f() { \n\
