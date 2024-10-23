@@ -490,7 +490,7 @@
 		local branch=\"git-cp-temp-impl-branch-$$\"; \n\
 		local source=\"${1?need a source}\"; \n\
 		local destination=\"${2?need a destination}\"; \n\
-		git is-clean || return # explicit 'or die' - definitely want to exit if we're not clean \n\
+		git is-clean || return # explicit 'or die' - fail if we're not clean (return propagates the last exit code) \n\
 		git checkout -b \"$branch\"; \n\
 		trap \"git branch -D '$branch' || echo 'Please manually delete temporary branch $branch'\" EXIT; \n\
 		git mv \"$source\" \"$destination\"; \n\
