@@ -243,7 +243,7 @@
 	yesterday = "!f() { \n\
 		# %u: day of week (1..7); 1 is Monday \n\
 		case \"$(date +%u)\" in \n\
-		1|7) \n\
+		1|7) # Monday or Sunday \n\
 			git since 'last Friday' \"$@\"; \n\
 			;; \n\
 		*) \n\
