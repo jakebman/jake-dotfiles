@@ -300,7 +300,7 @@
 			git alias--single-helper \"$@\"; \n\
 		;; \n\
 		2) \n\
-			git config set --global \"$1\" \"$2\"; \n\
+			git config set --global \"alias.$1\" \"$2\"; \n\
 		;; \n\
 		*) \n\
 			>&2 echo \"Too many arguments\"; \n\
