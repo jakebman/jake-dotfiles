@@ -506,6 +506,27 @@
 		git commit -m \"duplicate $source into $destination (3/3)\" \\\n\
 			-m '# Step 3: Merge the throwaway branch back in. Success!'; \n\
 		} ; f"
+
+	# A moral sibling to cp and mv. Would love to call this `ln`, but it's not a perfect analog to the `ln` tool :(
+	relocate = "!f() { \n\
+		set -o errexit # a simple 'or die' for everything \n\
+		# Go to the working directory where the command ran, to allow reference to files from that location \n\
+		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
+		git is-clean || return # explicit 'or die' - fail if we're not clean (return propagates the last exit code) \n\
+		local source=\"${1?need a source}\"; \n\
+		local destination=\"${2?need a destination}\"; \n\
+		git mv \"$source\" \"$destination\"; \n\
+		git commit -m \"relocate $source to $destination, leaving a symlink (1/2)\" \\\n\
+			-m \"# Step 1: Rename $source to $destination.\" \\\n\
+			-m \"This was automated using Jake's custom git-relocate tool, implemented as:\" \\\n\
+			-m \"$(git alias relocate | grep -E '^\\s+git.*' | sed -E 's/\\t+/    /g')\"; \n\
+		ln \"$destination\" \"$source\"; \n\
+		git add \"$source\"; \n\
+		git commit -m \"relocate $source to $destination, leaving a symlink (2/2)\" \\\n\
+			-m \"# Step 2: Create a symlink from $source, pointing to $destination.\" \\\n\
+		} ; f"
+
+
 	# ref: https://stackoverflow.com/questions/6245570/how-do-i-get-the-current-branch-name-in-git
 	# NB: git branch --show-current is less good - succeeds with empty string in detached head state
 	current-branch = "!f() { git symbolic-ref --short HEAD ; } ; f"
