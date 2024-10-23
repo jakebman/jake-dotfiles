@@ -520,7 +520,7 @@
 			-m \"# Step 1: Rename $source to $destination.\" \\\n\
 			-m \"This was automated using Jake's custom git-relocate tool, implemented as:\" \\\n\
 			-m \"$(git alias relocate | grep -E '^\\s+git.*' | sed -E 's/\\t+/    /g')\"; \n\
-		ln \"$destination\" \"$source\"; \n\
+		ln -s \"$destination\" \"$source\"; \n\
 		git add \"$source\"; \n\
 		git commit -m \"relocate $source to $destination, leaving a symlink (2/2)\" \\\n\
 			-m \"# Step 2: Create a symlink from $source, pointing to $destination.\"; \n\
