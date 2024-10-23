@@ -829,7 +829,7 @@
 	pager--command = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal \n\
-				cat; \n\
+				echo 'cat'; \n\
 				return; \n\
 			fi \n\
 			if [ -z \"$1\" ]; then \n\
@@ -844,8 +844,8 @@
 				# TODO: case insensitivity (${pager@l} in bash) \n\
 				case \"$pager\" in \n\
 					no|off|false|0|'') \n\
-						echo disabled pager; \n\
-						cat; \n\
+						# pager is intentionally disabled \n\
+						echo 'cat'; \n\
 						return; \n\
 					;; \n\
 					yes|on|true|1) \n\
