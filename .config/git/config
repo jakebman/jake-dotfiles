@@ -557,6 +557,7 @@
 	# NB: we use `git rev-parse --symbolic-full-name @{push}` to hopefully figure out the complex dance
 	# between branch.<name>.remote, remote.pushDefault, and branch.<name>.pushRemote
 	# see https://stackoverflow.com/questions/2016901/how-to-list-unpushed-git-commits-local-but-not-on-origin
+	# Success messages are printed to stdout. Error messages are printed to stderr. This allows ...-print-on-failure to play with these streams to get only error messages
 	is-mainline = "!f() { \n\
 		( \n\
 			set -o errexit; \n\
@@ -570,16 +571,23 @@
 			\n\
 			# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
 			# Defensive coding! \n\
-			[ \"x$remoteHead\" = \"x$remoteBranch\" ]; \n\
+			if [ \"x$remoteHead\" != \"x$remoteBranch\" ]; then \n\
+				>&2 echo \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the HEAD for ${remote}\"; \n\
+				return 1; \n\
+			fi \n\
+			# output should be hexadecimal, but further defensiveness on this check \n\
+			if [ \"x$(git rev-parse \"$local\")\" != \"x$(git rev-parse \"$remoteBranch\")\" ]; then \n\
+				# ahead/behind info from https://gist.github.com/jehiah/1288596 \n\
+				>&2 echo \"Local branch ${local} is on a different commit from ${remoteBranch},\" \\\n\
+					\"$(git rev-list \"${remoteBranch}..${local}\" --count) ahead,\" \\\n\
+					\"$(git rev-list \"${local}..${remoteBranch}\" --count) behind\"; \n\
+				return 1; \n\
+			fi \n\
 		) \n\
 		} ; f"
 	is-mainline-print-on-failure = "!f() { \n\
-		if git is-mainline >/dev/null 2>&1; then \n\
-			return; # propagates the success \n\
-		fi \n\
-		local ret=$?; \n\
-		echo '#' local branch $(git current-branch) is not configured to push to $(git is-mainline--find-remote-head), that remote\\'s HEAD; \n\
-		return $ret; # propagate the failure \n\
+		# not available in bare `sh`: set -o pipefail; \n\
+		git is-mainline 2>&1 >/dev/null | sed 's/^/# /g'; \n\
 		} ; f"
 	# Helper - try to figure out where $remote/HEAD points, if it's not present
 	is-mainline--find-remote-head = "!f() { \n\
