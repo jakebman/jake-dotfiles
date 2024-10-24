@@ -1,1 +1,4 @@
+
+# mrconfig insists on putting a trailing whitespace on certain config lines...
+# Let's let git be fine with that
 .mrconfig whitespace=-blank-at-eol
