@@ -508,6 +508,7 @@
 		} ; f"
 
 	# A moral sibling to cp and mv. Would love to call this `ln`, but it's not a perfect analog to the `ln` tool :(
+	# TODO: doesn't move folders :(. Neither moving a folder to rename it, nor moving all the contents of a folder to a new location
 	relocate = "!f() { \n\
 		set -o errexit # a simple 'or die' for everything \n\
 		# Go to the working directory where the command ran, to allow reference to files from that location \n\
