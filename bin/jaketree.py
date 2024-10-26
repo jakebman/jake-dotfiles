@@ -6,9 +6,18 @@ import argparse
 import re
 import sys # for argv and stdout
 
-# r'\b', but only at the end of words - a \word character followed by a non-\Word character or eol
-# TODO: a barrier for SnakeCaseWordDelineation where a lowercase is followed by uppercase
-BARRIER=re.compile(r'(?<=\w)(?=\W|$)')
+# A regex to match word barriers - the zero-width string where we want to cut words.
+# Currently, that's at |The |start |of |words |and |also |within |Snake|Case|Words
+# Broken down:
+# (?<=\w)(?=\W|$)
+#   A word barrier. Essentially r'\b', but only at the end of words:
+#   a \word character followed by a non-\Word character or eol
+# (<=[a-z])(?=[A-Z])
+#   The SnakeCaseWordBarriers. A lowercase letter followed by an upercase one.
+#   Unicode support available if I grab `regex` from pypi. Would become:
+#   `(<=\p{Lowercase_Letter})(?=\p{Uppercase_Letter}|\p{Titlecase_Letter})'`
+#   https://stackoverflow.com/questions/68428413/how-do-i-match-all-unicode-lowercase-characters-in-python-with-a-regular-express
+BARRIER=re.compile(r'(?<=\w)(?=\W|$)|(<=[a-z])(?=[A-Z])')
 ELISION_MARKER='…'
 
 def index_of_lowest_element(items):
