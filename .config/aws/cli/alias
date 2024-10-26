@@ -136,14 +136,21 @@ loggedin =
   }; f
 
 [command eks]
-# TODO: paging
 describe-clusters =
   !f() {
     aws eks list-clusters |
       jq -j '.clusters | join ("\u0000")' |
       xargs --null -L 1 aws eks describe-cluster --name |
-      jq --slurp 'reduce (.[] | .cluster | {(.name):.}) as $item ({}; . + $item)'
-  }; f
+      jq-paged --slurp 'reduce (.[] | .cluster | {(.name):.}) as $item ({}; . + $item)'
+  }
+  jq-paged() {
+    if [ -t 1 ]; then
+      jq --color-output "$@"
+    else
+      jq "$@"
+    fi | less --RAW-CONTROL-CHARACTERS
+  }
+  ; f
 
 # Example from the docs
 [command ec2]
