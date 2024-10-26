@@ -151,6 +151,7 @@ set viminfofile=$XDG_STATE_HOME/vim/viminfo
 " I did at least figure out how to inline a function, and what au means
 " TODO: what values can filetype take?
 " TODO: Thanks, past Jake for knowing what au means. Care to share with the class?
+" TODO: vimpolyglot doesn't have a solution for the .cpy files from rmkit
 autocmd BufNewFile,BufRead .mrconfig let &filetype = "gitconfig"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/git/work-config let &filetype = "gitconfig"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/config let &filetype = "dosini"
