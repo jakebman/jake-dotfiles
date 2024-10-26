@@ -262,10 +262,12 @@
 	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
 
+	# TODO: it would be nice do more with this
+	type = help
+
 	# re-implementing git-alias from git-extras to respect multi-line strings and use git-config subcommands
 	# TODO: it would be cool to take some config --flags like --names-only
 	# TODO: once I figure out the 'type expands aliases deeply' tech in bash-land, borrow it here.
-	# TODO: an analog for bash's `type`, too
 	alias--single-helper = "!f() { \n\
 			# NB: git config keys cannot contain shell-y characters - $match is safe unquoted here \n\
 			# docs: The variable names are case-insensitive, \n\
