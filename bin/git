@@ -42,7 +42,6 @@ function summarize_path {
 # NB: mr does pass --quiet through to us, so we will be able to rely on that
 # Further consideration could go into a magic parameter setup (git -c jake.custom.indirection.disableMessage) that
 # can act as a "quiet, but for this callout only"
-# Further TODO: call out what command was eventually invoked, with env variables, if some debug indications are present
 if [ -t 1 ] && [ -z "$MR_REPO" ] && [ -z "$JAKE_SUPPRESS_GIT_SQUAWK" ]; then # we're running in a terminal, and not from `mr`
 	# TODO: use printf instead?
 	trap 'echo "(${THIS_SCRIPT} used ${WHICH}'"'"'s ${GIT}${HOW+${HOW}.})"; [ -v NOTES ] && echo "${NOTES}"' EXIT
