@@ -124,6 +124,8 @@ def do_line(prev, line,
             ditto_marker=DITTO_MARKER,
             output=print,
             debug=None):
+    if debug is None:
+        debug = DEBUG # currently unused, but respecting the pattern
     prefix = commonStrat([prev, line])
     index = len(prefix) # with commonpath, this is stopped BEFORE the common slash
     paranoia = commonprefix([line[index:], prev[index:]])
