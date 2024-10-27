@@ -17,7 +17,7 @@ import sys # for argv and stdout
 #   Unicode support available if I grab `regex` from pypi. Would become:
 #   `(<=\p{Lowercase_Letter})(?=\p{Uppercase_Letter}|\p{Titlecase_Letter})'`
 #   https://stackoverflow.com/questions/68428413/how-do-i-match-all-unicode-lowercase-characters-in-python-with-a-regular-express
-BARRIER=re.compile(r'(?<=\w)(?=\W|$)|(<=[a-z])(?=[A-Z])')
+BARRIER=re.compile(r'(?<=\w)(?=\W|$)|(?<=[a-z])(?=[A-Z]|$)')
 ELISION_MARKER='…'
 DEBUG=False
 
