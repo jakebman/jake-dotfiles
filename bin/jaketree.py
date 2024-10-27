@@ -30,7 +30,6 @@ def common_word_barrier(strings, debug=None):
     prefix = commonprefix(strings)
     index = len(prefix)
     l=min(len(s) for s in strings)
-    ticks=[0 for x in range(index+1)] # `+1` allows for the match to be between prefix and the next letter
     # Find the last shared word barrier
     split=0
     barrier_source = [BARRIER.finditer(string) for string in strings]
@@ -40,20 +39,12 @@ def common_word_barrier(strings, debug=None):
             while len(set(barriers)) != 1:
                 i = index_of_lowest_element(barriers)
                 if barriers[i] > index: raise StopIteration
-                ticks[barriers[i]] += 1
                 barriers[i] = next(barrier_source[i]).start()
-            ticks[split] = len(strings) # allowed to look past the common prefix
             if barriers[0] > index:
                 break
             split = barriers[0] # they all agreed. Keep this answer, go to the top and try again
         except StopIteration: # a finditer finished its run
             break
-    # read: if (debug // DEBUG) from perl where // takes the left arg if it's not None, the right otherwise
-    if debug if debug is not None else DEBUG:
-        for string in strings:
-            print("DEBUG:", string)
-        print("DEBUG:", prefix)
-        print("DEBUG:", ''.join(chr(ord('0') + t) for t in ticks))
     return prefix[:split]
 
 DEFAULT_COMMON=common_word_barrier
