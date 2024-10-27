@@ -34,7 +34,7 @@ def common_word_barrier(strings, debug=None):
     # Find the last shared word barrier
     split=0
     barrier_source = [BARRIER.finditer(string) for string in strings]
-    while barrier_source: # not exactly idiomatic, but it prevents us from entering if there are no strings
+    while barrier_source: # not exactly idiomatic (I'd prefer `if`), but it allows internal breaks from this block
         try:
             barriers = [next(b).start() for b in barrier_source] # where all the barriers are
             while len(set(barriers)) != 1:
