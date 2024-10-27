@@ -27,6 +27,8 @@ def index_of_lowest_element(items):
 
 
 def common_word_barrier(strings, debug=None):
+    if debug is None: # default from global
+        debug = DEBUG
     prefix = commonprefix(strings)
     index = len(prefix)
     l=min(len(s) for s in strings)
@@ -39,6 +41,9 @@ def common_word_barrier(strings, debug=None):
             while len(set(barriers)) != 1:
                 i = index_of_lowest_element(barriers)
                 if barriers[i] > index: raise StopIteration
+                if debug:
+                    for j in range(len(strings)):
+                        print("DEBUG:", f'{strings[j][:barriers[j]]}|{strings[j][barriers[j]:]}', '*' if j == i else '')
                 barriers[i] = next(barrier_source[i]).start()
             if barriers[0] > index:
                 break
