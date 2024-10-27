@@ -20,6 +20,7 @@ import sys # for argv and stdout
 #   https://stackoverflow.com/questions/68428413/how-do-i-match-all-unicode-lowercase-characters-in-python-with-a-regular-express
 BARRIER=re.compile(r'(?<=\w)(?=\W|$)|(?<=[a-z])(?=[A-Z]|$)')
 ELISION_MARKER='…'
+DITTO_MARKER='"'
 DEBUG=False
 
 def index_of_lowest_element(items):
@@ -92,6 +93,7 @@ def calc_args(argv):
     group.add_argument("--pathwise", "-p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
     group.add_argument("--textwise", "-t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
     args.add_argument("--elision-marker", default=ELISION_MARKER, help=f"the indicator that a piece has been removed ({ELISION_MARKER})")
+    args.add_argument("--ditto-marker", default=DITTO_MARKER, help=f"the indicator that the whole line is duplicated ({DITTO_MARKER})")
     args.add_argument("--flush", "-f", action='store_const', dest="output", const=flushing_print, help="flush each line as it's printed (turns on automatically if stdout isn't a terminal)")
     args.add_argument("--buffered", action='store_const', dest="output", const=print, help="use traditional buffered output (used for default terminal output)")
     args.add_argument("--debug", action='store_const', dest="debug", const=True, help="Enable debug output")
@@ -104,22 +106,31 @@ def calc_args(argv):
     DEBUG = out.debug
     return vars(out)
 
-def run_on_files(files=None, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print, **_ignored_kwargs):
+def run_on_files(files=None, **kwargs):
     with fileinput(files=files) as stdin:
-        run(stdin, commonStrat=commonStrat, elision_marker=elision_marker, output=output)
+        run(stdin, **kwargs)
 
-def run(stdin, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print):
+def run(stdin, **kwargs):
     prev=''
     for line in stdin:
         line = line.strip()
-        do_line(prev, line, commonStrat=commonStrat, elision_marker=elision_marker, output=output)
+        do_line(prev, line, **kwargs)
         prev = line
 
 
-def do_line(prev, line, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print):
+def do_line(prev, line,
+            commonStrat=DEFAULT_COMMON,
+            elision_marker=ELISION_MARKER,
+            ditto_marker=DITTO_MARKER,
+            output=print,
+            debug=None):
     prefix = commonStrat([prev, line])
     index = len(prefix) # with commonpath, this is stopped BEFORE the common slash
     paranoia = commonprefix([line[index:], prev[index:]])
+
+    # Optionally: if the texts are the same, print a ditto marker instead
+    if len(prev) == index == len(line):
+        elision_marker=ditto_marker
 
     if index >= len(elision_marker):
         prefix = ' '*(index-len(elision_marker)) + elision_marker
