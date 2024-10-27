@@ -37,6 +37,11 @@ def debug_print_strings_with_barriers(strings, barriers, index=None, debug=None)
     for i in range(len(strings)):
         print("DEBUG:", f'{strings[i][:barriers[i]]}|{strings[i][barriers[i]:]}', ('*' if i == index else ''))
 
+
+# TODO: this might be dumb. I'm just looking for the last barrier less than index... right?
+# Ah - it's not that. It's *sometimes* allowed to be exactly index, but only if all strings think that's a barrier!
+# Ex: fool and food have common foo, but that's not a barrier for both, so the common word barrier prefix is ''
+# And all the strings share the common prefix up to index
 def common_word_barrier(strings, debug=None):
     if debug is None: # default from global
         debug = DEBUG
