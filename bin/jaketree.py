@@ -19,13 +19,14 @@ import sys # for argv and stdout
 #   https://stackoverflow.com/questions/68428413/how-do-i-match-all-unicode-lowercase-characters-in-python-with-a-regular-express
 BARRIER=re.compile(r'(?<=\w)(?=\W|$)|(<=[a-z])(?=[A-Z])')
 ELISION_MARKER='…'
+DEBUG=False
 
 def index_of_lowest_element(items):
     lowest = min(items)
     return items.index(lowest)
 
 
-def common_word_barrier(strings):
+def common_word_barrier(strings, debug=None):
     prefix = commonprefix(strings)
     index = len(prefix)
     l=min(len(s) for s in strings)
@@ -47,7 +48,8 @@ def common_word_barrier(strings):
             split = barriers[0] # they all agreed. Keep this answer, go to the top and try again
         except StopIteration: # a finditer finished its run
             break
-    if False:
+    # read: if (debug // DEBUG) from perl where // takes the left arg if it's not None, the right otherwise
+    if debug if debug is not None else DEBUG:
         for string in strings:
             print("DEBUG:", string)
         print("DEBUG:", prefix)
@@ -73,14 +75,17 @@ def calc_args(argv):
     args.add_argument("--elision-marker", default=ELISION_MARKER, help=f"the indicator that a piece has been removed ({ELISION_MARKER})")
     args.add_argument("--flush", "-f", action='store_const', dest="output", const=flushing_print, help="flush each line as it's printed (turns on automatically if stdout isn't a terminal)")
     args.add_argument("--buffered", action='store_const', dest="output", const=print, help="use traditional buffered output (used for default terminal output)")
+    args.add_argument("--debug", action='store_const', dest="debug", const=True, help="Enable debug output")
     args.set_defaults(commonStrat=DEFAULT_COMMON, output=print)
     if not sys.stdout.isatty():
         args.set_defaults(output=flushing_print)
 
     out = args.parse_args(argv)
+    global DEBUG
+    DEBUG = out.debug
     return vars(out)
 
-def run_on_files(files=None, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print):
+def run_on_files(files=None, commonStrat=DEFAULT_COMMON, elision_marker=ELISION_MARKER, output=print, **_ignored_kwargs):
     with fileinput(files=files) as stdin:
         run(stdin, commonStrat=commonStrat, elision_marker=elision_marker, output=output)
 
