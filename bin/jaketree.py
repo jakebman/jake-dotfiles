@@ -26,10 +26,23 @@ def index_of_lowest_element(items):
     return items.index(lowest)
 
 
+def debug_print_strings_with_barriers(strings, barriers, index=None, debug=None):
+    if debug is None: # default from global
+        debug = DEBUG
+    if not debug:
+        return
+    if index is None: # client doesn't care which index. Any will do.
+        index = barriers[0]
+
+    for i in range(len(strings)):
+        print("DEBUG:", f'{strings[i][:barriers[i]]}|{strings[i][barriers[i]:]}', ('*' if i == index else ''))
+
 def common_word_barrier(strings, debug=None):
     if debug is None: # default from global
         debug = DEBUG
     prefix = commonprefix(strings)
+    if debug:
+        print("DEBUG:", f'{prefix=}')
     index = len(prefix)
     l=min(len(s) for s in strings)
     # Find the last shared word barrier
@@ -41,10 +54,11 @@ def common_word_barrier(strings, debug=None):
             while len(set(barriers)) != 1:
                 i = index_of_lowest_element(barriers)
                 if barriers[i] > index: raise StopIteration
-                if debug:
-                    for j in range(len(strings)):
-                        print("DEBUG:", f'{strings[j][:barriers[j]]}|{strings[j][barriers[j]:]}', '*' if j == i else '')
+                debug_print_strings_with_barriers(strings, barriers, index=i, debug=debug)
                 barriers[i] = next(barrier_source[i]).start()
+            else:
+                debug_print_strings_with_barriers(strings, barriers, debug=debug)
+
             if barriers[0] > index:
                 break
             split = barriers[0] # they all agreed. Keep this answer, go to the top and try again
