@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from fileinput import input as fileinput
+from collections import Counter
 from os.path import commonpath, commonprefix
 import argparse
 import re
@@ -26,50 +27,53 @@ def index_of_lowest_element(items):
     return items.index(lowest)
 
 
-def debug_print_strings_with_barriers(strings, barriers, index=None, debug=None):
-    if debug is None: # default from global
-        debug = DEBUG
-    if not debug:
-        return
-    if index is None: # client doesn't care which index. Any will do.
-        index = barriers[0]
+def debug_print_string_with_barriers_and_gaps(string, barriers, gaps):
+    """
+    A way to visualize where a match is/isn't.
+    Barriers are indexes where matches ARE.
+    Gaps are where they COULD be.
+    Barriers not listed in the gap set are ignored
+    """
+    prev = 0
+    for i in sorted(set(gaps)):
+        sigil = '|' if i in barriers else ' '
+        print(string[prev:i], sigil, sep='', end='')
+        prev = i
+    # Naturally accomplish both:
+    # * any leftover parts of the string
+    # * the trailing newline
+    print(string[prev:])
 
-    for i in range(len(strings)):
-        print("DEBUG:", f'{strings[i][:barriers[i]]}|{strings[i][barriers[i]:]}', ('*' if i == index else ''))
 
-
-# TODO: this might be dumb. I'm just looking for the last barrier less than index... right?
-# Ah - it's not that. It's *sometimes* allowed to be exactly index, but only if all strings think that's a barrier!
-# Ex: fool and food have common foo, but that's not a barrier for both, so the common word barrier prefix is ''
-# And all the strings share the common prefix up to index
+# Find a good word barrier somewhere within the common text of the given strings that counts
+# as a word barrier in all the strings. This may be the common prefix, but could be shorter.
+# Consider fooBar and fooBaz - the common string prefix is `fooB`, but the common word prefix is `foo`
+# Likewise, food and fool have no common word prefix.
 def common_word_barrier(strings, debug=None):
     if debug is None: # default from global
         debug = DEBUG
     prefix = commonprefix(strings)
     if debug:
-        print("DEBUG:", f'{prefix=}')
-    index = len(prefix)
-    l=min(len(s) for s in strings)
-    # Find the last shared word barrier
-    split=0
-    barrier_source = [BARRIER.finditer(string) for string in strings]
-    while barrier_source: # not exactly idiomatic (I'd prefer `if`), but it allows internal breaks from this block
-        try:
-            barriers = [next(b).start() for b in barrier_source] # where all the barriers are
-            while len(set(barriers)) != 1:
-                i = index_of_lowest_element(barriers)
-                if barriers[i] > index: raise StopIteration
-                debug_print_strings_with_barriers(strings, barriers, index=i, debug=debug)
-                barriers[i] = next(barrier_source[i]).start()
-            else:
-                debug_print_strings_with_barriers(strings, barriers, debug=debug)
-
-            if barriers[0] > index:
+        print("DEBUG:", f'{prefix=} {strings=}')
+    tooFar = len(prefix)
+    barrierVotes = Counter()
+    for s in strings:
+        for match in BARRIER.finditer(s):
+            start = match.start()
+            if start > tooFar:
                 break
-            split = barriers[0] # they all agreed. Keep this answer, go to the top and try again
-        except StopIteration: # a finditer finished its run
-            break
-    return prefix[:split]
+            barrierVotes[start] += 1
+    if debug:
+        for s in strings:
+            debug_print_string_with_barriers_and_gaps(
+                s,
+                barriers = set(match.start() for match in BARRIER.finditer(s)),
+                gaps = barrierVotes.keys())
+    for candidate in reversed(sorted(barrierVotes.keys())):
+        if barrierVotes[candidate] == len(strings):
+            return prefix[:candidate]
+    # No candidate had enough votes. No common prefix
+    return ""
 
 DEFAULT_COMMON=common_word_barrier
 
