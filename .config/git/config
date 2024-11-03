@@ -1146,6 +1146,10 @@
 	tool = vimdiff
 	mnemonicPrefix = true
 	colorMoved = default # Currently means 'zebra', which uses blue/purple for moved lines. Very pretty :)
+[merge]
+	# suggested in delta - gets the original text merge conflict:
+	# https://github.com/dandavison/delta/blob/main/manual/src/merge-conflicts.md
+	conflictStyle = zdiff3
 [delta]
 	# Leverage delta features to get cool behaviors. Our default-feature sets tabs to 4. That means
 	# that I'll get that whenever I invoke the delta executable directly.
