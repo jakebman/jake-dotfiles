@@ -50,6 +50,10 @@ trim_trailing_whitespace = false
 indent_size = tab
 indent_style = tab
 
+# Git diff/patch files are sensitive to trailing whitespace
+[{.git/*.diff}]
+trim_trailing_whitespace = false
+
 # mr config files. I consider them very similar to git config files, but they should be a separate section
 [.mrconfig]
 trim_trailing_whitespace = false
