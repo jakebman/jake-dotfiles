@@ -67,6 +67,7 @@
 [safe "aliases"]
 	alias = remote
 	alias = push # TODO: A USER-PROMPTING(!) --force-with-lease on certain failures
+	alias = worktree # TODO: allow for aliases under worktree, like `git worktree new` for `git worktree add`
 
 [alias]
 	# TODO: if any of these categories become onery, I can just break them out into include sections
