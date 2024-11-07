@@ -113,7 +113,7 @@ def run_on_files(files=None, **kwargs):
 def run(stdin, **kwargs):
     prev=''
     for line in stdin:
-        line = line.strip()
+        line = line.rstrip("\r\n") # strip trailing newlines. This permits print to add its own end=..
         do_line(prev, line, **kwargs)
         prev = line
 
