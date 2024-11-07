@@ -113,6 +113,7 @@ def run_on_files(files=None, **kwargs):
 def run(stdin, **kwargs):
     prev=''
     for line in stdin:
+        line = line.strip()
         do_line(prev, line, **kwargs)
         prev = line
 
