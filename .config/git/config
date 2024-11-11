@@ -1045,6 +1045,13 @@
 			git is-mainline-print-on-failure; \n\
 		} ; f"
 
+	# Same caveats as mr-status. Run git pull in $GIT_DIR and all mr repos seen from there. Paged.
+	# Duplicated WARNING: this DOES NOT respect mr, nor is it respected by mr
+	mr-pull = "!f() { \n\
+		# mr run runs in a ptty, so we need to disable the pager within that tty \n\
+		( git colored pull-shallow; mr run git colored unpaged pull-shallow ) | git pager mr-pull \n\
+	} ; f"
+
 	# "pull, but reshallow to depth 1 if we were already shallow"
 	# Based on junk-drawer work, but trying to be more globally applicable.
 	# (Eventually, I'd like to get it to be "branches at depth 1 keep their depth, but all others just get more commits." But, TODO)
