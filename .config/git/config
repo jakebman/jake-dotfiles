@@ -12,6 +12,7 @@
         -commt -config-deubg -dff -dif -idff -tgui -thelp -ehlp -hlep \
         -oroboros -pus -tpush -statu -stashs -tatus \
         -ocmmit -aliases -config-todo \
+        -mr-up -helps \
     \
         -"convenient-names" \
         -d -r \
@@ -109,6 +110,7 @@
 	thelp = help
 	ehlp = help
 	hlep = help
+	helps = help
 	idiff = implicitdiff
 	intend = intent-to-add # convenient name below
 	intent = intent-to-add
@@ -116,6 +118,7 @@
 	jdf = j --diff
 	jmg = j --merge
 	jws = j --ws
+	mr-up = mr-pull
 	oroboros = ouroboros
 	tpush = push
 	pus = push
