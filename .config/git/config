@@ -859,6 +859,10 @@
 	colored = !git -c color.ui=always
 
 	# Essentially,`git config get pager.$command`, but respecting $GIT_PAGER, core.pager, not-being-on-the-terminal, etc.
+	# TODO: this might be reasonable to promote to actual git, to parallel `git config --get-colorbool your.key <stdout-is-tty>`
+	#           `git config --get-command=<well-known-type of (pager|diff|proxy|ssh|askpass)> your.config.key.here`
+	#       and include some guarantees like "the printed output is formatted like the key's value and so is runnable via /bin/sh" or w/e
+	#       I'm uncertain the full set, but 'external' or 'command' greps in `git help config` seem to get a decent swath at least
 	pager--command = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal \n\
