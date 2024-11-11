@@ -1045,15 +1045,21 @@
 			git is-mainline-print-on-failure; \n\
 		} ; f"
 
-	# Migrated from junk drawer - "pull, but reshallow"
+	# "pull, but reshallow to depth 1 if we were already shallow"
+	# Based on junk-drawer work, but trying to be more globally applicable.
+	# (Eventually, I'd like to get it to be "branches at depth 1 keep their depth, but all others just get more commits." But, TODO)
 	# TODO: why does this output "(forced update)"? Is --depth 1 implying a forcing? (probably)
 	# The pull command doesn't fully complete on its own, but a retry succeeds :/
 	# Pulling the fetch out first seems to succeed, but isn't intuitive
 	# (I'm still doing it so I can have this script work better)
 	pull-shallow = "!f() { \n\
-		git fetch --no-tags --depth 1 \"$@\" && \n\
-			(git diff --stat HEAD origin/HEAD || echo 'failure in diff --stat') && \n\
-			git pull --no-tags --rebase --depth 1 --quiet \"$@\"; \n\
+		if git is-shallow; then \n\
+			git fetch --no-tags --depth 1 \"$@\" && \n\
+				(git diff --stat HEAD origin/HEAD || echo 'failure in diff --stat') && \n\
+				git pull --no-tags --rebase --depth 1 --quiet \"$@\"; \n\
+		else \n\
+			git pull \"$@\"; \n\
+		fi \n\
 		} ; f"
 
 	# It would be cool if we could --reference-if-able="$GIT_DIR" and --dissociate, but $GIT_DIR is potentially shallow
