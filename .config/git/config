@@ -1072,7 +1072,9 @@
 				\"$temp\" && set +x; \n\
 			cp \"$GIT_DIR/config\" \"$temp/.git\"; \n\
 			du -hs \"$temp/.git\"; \n\
-			echo mv --backup=numbered \"$GIT_DIR\" \".git-reshallow-history\"; \n\
+			# TODO: the --no-checkout creates a 'staged commit' of 'delete everything', requiring a further `git restore .` \n\
+			echo please run the following commands manually: \n\
+			echo mv --backup=numbered \"$GIT_DIR\" \"$(pwd)/.git-reshallow-history\"; \n\
 			echo mv \"$temp/.git\" .; \n\
 		} ; f"
 	# TODO: in progress
