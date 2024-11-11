@@ -200,6 +200,9 @@
 	shallow = clone --depth 1
 	stats = show --stat
 	unshallow = fetch --unshallow
+	is-shallow = "!f() { \n\
+		[ 'true' = \"$(git rev-parse --is-shallow-repository)\" ] \n\
+		} ; f"
 	unstash = stash pop
 	untracked = status --untracked
 	up = pull
