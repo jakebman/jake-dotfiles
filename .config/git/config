@@ -902,10 +902,16 @@
 		} ; f"
 
 	# A command that acts-like the pager for the named command.
+	# Or prints that command, if the stdin is a terminal (easy access to the pager--command query)
 	pager = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal (and our string interpolation would mislead pager--command) \n\
 				cat; \n\
+				return; \n\
+			fi \n\
+			if [ -t 0 ]; then \n\
+				echo \"# stdin is a tty. You're querying for the pager for $*\" \n\
+				git pager--command \"$@\"; \n\
 				return; \n\
 			fi \n\
 			eval \"$(git pager--command \"$@\")\"; \n\
