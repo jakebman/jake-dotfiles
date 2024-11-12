@@ -903,6 +903,11 @@
 
 	# A command that acts-like the pager for the named command.
 	pager = "!f() { \n\
+			if ! [ -t 1 ]; then \n\
+				# stdout is not terminal (and our string interpolation would mislead pager--command) \n\
+				cat; \n\
+				return; \n\
+			fi \n\
 			eval \"$(git pager--command \"$@\")\"; \n\
 		} ; f"
 
