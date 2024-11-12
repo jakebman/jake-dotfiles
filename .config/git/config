@@ -872,7 +872,7 @@
 	pager--command = "!f() { \n\
 			if ! [ -t 1 ]; then \n\
 				# stdout is not terminal \n\
-				echo 'cat'; \n\
+				echo 'NOT_A_TERMINAL=true cat'; \n\
 				return; \n\
 			fi \n\
 			if [ -z \"$1\" ]; then \n\
@@ -888,7 +888,7 @@
 				case \"$pager\" in \n\
 					no|off|false|0|'') \n\
 						# pager is intentionally disabled \n\
-						echo 'cat'; \n\
+						echo 'DISABLED_GIT_PAGER=true cat'; \n\
 						return; \n\
 					;; \n\
 					yes|on|true|1) \n\
