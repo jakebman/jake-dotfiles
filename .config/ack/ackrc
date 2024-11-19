@@ -75,6 +75,11 @@
 --type-add=readme:ext:adoc
 --type-add=readme:match:/\b(?i:readme)\b/
 
+## Asciidoc files
+### I don't know which name I'd use, so let's scattershot this
+--type-add=asciidoc:ext:adoc
+--type-add=adoc:ext:adoc
+
 ## Docker files
 --type-add=docker:is:Dockerfile
 --type-add=docker:ext:dockerfile
