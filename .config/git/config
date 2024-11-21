@@ -258,6 +258,7 @@
 			;; \n\
 		esac \n\
 		} ; f"
+	today = yesterday
 	tags = tag -l
 	unstage = restore --staged
 
