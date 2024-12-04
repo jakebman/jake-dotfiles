@@ -121,6 +121,18 @@ forward-daemon =
     done
   } ; f
 
+# A helper method. Doesn't actually need to live in awscli-land, but it's convenient to keep it close.
+# Essentially: run jq, with color if reasonable (TODO: if awscli wants color output); with paging if reasonable.
+# TODO I'd like to learn JMESPath so can just become a `--query=...` flag instead.
+jq-paged =
+  !f() {
+    local colorArg
+    if [ -t 1 ]; then
+      colorArg=--color-output
+    fi
+    jq "$colorArg" "$@" | less --RAW-CONTROL-CHARS
+  } ; f
+
 [command sso]
 # aws doesn't natively have this command. Weird. Also, surprisingly verbose
 loggedin =
@@ -141,16 +153,8 @@ describe-clusters =
     aws eks list-clusters |
       jq -j '.clusters | join ("\u0000")' |
       xargs --null -L 1 aws eks describe-cluster --name |
-      jq_paged --slurp 'reduce (.[] | .cluster | {(.name):.}) as $item ({}; . + $item)'
-  }
-  jq_paged() {
-    local colorArg
-    if [ -t 1 ]; then
-      colorArg=--color-output
-    fi
-    jq "$colorArg" "$@" | less --RAW-CONTROL-CHARS
-  }
-  f
+      aws jq-paged --slurp 'reduce (.[] | .cluster | {(.name):.}) as $item ({}; . + $item)'
+  } ; f
 
 # Example from the docs
 [command ec2]
@@ -158,14 +162,7 @@ ls = list
 list =
   !f() {
     aws ec2 describe-instances "$@" |
-      jq_paged '.Reservations[].Instances[] | {name: (.Tags[] | select(.Key == "Name") |.Value) , ip: [.NetworkInterfaces[].PrivateIpAddresses[].PrivateIpAddress][0]}'
-  }
-  jq_paged() {
-    local colorArg
-    if [ -t 1 ]; then
-      colorArg=--color-output
-    fi
-    jq "$colorArg" "$@" | less --RAW-CONTROL-CHARS
-  }
-  f
+      aws jq-paged '.Reservations[].Instances[] | {name: (.Tags[] | select(.Key == "Name") |.Value) , ip: [.NetworkInterfaces[].PrivateIpAddresses[].PrivateIpAddress][0]}'
+  } ; f
+
 regions = describe-regions --query Regions[].RegionName
