@@ -154,4 +154,18 @@ describe-clusters =
 
 # Example from the docs
 [command ec2]
+ls = list
+list =
+  !f() {
+    aws ec2 describe-instances "$@" |
+      jq_paged '.Reservations[].Instances[] | {name: (.Tags[] | select(.Key == "Name") |.Value) , ip: [.NetworkInterfaces[].PrivateIpAddresses[].PrivateIpAddress][0]}'
+  }
+  jq_paged() {
+    local colorArg
+    if [ -t 1 ]; then
+      colorArg=--color-output
+    fi
+    jq "$colorArg" "$@" | less --RAW-CONTROL-CHARS
+  }
+  f
 regions = describe-regions --query Regions[].RegionName
