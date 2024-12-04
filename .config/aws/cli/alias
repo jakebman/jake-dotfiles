@@ -141,16 +141,16 @@ describe-clusters =
     aws eks list-clusters |
       jq -j '.clusters | join ("\u0000")' |
       xargs --null -L 1 aws eks describe-cluster --name |
-      jq-paged --slurp 'reduce (.[] | .cluster | {(.name):.}) as $item ({}; . + $item)'
+      jq_paged --slurp 'reduce (.[] | .cluster | {(.name):.}) as $item ({}; . + $item)'
   }
-  jq-paged() {
+  jq_paged() {
+    local colorArg
     if [ -t 1 ]; then
-      jq --color-output "$@"
-    else
-      jq "$@"
-    fi | less --RAW-CONTROL-CHARACTERS
+      colorArg=--color-output
+    fi
+    jq "$colorArg" "$@" | less --RAW-CONTROL-CHARS
   }
-  ; f
+  f
 
 # Example from the docs
 [command ec2]
