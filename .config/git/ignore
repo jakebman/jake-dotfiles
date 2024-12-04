@@ -1,2 +1,6 @@
+
+## IntelliJ run configurations:
 .run/*
+
+# VS Code settings:
 .vscode/*
