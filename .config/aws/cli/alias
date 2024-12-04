@@ -10,7 +10,7 @@ whoami =
       # "$@" is unnecessary, but keeps parallel structure better
       aws sts get-caller-identity --output yaml "$@"
     fi
-  }; f
+  } ; f
 
 # NB: not actually SSH
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
@@ -145,7 +145,7 @@ loggedin =
       echo "you are not logged in"
       return "$code"
     fi
-  }; f
+  } ; f
 
 [command eks]
 describe-clusters =
