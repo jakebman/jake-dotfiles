@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0   http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <!-- This gets borked in gradle because of https://github.com/gradle/gradle/issues/1932 -->
-    <localRepository>${WSL_WINDOWS_USER_HOME}/.m2/repository</localRepository>
+    <localRepository>${env.WSL_WINDOWS_USER_HOME}/.m2/repository</localRepository>
    <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
     <mirrors>
         <mirror>
