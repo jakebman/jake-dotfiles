@@ -8,7 +8,9 @@
               <id>local-repository-mirror</id>
               <mirrorOf>local-nns-artifactory</mirrorOf>
               <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
-              <url>http://96.37.182.105:8081/artifactory/nns-local</url>
+              <!--<url>http://96.37.182.105:8081/artifactory/nns-local</url> -->
+              <url>http://nexus.ctec.charterlab.com/content/groups/public</url>
+
         </mirror>
         <mirror>
               <id>nexus-public-mirror</id>
