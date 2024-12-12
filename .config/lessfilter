@@ -17,6 +17,7 @@ if [ -z "$LESSLEXER" ]; then # TODO: how do we allow intuition of preprocessors 
   case "$1" in
   # CUSTOM
   *.class) lexer=java; preprocessor_required=procyon; PREFIX=(procyon "$1") ;;
+  *.jar) lexer=java; preprocessor_required=procyon; PREFIX=(procyon "$1") ;;
   # END CUSTOM
   *.abap|*.ABAP) lexer=abap ;;
   *.isa) lexer=amdgpu ;;
