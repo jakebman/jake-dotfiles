@@ -1,2 +1,9 @@
+
+# This is the .gitignore for my ~/.config ($XDG_CONFIG_HOME) folder
+# It is NOT a global configuration file, despite living in the folder where global configuration files live.
+# It *governs* the ignore rules that git will follow when enforcing version control upon those files.
+# Therefore, it needs to 1) be in this folder, and 2) have this exact name. Otherwise,
+# it won't work.
+
 vcsh/repo.d/
 lesshst
