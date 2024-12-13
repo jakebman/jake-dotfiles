@@ -1101,12 +1101,13 @@
 				\"$GIT_DIR\" \\\n\
 				\"$temp\" && set +x; \n\
 			cp \"$GIT_DIR/config\" \"$temp/.git\"; \n\
-			du -hs \"$temp/.git\"; \n\
+			du -hs .git \"$temp/.git\"; \n\
 			# TODO: the --no-checkout creates a 'staged commit' of 'delete everything', requiring a further `git restore .` \n\
+			echo; \n\
 			echo please run the following commands manually: \n\
-			echo mv --backup=numbered \"$GIT_DIR\" \"$(pwd)/.git-reshallow-history\"; \n\
+			echo mv --backup=numbered \"$GIT_DIR\" \"$(pwd)/.git-unreshallowed\"; \n\
 			echo mv \"$temp/.git\" .; \n\
-			echo git restore --staged . && git restore .; \n\
+			echo git restore --staged . '&&' git restore .; \n\
 		} ; f"
 	# TODO: in progress
 	alias-lib-dir = "!f() { echo \"${GIT_ALIAS_LIB_DIR:-${XDG_CONFIG_HOME:-${HOME}/.config}/git/alias-lib.d}\"; } ; f"
