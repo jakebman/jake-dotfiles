@@ -1106,6 +1106,7 @@
 			echo please run the following commands manually: \n\
 			echo mv --backup=numbered \"$GIT_DIR\" \"$(pwd)/.git-reshallow-history\"; \n\
 			echo mv \"$temp/.git\" .; \n\
+			echo git restore --staged . && git restore .; \n\
 		} ; f"
 	# TODO: in progress
 	alias-lib-dir = "!f() { echo \"${GIT_ALIAS_LIB_DIR:-${XDG_CONFIG_HOME:-${HOME}/.config}/git/alias-lib.d}\"; } ; f"
