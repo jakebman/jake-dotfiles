@@ -1227,6 +1227,7 @@
 	jake = tformat:%C(auto)%h %C(green)%ad%C(auto)%d %C(reset)%s %C(blue)[%aN]
 	# Abuse empty string concatenation to get these to line up even though I drop stuff out of it
 	jake-nodate = tformat:%C(auto)%h""""""""""""""%d %C(reset)%s %C(blue)[%cN]
+	bare =                                   tformat:%C(reset)%s %C(blue)[%cN]
 [log]
 	# ask git log to act as if --follow is always present
 	follow = true
