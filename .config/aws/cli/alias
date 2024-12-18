@@ -130,7 +130,7 @@ jq-paged =
     if [ -t 1 ]; then
       colorArg=--color-output
     fi
-    jq "$colorArg" "$@" | less --RAW-CONTROL-CHARS
+    jq $colorArg "$@" | less --RAW-CONTROL-CHARS
   } ; f
 
 [command sso]
