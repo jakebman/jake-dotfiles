@@ -582,7 +582,7 @@
 			# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
 			# Defensive coding! \n\
 			if [ \"x$remoteHead\" != \"x$remoteBranch\" ]; then \n\
-				>&2 echo \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the HEAD for ${remote}\"; \n\
+				>&2 echo \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the HEAD for ${remote}. Use 'git config set remote.$remote.mainline-chosen-head $remoteBranch' to ignore.\"; \n\
 				return 1; \n\
 			fi \n\
 			# output should be hexadecimal, but further defensiveness on this check \n\
@@ -601,8 +601,13 @@
 		} ; f"
 	# Helper - try to figure out where $remote/HEAD points, if it's not present
 	is-mainline--find-remote-head = "!f() { \n\
-		local remote remoteHead; \n\
+		local remote remoteHead remoteHeadOverride; \n\
 		remote=${1:-$(git remote-for-branch)}; \n\
+		if remoteHeadOverride=$(git config get \"remote.$remote.mainline-chosen-head\"); then \n\
+			echo $remoteHeadOverride; \n\
+			return; \n\
+		fi \n\
+		\n\
 		if remoteHead=$(git rev-parse --symbolic-full-name \"${remote}/HEAD\" 2>/dev/null); then \n\
 			echo $remoteHead; \n\
 			return; \n\
