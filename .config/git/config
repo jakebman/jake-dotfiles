@@ -582,7 +582,8 @@
 			# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
 			# Defensive coding! \n\
 			if [ \"x$remoteHead\" != \"x$remoteBranch\" ]; then \n\
-				>&2 echo \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the HEAD for ${remote}. Use 'git config set remote.$remote.mainline-chosen-head $remoteBranch' to ignore.\"; \n\
+				>&2 echo \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the HEAD for ${remote}.\" \n\
+				>&2 echo \"Use 'git config set remote.$remote.mainline-chosen-head $remoteBranch' to ignore.\"; \n\
 				return 1; \n\
 			fi \n\
 			# output should be hexadecimal, but further defensiveness on this check \n\
