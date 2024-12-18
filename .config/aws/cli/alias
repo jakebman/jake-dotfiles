@@ -1,5 +1,7 @@
 # Docs: https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-alias.html
 # Examples: https://github.com/awslabs/awscli-aliases/blob/master/alias
+
+# TODO: !-based aliases don't seem to be able to follow along with any chosen --profile flag values
 [toplevel]
 # This command is *really* pretty with --output table
 whoami =
