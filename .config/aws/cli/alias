@@ -162,7 +162,7 @@ ls = list
 list =
   !f() {
     aws ec2 describe-instances "$@" |
-      aws jq-paged '.Reservations[].Instances[] | {name: (.Tags[] | select(.Key == "Name") |.Value) , ip: [.NetworkInterfaces[].PrivateIpAddresses[].PrivateIpAddress][0]}'
+      aws jq-paged '.Reservations[].Instances[] | {name: (.Tags[] | select(.Key == "Name") |.Value) , ip: [.NetworkInterfaces[].PrivateIpAddresses[].PrivateIpAddress][0] , id: .InstanceId}'
   } ; f
 
 regions = describe-regions --query Regions[].RegionName
