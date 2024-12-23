@@ -1,8 +1,9 @@
 
-# I haven't been able to prove that either ~, $HOME, or ${XDG_CONFIG_HOME:-${HOME}/.config} works here. Hardcoding a reasonable value
-# Huh. wget doesn't respect this setting, even at all. Oops.
+# This value respects ~, but not $HOME
+# Huh. This is respected, but not documented.
 # See https://www.gnu.org/software/wget/manual/html_node/Wgetrc-Commands.html
-hsts-file = /home/jakebman/.cache/wget/hsts
+# NB: This intends to track $XDG_CACHE_HOME
+hsts-file = ~/.cache/wget/hsts
 
 # For automatic API access to an artifactory instance, for instance.
 # This is DANGEROUS to use. Please be careful
