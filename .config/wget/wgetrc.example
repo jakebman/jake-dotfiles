@@ -1,0 +1,7 @@
+
+# I haven't been able to prove that either ~, $HOME, or ${XDG_CONFIG_HOME:-${HOME}/.config} works here. Hardcoding a reasonable value
+hsts-file = /home/jakebman/.cache/wget/hsts
+
+# For automatic API access to an artifactory instance, for instance.
+# This is DANGEROUS to use. Please be careful
+header = X-JFrog-Art-Api:...
