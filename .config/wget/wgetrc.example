@@ -3,6 +3,7 @@
 # Huh. This is respected, but not documented.
 # See https://www.gnu.org/software/wget/manual/html_node/Wgetrc-Commands.html
 # NB: This intends to track $XDG_CACHE_HOME
+# NB: The folder for this file needs to exist
 hsts-file = ~/.cache/wget/hsts
 
 # For automatic API access to an artifactory instance, for instance.
