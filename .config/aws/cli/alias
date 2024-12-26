@@ -4,6 +4,8 @@
 # TODO: !-based aliases don't seem to be able to follow along with any chosen --profile flag values
 [toplevel]
 # This command is *really* pretty with --output table
+# typo
+whomai = whoami
 whoami =
   !f() {
     if [ "$#" -gt 0 ]; then
