@@ -2,3 +2,30 @@
 # mrconfig insists on putting a trailing whitespace on certain config lines...
 # Let's let git be fine with that
 .mrconfig whitespace=-blank-at-eol
+
+
+# ReZipDoc settings that allow better diff introspection into zip files
+# This section was copied from one that was generated with rezipdoc-repo-tool.sh
+# This forces git to treat files as if they were text-based (for example in diffs)
+[attr]textual     diff merge
+# This makes git re-zip ZIP files uncompressed on commit
+[attr]reZip       textual filter=reZip
+# This makes git visualize ZIP files as uncompressed text with some meta info
+[attr]zipDoc      textual diff=zipDoc
+[attr]reZipDoc    reZip zipDoc
+
+*.docx     reZipDoc
+*.xlsx     reZipDoc
+*.pptx     reZipDoc
+*.odt      reZipDoc
+*.ods      reZipDoc
+*.odp      reZipDoc
+*.mcdx     reZipDoc
+*.slx      reZipDoc
+*.zip      reZipDoc
+*.jar      reZipDoc
+*.fcstd    reZipDoc
+*.Fcstd    reZipDoc
+*.FCStd    reZipDoc
+*.FCSTD    reZipDoc
+# END rezipdoc-repo-tool.sh-generated attributes
