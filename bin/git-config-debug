@@ -27,6 +27,8 @@ elif has-flag "$@"; then
 else
 	# --get-regex is --get-all, but accepts regex
 	for key in "$@"; do
+		# TODO: use the new `git config get` syntax
+		# TODO: smart-case matching would be nice (specify case insensitive regex if no capitals are in it)
 		helper --get-regex "$key"
 	done
 fi
