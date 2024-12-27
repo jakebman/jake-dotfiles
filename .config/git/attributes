@@ -22,8 +22,8 @@
 *.odp      reZipDoc
 *.mcdx     reZipDoc
 *.slx      reZipDoc
-*.zip      reZipDoc
-*.jar      reZipDoc
+#*.zip      reZipDoc
+#*.jar      reZipDoc
 *.fcstd    reZipDoc
 *.Fcstd    reZipDoc
 *.FCStd    reZipDoc
