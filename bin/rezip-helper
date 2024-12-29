@@ -1,0 +1,29 @@
+#! /bin/bash
+
+# We unset JAVA_TOOL_OPTIONS because every java invocation squawks about it, and none of the values in it matter
+# for us here.
+unset JAVA_TOOL_OPTIONS
+
+
+# This takes several seconds, which isn't super great
+function find-jar {
+	find "$(mvn help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)/io/github/hoijui/rezipdoc/rezipdoc" \
+		-print0 |
+		sort --version-sort --zero-terminated |
+		tail -n 1 --zero-terminated
+}
+
+
+# We follow the RE_ZIP_DOC_DIR default value from my bash-it plugin for it
+JAR="${RE_ZIP_DOC_DIR:-${HOME}/.ReZipDoc}/target/rezipdoc-0.5-SNAPSHOT.jar"
+
+if ! [ -f "$JAR" ]; then
+	>&2 echo "Could not find a rezip jar file at $JAR"
+	>&2 echo "Please use the instructions at https://github.com/hoijui/ReZipDoc?tab=readme-ov-file#install-filter-manually"
+	exit 1
+fi
+
+CLASS=$1
+shift
+
+java -cp "$JAR" "io.github.hoijui.rezipdoc.$CLASS" "$@"
