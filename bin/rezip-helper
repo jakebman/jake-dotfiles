@@ -8,7 +8,7 @@ unset JAVA_TOOL_OPTIONS
 # This takes several seconds, which isn't super great
 function find-jar {
 	find "$(mvn help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)/io/github/hoijui/rezipdoc/rezipdoc" \
-		-print0 |
+			-iname '*.jar' -print0 |
 		sort --version-sort --zero-terminated |
 		tail -n 1 --zero-terminated
 }
