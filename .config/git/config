@@ -532,7 +532,7 @@
 			-m \"This was automated using Jake's custom git-relocate tool, implemented as:\" \\\n\
 			-m \"$(git alias relocate | grep -E '^\\s+(git|ln)' | sed -E 's/\\t+/    /g')\"; \n\
 		ln -s \"$destination\" \"$source\"; \n\
-		git add \"$source\"; \n\
+		git add -f \"$source\"; \n\
 		git commit -m \"relocate $source to $destination, leaving a symlink (2/2)\" \\\n\
 			-m \"# Step 2: Create a symlink from $source, pointing to $destination.\"; \n\
 		} ; f"
