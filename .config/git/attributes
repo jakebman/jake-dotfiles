@@ -14,9 +14,9 @@
 [attr]zipDoc      textual diff=zipDoc
 [attr]reZipDoc    reZip zipDoc
 
-*.docx     reZipDoc
-*.xlsx     reZipDoc
-*.pptx     reZipDoc
+#*.docx     reZipDoc
+#*.xlsx     reZipDoc
+#*.pptx     reZipDoc
 *.odt      reZipDoc
 *.ods      reZipDoc
 *.odp      reZipDoc
