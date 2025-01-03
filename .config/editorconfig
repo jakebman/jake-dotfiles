@@ -22,7 +22,7 @@ indent_size = tab
 indent_style = tab
 
 shell_variant      = bash
-binary_next_line   = true  # like -bn
+binary_next_line   = false # I like binary operators to be on the end of the current line, not beginning the next
 switch_case_indent = true  # like -ci
 space_redirects    = true  # like -sr
 keep_padding       = false # like -kp
