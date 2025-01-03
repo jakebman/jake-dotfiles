@@ -546,7 +546,7 @@
 	# NB: the [delta] sections below configures the particular --features I'm using here
 	# Additionally, we need to include modified settings for each custom pager in [pager]
 	# TODO: that might be able to be done programatically?
-	# TODO: Bug: git delta diff <file> fails for some reason...
+	# TODO: Bug: git delta diff <file> fails for some reason... (Oh - duh. It's the "!-aliases are run in repo root" thing)
 	delta = !git \
 			-c core.pager='delta --features=git-pager' \
 			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta --features=git-pager' \
