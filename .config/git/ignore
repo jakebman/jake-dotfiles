@@ -10,3 +10,6 @@
 
 # Nothing-is-as-permanent-as-temporary - allow myself to drop .editorconfigs into any repo I care to add to
 .editorconfig
+
+# Python generates these files when compiling .pyc files
+**/__pycache__/
