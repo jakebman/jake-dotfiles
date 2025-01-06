@@ -13,4 +13,5 @@
 .sdkmanrc
 
 # Python generates these files when compiling .pyc files
+# This is *hopefully* obviated by setting $PYTHONPYCACHEPREFIX, which stashes these into an XDG directory instead
 **/__pycache__/
