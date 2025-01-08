@@ -59,7 +59,7 @@ ALWAYS_WSL_COMMANDS[ignore-io]=
 
 # My own ~/bin commands, which aren't in window
 ALWAYS_WSL_COMMANDS[config-debug]=
-ALWAYS_WSL_COMMANDS[dump-env]=
+ALWAYS_WSL_COMMANDS[dump-env]='' # Huh. I don't have a record of this command. Potentially ad-hoc, and never added to git?
 ALWAYS_WSL_COMMANDS[export]=
 ALWAYS_WSL_COMMANDS[jump]='' # technically vendored
 # My ~/bin commands that are broken or otherwise weird if running from wsl in windows repos
