@@ -15,3 +15,7 @@
 # Python generates these files when compiling .pyc files
 # This is *hopefully* obviated by setting $PYTHONPYCACHEPREFIX, which stashes these into an XDG directory instead
 **/__pycache__/
+
+# Some files are just... always generated and I'd never like to consider them to be "something that could be committed"
+# Work is especially egregious - the pom.xml files grab rpms from artifactory, and drops them *outside* the target folder
+**.rpm
