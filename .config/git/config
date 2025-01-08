@@ -1189,6 +1189,7 @@
 	mnemonicPrefix = true
 	colorMoved = default # Currently means 'zebra', which uses blue/purple for moved lines. Very pretty :)
 [merge]
+	tool = vimdiff # TODO: I might like a better one
 	# suggested in delta - gets the original text merge conflict:
 	# https://github.com/dandavison/delta/blob/main/manual/src/merge-conflicts.md
 	conflictStyle = zdiff3
