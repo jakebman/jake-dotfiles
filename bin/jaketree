@@ -4,10 +4,17 @@ set -o pipefail # allow failure of jaketree.py to propagate outward
 
 # shim to automatically page the jaketree.py output temporarily until I figure out how to make
 # the python file itself do auto-pagination
-# Page if stdout is tty, but not if stdin is also tty (most likely for testing),
-# because it eats the input in a non-cat-like way
-if [ -t 1 ] && ! [ -t 0 ]; then
-	jaketree.py "$@" | pager
-else
+# We disable paging if any of the following is true:
+# * Output isn't to a terminal
+# * We have no arguments, and yet stdin is a terminal (this is a testing scenario)
+
+if [ ! -t 1 ]; then
+	# no terminal output
 	jaketree.py "$@"
+elif [ "$#" -eq 0 ] && [ -t 0 ]; then
+	# no arguments, but stdin is a terminal
+	# Probably testing
+	jaketree.py "$@"
+else
+	jaketree.py "$@" | pager
 fi
