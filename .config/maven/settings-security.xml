@@ -4,6 +4,7 @@
     Generate the linked file via: (-emp is short for {dash-dash isn't allowed in XML comments}encrypt-master-password)
 
       echo "<settingsSecurity><master>$(mvn -emp "$(passgen)")</master></settingsSecurity>" | xml > /home/jakebman/.m2/settings-security-generated.xml
+      chmod og-rwx /home/jakebman/.m2/settings-security-generated.xml
 
     Then you generate encrypted passwords via: (again: {dash-dash}encrypt-password)
 
