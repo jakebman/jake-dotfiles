@@ -6,26 +6,31 @@
         <server>
             <id>charter-snapshot</id>
             <username>charter-dev</username>
+            <password>{S9xeJJSysFUHSyEZeLrFHsNuBjG0aRhjS8FIKdlSSx4=}</password>
         </server>
         <server>
             <id>Artifactory-nns-remote</id>
             <username>jake.boeckerman@charter.com</username>
             <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
         </server>
         <server>
             <id>Artifactory-Release</id>
             <username>jake.boeckerman@charter.com</username>
             <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
         </server>
         <server>
             <id>Artifactory-Snapshot</id>
             <username>jake.boeckerman@charter.com</username>
             <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
         </server>
         <server>
             <id>Artifactory-Public</id>
             <username>jake.boeckerman@charter.com</username>
             <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
         </server>
     </servers>
     <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
