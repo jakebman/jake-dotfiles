@@ -5,7 +5,7 @@
 set -o pipefail
 
 function bat-help {
-	bat --language help --plain
+	bat --language help
 }
 
 function help-or---help {
