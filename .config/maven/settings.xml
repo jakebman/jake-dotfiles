@@ -2,6 +2,32 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0   http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <!-- This gets borked in gradle because of https://github.com/gradle/gradle/issues/1932 -->
     <localRepository>${env.WSL_WINDOWS_USER_HOME}/.m2/repository</localRepository>
+    <servers>
+        <server>
+            <id>charter-snapshot</id>
+            <username>charter-dev</username>
+        </server>
+        <server>
+            <id>Artifactory-nns-remote</id>
+            <username>jake.boeckerman@charter.com</username>
+            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+        </server>
+        <server>
+            <id>Artifactory-Release</id>
+            <username>jake.boeckerman@charter.com</username>
+            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+        </server>
+        <server>
+            <id>Artifactory-Snapshot</id>
+            <username>jake.boeckerman@charter.com</username>
+            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+        </server>
+        <server>
+            <id>Artifactory-Public</id>
+            <username>jake.boeckerman@charter.com</username>
+            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
+        </server>
+    </servers>
     <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
     <mirrors>
         <mirror>
