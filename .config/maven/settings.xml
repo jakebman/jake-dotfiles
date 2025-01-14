@@ -2,45 +2,44 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0   http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <!-- This gets borked in gradle because of https://github.com/gradle/gradle/issues/1932 -->
     <localRepository>${env.WSL_WINDOWS_USER_HOME}/.m2/repository</localRepository>
-   <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
+    <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
     <mirrors>
         <mirror>
-              <id>local-repository-mirror</id>
-              <mirrorOf>local-nns-artifactory</mirrorOf>
-              <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
-              <!--<url>http://96.37.182.105:8081/artifactory/nns-local</url> -->
-              <url>http://nexus.ctec.charterlab.com/content/groups/public</url>
-
+            <id>local-repository-mirror</id>
+            <mirrorOf>local-nns-artifactory</mirrorOf>
+            <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
+            <!--<url>http://96.37.182.105:8081/artifactory/nns-local</url> -->
+            <url>http://nexus.ctec.charterlab.com/content/groups/public</url>
         </mirror>
         <mirror>
-              <id>nexus-public-mirror</id>
-              <mirrorOf>nexus-public,nexus-nns-public,jitpack.io</mirrorOf>
-              <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
-              <url>http://nexus.ctec.charterlab.com/content/groups/public</url>
+            <id>nexus-public-mirror</id>
+            <mirrorOf>nexus-public,nexus-nns-public,jitpack.io</mirrorOf>
+            <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
+            <url>http://nexus.ctec.charterlab.com/content/groups/public</url>
         </mirror>
         <mirror>
-              <id>nexus-public-snapshots-mirror</id>
-              <mirrorOf>nexus-public-snapshots,nexus-public-nns-snapshots</mirrorOf>
-              <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
-              <url>http://nexus.ctec.charterlab.com/content/groups/public-snapshots</url>
+            <id>nexus-public-snapshots-mirror</id>
+            <mirrorOf>nexus-public-snapshots,nexus-public-nns-snapshots</mirrorOf>
+            <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
+            <url>http://nexus.ctec.charterlab.com/content/groups/public-snapshots</url>
         </mirror>
         <mirror>
-          <id>ctec-nexus-releases-mirror</id>
-              <mirrorOf>ctec-nexus-releases</mirrorOf>
-              <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
-              <url>http://nexus.ctec.charterlab.com/content/repositories/releases</url>
+            <id>ctec-nexus-releases-mirror</id>
+            <mirrorOf>ctec-nexus-releases</mirrorOf>
+            <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
+            <url>http://nexus.ctec.charterlab.com/content/repositories/releases</url>
         </mirror>
         <mirror>
-          <id>ctec-nexus-snapshots-mirror</id>
-              <mirrorOf>ctec-nexus-snapshots</mirrorOf>
-              <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
-              <url>http://nexus.ctec.charterlab.com/content/repositories/snapshots</url>
+            <id>ctec-nexus-snapshots-mirror</id>
+            <mirrorOf>ctec-nexus-snapshots</mirrorOf>
+            <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
+            <url>http://nexus.ctec.charterlab.com/content/repositories/snapshots</url>
         </mirror>
         <mirror>
-          <id>ctec-nexus-public-mirror</id>
-              <mirrorOf>ctec-nexus-public</mirrorOf>
-              <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
-              <url>http://nexus.ctec.charterlab.com/content/repositories/public</url>
+            <id>ctec-nexus-public-mirror</id>
+            <mirrorOf>ctec-nexus-public</mirrorOf>
+            <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
+            <url>http://nexus.ctec.charterlab.com/content/repositories/public</url>
         </mirror>
     </mirrors>
     <pluginGroups>
