@@ -13,6 +13,7 @@
         -oroboros -pus -tpush -statu -stashs -tatus \
         -ocmmit -aliases -config-todo \
         -mr-up -helps \
+        -stat \
     \
         -"convenient-names" \
         -d -r \
@@ -123,7 +124,7 @@
 	tpush = push
 	pus = push
 	restorep = restore -p
-	# Should 'stat' be a typo for status or stats?
+	stat = status # potentially intended stats, but I intended status just now, so that's what it is
 	statu = status
 	stashs = stash
 	tatus = status
