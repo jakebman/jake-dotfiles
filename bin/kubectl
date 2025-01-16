@@ -32,7 +32,9 @@ function kubectl-autostart {
 		echo "==>" kubectl "$@"
 		echo "============= Now proceeding with your original '$1' command =================="
 	fi
-	"$KUBECTL" "$@"
+
+	echo ${JAKE_KUBE_CACHE_DIR+The environment variable JAKE_KUBE_CACHE_DIR is specified. Using that for --cache-dir "$JAKE_KUBE_CACHE_DIR"}
+	"$KUBECTL" ${JAKE_KUBE_CACHE_DIR+--cache-dir "$JAKE_KUBE_CACHE_DIR"} "$@"
 }
 
 function docker-start {
