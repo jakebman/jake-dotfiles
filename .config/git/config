@@ -1304,3 +1304,5 @@
 	# fun fact! You can include files that *don't exist*! (at least this doesn't exist in my home install)
 	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
 	path = ~/.config/git/work-config
+[git-extras "get"]
+	clone-path = ~/wsl-projects/junk-drawer
