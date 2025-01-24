@@ -33,6 +33,15 @@ set smartcase
 " g:colors_name is unset)
 " My default is somehow reading from ron? But not /usr/share/vim/vim82/colors/ron.vim, that's safe
 colorscheme default
+
+" This prevents synload from clobbering my custom highlight colors between (my best
+" guess) the time this file is loaded and the edited file is loaded.
+" TODO: that probably means I just need to write my own color scheme to be
+" used globally instead, I guess.
+let g:colors_name = ""
+highlight DiffChange ctermbg=None
+highlight Search ctermbg=blue ctermfg=black
+
 highlight ColorColumn ctermbg=cyan guibg=blue
 let g:EditorConfig_max_line_indicator = "exceeding"
 
