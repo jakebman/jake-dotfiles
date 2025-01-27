@@ -203,7 +203,10 @@
 
 	shallow = clone --depth 1
 	stats = show --stat
-	unshallow = fetch --unshallow # TODO: this doesn't undo `fetch = +refs/heads/master:refs/remotes/origin/master`
+
+	# TODO: this doesn't undo `fetch = +refs/heads/master:refs/remotes/origin/master`
+	# TODO: with multiple remotes, you need to `fetch --unshallow origin`. --all doesn't seem to help
+	unshallow = fetch --unshallow
 	is-shallow = "!f() { \n\
 		[ 'true' = \"$(git rev-parse --is-shallow-repository)\" ] \n\
 		} ; f"
