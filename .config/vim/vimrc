@@ -54,6 +54,10 @@ map q :q
 
 " Space should pagedown, like how less does it (otherwise, it's 'one space
 " forward', which isn't helpful to me)
+" TODO: I have a plugin managing this, which I'm not as happy with.
+" What I'd like is a behavior like "If my prior motion was left/right, space
+" is one to the right. If my prior motion was up/down by a single line, space
+" mirrors that. Otherwise, page by a page"
 noremap <space> <C-d>
 
 " Mouse scroll and click is *nice*, but it needs a modifier (Shift) pressed to
