@@ -1305,4 +1305,5 @@
 	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
 	path = ~/.config/git/work-config
 [git-extras "get"]
+	# TODO: git-extra's `get` doesn't expand ~ like mailmap.file does
 	clone-path = ~/wsl-projects/junk-drawer
