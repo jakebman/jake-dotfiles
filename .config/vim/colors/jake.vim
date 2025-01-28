@@ -20,7 +20,10 @@ let g:colors_name = 'jake'
 " The default on this is super unreadable (yellow on white)
 highlight DiffChange ctermbg=None
 
-" Default search highlight color washes out over white or yellow text
+" Default search highlight is just yellow background.
+" That washes out white or yellow text, rendering it unreadable
+" It's also useful to change to a dark-ish color even if we include a fg
+" color - it's also good to contrast to the cursor itself.
 highlight Search ctermbg=blue ctermfg=black
 
 " this is a better calming color
