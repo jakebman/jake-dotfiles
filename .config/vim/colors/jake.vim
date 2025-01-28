@@ -17,5 +17,13 @@ endif
 let g:colors_name = 'jake'
 
 
+" The default on this is super unreadable (yellow on white)
+highlight DiffChange ctermbg=None
+
+" Default search highlight color washes out over white or yellow text
+highlight Search ctermbg=blue ctermfg=black
+
+" this is a better calming color
+highlight ColorColumn ctermbg=cyan guibg=blue
 
 " vim: sw=2
