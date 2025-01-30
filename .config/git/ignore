@@ -19,3 +19,6 @@
 # Some files are just... always generated and I'd never like to consider them to be "something that could be committed"
 # Work is especially egregious - the pom.xml files grab rpms from artifactory, and drops them *outside* the target folder
 **.rpm
+
+# It's probably correct to put this only in maven repos, but it's everywhere I use CI friendly variables:
+**/.flattened-pom.xml
