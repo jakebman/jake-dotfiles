@@ -56,7 +56,7 @@ shift "$SHIFT"
 
 if [[ "$SHIFT" -le 0 ]]; then
 	# no help-like args. Could be either help or --help
-	help-or---help "$@" | bat-help
+	help-or---help "$@" |& bat-help
 else
-	builtin help -"$args" "$@" | bat-help
+	builtin help -"$args" "$@" |& bat-help
 fi
