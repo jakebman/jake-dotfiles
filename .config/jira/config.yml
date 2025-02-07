@@ -1,0 +1,178 @@
+auth_type: basic
+board:
+    id: 2
+    name: IDEAS board
+    type: simple
+epic:
+    name: customfield_10011
+    link: customfield_10014
+installation: Cloud
+issue:
+    fields:
+        custom:
+            - name: Total forms
+              key: customfield_10030
+              schema:
+                datatype: number
+            - name: Project overview key
+              key: customfield_10031
+              schema:
+                datatype: string
+            - name: Project overview status
+              key: customfield_10032
+              schema:
+                datatype: string
+            - name: Story Points
+              key: customfield_10033
+              schema:
+                datatype: number
+            - name: Design
+              key: customfield_10034
+              schema:
+                datatype: array
+                items: design.field.name
+            - name: Vulnerability
+              key: customfield_10035
+              schema:
+                datatype: any
+            - name: Sentiment
+              key: customfield_10036
+              schema:
+                datatype: array
+                items: sd-sentiment
+            - name: Goals
+              key: customfield_10037
+              schema:
+                datatype: array
+                items: Goals
+            - name: Locked forms
+              key: customfield_10027
+              schema:
+                datatype: number
+            - name: Open forms
+              key: customfield_10028
+              schema:
+                datatype: number
+            - name: Submitted forms
+              key: customfield_10029
+              schema:
+                datatype: number
+            - name: Sprint
+              key: customfield_10020
+              schema:
+                datatype: array
+                items: json
+            - name: Flagged
+              key: customfield_10021
+              schema:
+                datatype: array
+                items: option
+            - name: Target start
+              key: customfield_10022
+              schema:
+                datatype: date
+            - name: Target end
+              key: customfield_10023
+              schema:
+                datatype: date
+            - name: '[CHART] Date of First Response'
+              key: customfield_10024
+              schema:
+                datatype: datetime
+            - name: '[CHART] Time in Status'
+              key: customfield_10025
+              schema:
+                datatype: any
+            - name: Story point estimate
+              key: customfield_10016
+              schema:
+                datatype: number
+            - name: Issue color
+              key: customfield_10017
+              schema:
+                datatype: string
+            - name: Parent Link
+              key: customfield_10018
+              schema:
+                datatype: any
+            - name: Rank
+              key: customfield_10019
+              schema:
+                datatype: any
+            - name: Request Type
+              key: customfield_10010
+              schema:
+                datatype: sd-customerrequesttype
+            - name: Epic Status
+              key: customfield_10012
+              schema:
+                datatype: option
+            - name: Epic Color
+              key: customfield_10013
+              schema:
+                datatype: string
+            - name: Start date
+              key: customfield_10015
+              schema:
+                datatype: date
+            - name: Change type
+              key: customfield_10005
+              schema:
+                datatype: option
+            - name: Change risk
+              key: customfield_10006
+              schema:
+                datatype: option
+            - name: Change reason
+              key: customfield_10007
+              schema:
+                datatype: option
+            - name: Actual start
+              key: customfield_10008
+              schema:
+                datatype: datetime
+            - name: Actual end
+              key: customfield_10009
+              schema:
+                datatype: datetime
+            - name: Development
+              key: customfield_10000
+              schema:
+                datatype: any
+            - name: Team
+              key: customfield_10001
+              schema:
+                datatype: team
+            - name: Organizations
+              key: customfield_10002
+              schema:
+                datatype: array
+                items: sd-customerorganization
+            - name: Approvers
+              key: customfield_10003
+              schema:
+                datatype: array
+                items: user
+            - name: Impact
+              key: customfield_10004
+              schema:
+                datatype: option
+    types:
+        - id: "10004"
+          name: Task
+          handle: Task
+          subtask: false
+        - id: "10006"
+          name: Epic
+          handle: Epic
+          subtask: false
+        - id: "10007"
+          name: Subtask
+          handle: Subtask
+          subtask: true
+login: ebecker77366@gmail.com
+project:
+    key: IDEAS
+    type: next-gen
+server: https://boeckerman.atlassian.net
+timezone: America/Denver
