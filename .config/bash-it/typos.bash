@@ -3,14 +3,6 @@
 function typo {
 	local key=${1?} val=${2?}
 	alias -- "${key}=${val}"
-
-	  # type: -a: all types, -f: ignore functions. This lets us find builtins shadowed by aliases (which I assume are just extras)
-	if ((BASH_IT_LOG_LEVEL >= BASH_IT_LOG_LEVEL_TRACE)) \
-		&& type -af "$val" |& grep -s -q 'is a shell builtin$' &> /dev/null; then
-		# This is an expensive check, but worth it in tracing time
-		_log_warning "this is an alias to a builtin: $alias"
-		alias "$alias"
-	fi
 }
 
 typo viim vim
