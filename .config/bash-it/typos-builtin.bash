@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function typo {
-	local key=$1 val=$2
+	local key=${1?} val=${2?}
 	alias -- "${key}=${val}"
 }
 

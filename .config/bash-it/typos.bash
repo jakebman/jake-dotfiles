@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function typo {
-	local key=$1 val=$2
+	local key=${1?} val=${2?}
 	alias -- "${key}=${val}"
 
 	  # type: -a: all types, -f: ignore functions. This lets us find builtins shadowed by aliases (which I assume are just extras)
