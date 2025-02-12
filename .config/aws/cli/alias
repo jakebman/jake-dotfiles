@@ -19,6 +19,13 @@ whoami =
 # NB: not actually SSH
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
 
+# https://github.com/aws/aws-cli/issues/4642
+# TODO - this could be a lot smarter
+browse =
+  !f() {
+    command browse "https://charter-cloud-connect.awsapps.com/start/"
+  } ; f
+
 # aws sso login, plus other useful stuff. Logs into docker, too
 # NB: sso login applies across all profiles that share an sso session
 # TODO: this should pay attention to all other sso sessions.
