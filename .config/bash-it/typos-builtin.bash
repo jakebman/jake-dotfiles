@@ -36,3 +36,5 @@ typo tyep type
 typo tyoe type
 typo yype type
 typo typew type # ... because type already operates on its which (this might bite future me. Sorry, future me)
+
+unset -f typo

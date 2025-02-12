@@ -432,3 +432,4 @@ typo c- 'co -'
 
 typo waths watch
 
+unset -f typo
