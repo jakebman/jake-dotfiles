@@ -42,9 +42,11 @@ let g:EditorConfig_max_line_indicator = "exceeding"
 " https://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting
 " nb: less maps the 'clear search' action to ESC-u, which is vim's undo. We..
 " won't follow that.
-" This command is progress from `map q :q`, but always hits :q instead of only
+" `map q :nohlsearch<CR>:q` is progress from `map q :q`, but always hits :q instead of only
 " if search isn't cleared. Progress, but not done.
-map q :nohlsearch<CR>:q
+" A compromise solution: qq will become :q, but a single q clears the highlight
+" and opens the colon prompt
+map q :nohlsearch<CR>:
 
 
 " Space should pagedown, like how less does it (otherwise, it's 'one space
