@@ -45,7 +45,9 @@ let g:EditorConfig_max_line_indicator = "exceeding"
 " `map q :nohlsearch<CR>:q` is progress from `map q :q`, but always hits :q instead of only
 " if search isn't cleared. Progress, but not done.
 " A compromise solution: qq will become :q, but a single q clears the highlight
-" and opens the colon prompt
+" and opens the colon prompt.
+" This has issues if I intended q! for :q!, because it is mereley `:!` - "exec
+" in shell"
 map q :nohlsearch<CR>:
 
 
