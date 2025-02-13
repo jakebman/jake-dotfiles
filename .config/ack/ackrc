@@ -22,6 +22,9 @@
 --ignore-directory=is:.venv
 ## GNU gettext portable object files - i.e. translations
 --ignore-file=ext:po
+## PEM certificates:
+--ignore-file=ext:crt
+--ignore-file=ext:pem
 
 # My Own Types
 
