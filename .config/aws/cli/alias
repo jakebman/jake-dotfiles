@@ -103,7 +103,8 @@ docker-login =
   } ; f
 # springboard down to other commands. Sometimes aliases.
 regions = ec2 regions
-ls = ec2 ls # TODO: list more things
+# TODO: list more things
+ls = ec2 ls
 loggedin = sso loggedin
 loggedin-silent = ! aws loggedin >/dev/null 2>&1
 logout = sso logout
