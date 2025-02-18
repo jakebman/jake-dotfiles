@@ -277,6 +277,7 @@ typo commita 'commit -a'
 typo ignroed ignored
 typo rebas rebase
 typo reabse rebase
+typo erstore restore
 typo restoer restore
 typo retore restore
 typo rstore restore
