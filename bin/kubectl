@@ -40,7 +40,7 @@ function kubectl-autostart {
 		${KUBECTL_CONTEXT+--context="$KUBECTL_CONTEXT"}
 		${KUBECTL_NAMESPACE+--namespace="$KUBECTL_NAMESPACE"}
 		)
-	if [ "${#env_args[@]}" -gt 0 ] && [ -t 2 ]; then
+	if [ "${#env_args[@]}" -gt 0 ] && [ -t 0 ] && [ -t 2 ]; then
 		>&2 cat <<-MESSAGE
 			Jake received ${env_args[*]} from the environment
 		MESSAGE
