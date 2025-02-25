@@ -6,6 +6,7 @@
 --smart-case
 
 # I really like paged output
+# TODO: it would be *really cool* if ack --passthru also automatically told less the search regex
 --pager=less --lesskey-src ~/.config/lesskey-no-gotoend-on-q
 
 # some files I know ack can ignore
