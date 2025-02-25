@@ -22,6 +22,8 @@ q goto-end Q
 # Control-G, which runs a status by default. That's weird - I keep expecting it to just be Shift+G, so now it does
 # what G does, which is goto-end
 ^g goto-end
+# I had my finger on the wrong row, but this is unmapped. Let's give it the same almost-quit behavior as Shift+G
+a goto-end
 
 # TODO: Enhancement: what if these "spill the buffers and leave" somehow magically kept the buffer in a /tmp file
 # and less was smart enough to open the most recent of them on startup if no other input is provided?
