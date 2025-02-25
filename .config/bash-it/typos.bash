@@ -5,6 +5,8 @@ function typo {
 	alias -- "${key}=${val}"
 }
 
+# TODO: if there's a makefile, could we pre-load its targets as typo options?
+
 typo viim vim
 typo vimi vim
 typo vimn vim # actual
