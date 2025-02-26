@@ -45,7 +45,15 @@ function kubectl-autostart {
 			Jake received ${env_args[*]} from the environment
 		MESSAGE
 	fi
-	"$KUBECTL" "${env_args[@]}" "$@"
+
+	# I filter out a particularly annoying error message from kubectl
+	"$KUBECTL" "${env_args[@]}" "$@" \
+		2> >(grep --invert-match \
+				--line-regexp \
+				--fixed-strings \
+				"Warning: Use tokens from the TokenRequest API or manually created secret-based tokens instead of auto-generated secret-based tokens." \
+				>&2
+			)
 }
 
 function docker-start {
