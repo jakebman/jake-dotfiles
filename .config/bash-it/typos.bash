@@ -85,6 +85,8 @@ typo ach ack
 typo acl ack
 typo akc ack
 
+typo skeep sleep
+
 # mt is actually a real command, but I don't plan on doing stuff with magnetic tape
 typo mt mr
 
