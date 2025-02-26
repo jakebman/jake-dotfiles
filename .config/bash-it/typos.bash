@@ -82,6 +82,7 @@ typo hess less
 typo lesss less
 
 typo ach ack
+typo acl ack
 typo akc ack
 
 # mt is actually a real command, but I don't plan on doing stuff with magnetic tape
