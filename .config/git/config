@@ -672,6 +672,14 @@
 		git status; \n\
 		} ; f"
 
+	# From https://dev.to/sovannaro/15-git-command-line-tricks-every-developer-should-know-39a6#:~:text=Finding%20Large%20Files
+	large-files = "!f() { \n\
+		git rev-list --objects --all | \n\
+			grep \"$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -5 | awk '{print$1}')\" \n\
+		} ; f"
+
+
+
 	# TODO: Let's get a "pull, but also for non-checked-out branches"
 
 	# WARNING: this API is still experimental, so I might need to act fluidly around it
