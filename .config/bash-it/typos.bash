@@ -348,6 +348,7 @@ typo puh push
 typo ush push
 typo push-- 'push --force-with-lease'
 typo cone clone
+typo cloen clone
 typo addd add
 typo ass add
 typo ad add
