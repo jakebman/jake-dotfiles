@@ -321,7 +321,7 @@ typo st status        # first unique difference from s's status-or-show magic
 typo branche branches # because sometimes I get lazy, apparently
 typo gst gstatus
 typo gstat gstatus
-typo staqsh stashs
+typo staqsh stash
 typo stashs stash
 typo tsga tags       # Wow.
 typo unstasn unstash # Amusingly, a typo of a command I didn't even have before I made the typo. Now I do
