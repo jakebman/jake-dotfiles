@@ -218,6 +218,8 @@ typo ytypo typo
 typo typeo typo
 typo typow typo
 
+typo typw type
+
 typo brwose browse
 
 typo whick which # (to be fair, I was drinking at the time :| )
