@@ -366,6 +366,7 @@ typo logd logp # apparently log[D]iff makes sense if I forget it's actually [P]a
 typo lgop logp
 typo lopg logp
 typo merege merge
+typo mereg merge
 typo yesteday yesterday
 typo yest yesterday
 typo wortree worktree
