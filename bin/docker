@@ -26,6 +26,8 @@ function docker-autostart {
 	elif ! docker-is-running; then
 		echo "Docker is not currently running. Starting it now."
 		docker-start-and-wait || return
+
+		(cd ~ && git restore .aws && echo "restored ~/.aws from docker's interventions")
 		echo
 		echo "============= Now proceeding with your original '$1' command =================="
 		echo "==>" docker "$@"
