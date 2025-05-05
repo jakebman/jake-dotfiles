@@ -29,6 +29,7 @@ typo cdg cdgit
 
 typo hsitory history
 typo pws pwd
+typo wpd pwd
 
 typo tpe type
 typo ype type
