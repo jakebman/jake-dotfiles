@@ -6,6 +6,7 @@ function typo {
 }
 
 # TODO: if there's a makefile, could we pre-load its targets as typo options?
+# TODO: if it has a colon in it (and there's a pom.xml file), can we try it as a maven goal? (maybe with a 'you sure?' prompt?)
 # TODO: if the completion is trying to look up a command (_completion_loader?), can it check here too?
 
 typo viim vim
