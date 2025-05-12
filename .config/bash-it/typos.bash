@@ -332,6 +332,7 @@ typo pu pull
 typo up pull  # Technically not a typo, but it's a typo of a typo, so I'm keeping it here
 typo uop pull # Actually a typo of up, which I'm using more as an alias of up, apparently
 typo uip pull
+typo ujp pull
 typo pul pull
 typo ull pull
 typo upll pull
