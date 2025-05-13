@@ -212,7 +212,7 @@ else
 		# This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
 		# It also doesn't respect type constraints, because ack's starting set is explicitly given
 		# TODO: --recurse-submodues doesn't work with ls-untracked ('ls-untracked' is aliased to 'ls-files --other --exclude-standard')
-		# TODO: if there is no query, substitute in a query that matches only the first line of each file or something
+		# TODO: if there is no query, substitute in a query that matches only the first line of each file or something (--max-count=1 '^')
 		--untracked)
 			shift
 			ITEMS='non-git files'
