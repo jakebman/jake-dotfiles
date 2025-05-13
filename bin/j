@@ -241,7 +241,7 @@ else
 			# Implicit -x/--files-from=- when STDIN isn't the terminal.
 			# To wit: you piped something into this command. Why else pipe into here if we shouldn't read from it?
 			if [ ! -t 0 ]; then
-				ITEMS+="from stdin"
+				ITEMS+=" from stdin"
 				echo "$(basename "$0") - stdin not from /dev/tty - interpreting stdin as --files-from location"
 				j-ack --files-from=- "$@" | j-fzf-ack
 			else
