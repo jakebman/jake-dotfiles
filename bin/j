@@ -22,11 +22,13 @@ function help() {
 	echo "usage: j --merge <arguments to git jump merge>"
 	echo "usage: j --ws <arguments to git jump ws>"
 	echo "usage: j -q <quickfix file>"
+	echo "usage: j --untracked <arguments to ack>"
 
 	echo
 	echo "Run an ack query, pass it through fzf and open vim with the chosen lines"
 	echo " (for convenience, you can !! the ack command you just ran, instead of just !* its arguments)"
 	echo "You can specify --git to query ALL git-controlled files (ack --type doesn't narrow these, sorry)"
+	echo "--untracked searches ALL files git DOES NOT control (same caveat about type, sorry)"
 	echo "OR: --diff runs a git (jump) diff through fzf ..."
 	echo "OR: --staged runs a git (jump) diff --staged through fzf ..."
 	echo "OR: --merge runs a git (jump) merge through fzf ... (finds merge issues)"
@@ -203,6 +205,18 @@ else
 			ITEMS='git files'
 			# TODO: needs -z for zero-separated values. waiting on ack to support that
 			git ls-files --recurse-submodules | j-ack --files-from=- "$@" | j-fzf-ack
+			;;
+
+		# Consider only files that aren't controlled by the current git.
+		# This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
+		# It also doesn't respect type constraints, because ack's starting set is explicitly given
+		# TODO: --recurse-submodues doesn't work with ls-untracked ('ls-untracked' is aliased to 'ls-files --other --exclude-standard')
+		# TODO: if there is no query, substitute in a query that matches only the first line of each file or something
+		--untracked)
+			shift
+			ITEMS='non-git files'
+			# TODO: needs -z for zero-separated values. waiting on ack to support that
+			git ls-untracked | j-ack --files-from=- "$@" | j-fzf-ack
 			;;
 
 		# help command
