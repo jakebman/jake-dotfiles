@@ -1,0 +1,3 @@
+This folder should contain symlinks that you'd like to be able to `cd` to.
+The general idea is that it'll go on your CDPATH, and if you `cd -p` into these entries, you never really even need to know they're here.
+Read the implementation at https://github.com/jakebman/bash-it/blob/custom-jake/plugins/available/jake-cd-quick-access.plugin.bash
