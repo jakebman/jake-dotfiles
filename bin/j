@@ -212,12 +212,19 @@ else
 		# This respects GIT_DIR by the way it's constructed, but we don't parse out --git-dir, for instance
 		# It also doesn't respect type constraints, because ack's starting set is explicitly given
 		# TODO: --recurse-submodues doesn't work with ls-untracked ('ls-untracked' is aliased to 'ls-files --other --exclude-standard')
-		# TODO: if there is no query, substitute in a query that matches only the first line of each file or something (--max-count=1 '^')
 		--untracked)
 			shift
 			ITEMS='non-git files'
+
+			# Special behavior: if no query is specified, we want to just list all the untracked files. So we'll just use an implicit query
+			# which is essentially 'the first line of each file'
+			local -a args=("$@")
+			if [[ "$#" -eq 0 ]]; then
+				args=(--max-count=1 '^')
+			fi
+
 			# TODO: needs -z for zero-separated values. waiting on ack to support that
-			git ls-untracked | j-ack --files-from=- "$@" | j-fzf-ack
+			git ls-untracked | j-ack --files-from=- "${args[@]}" | j-fzf-ack
 			;;
 
 		# help command
