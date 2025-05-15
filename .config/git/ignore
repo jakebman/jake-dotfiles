@@ -12,6 +12,9 @@
 .editorconfig
 .sdkmanrc
 
+# Environment configuration doesn't/shouldn't go anywhere but your local file:
+**/.env
+
 # Python generates these files when compiling .pyc files
 # This is *hopefully* obviated by setting $PYTHONPYCACHEPREFIX, which stashes these into an XDG directory instead
 **/__pycache__/
