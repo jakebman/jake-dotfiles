@@ -1184,6 +1184,9 @@
 	# at a minimum that's: logp, show, diff
 	# this shifts my normal --tabs=2 over by that one character
 	pager = less --tabs=3,5
+	# 'true' would force bare repos to also track their reflog
+	# 'always' also tracks refs beyond the normal {branch heads, remote refs, note refs, and HEAD}
+	logAllRefUpdates = always
 [pager]
 	# The --lesskey-src file is mostly empty, but re-overrwrites the q command in less to just quit (and not scroll to the end beforehand,
 	# which is an enhanced behavior that I ususally enjoy)
