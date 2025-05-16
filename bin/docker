@@ -27,9 +27,14 @@ function docker-autostart {
 		echo "Docker is not currently running. Starting it now."
 		docker-start-and-wait || return
 
+		# The () are to automatically undo the `cd`
+		# The env -i is to clear out some (LD_LIBRARY_PATH?) shenanigans which bring in aws-cli's libz.so.1 into git
+		# when the aws cli invokes docker in my `aws login` alias. Read the commit message named below for details
+		# <TODO: I don't have magic quine powers>
 		(
 			cd ~ &&
-				git restore .aws &&
+				env -i - BASH_IT_DOTFILES_GIT_REPO="$BASH_IT_DOTFILES_GIT_REPO" PATH="$PATH" \
+					git restore .aws &&
 				echo "restored ~/.aws from docker's interventions"
 		)
 		echo
