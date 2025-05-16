@@ -28,12 +28,12 @@ function docker-autostart {
 		docker-start-and-wait || return
 
 		# The () are to automatically undo the `cd`
-		# The env -i is to clear out some (LD_LIBRARY_PATH?) shenanigans which bring in aws-cli's libz.so.1 into git
-		# when the aws cli invokes docker in my `aws login` alias. Read the commit message named below for details
+		# We have to unset LD_LIBRARY_PATH because aws-cli brings in a libz.so.1 with no version information, and this confuses git
+		# Read the commit message named below for details
 		# Commit b60b6db42a68f5da2913c70e6222e94821b92364 - Try and work around aws-cli's libz.so.1 when `aws login` invokes this docker
 		(
 			cd ~ &&
-				env -i - BASH_IT_DOTFILES_GIT_REPO="$BASH_IT_DOTFILES_GIT_REPO" PATH="$PATH" \
+				env --unset LD_LIBRARY_PATH \
 					git restore .aws &&
 				echo "restored ~/.aws from docker's interventions"
 		)
