@@ -319,6 +319,7 @@ typo statsus status
 typo stauts status
 typo statud status
 typo statu status
+typo stqat status
 typo staut status
 typo tatus status
 typo staus status
