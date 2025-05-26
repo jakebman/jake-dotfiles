@@ -160,7 +160,10 @@ set viminfofile=$XDG_STATE_HOME/vim/viminfo
 " TODO: what values can filetype take?
 " TODO: Thanks, past Jake for knowing what au means. Care to share with the class?
 " TODO: vimpolyglot doesn't have a solution for the .cpy files from rmkit
+" TODO: gitk is tcl, but not discovered properly. It has a `# mode: tcl`. Is
+" that something we can respect?
 autocmd BufNewFile,BufRead .mrconfig let &filetype = "gitconfig"
+autocmd BufNewFile,BufRead gitk let &filetype = "tcl"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/git/work-config let &filetype = "gitconfig"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/config let &filetype = "dosini"
 autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/cli/alias let &filetype = "gitconfig" " NOT VALID, but better than dosini
