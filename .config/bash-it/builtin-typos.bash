@@ -10,6 +10,8 @@ function typo {
 ## A bad shim until I figure something better
 #######################
 
+typo alias alias
+
 typo '~cd' cd
 typo foo 'cd foo'
 typo vd cd
