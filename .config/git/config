@@ -1178,6 +1178,13 @@
 [init]
 	defaultBranch = main
 [lfs]
+	# Telling on myself - this tastes cargo-culted. Don't remember why I did it.
+	# It came from an issue at work but I wasn't tracking things in Charter's gitconfig when I did it.
+	# Still can't figure out what it does - my eyes glazed over while reading the git-lfs docs.
+	# Sorry. Read more, if you dare, at:
+	# https://stackoverflow.com/questions/42597408/git-lfs-what-is-locking-support-and-should-i-enable-it
+	# https://github.com/git-lfs/git-lfs/wiki/File-Locking
+	# And report back, please.
 	locksverify = false
 [help]
 	autoCorrect = prompt
