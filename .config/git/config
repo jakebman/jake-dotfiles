@@ -1166,6 +1166,8 @@
 [fetch]
 	all = true   # Fetch should assume --all. Thank you git 2.44 :D. Oh. This is all 'remotes', not all 'branches'. Boo.
 	parallel = 0 # zero means "some reasonable (non-1) default"; the default value is 1
+[push]
+	autoSetupRemote = true
 [transfer]
 	# clone should check with the remote server and download bootstrap object databases ("bundles")
 	# It reads like a way to allow a git-clone without --bundle-uri to try and... get one?
@@ -1177,8 +1179,6 @@
 	defaultBranch = main
 [lfs]
 	locksverify = false
-[push]
-	autoSetupRemote = true
 [help]
 	autoCorrect = prompt
 [color]
