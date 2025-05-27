@@ -127,6 +127,7 @@ typo lll lls
 typo llls lls
 typo llss lls
 typo lle lls
+typo lld 'll -d'
 typo lles lls
 typo lless lls
 
