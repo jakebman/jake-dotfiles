@@ -7,10 +7,12 @@ function typo {
 
 #######################
 ## typos to builtins
-## A bad shim until I figure something better
+## These typo aliases are expanded before we go into the command_not_found_handler
+## Because that runs in a subshell, and in a subshell... doesn't help us in the outer shell
+## It's not a great plan, but it's the best I have right now
 #######################
 
-typo alias alias
+typo alais alias
 
 typo '~cd' cd
 typo foo 'cd foo'
