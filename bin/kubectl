@@ -34,23 +34,26 @@ function kubectl-autostart {
 		echo "============= Now proceeding with your original '$1' command =================="
 	fi
 
-	local -a env_args
+	local -a env_args cli
 	# Thanks to https://github.com/kubernetes/kubectl/issues/1154 for the names
 	env_args=(
 		${KUBECTL_CACHE_DIR+--cache-dir="$KUBECTL_CACHE_DIR"}
 		${KUBECTL_CONTEXT+--context="$KUBECTL_CONTEXT"}
 		${KUBECTL_NAMESPACE+--namespace="$KUBECTL_NAMESPACE"}
 		)
+	cli=(
+		"$KUBECTL"
+		"${env_args[@]}"
+		"$@"
+		)
 	if [ "${#env_args[@]}" -gt 0 ] && [ -t 0 ] && [ -t 2 ]; then
 		>&2 cat <<-MESSAGE
-			Jake received ${env_args[*]} from the environment
+			# Jake received ${env_args[*]} from the environment
+			# running ${cli[*]@Q}
 		MESSAGE
 	fi
 
-	"$KUBECTL" \
-		"${env_args[@]}" \
-		"$@" \
-		2> >(_ignore-Certain-Warnings >&2)
+	"${cli[@]}" 2> >(_ignore-Certain-Warnings >&2)
 }
 
 # I filter out a particularly annoying error message from kubectl
