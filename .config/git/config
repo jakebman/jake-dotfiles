@@ -109,6 +109,7 @@
 	idff = diff
 	tgui = gui
 	thelp = help
+	h = help
 	ehlp = help
 	hlep = help
 	helps = help
