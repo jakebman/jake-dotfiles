@@ -226,6 +226,7 @@ typo typow typo
 
 typo typw type
 
+typo brows browse
 typo brwose browse
 
 typo whick which # (to be fair, I was drinking at the time :| )
