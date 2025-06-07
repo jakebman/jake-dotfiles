@@ -325,7 +325,9 @@ typo stqat status
 typo staut status
 typo tatus status
 typo staus status
+typo cstat stat # allow a level of indrection here - this *might* actually want to be `stat`
 # NB: `stat` is an existing command. I needed a function to turn zero-arg `stat` into status, not just a simple alias
+# That's why all-but-one typos go to `status`, because they all intended to be a status command, never a `stat`
 typo sta status
 typo st status        # first unique difference from s's status-or-show magic
 typo branche branches # because sometimes I get lazy, apparently
