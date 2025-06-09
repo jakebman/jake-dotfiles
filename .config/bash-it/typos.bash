@@ -189,6 +189,7 @@ typo fil file
 typo mkae make
 typo maek make
 typo mane make
+typo clean 'make clean'
 
 typo tiem time
 
