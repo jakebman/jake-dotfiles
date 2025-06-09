@@ -139,6 +139,7 @@ typo treee tree
 # These are times when I expected tree to have neither the depth nor count limits
 typo treea ltree
 typo treen ltree
+typo trene treen
 
 typo deita delta
 
