@@ -11,26 +11,26 @@
         <server>
             <id>Artifactory-nns-remote</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
-            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
+            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
+            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
         </server>
         <server>
             <id>Artifactory-Release</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
-            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
+            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
+            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
         </server>
         <server>
             <id>Artifactory-Snapshot</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
-            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
+            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
+            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
         </server>
         <server>
             <id>Artifactory-Public</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is cfad4add-eadb-4457-8eeb-978ef315ac48 -->
-            <password>{FkgEZTxZqd0HKnOjbv6PbA6BJoA0BO7XM2S+Tw6QMKhmehGBFDrEtUdJPTVFvt8pzI1YTRrB0YM5AhE3CIrb7+HO4b+DRyunVSoR5pxW3bfjtpB1XY6aYkdUz0Ud8vtF}</password>
+            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
+            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
         </server>
     </servers>
     <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
