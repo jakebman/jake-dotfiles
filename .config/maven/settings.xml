@@ -21,6 +21,9 @@
             <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
         </server>
         <server>
+            <!-- TODO: the URL configured for this seems to 403:
+                  com.twc.mystro.mas.share:ump_stbmgr/maven-metadata.xml failed to transfer from https://artifactory.spectrumtoolbox.com/artifactory/libs-snapshot/ during a previous attempt. This failure was cached in the local repository and resolution will not be reattempted until the update interval of Artifactory-Snapshot has elapsed or updates are forced. Original error: Could not transfer metadata com.twc.mystro.mas.share:ump_stbmgr/maven-metadata.xml from/to Artifactory-Snapshot (https://artifactory.spectrumtoolbox.com/artifactory/libs-snapshot/): status code: 403, reason phrase:  (403)
+            -->
             <id>Artifactory-Snapshot</id>
             <username>jake.boeckerman@charter.com</username>
             <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
