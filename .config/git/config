@@ -525,6 +525,39 @@
 			-m '# Step 3: Merge the throwaway branch back in. Success!'; \n\
 		} ; f"
 
+	cat-into = "!f() { \n\
+		echo see https://devblogs.microsoft.com/oldnewthing/20190514-00/?p=102493 for implementation \n\
+		echo and also git help cp \n\
+		set -o errexit -x \n\
+		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
+		local branchPrefix=\"git-cat-into-temp-impl-branch-$$\"; \n\
+		local destination=\"${1?need a destination}\"; \n\
+		local parents branches branch treeHash commitHash source index=0 \n\
+		shift \n\
+		# Now sources are in $@ \n\
+		git is-clean || return # explicit 'or die' - fail if we're not clean (return propagates the last exit code) \n\
+		test -f \"$destination\" && return # destination should not exist \n\
+		# Make per-source-branches of the move, to help propagate git history \n\
+		# TODO: delete all branches if error: \n\
+		# trap \"git branch -D '$branch' || echo 'Please manually delete temporary branch $branch'\" EXIT; \n\
+		for source; do # implicit 'in $@' that I don't have to quote in gitconfig :D \n\
+			branch=\"${branchPrefix}-${index}\" \n\
+			git checkout -b \"$branch\" # is switch better here? \n\
+			git mv \"$source\" \"$destination\" \n\
+			git commit -m \"combine ${source} into ${destination}\" # TODO: include a 'file 1 of N' message. I don't have N yet \n\
+			git checkout - # this might not be 'best' to rely on, but feels safe? \n\
+			index=$((index+1)) \n\
+			branches=\"${branches} ${branch}\" \n\
+			parents=\"${parents} -p ${branch}\" \n\
+		done \n\
+		cat \"$@\" >\"$destination\" \n\
+		git rm \"$@\" \n\
+		git add \"$destination\" \n\
+		treeHash=$(git write-tree) \n\
+		commitHash=$(git commit-tree \"$treeHash\" -p HEAD ${parents} -m \"Combine $* into ${destination}\") # NB: parents is intentionally UNQUOTED \n\
+		git merge --ff-only \"$commitHash\" \n\
+		} ; f"
+
 	# A moral sibling to cp and mv. Would love to call this `ln`, but it's not a perfect analog to the `ln` tool :(
 	# TODO: doesn't move folders :(. Neither moving a folder to rename it, nor moving all the contents of a folder to a new location
 	relocate = "!f() { \n\
