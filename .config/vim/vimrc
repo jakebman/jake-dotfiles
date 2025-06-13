@@ -117,7 +117,7 @@ endif
 
 " Automatically start Obsession without concatenating the status line (does cause the previous status line to be lost)
 " https://vi.stackexchange.com/questions/8876/echo-message-on-startup-without-prompting
-" TODO: don't do this on temporary files (especially the git commit message ones)
+" TODO: don't do this on temporary files (especially the git commit message ones - they look like {something}.git/addp-hunk-edit.diff)
 " TODO: when entering vim with no args, instead restore this session (this is
 " currently accomplished via an indirection function)
 " TODO: include quickfix file into the session. Potentially with https://vi.stackexchange.com/questions/38545/how-to-save-quickfix-list-per-neovim-session-using-mksession
@@ -126,7 +126,8 @@ endif
 " (Update: it might be related to vim's messages or more-prompt help topics)
 autocmd VimEnter * Obsession $XDG_STATE_HOME/vim/jake-autosaved-session
 " TODO: it'd be nice, if we resumed an existing session, to have vim print the
-" filenames from that session to stdout (stderr?) when we exit
+" filenames from that session to stdout (stderr?) when we exit - it's
+" currently just completely opaque.
 
 " preserve edit position,
 " see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
