@@ -379,6 +379,7 @@ typo lgop logp
 typo lopg logp
 typo merege merge
 typo mereg merge
+typo mereges merges
 typo yesteday yesterday
 typo yest yesterday
 typo wortree worktree
