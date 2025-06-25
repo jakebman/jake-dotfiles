@@ -210,6 +210,9 @@ typo ssg ssh
 typo vasr vars
 typo cars vars
 
+# convenience/easier to access the name over basename, base32, and basecsp.dll
+typo base base64
+
 typo pyt python # technically, just a lazy name
 typo pyhtron python
 typo pytrhon python
