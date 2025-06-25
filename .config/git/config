@@ -253,6 +253,8 @@
 	# Abuse parameter passing - the 'yesterday' argument will pass to --since, but if we do something dumb, we'll get something dumb back.
 	# (Also, we choose since-as-filter to get around weird history hiccups that things like cherry-picking can introduce)
 	since = log --since-as-filter
+	last-week = since 'last week'
+	last-month = since 'last month'
 
 	# Morally '= since yesterday', but smarter: we use Friday as 'yesterday' for both Monday and Sunday (in addition to Saturday)
 	yesterday = "!f() { \n\
