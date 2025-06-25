@@ -34,3 +34,6 @@
 --map-syntax "*jenkinsfile*:Groovy"
 --map-syntax "*.bats:Bourne Again Shell (bash)"
 --map-syntax "*.pom:XML"
+
+# I include ~/.ssh/work-config from ~/.ssh/config. It's an ssh config by any other name
+--map-syntax "**/.ssh/*config:SSH Config"
