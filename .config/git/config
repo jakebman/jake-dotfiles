@@ -626,7 +626,13 @@
 			# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
 			# Defensive coding! \n\
 			if [ \"x$remoteHead\" != \"x$remoteBranch\" ]; then \n\
-				>&2 echo \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the HEAD for ${remote}.\" \n\
+				>&2 echo -n \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the\" \n\
+				if git config get \"remote.$remote.mainline-chosen-head\" >/dev/null 2>&1; then \n\
+					>&2 echo -n \" chosen head \"; \n\
+				else \n\
+					>&2 echo -n \" HEAD \"; \n\
+				fi \n\
+				>&2 echo \"for ${remote}.\"; \n\
 				>&2 echo \"Use 'git config set remote.$remote.mainline-chosen-head $remoteBranch' to ignore.\"; \n\
 				return 1; \n\
 			fi \n\
