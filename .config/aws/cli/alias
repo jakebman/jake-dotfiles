@@ -25,7 +25,9 @@ credentials = export-credentials
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
 
 # https://github.com/aws/aws-cli/issues/4642
-# TODO - this could be a lot smarter
+# TODO - this could be a lot smarter, including an ability to read this from a config
+# Especially if I can try and introspect account_id and role_name to mimic this url:
+# https://charter-cloud-connect.awsapps.com/start/#/console?account_id=060393040370&role_name=subaccount_admins
 browse =
   !f() {
     command browse "https://charter-cloud-connect.awsapps.com/start/"
