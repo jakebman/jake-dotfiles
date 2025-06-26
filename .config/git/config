@@ -1165,9 +1165,10 @@
 			du -hs .git \"$temp/.git\"; \n\
 			# TODO: the --no-checkout creates a 'staged commit' of 'delete everything', requiring a further `git restore .` \n\
 			echo; \n\
+			# TODO: this might interact weird if the repo has a file named dot-git-unreshallowed \n\
 			echo please run the following commands manually: \n\
-			echo mv --backup=numbered \"$GIT_DIR\" \"$(pwd)/.git-unreshallowed\"; \n\
-			echo mv \"$temp/.git\" .; \n\
+			echo mv --backup=numbered \"$GIT_DIR\" \"${temp}/dot-git-unreshallowed\"; \n\
+			echo mv \"${temp}/.git\" .; \n\
 			echo git restore --staged . '&&' git restore .; \n\
 		} ; f"
 	# TODO: in progress
