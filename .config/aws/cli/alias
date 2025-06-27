@@ -116,6 +116,8 @@ loggedin = sso loggedin
 loggedin-silent = ! aws loggedin >/dev/null 2>&1
 logout = sso logout
 
+# typo:
+forware = forward
 forward =
   !f() {
     # NB: all parameter strings are concatenated together. I'm a little uncertain of the mechanism
