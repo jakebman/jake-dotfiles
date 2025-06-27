@@ -187,6 +187,8 @@ typo fiel file
 typo fild file
 typo fil file
 
+typo filw filew # not file - filewhich!
+
 typo mkae make
 typo maek make
 typo mane make
@@ -351,6 +353,7 @@ typo pul pull
 typo ull pull
 typo upll pull
 typo pulll pull
+typo oush push
 typo puas push
 typo puhs push
 typo upsh push
