@@ -928,7 +928,9 @@
 		} ; f"
 	# --local is unnecessary, but provides clarity
 	silence-mr-pull = "!f() { git config set --local merge.stat no ; } ; f"
-	ouroboros = "!f() { git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\" ; } ; f"
+	ouroboros = "!f() { \n\
+		git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\"; \n\
+		} ; f"
 	unpaged = no-pager
 	colored = !git -c color.ui=always
 
