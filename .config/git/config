@@ -929,7 +929,9 @@
 	# --local is unnecessary, but provides clarity
 	silence-mr-pull = "!f() { git config set --local merge.stat no ; } ; f"
 	ouroboros = "!f() { \n\
-		git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\"; \n\
+		if git remote add ouroboros \"$(git rev-parse --absolute-git-dir)\"; then \n\
+			echo \"Added remote 'ouroboros' (which is your local git repo's git dir) to your local git repo\"; \n\
+		fi \n\
 		} ; f"
 	unpaged = no-pager
 	colored = !git -c color.ui=always
