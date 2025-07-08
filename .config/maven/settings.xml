@@ -79,4 +79,30 @@
     <pluginGroups>
         <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
     </pluginGroups>
+    <profiles>
+        <profile>
+            <id>docker-is-not-always-there</id>
+            <activation>
+                <file>
+                    <!--
+                        This file is created by the docker WSL integration.
+                        It won't exist until docker is up and running.
+                    -->
+                    <missing>/usr/bin/docker-credential-desktop.exe</missing>
+                </file>
+            </activation>
+            <properties>
+                <!--
+                    The com.spotify:dockerfile-maven-plugin:build goal tries to run docker-credential-desktop.exe.
+                    If that fails, the goal and the rest of the build fails.
+
+                    But! We can ask maven to check if that file exists.
+                    If it's missing, then we should disable this part of the docker build
+
+                    https://github.com/spotify/dockerfile-maven/blob/master/docs/usage.md
+                -->
+                <dockerfile.skip>true</dockerfile.skip>
+            </properties>
+        </profile>
+    </profiles>
 </settings>
