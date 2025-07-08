@@ -108,7 +108,6 @@
                 <dockerfile.repository>${jake.docker.breadcrumb}</dockerfile.repository>
                 <dockerfile.tag>${jake.docker.breadcrumb}</dockerfile.tag>
                 <dockerfile.build.cacheFrom>${jake.docker.breadcrumb}</dockerfile.build.cacheFrom>
-                <dockerfile.buildArgs>${jake.docker.breadcrumb}</dockerfile.buildArgs>
             </properties>
         </profile>
     </profiles>
