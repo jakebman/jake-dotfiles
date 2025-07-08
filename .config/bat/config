@@ -36,4 +36,7 @@
 --map-syntax "*.pom:XML"
 
 # I include ~/.ssh/work-config from ~/.ssh/config. It's an ssh config by any other name
+# Ditto git config and mailmap
 --map-syntax "**/.ssh/*config:SSH Config"
+--map-syntax "**/.config/git/*config:Git Config"
+--map-syntax "**/.config/git/*mailmap:Git Mailmap"
