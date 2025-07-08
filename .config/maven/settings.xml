@@ -102,6 +102,12 @@
                     https://github.com/spotify/dockerfile-maven/blob/master/docs/usage.md
                 -->
                 <dockerfile.skip>true</dockerfile.skip>
+                <!-- Smear a bunch of callbacks to this profile if possible -->
+                <dockerfile.contextDirectory>WARN: Docker integration not found. See your ~/.m2/settings.xml file to disable this behavior</dockerfile.contextDirectory>
+                <dockerfile.repository>WARN: Docker integration not found. See your ~/.m2/settings.xml file to disable this behavior</dockerfile.repository>
+                <dockerfile.tag>WARN: Docker integration not found. See your ~/.m2/settings.xml file to disable this behavior</dockerfile.tag>
+                <dockerfile.build.cacheFrom>WARN: Docker integration not found. See your ~/.m2/settings.xml file to disable this behavior</dockerfile.build.cacheFrom>
+                <dockerfile.buildArgs>WARN: Docker integration not found. See your ~/.m2/settings.xml file to disable this behavior</dockerfile.buildArgs>
             </properties>
         </profile>
     </profiles>
