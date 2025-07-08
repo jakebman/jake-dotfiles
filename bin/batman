@@ -5,7 +5,7 @@ if [ "$#" -lt 1 ]; then
 		echo "please redirect --help output into this program, or specify a program to get an implicit --help. The terminal doesn't make much sense for stdin"
 		exit 1
 	fi
-	bat -l man
+	bat --language man
 else
-	man "$@" | bat -l man
+	man "$@" | bat --language man
 fi
