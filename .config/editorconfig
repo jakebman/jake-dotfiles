@@ -70,3 +70,7 @@ indent_style = tab
 indent_size = 4
 max_line_length = 120
 
+[*.xml]
+# Probably just pom.xml and settings*.xml, but this feels reasonable for all XML. Matches be1ca914060c703bb6466b68cf90c13d9db334f2
+indent_size = 4
+
