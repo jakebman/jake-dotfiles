@@ -59,6 +59,7 @@ function j-preview {
 		${2:+--highlight-line "$2"} \
 		--style=default \
 		--pager "less --mouse" \
+		--tabs 2 \
 		--force-colorization # sets both --decoration and --color to `always`
 }
 
