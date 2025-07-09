@@ -115,6 +115,7 @@ typo at cat
 typo ca cat
 typo cag cat
 typo catg cat
+typo catr cat
 typo qcat cat
 
 # G is closer to B than C on the keyboard
@@ -214,6 +215,7 @@ typo cars vars
 
 # convenience/easier to access the name over basename, base32, and basecsp.dll
 typo base base64
+typo base65 base64
 
 typo pyt python # technically, just a lazy name
 typo pyhtron python
@@ -447,6 +449,8 @@ typo conf config
 
 typo nns-conifg nns-config
 typo nns-confg nns-config
+
+typo edit-confg edit-config
 
 typo sha256 sha256sum
 typo sha sha256sum
