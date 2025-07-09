@@ -7,6 +7,9 @@
 	# NB: tabs in this string are considered command words - \t-command is considered a positive entry
 	# NB: the cases aren't as you expect - the deltaAdd alias is removed via -deltaadd
 	commands = \
+		-"please-include-these" \
+        ls-files \
+    \
         -"traditional-typos" \
         -pb -ad -addp -alais -alises -comit -comm0t -comm9t -comm-t \
         -commt -config-deubg -dff -dif -idff -tgui -thelp -ehlp -hlep \
