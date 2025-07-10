@@ -51,6 +51,8 @@ typo gitr git
 typo qgit git
 typo jgti git # it's like... sometimes I just mash the keyboard while thinking really hard about the command
 
+typo glap glab
+
 typo ggsheild ggshield # Git Guardian - a work tool
 
 # Not technically typos, but a common misstep:
@@ -194,6 +196,7 @@ typo filw filew # not file - filewhich!
 typo mkae make
 typo maek make
 typo mane make
+typo manek make
 typo clean 'make clean'
 
 typo tiem time
