@@ -17,6 +17,7 @@
         -ocmmit -aliases -config-todo \
         -mr-up -helps \
         -stat \
+        -lop \
     \
         -"convenient-names" \
         -d -r \
@@ -123,6 +124,7 @@
 	jdf = j --diff
 	jmg = j --merge
 	jws = j --ws
+	lop = logp
 	mr-up = mr-pull
 	oroboros = ouroboros
 	tpush = push
