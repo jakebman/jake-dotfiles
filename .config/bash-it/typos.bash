@@ -206,6 +206,8 @@ typo vmn mvn
 
 typo mf mv
 
+typo lobs jobs
+
 typo suod sudo
 typo suto sudo
 typo audo sudo
