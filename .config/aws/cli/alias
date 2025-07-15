@@ -76,7 +76,7 @@ docker-login =
       PROFILE="${1}"
       shift
     else
-      # The 'default' profile duplicates this, but calling docker-login in a loop *should* skip it for natnav.
+      # The 'default' profile duplicates this, but calling docker-login in a loop *should* skip it, because natnav is "better" for the task.
       # So, this is 'effectively' the default profile for logging in. But not exactly. But close enough?
       # TODO: this should be configurable
       PROFILE=natnav
