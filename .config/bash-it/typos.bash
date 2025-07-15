@@ -234,6 +234,7 @@ typo ypo typo
 typo fypo typo
 typo tyop typo
 typo yypo typo
+typo rypo typo
 typo tyypo typo
 typo ytypo typo
 typo typeo typo
@@ -250,6 +251,7 @@ typo whic which
 typo wich which
 
 typo gind find
+typo fin find
 
 typo ipconfig ifconfig
 
@@ -315,6 +317,7 @@ typo retore restore
 typo rstore restore
 typo restorep restore
 typo r-here rainbow-here
+typo r-all rainbow-all
 typo ra rainbow
 typo rain rainbow
 typo rainow rainbow
