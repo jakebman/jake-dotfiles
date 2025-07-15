@@ -620,6 +620,11 @@
 	is-mainline = "!f() { \n\
 		( \n\
 			set -o errexit; \n\
+			# If mainline checking is not enabled, bail with a success \n\
+			if [ false = \"$(git config get --type bool --default true 'jake.mainlineChecking' 2>/dev/null)\" ]; then \n\
+				echo 'Not checking mainline. jake.mainlineChecking is false'; \n\
+				return 0; \n\
+			fi \n\
 			local local remote remoteBranch remoteHead; \n\
 			local=$(git current-branch); \n\
 			remote=$(git remote-for-branch \"$local\"); \n\
@@ -653,8 +658,6 @@
 		} ; f"
 	is-mainline-print-on-failure = "!f() { \n\
 		# not available in bare `sh`: set -o pipefail; \n\
-		# If mainline checking is not enabled, bail with a success \n\
-		[ true = \"$(git config get --type bool --default true 'jake.MainlineChecking' 2>/dev/null)\" ] || return 0; \n\
 		# NB: this juggles the stderr into stdout, discarding the old stdout \n\
 		git is-mainline 2>&1 >/dev/null | sed 's/^/# /g'; \n\
 		} ; f"
