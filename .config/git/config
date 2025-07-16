@@ -1191,10 +1191,13 @@
 			echo; \n\
 			# TODO: this might interact weird if the repo has a file named dot-git-unreshallowed \n\
 			if [ true = \"$(git config get --type bool --default false 'reshallow.perform' 2>/dev/null)\" ]; then \n\
-				mv --backup=numbered \"$GIT_DIR\" \"${temp}/dot-git-unreshallowed\"; \n\
-				mv \"${temp}/.git\" .; \n\
-				git restore --staged .; \n\
-				git restore .; \n\
+				( \n\
+					set -x; \n\
+					mv --backup=numbered \"$GIT_DIR\" \"${temp}/dot-git-unreshallowed\"; \n\
+					mv \"${temp}/.git\" .; \n\
+					git restore --staged .; \n\
+					git restore .; \n\
+				) \n\
 			else \n\
 				echo please run the following commands manually: \n\
 				echo mv --backup=numbered \"$GIT_DIR\" \"${temp}/dot-git-unreshallowed\"; \n\
