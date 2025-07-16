@@ -1168,7 +1168,10 @@
 			set -o errexit; \n\
 			: ${GIT_DIR:=$(git gitdir)}; \n\
 			du -hs \"$GIT_DIR\"; \n\
-			temp=$(mktemp -d --tmpdir --suffix \"-$(basename \"$(pwd)\")\" git-reshallow-XXXXXXX); \n\
+			local repoName=\"$(basename \"$(pwd)\")\"; \n\
+			local tempNeighborhood=\"${TMPDIR:-/tmp}/git-reshallow/${repoName}/\"; \n\
+			mkdir -p \"$tempNeighborhood\"; \n\
+			temp=$(mktemp -d --tmpdir \"$tempNeighborhood\" \"XXXXXXXXX\"); \n\
 			echo creating shallow clone at $temp; \n\
 			( \n\
 				set -x; \n\
