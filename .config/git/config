@@ -1186,7 +1186,6 @@
 			) \n\
 			# TODO: this doesn't preserve shallow-checkout \n\
 			cp \"$GIT_DIR/config\" \"$temp/.git\"; \n\
-			du -hs .git \"$temp/.git\"; \n\
 			# TODO: the --no-checkout creates a 'staged commit' of 'delete everything', requiring a further `git restore .` \n\
 			echo; \n\
 			# TODO: this might interact weird if the repo has a file named dot-git-unreshallowed \n\
@@ -1198,11 +1197,13 @@
 					git restore --staged .; \n\
 					git restore .; \n\
 				) \n\
+				du -hs .git \"${temp}/dot-git-unreshallowed\"; \n\
 			else \n\
 				echo please run the following commands manually: \n\
 				echo mv --backup=numbered \"$GIT_DIR\" \"${temp}/dot-git-unreshallowed\"; \n\
 				echo mv \"${temp}/.git\" .; \n\
 				echo git restore --staged . '&&' git restore .; \n\
+				du -hs .git \"$temp/.git\"; \n\
 			fi \n\
 		} ; f"
 	reshallow-actual = !git -c reshallow.perform=true reshallow
