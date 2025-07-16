@@ -1172,7 +1172,7 @@
 			local repoName=\"$(basename \"$(pwd)\")\"; \n\
 			local tempNeighborhood=\"${TMPDIR:-/tmp}/git-reshallow/${repoName}/\"; \n\
 			mkdir -p \"$tempNeighborhood\"; \n\
-			temp=$(mktemp -d --tmpdir \"$tempNeighborhood\" \"XXXXXXXXX\"); \n\
+			temp=$(mktemp -d --tmpdir=\"$tempNeighborhood\" \"$(date --iso-8601=hour)_XXXXXXXXX\"); \n\
 			echo creating shallow clone at $temp; \n\
 			( \n\
 				set -x; \n\
