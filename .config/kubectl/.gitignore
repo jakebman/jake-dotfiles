@@ -1,0 +1,5 @@
+
+# Kubectl config seems more... fluid than something I feel the need to keep around
+config
+# Case in point - I'm up to backup3 at this point.
+backup*
