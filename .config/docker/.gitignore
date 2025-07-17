@@ -1,3 +1,10 @@
 
+# logs don't need to be tracked
+desktop/log/
+
+# contexts and features are symlinks to %userprofile%
+contexts
+features.json
+
 # These files aren't useful to track in git - they're per-machine configs
 .token_seed*
