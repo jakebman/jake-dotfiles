@@ -1,0 +1,4 @@
+
+# This file usually contains secrets. Try to ignore it, and prevent it from being added
+# TODO: there might be a more-definitive way to do this
+wgetrc

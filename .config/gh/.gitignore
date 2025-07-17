@@ -1,0 +1,3 @@
+
+# This file contains secrets on how to log into remote hosts. Don't commit it
+hosts.yml

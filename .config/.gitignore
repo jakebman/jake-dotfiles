@@ -5,4 +5,11 @@
 # Therefore, it needs to 1) be in this folder, and 2) have this exact name. Otherwise,
 # it won't work.
 
+# Style-wise, I'd like this file to contain folders that represent large swaths of files that need to be ignored
+# The sort of things that should otherwise live in a different place, like $XDG_DATA_HOME or $XDG_CACHE_HOME
+
 vcsh/repo.d/
+maven/wrapper/dists/
+docker/buildx/
+aws/*/cache/
+maven/mvnd/registry/

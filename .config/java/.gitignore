@@ -1,0 +1,5 @@
+
+# These files are deeply nested, but the .gitignore rules can reach them from here
+# They don't need to be ever tracked
+.user.lock.*
+.userRootModFile.*

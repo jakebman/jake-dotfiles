@@ -1,0 +1,5 @@
+
+# These files represent state that wslu cares about. Easier to ignore them here instead of relocating them individually away from here
+baseexec
+oemcp
+triggered_time
