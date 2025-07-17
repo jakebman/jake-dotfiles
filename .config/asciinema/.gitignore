@@ -1,0 +1,6 @@
+
+# per-machine value. Don't track it
+install-id
+
+# Contains api keys. Don't track it
+config

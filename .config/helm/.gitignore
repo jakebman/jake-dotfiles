@@ -1,0 +1,6 @@
+
+# This is a transient file. Do not track it
+repositories.lock
+
+# This file potentially contains passwords. Do not track it
+repositories.yaml
