@@ -1,0 +1,8 @@
+{
+	"auths": {
+		"060393040370.dkr.ecr.us-east-1.amazonaws.com": {},
+		"475550687851.dkr.ecr.us-east-1.amazonaws.com": {},
+		"artifactory.spectrumtoolbox.com": {}
+	},
+	"credsStore": "desktop.exe"
+}
