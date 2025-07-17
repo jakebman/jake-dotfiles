@@ -1,0 +1,11 @@
+
+# Almost defintionally, everything in GNU's gpg config directory would be something we don't want to commit
+# Here's what I have so far, but that doesn't mean that this list is exhaustive
+# (specifically, I don't want to accidentally actually ignore a real config file)
+
+private-keys-v1.d/
+pubring.kbx
+pubring.kbx~
+random_seed
+tofu.db
+trustdb.gpg
