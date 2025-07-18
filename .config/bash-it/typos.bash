@@ -467,6 +467,7 @@ typo sha sha256sum
 typo ci co
 typo coi co
 typo c- 'co -'
+typo co- 'co -'
 
 typo waths watch
 
