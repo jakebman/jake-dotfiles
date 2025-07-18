@@ -13,3 +13,4 @@ maven/wrapper/dists/
 docker/buildx/
 aws/*/cache/
 maven/mvnd/registry/
+eksctl/clusters/
