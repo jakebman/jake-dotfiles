@@ -8,9 +8,9 @@
 # Style-wise, I'd like this file to contain folders that represent large swaths of files that need to be ignored
 # The sort of things that should otherwise live in a different place, like $XDG_DATA_HOME or $XDG_CACHE_HOME
 
-vcsh/repo.d/
-maven/wrapper/dists/
-docker/buildx/
 aws/*/cache/
-maven/mvnd/registry/
+docker/buildx/
 eksctl/clusters/
+maven/mvnd/registry/
+maven/wrapper/dists/
+vcsh/repo.d/
