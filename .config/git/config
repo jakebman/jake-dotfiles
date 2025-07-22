@@ -98,6 +98,7 @@
 	comm-t = commit
 	commt = commit
 	ocmmit = commit
+	commitmpp = addp-and-commitm-and-push
 	commitmp = commitpm
 	commitp = commitpm
 	commitpm = addp-and-commitm
@@ -283,6 +284,7 @@
 	# I only really feel these tools to be useful if there's more than one relevant command in the function
 	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
+	addp-and-commitm-and-push = "!f() { git addp-and-commitm \"$@\" && git push ; } ; f"
 
 	# TODO: it would be nice do more with this
 	type = help
