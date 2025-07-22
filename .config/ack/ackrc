@@ -118,6 +118,11 @@
 ### (These are special .properties.template files from NNS, but I don't mind keeping it for my person)
 --type-add=properties:match:/\.properties\..*/
 
+## Config figles. Ack is nice and also accepts the unambiguous prefix --conf/--no-conf
+--type-add=config:ext:config
+--type-add=config:ext:conf
+# TODO: do .ini files count? Should --no-config try and remove *all* config files, or just .config files?
+
 ## MR (myrepos) config files
 --type-add=mrconfig:is:.mrconfig
 
