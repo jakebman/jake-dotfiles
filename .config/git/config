@@ -741,6 +741,7 @@
 
 
 	# TODO: Let's get a "pull, but also for non-checked-out branches"
+	# TODO: Let's get a "pull, but in a way that's like push --force-with-lease. Leave a tag at our commit (abandoned/${branchName}.$incrementingId), then reset (soft? hard?) to the upstream branch commit"
 
 	# WARNING: this API is still experimental, so I might need to act fluidly around it
 	# NOTE: categories for `list-X` are listed in https://github.com/git/git/blob/master/command-list.txt, used by https://github.com/git/git/blob/21306a098c3f174ad4c2a5cddb9069ee27a548b0/help.c#L382
