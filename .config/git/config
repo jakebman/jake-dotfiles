@@ -271,7 +271,7 @@
 			# this is a log since that commit/branch/tag/etc. Exactly one arg, per --verify \n\
 			git log --name-only --pretty='' \"$1\"..HEAD; \n\
 		else \n\
-		# probably one arg. Errors will let us know \n\
+			# probably one arg. Errors will let us know \n\
 			git since \"$@\" --name-only --pretty=''; \n\
 		fi | \n\
 			sort | \n\
