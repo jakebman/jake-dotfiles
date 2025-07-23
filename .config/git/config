@@ -263,6 +263,15 @@
 	since = log --since-as-filter
 	last-week = since 'last week'
 	last-month = since 'last month'
+	# TODO: `since` sorta permits flags, `last` *does not*. Can we use rev-parse to get a behavior like:
+	# 1) grab all log-related flags, with their values, and pass them to log, in-order
+	# 2) Then any non-flags before -- are "$*"'d into --since-as-filter
+	# 3) Then the --, if passed to us, is passed to log
+	# 3) Then any <path> args after -- are passed to log
+	# Then we add that behavior to 'since', and then just `last = since last`
+	last = "!f() { : since; \n\
+		git since \"last $*\"; \n\
+		}; f"
 
 	# Files that changed since <either a date or a commit>
 	# When pager.changed-since is jaketree, this also gets a nice tree hierarchy
