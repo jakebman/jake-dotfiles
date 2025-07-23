@@ -267,7 +267,7 @@
 	# Files that changed since <either a date or a commit>
 	# When pager.changed-since is jaketree, this also gets a nice tree hierarchy
 	changed-since = "!f() { : since; \n\
-		if git rev-parse --verify --end-of-options \"$@\" >/dev/null 2>&1; then \n\
+		if git rev-parse --verify --quiet --end-of-options \"$@\"; then \n\
 			# this is a log since that commit/branch/tag/etc. Exactly one arg, per --verify \n\
 			git log --name-only --pretty='' \"$1\"..HEAD; \n\
 		else \n\
