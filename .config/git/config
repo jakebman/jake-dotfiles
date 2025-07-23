@@ -169,6 +169,9 @@
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
 	# add --intent-to-add, but also implicitly `touch` files that don't exist, including their parent folders
 	intent-to-add = "!f() { \n\
+		# Move to the user's working directory \n\
+		cd \"$GIT_PREFIX\" || return 1; \n\
+		unset GIT_PREFIX; \n\
 		for arg; do \n\
 			# TODO: getopt, git-rev-parse, or *something* more canoncial than 'skip arguments if they start with dash' \n\
 			if [ \"x${arg}\" = \"x${arg#-}\" ] && ! [ -f \"${arg}\" ]; then \n\
@@ -711,6 +714,9 @@
 
 	# 'promoted' from git-implicitdiff so windows-land can borrow it
 	implicitdiff = "!f() { \n\
+		# Move to the user's working directory \n\
+		cd \"$GIT_PREFIX\" || return 1; \n\
+		unset GIT_PREFIX; \n\
 		# The implicit --exit-code in --quiet disable the pager (because otherwise less's return code would be the one returned) \n\
 		# NB: --quiet doesn't suppress stderr if you're outside a git dir, and the output is elaborate \n\
 		if ! git rev-parse; then \n\
