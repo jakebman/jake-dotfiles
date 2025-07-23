@@ -264,6 +264,21 @@
 	last-week = since 'last week'
 	last-month = since 'last month'
 
+	# Files that changed since <either a date or a commit>
+	# When pager.changed-since is jaketree, this also gets a nice tree hierarchy
+	changed-since = "!f() { : since; \n\
+		if git rev-parse --verify --end-of-options \"$@\" >/dev/null 2>&1; then \n\
+			# this is a log since that commit/branch/tag/etc. Exactly one arg, per --verify \n\
+			git log --name-only --pretty='' \"$1\"..HEAD; \n\
+		else \n\
+		# probably one arg. Errors will let us know \n\
+			git since \"$@\" --name-only --pretty=''; \n\
+		fi | \n\
+			sort | \n\
+			uniq | \n\
+			git pager changed-since; \n\
+		}; f"
+
 	# Morally '= since yesterday', but smarter: we use Friday as 'yesterday' for both Monday and Sunday (in addition to Saturday)
 	yesterday = "!f() { \n\
 		# %u: day of week (1..7); 1 is Monday \n\
@@ -1297,6 +1312,12 @@
 	# NB: -O overwrites automatically. None of -o, --log-file, nor --LOG-FILE do.
 	# NB: I have removed -O /dev/null - it takes 11s to `LESS+=+Q logp` in the maven repo. 0.07s when -O is removed
 	log = less --lesskey-src ~/.config/lesskey-no-gotoend-on-q
+	# Proud/brag: this is so cool that it jaketree's to the terminal, but lists to a pipe!
+	# I didn't exactly plan that, but it's a really nice discovered behavior of my pager command
+	# to discover that refactoring out the final item of the inspiration to changed-since into the pager settings
+	# does this!
+	# git log --pretty="" --name-only  --since 500\ days\ ago | sort | uniq | jaketree
+	changed-since = jaketree
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
