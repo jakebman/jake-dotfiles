@@ -266,6 +266,7 @@
 
 	# Files that changed since <either a date or a commit>
 	# When pager.changed-since is jaketree, this also gets a nice tree hierarchy
+	# TODO: this would be nice to show paths relative to GIT_PREFIX, but log output doesn't do that, not even if we go back to GIT_PREFIX
 	changed-since = "!f() { : since; \n\
 		if git rev-parse --verify --quiet --end-of-options \"$@\"; then \n\
 			# this is a log since that commit/branch/tag/etc. Exactly one arg, per --verify \n\
