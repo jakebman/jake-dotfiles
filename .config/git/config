@@ -272,7 +272,8 @@
 			git log --name-only --pretty='' \"$1\"..HEAD; \n\
 		else \n\
 			# probably one arg. Errors will let us know \n\
-			git since \"$@\" --name-only --pretty=''; \n\
+			# We inline 'since' to allow these flags to be passed by default, and overriden if needed \n\
+			git log --name-only --pretty='' --since-as-filter \"$@\"; \n\
 		fi | \n\
 			sort | \n\
 			uniq | \n\
