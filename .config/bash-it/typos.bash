@@ -17,6 +17,8 @@ if [ -f pom.xml ]; then
 		typo "$_IMPLICIT_MAVEN" "mvn ${_IMPLICIT_MAVEN}"
 	done
 	unset _IMPLICIT_MAVEN IMPLICIT_MAVEN
+else
+	typo clean 'make clean'
 fi
 
 typo viim vim
@@ -207,7 +209,6 @@ typo mkae make
 typo maek make
 typo mane make
 typo manek make
-typo clean 'make clean'
 
 typo tiem time
 
