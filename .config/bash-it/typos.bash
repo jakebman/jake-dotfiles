@@ -6,8 +6,18 @@ function typo {
 }
 
 # TODO: if there's a makefile, could we pre-load its targets as typo options?
-# TODO: if it has a colon in it (and there's a pom.xml file), can we try it as a maven goal? (maybe with a 'you sure?' prompt?)
 # TODO: if the completion is trying to look up a command (_completion_loader?), can it check here too?
+
+if [ -f pom.xml ]; then
+	# We're in maven-land, baby!
+	declare -a IMPLICIT_MAVEN
+	mapfile -t IMPLICIT_MAVEN < <(grep -v "^#" <"$(dirname "$BASH_SOURCE")/maven-goals-and-phases.list" | grep -v '^\s*$')
+	declare _IMPLICIT_MAVEN
+	for _IMPLICIT_MAVEN in "${IMPLICIT_MAVEN[@]}"; do
+		typo "$_IMPLICIT_MAVEN" "mvn ${_IMPLICIT_MAVEN}"
+	done
+	unset _IMPLICIT_MAVEN IMPLICIT_MAVEN
+fi
 
 typo viim vim
 typo vimi vim

@@ -1,0 +1,40 @@
+
+# This is a list of common maven goals and phases that I might like to use without invoking mvn first
+# This file is... ad-hoc-y. I'd love to find a proper format for it, but right now? Comments
+# are on their lines, and every other non-empty line in the rest of the file gets a typo to an implicit mvn
+# Try to keep it sorted, please :)
+
+clean
+compile
+dependency:analyze
+dependency:analyze-dep-mgt
+dependency:resolve
+dependency:sources
+dependency:tree
+deploy
+eclipse:add-maven-repo
+eclipse:clean
+eclipse:eclipse
+generate-resources
+generate-sources
+idea:idea
+install
+integration-test
+jboss-as:deploy
+netbeans-freeform:generate-netbeans-project
+package
+process-resources
+process-sources
+release:perform
+release:prepare
+release:rollback
+site
+test
+test-compile
+tomcat:deploy
+tomcat:run
+tomcat:run-war
+validate
+verify
+versions:display-dependency-updates
+versions:display-plugin-updates
