@@ -83,9 +83,12 @@ if [[ v9fs = "$(stat --file-system . --format=%T)" ]]; then
 		# Window's config file roots
 		HOW=", reading Window's GIT_CONFIG_* variables"
 		export GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'
-		# :? fails if the variable is unset, with a reasonable error
-		# TODO: WSL probably reserves global variables here. Probably pick a new name :\
-		export GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"
+
+		# the windows-user-home symlink isn't guaranteed to exist
+		export GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-${HOME}/.config}/jake/windows-user-home/.gitconfig"
+		if [[ ! -d "$(dirname "$GIT_CONFIG_GLOBAL")" ]]; then
+			>&2 echo "Jake Warning: the symlink to windows doesn't seem to be working: $(dirname "$GIT_CONFIG_GLOBAL")"
+		fi
 	else
 		WHICH=Windows
 		GIT=git.exe
@@ -128,7 +131,7 @@ if [[ "x $*" =~ "help" ]]; then
 	fi
 
 	if [[ -v WINDOWSY_CONFIGS ]]; then
-		NOTES+=' GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig"'
+		NOTES+=' GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-${HOME}/.config}/jake/windows-user-home/.gitconfig"'
 		NOTES+=" GIT_CONFIG_SYSTEM='/mnt/c/Program Files/Git/etc/gitconfig'"
 	fi
 

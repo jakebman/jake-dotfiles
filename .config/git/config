@@ -1429,7 +1429,7 @@
 	# I intend safe.directory to be read:
 	# * by WSL's /usr/bin/git
 	# * from Window's %USERHOME%/.gitconfig
-	# * * through the received GIT_CONFIG_GLOBAL="${WSL_WINDOWS_USER_HOME:?}/.gitconfig")
+	# * * through the received GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME:-${HOME}/.config}/jake/windows-user-home/.gitconfig")
 	# * when my ~/bin/git redirection thinks that WSL's git can be faster than Windows' git.exe
 	# So:
 	# * These directory names need to be valid *from WSL's perspective*
