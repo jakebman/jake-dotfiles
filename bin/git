@@ -19,6 +19,7 @@ THIS_SCRIPT="Jake's ~/bin/git"
 # NB: $WHERE here can either equal $GIT_DIR or $GIT_WORK_TREE. That will be
 # confusing if this variable is used as-if it were one and not the other.
 # (It's fine for the use of this variable, which is only for user output)
+# TODO: WARNING: this variable is no longer used, and may become DEPRECATED
 WHERE="${GIT_DIR:-${PWD:-$(pwd)}}"
 
 GIT=/usr/bin/git
@@ -42,6 +43,7 @@ function summarize_path {
 # NB: mr does pass --quiet through to us, so we will be able to rely on that
 # Further consideration could go into a magic parameter setup (git -c jake.custom.indirection.disableMessage) that
 # can act as a "quiet, but for this callout only"
+# TODO: further, 'only sqawk on success' 'even squawk to non-stdout' values beyond just squawk/no-squawk
 if [ -t 1 ] && [ -z "$MR_REPO" ] && [ -z "$JAKE_SUPPRESS_GIT_SQUAWK" ]; then # we're running in a terminal, and not from `mr`
 	# TODO: use printf instead?
 	trap 'echo "(${THIS_SCRIPT} used ${WHICH}'"'"'s ${GIT}${HOW+${HOW}.})"; [ -v NOTES ] && echo "${NOTES}"' EXIT
