@@ -314,6 +314,7 @@
 	# TL;DR: this prevents unexpected parameters from being appended to the tail of these commands (which don't expect as many as their parent commands)
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
 	addp-and-commitm-and-push = "!f() { git addp-and-commitm \"$@\" && git push ; } ; f"
+	push--= push --force-with-lease
 
 	# TODO: it would be nice do more with this
 	type = help
