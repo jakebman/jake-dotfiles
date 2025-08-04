@@ -36,6 +36,15 @@ ssh-copy-id =
   shift
   local FILE="~${USER}/.ssh/authorized_keys" # The ~ will be interpolated by the foreign machine
 
+  local params=$(
+    # The jq phrasing here takes raw lines, turns them into strings, then turns all those strings into an array as commands value
+    <<HEREDOC jq --raw-input . | jq --slurp '{commands: .}'
+    [ -d ~$USER ] || exit 1
+    sudo install -D -m700 -o${USER} /dev/null ${FILE}
+    grep '$ID' $FILE || exit 0
+    sudo echo '$ID' >>$FILE"
+    HEREDOC
+  )
   local host=${1?Need at least one hostname}
   # To install the key for some aws-user:
   # 1) ~aws-user needs to exist
@@ -48,7 +57,7 @@ ssh-copy-id =
   command_id=$(aws ssm send-command \
       --document-name "AWS-RunShellScript" \
       --comment "Copying a dev's (Jake's) ssh ID to this server" \
-      --parameters commands="[ -d ~$USER ] || exit 1; sudo install -D -m700 -o${USER} /dev/null ${FILE}; grep '$ID' $FILE || exit 0; sudo echo '$ID' >>$FILE" \
+      --parameters "$params" \
       --output text \
       --query Command.CommandId \
       --instance-ids "$@"
