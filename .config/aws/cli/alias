@@ -42,7 +42,7 @@ ssh-copy-id =
     [ -d ~$USER ] || exit 1
     sudo install -D -m700 -o${USER} /dev/null ${FILE}
     grep '$ID' $FILE || exit 0
-    sudo echo '$ID' >>$FILE"
+    echo '$ID' | sudo tee -a $FILE
     HEREDOC
   )
   local host=${1?Need at least one hostname}
