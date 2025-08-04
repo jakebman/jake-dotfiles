@@ -23,6 +23,39 @@ credentials = export-credentials
 
 # NB: not actually SSH
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
+# NB: usually allows actual ssh, via non-ssh means, above
+# Uses the principles from https://github.com/elpy1/ssh-over-ssm/blob/master/ssh-ssm.sh
+# But is re-authored following my local ssh-copy-id's installkeys_sh
+ssh-copy-id =
+  !f() {
+  # $1 is the username, $2 is a required host, every other arg is just another host
+  # TODO: it would be cool if $1 could also be $user@host
+  set -x
+  local ID=$(cat ~/.ssh/id_rsa.pub) # TODO: argument
+  local USER=${1?} # Probably a bad name
+  shift
+  local FILE="~${USER}/.ssh/authorized_keys" # The ~ will be interpolated by the foreign machine
+
+  local host=${1?Need at least one hostname}
+  # To install the key for some aws-user:
+  # 1) ~aws-user needs to exist
+  # 2) Create ~aws-user/.ssh/authorized_keys, owned by ~aws-user, with no rwx for anyone else
+  # 3) Bail if the line is already in there, otherwise:
+  # 4) Print the ID line into the file
+  #
+  # TODO: commands should be passed as a json array on an object:
+  # --parameters '{"commands":["whoami","where jq"]}'
+  command_id=$(aws ssm send-command \
+      --document-name "AWS-RunShellScript" \
+      --comment "Copying a dev's (Jake's) ssh ID to this server" \
+      --parameters commands="[ -d ~$USER ] || exit 1; sudo install -D -m700 -o${USER} /dev/null ${FILE}; grep '$ID' $FILE || exit 0; sudo echo '$ID' >>$FILE" \
+      --output text \
+      --query Command.CommandId \
+      --instance-ids "$@"
+    )
+  aws ssm wait command-executed --instance-id "$1" --command-id "${command_id}"
+  } ; f
+
 
 # https://github.com/aws/aws-cli/issues/4642
 # TODO - this could be a lot smarter, including an ability to read this from a config
