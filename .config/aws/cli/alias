@@ -45,7 +45,7 @@ ssh-copy-id =
     [ -d ~$USER ] || exit 1
     sudo install -d -m700 -o${USER} ~${USER}/.ssh
     sudo [ -f $FILE ] || ( sudo touch $FILE && sudo chown ${USER}: $FILE && sudo chmod 700 $FILE )
-    sudo grep '$ID' $FILE || exit 0
+    sudo grep '$ID' $FILE && exit 0
     echo '$ID' | sudo tee -a $FILE
     HEREDOC
   )
