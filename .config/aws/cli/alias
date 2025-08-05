@@ -31,7 +31,7 @@ ssh-copy-id =
   # $1 is the username, $2 is a required host, every other arg is just another host
   # TODO: it would be cool if $1 could also be $user@host
   set -x
-  local ID=$(cat ~/.ssh/id_rsa.pub) # TODO: argument
+  local ID=$(cat ~/.ssh/nns-dev.pem.pub) # TODO: argument
   local USER=${1?} # Probably a bad name
   shift
   local FILE="~${USER}/.ssh/authorized_keys" # The ~ will be interpolated by the foreign machine
