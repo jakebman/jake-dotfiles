@@ -23,6 +23,52 @@ credentials = export-credentials
 
 # NB: not actually SSH
 ssh = ssm start-session --reason "(Launched from aws cli. Likely diagnostics related.)" --target
+# NB: usually allows actual ssh, via non-ssh means, above
+# Uses the principles from https://github.com/elpy1/ssh-over-ssm/blob/master/ssh-ssm.sh
+# But is re-authored following my local ssh-copy-id's installkeys_sh
+ssh-copy-id =
+  !f() {
+  # $1 is the username, $2 is a required host, every other arg is just another host
+  # TODO: it would be cool if $1 could also be $user@host
+  set -x
+  local ID=$(cat ~/.ssh/nns-dev.pem.pub) # TODO: argument
+  local USER=${1?} # Probably a bad name
+  shift
+  local FILE="~${USER}/.ssh/authorized_keys" # The ~ will be interpolated by the foreign machine
+
+  # Context from AWS tells me that these lines are all executed in the same session, despite being provided to aws as elements of an array:
+  # https://docs.aws.amazon.com/systems-manager/latest/userguide/walkthrough-cli.html#walkthrough-cli-run-scripts
+  local params=$(
+    # The jq phrasing here takes raw lines, turns them into strings, then turns all those strings into an array as commands value
+    # The $USER and $ID variables in this heredoc is interpolated from the outer context
+    <<HEREDOC jq --raw-input . | jq --slurp '{commands: .}'
+    [ -d ~$USER ] || exit 1
+    sudo [ -d ~${USER}/.ssh ] || sudo install -d -m700 -o${USER} -g${USER} ~${USER}/.ssh
+    sudo [ -f $FILE ] || ( sudo touch $FILE && sudo chown ${USER}: $FILE && sudo chmod 600 $FILE )
+    sudo grep '$ID' $FILE && exit 0
+    echo '$ID' | sudo tee -a $FILE
+    HEREDOC
+  )
+  local host=${1?Need at least one hostname}
+  # To install the key for some aws-user:
+  # 1) ~aws-user needs to exist
+  # 2) Create ~aws-user/.ssh/authorized_keys, owned by ~aws-user, with no rwx for anyone else
+  # 3) Bail if the line is already in there, otherwise:
+  # 4) Print the ID line into the file
+  #
+  # TODO: commands should be passed as a json array on an object:
+  # --parameters '{"commands":["whoami","where jq"]}'
+  command_id=$(aws ssm send-command \
+      --document-name "AWS-RunShellScript" \
+      --comment "Copying a dev's (Jake's) ssh ID to this server" \
+      --parameters "$params" \
+      --output text \
+      --query Command.CommandId \
+      --instance-ids "$@"
+    )
+  aws ssm wait command-executed --instance-id "$1" --command-id "${command_id}"
+  } ; f
+
 
 # https://github.com/aws/aws-cli/issues/4642
 # TODO - this could be a lot smarter, including an ability to read this from a config
