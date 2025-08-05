@@ -36,8 +36,11 @@ ssh-copy-id =
   shift
   local FILE="~${USER}/.ssh/authorized_keys" # The ~ will be interpolated by the foreign machine
 
+  # Context from AWS tells me that these lines are all executed in the same session, despite being provided to aws as elements of an array:
+  # https://docs.aws.amazon.com/systems-manager/latest/userguide/walkthrough-cli.html#walkthrough-cli-run-scripts
   local params=$(
     # The jq phrasing here takes raw lines, turns them into strings, then turns all those strings into an array as commands value
+    # The $USER and $ID variables in this heredoc is interpolated from the outer context
     <<HEREDOC jq --raw-input . | jq --slurp '{commands: .}'
     [ -d ~$USER ] || exit 1
     sudo install -d -m700 -o${USER} ~${USER}/.ssh
