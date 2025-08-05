@@ -112,6 +112,7 @@ docker-login =
 regions = ec2 regions
 # TODO: list more things
 ls = ec2 ls
+search = ec2 search
 loggedin = sso loggedin
 loggedin-silent = ! aws loggedin >/dev/null 2>&1
 logout = sso logout
@@ -183,8 +184,14 @@ describe-clusters =
 ls = list
 list =
   !f() {
+    # TODO: it would be nice to recognize a flag to expand to "Name=instance-state-name,Values=running"
     aws ec2 describe-instances "$@" |
       aws jq-paged '.Reservations[].Instances[] | {name: (.Tags[] | select(.Key == "Name") |.Value) , ip: [.NetworkInterfaces[].PrivateIpAddresses[].PrivateIpAddress][0] , id: .InstanceId}'
+  } ; f
+
+search =
+  !f() {
+    aws ec2 list --filter "Name=tag-key,Values=Name" "Name=tag-value,Values=*${1?need a name}*"
   } ; f
 
 regions = describe-regions --query Regions[].RegionName
