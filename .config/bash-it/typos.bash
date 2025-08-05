@@ -143,6 +143,7 @@ typo lll lls
 typo llls lls
 typo llss lls
 typo lle lls
+typo lt llt # Bragging on typos - this *will never* override the `lt` command from apt's looptools
 typo lld 'll -d'
 typo lles lls
 typo lless lls
