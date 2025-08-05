@@ -43,7 +43,7 @@ ssh-copy-id =
     # The $USER and $ID variables in this heredoc is interpolated from the outer context
     <<HEREDOC jq --raw-input . | jq --slurp '{commands: .}'
     [ -d ~$USER ] || exit 1
-    sudo install -d -m700 -o${USER} ~${USER}/.ssh
+    sudo [ -d ~${USER}/.ssh ] || sudo install -d -m700 -o${USER} -g${USER} ~${USER}/.ssh
     sudo [ -f $FILE ] || ( sudo touch $FILE && sudo chown ${USER}: $FILE && sudo chmod 600 $FILE )
     sudo grep '$ID' $FILE && exit 0
     echo '$ID' | sudo tee -a $FILE
