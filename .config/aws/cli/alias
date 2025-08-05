@@ -113,6 +113,7 @@ regions = ec2 regions
 # TODO: list more things
 ls = ec2 ls
 search = ec2 search
+find = search
 loggedin = sso loggedin
 loggedin-silent = ! aws loggedin >/dev/null 2>&1
 logout = sso logout
