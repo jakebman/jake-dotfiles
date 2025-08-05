@@ -40,8 +40,9 @@ ssh-copy-id =
     # The jq phrasing here takes raw lines, turns them into strings, then turns all those strings into an array as commands value
     <<HEREDOC jq --raw-input . | jq --slurp '{commands: .}'
     [ -d ~$USER ] || exit 1
-    sudo install -D -m700 -o${USER} /dev/null ${FILE}
-    grep '$ID' $FILE || exit 0
+    sudo install -d -m700 -o${USER} ~${USER}/.ssh
+    sudo [ -f $FILE ] || ( sudo touch $FILE && sudo chown ${USER}: $FILE && sudo chmod 700 $FILE )
+    sudo grep '$ID' $FILE || exit 0
     echo '$ID' | sudo tee -a $FILE
     HEREDOC
   )
