@@ -1269,12 +1269,12 @@
 		for candidate in $candidates; do \n\
 			echo progress: $candidate; \n\
 			git alias--as-sh-able $candidate | \n\
-			sed -e \"s/^f()/${candidate}()/\" \\\n\
-			    -e \"s/^bash -c 'f()/${candidate}()/\" | \n\
+			sed -e \"s/^f()/git-${candidate}()/\" \\\n\
+			    -e \"s/^bash -c 'f()/git-${candidate}()/\" | \n\
 			sed -E -e \"s/} ?;\\s+f\\b.*$/}/\" \\\n\
 			       -e 's/\\) \\{(.*})/) {\\n\\1/g' | \n\
-			cat >\"${libDir}/${candidate}\"; \n\
-			shfmt -w \"${libDir}/${candidate}\"; \n\
+			cat >\"${libDir}/git-${candidate}\"; \n\
+			shfmt -w \"${libDir}/git-${candidate}\"; \n\
 		done; \n\
 		} ; f"
 	# Style: We could drop the f(){} pretense here, but it makes it easier to export to bash
