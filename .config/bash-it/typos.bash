@@ -254,6 +254,7 @@ typo typow typo
 
 typo typw type
 typo tpye type
+typo tytpe type
 
 typo brows browse
 typo brwose browse
