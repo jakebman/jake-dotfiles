@@ -120,6 +120,7 @@ typo sortr sort
 typo shfmy shfmt
 typo shf shfmt # tentative, sitting at the tab completion fork with shfolder.dll
 typo shft shfmt
+typo shmft shfmt
 typo shfmty shfmt # speculative
 
 typo crontabl crontab
