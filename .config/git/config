@@ -567,8 +567,8 @@
 	cat-into = "!f() { \n\
 		echo see https://devblogs.microsoft.com/oldnewthing/20190514-00/?p=102493 for implementation \n\
 		echo and also git help cp \n\
-		set -o errexit -x \n\
 		local -; \n\
+		set -o errexit -x; \n\
 		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
 		local branchPrefix=\"git-cat-into-temp-impl-branch-$$\"; \n\
 		local destination=\"${1?need a destination}\"; \n\
