@@ -1269,10 +1269,10 @@
 		for candidate in $candidates; do \n\
 			echo progress: $candidate; \n\
 			git alias--as-sh-able $candidate | \n\
-			sed \"s/^f()/${candidate}()/\" | \n\
-			sed \"s/^bash -c 'f()/${candidate}()/\" | \n\
-			sed -E \"s/} ?;\\s+f\\b.*$/}/\" | \n\
-			sed -E 's/\\) \\{(.*})/) {\\n\\1/g' | \n\
+			sed -e \"s/^f()/${candidate}()/\" \\\n\
+			    -e \"s/^bash -c 'f()/${candidate}()/\" | \n\
+			sed -E -e \"s/} ?;\\s+f\\b.*$/}/\" \\\n\
+			       -e 's/\\) \\{(.*})/) {\\n\\1/g' | \n\
 			cat >\"${libDir}/${candidate}\"; \n\
 			shfmt -w \"${libDir}/${candidate}\"; \n\
 		done; \n\
