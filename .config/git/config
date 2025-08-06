@@ -540,6 +540,7 @@
 		echo which starts at https://devblogs.microsoft.com/oldnewthing/20190506-00/?p=102478 \n\
 		echo TODO: this might also need to do bookkeeping for moved submodules. See git-mv \n\
 		echo TODO: this might be causing something interesting if you try to git reset against it, if submodules are present. Something dies while holding index.lock. Might have been git-extras, too \n\
+		local -; \n\
 		set -o errexit # a simple 'or die' for everything \n\
 		# Go to the working directory where the command ran, to allow reference to files from that location \n\
 		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
@@ -567,6 +568,7 @@
 		echo see https://devblogs.microsoft.com/oldnewthing/20190514-00/?p=102493 for implementation \n\
 		echo and also git help cp \n\
 		set -o errexit -x \n\
+		local -; \n\
 		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
 		local branchPrefix=\"git-cat-into-temp-impl-branch-$$\"; \n\
 		local destination=\"${1?need a destination}\"; \n\
@@ -599,6 +601,7 @@
 	# A moral sibling to cp and mv. Would love to call this `ln`, but it's not a perfect analog to the `ln` tool :(
 	# TODO: doesn't move folders :(. Neither moving a folder to rename it, nor moving all the contents of a folder to a new location
 	relocate = "!f() { \n\
+		local -; \n\
 		set -o errexit # a simple 'or die' for everything \n\
 		# Go to the working directory where the command ran, to allow reference to files from that location \n\
 		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
