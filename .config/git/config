@@ -271,7 +271,7 @@
 	# Then we add that behavior to 'since', and then just `last = since last`
 	last = "!f() { : since; \n\
 		git since \"last $*\"; \n\
-		}; f"
+		} ; f"
 
 	# Files that changed since <either a date or a commit>
 	# When pager.changed-since is jaketree, this also gets a nice tree hierarchy
@@ -288,7 +288,7 @@
 			sort | \n\
 			uniq | \n\
 			git pager changed-since; \n\
-		}; f"
+		} ; f"
 
 	# Morally '= since yesterday', but smarter: we use Friday as 'yesterday' for both Monday and Sunday (in addition to Saturday)
 	yesterday = "!f() { \n\
@@ -1271,7 +1271,7 @@
 			git alias--as-sh-able $candidate | \n\
 			sed \"s/^f()/${candidate}()/\" | \n\
 			sed \"s/^bash -c 'f()/${candidate}()/\" | \n\
-			sed -E \"s/} ;\\s+f\\b.*$/}/\" | \n\
+			sed -E \"s/} ?;\\s+f\\b.*$/}/\" | \n\
 			sed -E 's/\\) \\{(.*})/) {\\n\\1/g' | \n\
 			cat >\"${libDir}/${candidate}\"; \n\
 			shfmt -w \"${libDir}/${candidate}\"; \n\
