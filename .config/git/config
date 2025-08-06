@@ -1269,8 +1269,8 @@
 		for candidate in $candidates; do \n\
 			echo progress: $candidate; \n\
 			git alias--as-sh-able $candidate | \n\
-			sed -e \"s/^f()/git-${candidate}()/\" \\\n\
-			    -e \"s/^bash -c 'f()/git-${candidate}()/\" | \n\
+			sed -e \"s/^f()/function git-${candidate}()/\" \\\n\
+			    -e \"s/^bash -c 'f()/function git-${candidate}()/\" | \n\
 			sed -E -e \"s/} ?;\\s+f\\b.*$/}/\" \\\n\
 			       -e 's/\\) \\{(.*})/) {\\n\\1/g' | \n\
 			cat >\"${libDir}/git-${candidate}\"; \n\
