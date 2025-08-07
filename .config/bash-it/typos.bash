@@ -405,6 +405,7 @@ typo cloen clone
 typo addd add
 typo ass add
 typo ad add
+typo unadd unstage # Not actually a typo, but a brain-o(?)
 typo .og log
 typo loig log
 typo lig log
