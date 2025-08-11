@@ -174,7 +174,7 @@ forward =
     # ex: aws forward instance "aHost,aNewParameter=aNewValue"
     # TODO: it'd be nice if I could default these values in the aws config (aws configure get myVariableName)
     local instance_id="${1:-i-0351334206111560d}" # "slate-natnavdev-bastion-tunnel"
-    local host="${2:-nns-cache-default-pmtestnnd.redis.nns}"
+    local host="${2:-nns-cache-default-pmtest2nnd.redis.nns}"
     local hostPort="${3:-6379}"
     local localPort="${4:-${hostPort}}"
     aws ssm start-session --target "${instance_id:?}" \
