@@ -290,6 +290,21 @@
 			git pager changed-since; \n\
 		} ; f"
 
+	# Files that:
+	# * *Used* to be tracked by git
+	# * Are not currently tracked by git
+	# * Also still exist
+	#
+	# Essentially, an "I thought I got rid of you" check.
+	# It's probably not super useful in any repo without `status.showUntrackedFiles = no`,
+	# but you never know.
+	# TODO: handle newlines in filenames
+	formerly-tracked = "!f() { \n\
+		for f in `comm <(git ls-files) <(git log --name-only --pretty='' | sort | uniq) -13`; do \n\
+			[ -e \"$f\" ] && echo $f; \n\
+		done \n\
+		} ; f"
+
 	# Morally '= since yesterday', but smarter: we use Friday as 'yesterday' for both Monday and Sunday (in addition to Saturday)
 	yesterday = "!f() { \n\
 		# %u: day of week (1..7); 1 is Monday \n\
