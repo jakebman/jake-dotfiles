@@ -298,12 +298,14 @@
 	# Essentially, an "I thought I got rid of you" check.
 	# It's probably not super useful in any repo without `status.showUntrackedFiles = no`,
 	# but you never know.
-	# TODO: handle newlines in filenames
-	formerly-tracked = "!f() { \n\
-		for f in `comm <(git ls-files) <(git log --name-only --pretty='' | sort | uniq) -13`; do \n\
-			[ -e \"$f\" ] && echo $f; \n\
-		done \n\
-		} ; f"
+	formerly-tracked = "!bash -c 'f() { \n\
+		comm -13 -z \\\n\
+				<(git ls-files -z) \\\n\
+				<(git log --name-only --pretty= -z | sort -z | uniq -z) | \n\
+			find -files0-from - -maxdepth 0 2>/dev/null | \n\
+			tr \"\\0\" \"\\n\" | \n\
+			git pager formerly-tracked; \n\
+		} ; f'"
 
 	# Morally '= since yesterday', but smarter: we use Friday as 'yesterday' for both Monday and Sunday (in addition to Saturday)
 	yesterday = "!f() { \n\
