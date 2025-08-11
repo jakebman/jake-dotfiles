@@ -166,6 +166,8 @@ logout = sso logout
 
 # typo:
 forware = forward
+# TODO: this is redundant once I can `ssh -L 6379:nns-cache-default-pmtest2nnd.redis.nns:6379 i-0351334206111560d`
+# Thanks, SSM
 forward =
   !f() {
     # NB: all parameter strings are concatenated together. I'm a little uncertain of the mechanism
