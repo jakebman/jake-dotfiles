@@ -280,6 +280,9 @@
 		if git rev-parse --verify --quiet --end-of-options \"$@\"; then \n\
 			# this is a log since that commit/branch/tag/etc. Exactly one arg, per --verify \n\
 			git log --name-only --pretty='' \"$1\"..HEAD; \n\
+		elif [ 0 -eq $# ]; then \n\
+			# no arguments. go with since last year \n\
+			git log --name-only --pretty='' --since-as-filter 'last year'; \n\
 		else \n\
 			# probably one arg. Errors will let us know \n\
 			# We inline 'since' to allow these flags to be passed by default, and overriden if needed \n\
