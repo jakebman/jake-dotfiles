@@ -336,6 +336,21 @@
 	addp-and-commitm = "!f() { git addp && git commitm \"$@\" ; } ; f"
 	addp-and-commitm-and-push = "!f() { git addp-and-commitm \"$@\" && git push ; } ; f"
 	push--= push --force-with-lease
+	pull--= "!f() { \n\
+		if ! git is-clean; then \n\
+			# error message handled by is-clean \n\
+			return 1 \n\
+		fi \n\
+		if ! git commit-ish-exists @{upstream}; then \n\
+			# error message handled by commit-ish-exists \n\
+			return 1 \n\
+		fi \n\
+		\n\
+		echo \"HEAD was previously $(git show --oneline --no-patch --no-decorate)\" \n\
+		# TODO: other guard statements? \n\
+		git reset --hard @{upstream} \n\
+		} ; f"
+
 
 	# TODO: it would be nice do more with this
 	type = help
