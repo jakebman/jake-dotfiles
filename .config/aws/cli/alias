@@ -138,7 +138,6 @@ docker-login =
     ACCOUNT="$(aws configure get sso_account_id --profile "${PROFILE}" "$@")"
     WHERE="${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
     DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${DOCKER_CONFIG-${HOME}/.docker}}"
-    echo "logging into ${PROFILE}(${ACCOUNT}) using settings $DOCKER_CONFIG"
     if type jq >/dev/null &&
        jq --exit-status \
           --arg registryUrl "$WHERE" \
@@ -146,13 +145,15 @@ docker-login =
           "${DOCKER_CONFIG}"/config.json \
           >/dev/null \
           2>&1 ; then
-        echo "Already found '${PROFILE}' credentials for ${ACCOUNT} repository in ${DOCKER_CONFIG}/config.json"
+        echo "Already found ${PROFILE} (${ACCOUNT}) credentials in ${DOCKER_CONFIG}/config.json"
         return
     fi
 
-    echo  "Logging into docker for aws account ${ACCOUNT} using the ${PROFILE} profile at url ${WHERE} ..."
-    aws ecr get-login-password --profile "$PROFILE" | docker login -u AWS --password-stdin "$WHERE" >/dev/null
-    echo "Successfully logged into ${WHERE}"
+    if aws ecr get-login-password --profile "$PROFILE" | docker login -u AWS --password-stdin "$WHERE" >/dev/null; then
+      echo "Logged in to docker for ${PROFILE} (${ACCOUNT}) at url ${WHERE}"
+    else
+      >&2 echo "FAILED to login to docker for ${PROFILE} (${ACCOUNT}) at url ${WHERE}"
+    fi
   } ; f
 # springboard down to other commands. Sometimes aliases.
 regions = ec2 regions
