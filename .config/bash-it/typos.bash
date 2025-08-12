@@ -225,8 +225,11 @@ typo lobs jobs
 typo suod sudo
 typo suto sudo
 typo audo sudo
+typo simon sudo
+typo simon-says sudo
 
 typo ssg ssh
+typo shs ssh
 
 # The vars command is defined in .bash-it/custom, so it is defined *after* this, but it's fine to
 # pre-declare aliases beforehand
