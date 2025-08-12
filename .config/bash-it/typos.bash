@@ -401,7 +401,6 @@ typo psh push
 typo pus push
 typo puh push
 typo ush push
-typo push-- 'push --force-with-lease'
 typo cone clone
 typo cloen clone
 typo addd add
