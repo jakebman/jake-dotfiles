@@ -137,16 +137,16 @@ docker-login =
     # this command is faster:
     ACCOUNT="$(aws configure get sso_account_id --profile "${PROFILE}" "$@")"
     WHERE="${ACCOUNT}.dkr.ecr.us-east-1.amazonaws.com"
-    DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${DOCKER_CONFIG-${HOME}/.docker/config.json}}"
+    DOCKER_CONFIG="${JAKE_AWS_DOCKER_LOGIN_CONFIG-${DOCKER_CONFIG-${HOME}/.docker}}"
     echo "logging into ${PROFILE}(${ACCOUNT}) using settings $DOCKER_CONFIG"
     if type jq >/dev/null &&
        jq --exit-status \
           --arg registryUrl "$WHERE" \
           '.auths | has($registryUrl)' \
-          "${DOCKER_CONFIG}" \
+          "${DOCKER_CONFIG}"/config.json \
           >/dev/null \
           2>&1 ; then
-        echo "Already found '${PROFILE}' credentials for ${ACCOUNT} repository in ${DOCKER_CONFIG}"
+        echo "Already found '${PROFILE}' credentials for ${ACCOUNT} repository in ${DOCKER_CONFIG}/config.json"
         return
     fi
 
