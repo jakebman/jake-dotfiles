@@ -16,6 +16,14 @@ whoami =
     fi
   } ; f
 
+selfupdate =
+  !f() {
+    echo "The aws command probably shouldn't self-update, but you can manually follow the steps at"
+    echo "https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
+    echo "And my prior installation script ran as"
+    echo 'sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update'
+  } ; f
+
 # https://stackoverflow.com/questions/40852223/is-there-a-way-to-export-an-aws-cli-profile-to-environment-variables
 export-credentials = configure export-credentials --format env
 credentials-export = export-credentials
