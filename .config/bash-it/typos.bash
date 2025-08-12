@@ -41,6 +41,7 @@ typo wimw vimw
 
 typo it git
 typo gi git
+typo gie git
 typo gir git
 typo gti git
 typo fir git
@@ -415,8 +416,9 @@ typo lop logp
 typo logd logp # apparently log[D]iff makes sense if I forget it's actually [P]atch
 typo lgop logp
 typo lopg logp
-typo merege merge
+typo mrege merge
 typo mereg merge
+typo merege merge
 typo mereges merges
 typo yesteday yesterday
 typo yest yesterday
