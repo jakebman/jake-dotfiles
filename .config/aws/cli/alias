@@ -188,6 +188,8 @@ forward =
     local host="${2:-nns-cache-default-pmtest2nnd.redis.nns}"
     local hostPort="${3:-6379}"
     local localPort="${4:-${hostPort}}"
+    echo "This functionality is now also available via:"
+    echo "ssh -L '${localPort}:${host}:${hostPort}' ${instance_id}"
     aws ssm start-session --target "${instance_id:?}" \
       --document-name AWS-StartPortForwardingSessionToRemoteHost \
       --parameters "host=${host},"\
