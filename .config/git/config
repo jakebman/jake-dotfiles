@@ -1346,8 +1346,8 @@
 [help]
 	autoCorrect = prompt
 [color]
-	# Respected by my alias* tools, turns on color syntax highlighting. Read via --colorbool, so it respects color.ui, too
-	# alias = always
+	# Respected by my alias* tools, turns on color syntax highlighting. Read via --colorbool, so it falls back to color.ui, just like other color.X settings
+	# alias = always/(auto,yes,true)/(no,false)
 [core]
 	# almost every paged output that I care about is going to prefix the tabbed output with a +/-/' ' character
 	# at a minimum that's: logp, show, diff
