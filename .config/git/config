@@ -1444,6 +1444,9 @@
 	# --diff-merges=on should behave like --diff-merges=first-parent. show -m, too.
 	# This especially helps the git-merges alias above to simply have -m and get these first-parent diffs
 	diffMerges = first-parent
+[branch]
+	# sort branches by descending (HEAD) commit date
+	sort=-committerdate
 [commit]
 	verbose = true
 
