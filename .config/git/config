@@ -142,6 +142,10 @@
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	bare = clone --bare
 	branches = branch -a # Originally a typo from bash-land, I realized this could be an even better command
+	# https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+	# TODO: this would be cool to get a cutoff time (like --since) and/or in a rainbow-like output, *by choice*, not by more-aliases
+	branches-by-date = branch -a --sort=committerdate
+	branches-by-rainbow-since = rainbow-all --simplify-by-decoration --since
 	bp = "!f() { \n\
 		: big-picture; \n\
 		if test \"$#\" -eq 0; then \n\
