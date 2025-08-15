@@ -775,6 +775,9 @@
 	# "Status, if it would have any output. Show otherwise."
 	# TODO: Did I actually fix the bug that if there's an untracked file, I'd expect status to show it. But we don't catch it here.
 	status-or-show = "!f() { \n\
+		# Move to the user's working directory \n\
+		cd \"$GIT_PREFIX\" || return 1; \n\
+		unset GIT_PREFIX; \n\
 		if git is-clean-quiet; then \n\
 			git show \"$@\"; \n\
 		else \n\
