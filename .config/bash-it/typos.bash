@@ -266,6 +266,8 @@ typo tytpe type
 typo brows browse
 typo brwose browse
 
+typo cowthing cowthink
+
 typo whick which # (to be fair, I was drinking at the time :| )
 typo whoch which
 typo whic which
