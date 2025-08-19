@@ -257,6 +257,8 @@ typo ytypo typo
 typo typeo typo
 typo typow typo
 
+typo trypos typos
+
 typo typw type
 typo tpye type
 typo tytpe type
