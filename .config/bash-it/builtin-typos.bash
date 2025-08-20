@@ -12,8 +12,10 @@ function typo {
 ## It's not a great plan, but it's the best I have right now
 #######################
 
+# Don't evaluate this in normal-typo-land, otherwise `alais -p` will also print typo aliases
 typo alais alias
 
+# All typos of cd need to live here, otherwise they won't be able to actually change the directory
 typo '~cd' cd
 typo foo 'cd foo'
 typo vd cd
@@ -30,16 +32,5 @@ typo lcd cd    # I tried to ls, then decided to change directories instead
 typo treecd cd # Ditto, but tree. Wow.
 
 typo cdg cdgit
-
-typo hsitory history
-typo pws pwd
-typo wpd pwd
-
-typo tpe type
-typo ype type
-typo tyep type
-typo tyoe type
-typo yype type
-typo typew type # ... because type already operates on its which (this might bite future me. Sorry, future me)
 
 unset -f typo

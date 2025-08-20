@@ -259,9 +259,20 @@ typo typow typo
 
 typo trypos typos
 
+typo tpe type
+typo ype type
+typo tyep type
+typo tyoe type
+typo yype type
+typo typew type # ... because type already operates on its which (this might bite future me. Sorry, future me)
 typo typw type
 typo tpye type
 typo tytpe type
+
+# Technically builtins, but fine as normal typos
+typo hsitory history
+typo pws pwd
+typo wpd pwd
 
 typo brows browse
 typo brwose browse
