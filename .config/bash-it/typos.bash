@@ -1,9 +1,15 @@
 # shellcheck shell=bash
 
-function typo {
+
+# There's an outer command called typo, so we use a temporary alias within that file to allow
+# easy access to typo declaration without overwriting the outer function
+function _generate_typo_as_alias {
 	local key=${1?} val=${2?}
 	alias -- "${key}=${val}"
 }
+alias typo=_generate_typo_as_alias
+shopt -s expand_aliases
+
 
 # TODO: if there's a makefile, could we pre-load its targets as typo options?
 # TODO: if the completion is trying to look up a command (_completion_loader?), can it check here too?
@@ -508,4 +514,4 @@ typo co- 'co -'
 
 typo waths watch
 
-unset -f typo
+unalias typo
