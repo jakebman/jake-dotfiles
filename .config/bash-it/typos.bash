@@ -392,6 +392,7 @@ typo gstat gstatus
 typo staqsh stash
 typo stashs stash
 typo stasg stash
+typo stas stash      # Ah. So that's what I meant the first time I made this typo
 typo tsga tags       # Wow.
 typo unstasn unstash # Amusingly, a typo of a command I didn't even have before I made the typo. Now I do
 typo pu pull
