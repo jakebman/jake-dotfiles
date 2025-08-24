@@ -391,6 +391,7 @@ typo stst stat  # ditto.
 # That's why all-but-one typos go to `status`, because they all intended to be a status command, never a `stat`
 typo sta status
 typo st status        # first unique difference from s's status-or-show magic
+typo brach branch
 typo branche branches # because sometimes I get lazy, apparently
 typo bracnhes branches
 typo gst gstatus
