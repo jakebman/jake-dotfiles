@@ -1,4 +1,3 @@
-
 # This is a list of common maven goals and phases that I might like to use without invoking mvn first
 # This file is... ad-hoc-y. I'd love to find a proper format for it, but right now? Comments
 # are on their lines, and every other non-empty line in the rest of the file gets a typo to an implicit mvn

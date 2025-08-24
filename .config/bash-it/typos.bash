@@ -1,6 +1,5 @@
 # shellcheck shell=bash
 
-
 # There's an outer command called typo, so we use a temporary alias within that file to allow
 # easy access to typo declaration without overwriting the outer function
 function _generate_typo_as_alias {
@@ -10,14 +9,13 @@ function _generate_typo_as_alias {
 alias typo=_generate_typo_as_alias
 shopt -s expand_aliases
 
-
 # TODO: if there's a makefile, could we pre-load its targets as typo options?
 # TODO: if the completion is trying to look up a command (_completion_loader?), can it check here too?
 
 if [ -f pom.xml ]; then
 	# We're in maven-land, baby!
 	declare -a IMPLICIT_MAVEN
-	mapfile -t IMPLICIT_MAVEN < <(grep -v "^#" <"$(dirname "$BASH_SOURCE")/maven-goals-and-phases.list" | grep -v '^\s*$')
+	mapfile -t IMPLICIT_MAVEN < <(grep -v "^#" < "$(dirname "$BASH_SOURCE")/maven-goals-and-phases.list" | grep -v '^\s*$')
 	declare _IMPLICIT_MAVEN
 	for _IMPLICIT_MAVEN in "${IMPLICIT_MAVEN[@]}"; do
 		typo "$_IMPLICIT_MAVEN" "mvn ${_IMPLICIT_MAVEN}"
@@ -390,7 +388,7 @@ typo stst stat  # ditto.
 # NB: `stat` is an existing command. I needed a function to turn zero-arg `stat` into status, not just a simple alias
 # That's why all-but-one typos go to `status`, because they all intended to be a status command, never a `stat`
 typo sta status
-typo st status        # first unique difference from s's status-or-show magic
+typo st status # first unique difference from s's status-or-show magic
 typo brach branch
 typo branche branches # because sometimes I get lazy, apparently
 typo bracnhes branches
