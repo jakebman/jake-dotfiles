@@ -87,6 +87,15 @@ browse =
     command browse "https://charter-cloud-connect.awsapps.com/start/"
   } ; f
 
+autologin-and-then =
+  !f() {
+    if ! aws loggedin-silent; then
+      aws sso login "$@" || return
+    fi
+    aws "$@"
+  } ; f
+
+
 # aws sso login, plus other useful stuff. Logs into docker, too
 # NB: sso login applies across all profiles that share an sso session
 # TODO: this should pay attention to all other sso sessions.
