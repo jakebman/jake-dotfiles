@@ -93,7 +93,7 @@ if [[ v9fs = "$(stat --file-system . --format=%T)" ]]; then
 		fi
 	else
 		WHICH=Windows
-		GIT=git.exe
+		GIT='/mnt/c/Program Files/Git/cmd/git.exe'
 	fi
 fi
 
