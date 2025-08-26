@@ -281,6 +281,7 @@ typo wpd pwd
 
 typo brows browse
 typo brwose browse
+typo borwse browse
 
 typo cowthing cowthink
 
