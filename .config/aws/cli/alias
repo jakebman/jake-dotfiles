@@ -27,6 +27,7 @@ selfupdate =
 # https://stackoverflow.com/questions/40852223/is-there-a-way-to-export-an-aws-cli-profile-to-environment-variables
 export-credentials = configure export-credentials --format env
 credentials-export = export-credentials
+export = export-credentials
 credentials = export-credentials
 
 # NB: not actually SSH
