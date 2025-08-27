@@ -668,6 +668,10 @@
 	# NB: the [delta] sections below configures the particular --features I'm using here
 	# Additionally, we need to include modified settings for each custom pager in [pager]
 	# TODO: that might be able to be done programatically?
+	# hint: list all keys that probably need to be overwritten:
+	#       git config get --all --show-names --regexp -z '^pager\.' | sed -z 's/\n.*//g' | tr '\0' '\n'
+	# perhaps, we do something where non-'true' values get modified into 'DELTA_PAGER="$old_value" delta --features=git-pager'
+	# (we can trust that 'true' is identical to 'use the value from core.pager', right?)
 	delta = "!f() { \n\
 		# Move to the user's working directory \n\
 		cd \"$GIT_PREFIX\" || return 1; \n\
