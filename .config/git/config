@@ -16,6 +16,7 @@
         -oroboros -pus -tpush -statu -stashs -tatus \
         -ocmmit -aliases -config-todo \
         -mr-up -helps \
+        -ignroed \
         -stat \
         -lop \
     \
@@ -119,6 +120,7 @@
 	hlep = help
 	helps = help
 	idiff = implicitdiff
+	ignroed = ignored
 	intend = intent-to-add # convenient name below
 	intent = intent-to-add
 	jstg = j --staged
