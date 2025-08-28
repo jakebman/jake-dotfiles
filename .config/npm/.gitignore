@@ -1,0 +1,6 @@
+
+# The npmrc file contains login information. It should not be committed
+npmrc
+
+# I keep deleting it, though. So you also don't want to track the copies I make
+*safe*
