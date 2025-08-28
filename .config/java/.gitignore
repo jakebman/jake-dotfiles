@@ -3,3 +3,6 @@
 # They don't need to be ever tracked
 .user.lock.*
 .userRootModFile.*
+
+# This ends up being just a command history. Not an XDG 'config', but 'state' or 'cache'
+**/JShell/prefs.xml
