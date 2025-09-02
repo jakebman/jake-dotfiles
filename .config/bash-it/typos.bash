@@ -25,6 +25,13 @@ else
 	typo clean 'make clean'
 fi
 
+if [ -f package.json ]; then
+	# NPM-land!
+	# Not the smartest. I'm just assuming there's a `scripts.dev: nodemon...` entry.
+	# I'd prefer this to try and guess the script I've most-recently run, not just use dev
+	typo rs 'npm run dev'
+fi
+
 typo viim vim
 typo vimi vim
 typo vimn vim # actual
