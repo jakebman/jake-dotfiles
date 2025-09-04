@@ -91,11 +91,11 @@ browse =
 autologin-and-then =
   !f() {
     if ! aws loggedin-silent; then
-      aws sso login "$@" || return
+      aws sso login || return
     fi
     aws "$@"
   } ; f
-
+login-and-then = autologin-and-then
 
 # aws sso login, plus other useful stuff. Logs into docker, too
 # NB: sso login applies across all profiles that share an sso session
@@ -105,7 +105,7 @@ login =
   !f() {
     local jobs # jobs -p doesn't report. Manually tracking it via $!
     if ! aws loggedin-silent; then
-      aws sso login "$@" || return
+      aws sso login || return
     else
       echo "You're still logged in :D"
     fi
