@@ -106,8 +106,11 @@ autologin-and-then =
     if ! aws loggedin-silent; then
       aws sso login || return
     fi
-    aws "$@"
+    if [ "$#" -gt 0 ]; then
+      aws "$@"
+    fi
   } ; f
+autologin = autologin-and-then
 login-and-then = autologin-and-then
 
 # aws sso login, plus other useful stuff. Logs into docker, too
