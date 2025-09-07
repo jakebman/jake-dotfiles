@@ -104,14 +104,33 @@ browse =
     command browse "https://charter-cloud-connect.awsapps.com/start/"
   } ; f
 
+autologin-exceptions =
+  !f() {
+    echo sso sts help; # base-level functionality that doesn't need to be interfered with
+    echo login loggedin logged-in logout; # my aliases that also don't need this indirection
+  } ; f
 autologin-and-then =
   !f() {
-    if ! aws loggedin-silent; then
+
+    if [ "$#" -eq 0 ] && ! aws loggedin-silent; then
+      # Simple case. No argument. We're just `aws login-if-not,-please`
+      # This also means no exception checking either
+      aws sso login
+      return
+    fi
+
+    local login="any string that passes test -n - a non-empty string";
+    local exception;
+    for exception in $(aws autologin-exceptions); do
+      if [ "$exception" = "$1" ]; then
+        login=;
+        break;
+      fi
+    done
+    if [ -n "$login" ] && ! aws loggedin-silent; then
       aws sso login || return
     fi
-    if [ "$#" -gt 0 ]; then
-      aws "$@"
-    fi
+    aws "$@"
   } ; f
 autologin = autologin-and-then
 login-and-then = autologin-and-then
