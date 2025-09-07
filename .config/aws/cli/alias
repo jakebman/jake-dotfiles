@@ -199,6 +199,7 @@ ls = ec2 ls
 search = ec2 search
 find = search
 loggedin = sso loggedin
+logged-in = loggedin # typo
 loggedin-silent = ! aws loggedin >/dev/null 2>&1
 logout = sso logout
 
