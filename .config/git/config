@@ -172,6 +172,7 @@
 	# delta is a utility defined below
 	delta-add = delta add --patch # --patch is implied if you're adding with delta
 	delta-diff = delta diff
+	diffs = diff --stat           # convenient name
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
 	# add --intent-to-add, but also implicitly `touch` files that don't exist, including their parent folders
 	intent-to-add = "!f() { \n\
