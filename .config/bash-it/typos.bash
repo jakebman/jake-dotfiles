@@ -453,6 +453,7 @@ typo mrege merge
 typo mereg merge
 typo merege merge
 typo mereges merges
+typo mergetoo mergetool
 typo yesteday yesterday
 typo yest yesterday
 typo wortree worktree
