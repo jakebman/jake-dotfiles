@@ -145,7 +145,7 @@ autologin_ =
     fi
   } ; f
 
-autologin_silent = !AWS_CUSTOM_AUTOLOGIN_SILENT=1 aws autologin_
+autologin_silent = !AWS_CUSTOM_AUTOLOGIN_SILENT=${AWS_CUSTOM_AUTOLOGIN_SILENT-yes,silent} aws autologin_
 
 autologin-and-then =
   !f() {
@@ -162,7 +162,7 @@ login-and-then = autologin-and-then
 # NB: sso login applies across all profiles that share an sso session
 # TODO: this should pay attention to all other sso sessions.
 # Best we can do so far is allow choosing either a --profile or --sso-session
-login = autologin-and-then docker-login-all
+login = !AWS_CUSTOM_AUTOLOGIN_SILENT= aws autologin-and-then docker-login-all
 docker-login-all =
   !f() {
     local jobs # jobs -p doesn't report. Manually tracking it via $!
