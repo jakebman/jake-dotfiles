@@ -139,14 +139,10 @@ login-and-then = autologin-and-then
 # NB: sso login applies across all profiles that share an sso session
 # TODO: this should pay attention to all other sso sessions.
 # Best we can do so far is allow choosing either a --profile or --sso-session
-login =
+login = autologin-and-then docker-login-all
+docker-login-all =
   !f() {
     local jobs # jobs -p doesn't report. Manually tracking it via $!
-    if ! aws loggedin-silent; then
-      aws sso login || return
-    else
-      echo "You're still logged in :D"
-    fi
 
     for profile in $(aws configure list-profiles); do
       # NB: profile argument is given as string, not --profile=... so that it can be output
@@ -163,10 +159,9 @@ login =
 login-docker = docker-login-force
 
 # disable optimism on docker-login
-docker-login-force =
-  !f() {
-    JAKE_AWS_DOCKER_LOGIN_CONFIG="" aws docker-login
-  } ; f
+docker-login-force = !JAKE_AWS_DOCKER_LOGIN_CONFIG="" aws docker-login
+docker-login-all-force = !JAKE_AWS_DOCKER_LOGIN_CONFIG="" aws docker-login-all
+docker-login-force-all = docker-login-all-force
 
 
 docker-login =
