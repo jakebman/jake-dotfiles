@@ -109,28 +109,50 @@ autologin-exceptions =
     echo sso sts help; # base-level functionality that doesn't need to be interfered with
     echo login loggedin logged-in logout; # my aliases that also don't need this indirection
   } ; f
+
+# Given a commandline invocation, sometimes it might not want autologin functionality
+# Otherwise, log in if you're not currently logged in.
+# This is just a helper to autologin-and-then. Use aws autologin (no underscore) as a
+# shortcut to autologin-and-then
+# See also: autologin-exceptions
+autologin_ =
+  !f() {
+    # Move all stdout to stderr, globally within this execution
+    # TODO: This "should" be fine. Is it?
+    exec >&2
+
+    local login="any string that passes test -n - a non-empty string"
+
+    if [ "$#" -eq 0 ]; then
+      local exception
+      for exception in $(aws autologin-exceptions); do
+        if [ "$exception" = "$1" ]; then
+          # TODO: do we squawk here?
+          login=
+          break
+        fi
+      done
+    fi
+    if [ -z "$login" ]; then
+      # No login, therefore, we're done!
+      return
+    elif ! aws loggedin-silent; then
+      # We should login
+      aws sso login
+    else
+      # We're logged in
+      # TODO: is this noisy?
+      echo "You're already logged in! Woo!"
+    fi
+  } ; f
+
 autologin-and-then =
   !f() {
+    aws autologin_ "$@"
 
-    if [ "$#" -eq 0 ] && ! aws loggedin-silent; then
-      # Simple case. No argument. We're just `aws login-if-not,-please`
-      # This also means no exception checking either
-      >&2 aws sso login
-      return
+    if [ "$#" -gt 0 ]; then
+      aws "$@"
     fi
-
-    local login="any string that passes test -n - a non-empty string";
-    local exception;
-    for exception in $(aws autologin-exceptions); do
-      if [ "$exception" = "$1" ]; then
-        login=;
-        break;
-      fi
-    done
-    if [ -n "$login" ] && ! aws loggedin-silent; then
-      >&2 aws sso login || return
-    fi
-    aws "$@"
   } ; f
 autologin = autologin-and-then
 login-and-then = autologin-and-then
