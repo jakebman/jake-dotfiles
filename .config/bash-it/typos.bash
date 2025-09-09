@@ -445,6 +445,7 @@ typo .og log
 typo loig log
 typo lig log
 typo lob log
+typo jogp logp
 typo lop logp
 typo logd logp # apparently log[D]iff makes sense if I forget it's actually [P]atch
 typo lgop logp
