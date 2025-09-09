@@ -115,7 +115,7 @@ autologin-and-then =
     if [ "$#" -eq 0 ] && ! aws loggedin-silent; then
       # Simple case. No argument. We're just `aws login-if-not,-please`
       # This also means no exception checking either
-      aws sso login
+      >&2 aws sso login
       return
     fi
 
@@ -128,7 +128,7 @@ autologin-and-then =
       fi
     done
     if [ -n "$login" ] && ! aws loggedin-silent; then
-      aws sso login || return
+      >&2 aws sso login || return
     fi
     aws "$@"
   } ; f
