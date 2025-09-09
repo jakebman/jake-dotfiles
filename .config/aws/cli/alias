@@ -140,16 +140,16 @@ autologin_ =
     elif ! aws loggedin-silent; then
       # We should login
       aws sso login
-    else
-      # We're logged in
-      # TODO: is this noisy?
+    elif [ -z "$AWS_CUSTOM_AUTOLOGIN_SILENT" ]; then
       echo "You're already logged in! Woo!"
     fi
   } ; f
 
+autologin_silent = !AWS_CUSTOM_AUTOLOGIN_SILENT=1 aws autologin_
+
 autologin-and-then =
   !f() {
-    aws autologin_ "$@"
+    aws autologin_silent "$@"
 
     if [ "$#" -gt 0 ]; then
       aws "$@"
