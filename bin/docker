@@ -43,7 +43,7 @@ function docker-autostart {
 		echo "==>" docker "$@"
 		echo "============= Now proceeding with your original '$1' command =================="
 	fi
-	"$DOCKER" "$@"
+	exec "$DOCKER" "$@"
 }
 
 function docker-start {
