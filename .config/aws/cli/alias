@@ -125,6 +125,7 @@ autologin_ =
   !f() {
     # Move all stdout to stderr, globally within this execution
     # TODO: This "should" be fine. Is it?
+    # ... what if we put it after `} ; f` ?
     exec >&2
 
     local login="any string that passes test -n - a non-empty string"
