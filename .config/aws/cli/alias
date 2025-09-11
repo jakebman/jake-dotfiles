@@ -106,8 +106,13 @@ browse =
 
 autologin-exceptions =
   !f() {
+    echo autologin-exceptions               # this command itself!
     echo sso sts help                       # base-level functionality that doesn't need to be interfered with
     echo login loggedin logged-in logout    # my aliases that also don't need this indirection
+    #echo autologin_{,less_verbose}
+    echo autologin_ autologin_less_verbose
+    #echo {,auto}login{,-silently}{,-and-then}
+    echo login login-and-then login-silently login-silently-and-then autologin autologin-and-then autologin-silently autologin-silently-and-then
     echo "$AWS_CUSTOM_AUTOLOGIN_EXCEPTIONS"
   } ; f
 
@@ -145,14 +150,28 @@ autologin_ =
     fi
   } ; f
 
-autologin_silent = !AWS_CUSTOM_AUTOLOGIN_SILENT=${AWS_CUSTOM_AUTOLOGIN_SILENT-yes,silent} aws autologin_
-
-autologin-and-then =
+autologin_less_verbose = !AWS_CUSTOM_AUTOLOGIN_SILENT=${AWS_CUSTOM_AUTOLOGIN_SILENT-yes,silent} aws autologin_
+autologin-silently-and-then =
   !f() {
-    aws autologin_silent "$@"
+    aws autologin_ "$@" >/dev/null 2>/dev/null
+    # You're going to be running something here
+    exec aws "$@"
+  } ; f
+
+sleep-and-then =
+  !f() {
+    sleep 7
 
     if [ "$#" -gt 0 ]; then
-      aws "$@"
+      exec aws "$@"
+    fi
+  } ; f
+autologin-and-then =
+  !f() {
+    aws autologin_less_verbose "$@"
+
+    if [ "$#" -gt 0 ]; then
+      exec aws "$@"
     fi
   } ; f
 autologin = autologin-and-then
