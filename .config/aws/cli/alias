@@ -129,7 +129,7 @@ autologin_ =
 
     local login="any string that passes test -n - a non-empty string"
 
-    if [ "$#" -eq 0 ]; then
+    if [ "$#" -ne 0 ]; then
       local exception
       for exception in $(aws autologin-exceptions); do
         if [ "$exception" = "$1" ]; then
