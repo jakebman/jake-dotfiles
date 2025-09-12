@@ -218,6 +218,7 @@
 	submodules = submodule # arguably a typo, but I thought this was a proper command name
 
 	shallow = clone --depth 1
+	shows = show --stat
 	stats = show --stat
 
 	# TODO: this doesn't undo `fetch = +refs/heads/master:refs/remotes/origin/master`
