@@ -221,6 +221,8 @@ typo fil file
 
 typo filw filew # not file - filewhich!
 
+typo fiels files
+
 typo mkae make
 typo maek make
 typo mane make
@@ -256,6 +258,7 @@ typo base65 base64
 typo pyt python # technically, just a lazy name
 typo pyhtron python
 typo pytrhon python
+typo pyhton python
 
 # because that's what I was trying to type at the time, and I figure if I most-common'd
 # 'type asdf' into 'typ easdf', it wouldn't work anyway
