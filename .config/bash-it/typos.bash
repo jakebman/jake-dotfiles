@@ -32,6 +32,30 @@ if [ -f package.json ]; then
 	typo rs 'npm run dev'
 fi
 
+# a "complex typo", because it could mean several things
+# Specifically, don't make the definition of this dependent on the presence of package.json -
+# it should be clear from its definition that it chooses between two options.
+function run {
+	if [ -f package.json ]; then
+		# probably npm run
+		npm-run "$@"
+	else
+		# probably docker run
+		docker-run "$@"
+	fi
+}
+
+function npm-run {
+	: "I don't feel like making a jake-npm bash-it plugin at this exact moment"
+	if [ "$#" -eq 0 ]; then
+		set -- "${JAKE_TYPO_NPM_RUN_DEFAULT_TARGET:-dev}"
+	fi
+	npm run "$@"
+}
+
+# pre-emptive
+typo npmrun npm-run
+
 typo viim vim
 typo vimi vim
 typo vimn vim # actual
@@ -498,7 +522,6 @@ typo mrdir rmdir
 
 typo dockar docker
 typo docksr docker
-typo run docker-run
 
 # super eager with that second s
 typo bashs bash
