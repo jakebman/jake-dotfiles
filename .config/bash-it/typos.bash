@@ -366,6 +366,8 @@ typo retore restore
 typo rstore restore
 typo restorep restore
 typo r-here rainbow-here
+typo r-h rainbow-here
+typo rh rainbow-here
 typo r-all rainbow-all
 typo ra rainbow
 typo rain rainbow
