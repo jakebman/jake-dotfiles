@@ -479,6 +479,7 @@ typo lop logp
 typo logd logp # apparently log[D]iff makes sense if I forget it's actually [P]atch
 typo lgop logp
 typo lopg logp
+typo ls-fiels ls-files
 typo mrege merge
 typo mereg merge
 typo merege merge
