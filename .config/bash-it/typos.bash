@@ -317,6 +317,7 @@ typo wpd pwd
 typo brows browse
 typo brwose browse
 typo borwse browse
+typo browsed browse # I was thinking browse when I made this typo
 
 typo cowthing cowthink
 
