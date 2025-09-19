@@ -3,6 +3,7 @@
 # A bin-ified version of the docker autostart bash scripts. This allows makefiles to proc autostart too :)
 
 : "${DOCKER:=/usr/bin/docker}"
+: "${DOCKER_SOCKET:=/var/run/docker.sock}"
 : "${BASH_IT_DOCKER_DESKTOP_LOCATION:=/mnt/c/Program Files/Docker/Docker/Docker Desktop.exe}"
 
 _BASH_IT_DOCKER_AUTOSTART_EXCEPTIONS+=()
@@ -72,9 +73,12 @@ function docker-start-and-wait {
 
 
 function docker-is-running {
-	# This is the mechanism by which the '/mnt/c/Program Files/Docker/Docker/resources/bin/docker' file
+	# $DOCKER's presence is the mechanism by which the '/mnt/c/Program Files/Docker/Docker/resources/bin/docker' file
 	# checks to see if the WSL2 integration is present in the current machine.
-	[ -f "$DOCKER" ]
+	# But, even after it exists, there is still a failure to connect to the unix socket...
+	# So we check for that, too
+	 [ -f "$DOCKER" ] &&
+		 [ -S "$DOCKER_SOCKET" ]
 }
 
 
