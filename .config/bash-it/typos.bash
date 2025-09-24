@@ -526,6 +526,8 @@ typo dockar docker
 typo docksr docker
 typo docker0run docker-run
 
+typo ru run
+
 # super eager with that second s
 typo bashs bash
 typo bass bash
