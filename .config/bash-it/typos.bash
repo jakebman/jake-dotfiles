@@ -343,6 +343,8 @@ typo eks eksctl
 
 typo mktmp mktemp
 
+typo s3 'aws s3'
+
 typo puj pj
 
 # from jake-aliases - these are git command which drop the "git " prefix
