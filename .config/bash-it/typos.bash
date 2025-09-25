@@ -61,6 +61,7 @@ typo vimi vim
 typo vimn vim # actual
 typo vimm vim # speculative
 typo viom vim
+typo vom vim
 typo ivm vim
 typo vmi vim
 typo vin vim
