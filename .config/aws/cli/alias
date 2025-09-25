@@ -110,6 +110,7 @@ autologin-exceptions =
     echo autologin-execptions               # its typo
     echo sso sts help                       # base-level functionality that doesn't need to be interfered with
     echo login loggedin logged-in logout    # my aliases that also don't need this indirection
+    echo whoami whomai
     echo "$AWS_CUSTOM_AUTOLOGIN_EXCEPTIONS"
   } ; f
 
