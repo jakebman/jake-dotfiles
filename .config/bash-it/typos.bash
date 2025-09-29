@@ -368,6 +368,7 @@ typo githelp 'git help'
 typo ammend amend
 typo amned amend
 typo ament amend
+typo amedn amend
 typo amdne amend # jeez.
 typo comit commit
 typo ommit commit
