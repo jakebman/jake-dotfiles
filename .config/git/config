@@ -123,6 +123,7 @@
 	ignroed = ignored
 	intend = intent-to-add # convenient name below
 	intent = intent-to-add
+	is-valid-command = is-valid-git-command # To be eventually promoted to the proper command name
 	jstg = j --staged
 	jdf = j --diff
 	jmg = j --merge
@@ -1020,7 +1021,8 @@
 		} ; f"
 	# TODO: remove '-git' from here. But later, after coordination with users of it
 	# ALAS! `git is-valid-git-command --help` incorrectly reports that --help is a git command, and coincidentally prints this alias. (thanks git-help!)
-	# CAREFUL: if your argument starts with -, it's safer to pass `--` first
+	# It is almost always going to be correct to invoke this as `git is-valid-git-command -- "$yourarg"`
+	# AND ESPECIALLY if your argument might with -, it's absolutely safer to pass `--` first
 	# Because `git is-valid-git-command -- --help` does fail properly - we shift -- out and check --help properly
 	is-valid-git-command = "!f() { \n\
 		if [ x-- = \"x${1?Need a value}\" ]; then \n\
