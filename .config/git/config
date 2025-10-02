@@ -204,6 +204,7 @@
 	no-pager = !git --no-pager
 	unpaged = no-pager # reasonable different/alternate name
 	colored = !git -c color.ui=always
+	verbose = !git -c format.pretty=fuller
 
 	# promoted from my bash-implicit-git function `remote`.
 	# This name was originally a typo in bash-land, but makes a good first-class citizen in git-alias-land
