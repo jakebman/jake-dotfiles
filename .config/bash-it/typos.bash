@@ -456,6 +456,7 @@ typo upll pull
 typo pulll pull
 typo oush push
 typo puas push
+typo spuh push
 typo puhs push
 typo upsh push
 typo pusl push
@@ -470,6 +471,7 @@ typo psh push
 typo pus push
 typo puh push
 typo ush push
+typo push--- push--
 typo cone clone
 typo cloen clone
 typo addd add
@@ -489,6 +491,7 @@ typo ls-fiels ls-files
 typo mrege merge
 typo mereg merge
 typo merege merge
+typo mergve merge
 typo mereges merges
 typo mergetoo mergetool
 typo yesteday yesterday
@@ -532,6 +535,7 @@ typo docksr docker
 typo docker0run docker-run
 
 typo ru run
+typo rin run
 
 # super eager with that second s
 typo bashs bash
