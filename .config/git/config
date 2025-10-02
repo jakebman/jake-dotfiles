@@ -202,6 +202,8 @@
 	no-columns = !git -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
 	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
 	no-pager = !git --no-pager
+	unpaged = no-pager # reasonable different/alternate name
+	colored = !git -c color.ui=always
 
 	# promoted from my bash-implicit-git function `remote`.
 	# This name was originally a typo in bash-land, but makes a good first-class citizen in git-alias-land
@@ -1044,8 +1046,6 @@
 			echo \"You *literally* cannot push any new commits to it - anything you tried to push, you needed to have in your local repo, so ouroboros has it too!\"; \n\
 		fi \n\
 		} ; f"
-	unpaged = no-pager
-	colored = !git -c color.ui=always
 
 	# Essentially,`git config get pager.$command`, but respecting $GIT_PAGER, core.pager, not-being-on-the-terminal, etc.
 	# TODO: this might be reasonable to promote to actual git, to parallel `git config --get-colorbool your.key <stdout-is-tty>`
