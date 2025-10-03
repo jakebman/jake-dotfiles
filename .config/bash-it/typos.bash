@@ -494,6 +494,8 @@ typo merege merge
 typo mergve merge
 typo mereges merges
 typo mergetoo mergetool
+typo merge- 'merge --no-ff -'
+typo m- merge-
 typo yesteday yesterday
 typo yest yesterday
 typo wortree worktree
