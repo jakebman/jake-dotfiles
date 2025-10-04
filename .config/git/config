@@ -489,12 +489,11 @@
 
 	# NB: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
 	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME. Hence, why I'm calling it psychotic.
-	# TODO: this would like some paging, please (.bash-it says thanks!)
 	authors = "!f() { \n\
 		git shortlog -s -e \"$@\" | \n\
 			awk '{$1=\"\";print}' | \n\
 			sort -f | \n\
-			cat ; \n\
+			git pager authors; \n\
 		} ; f"
 	authors-raw = no-mailmap authors
 	# sort:
