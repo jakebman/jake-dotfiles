@@ -216,6 +216,7 @@ typo diiff diff
 typo renite remote
 typo remtoe remote
 typo rewmote remote
+typo reomote remote
 typo remotes remote # technically, a different word, but it's the plural of the first and should do the same thing
 
 typo bash0t bash-it
@@ -398,6 +399,7 @@ typo restoer restore
 typo retore restore
 typo rstore restore
 typo restorep restore
+typo qr r
 typo r-here rainbow-here
 typo r-h rainbow-here
 typo rh rainbow-here
