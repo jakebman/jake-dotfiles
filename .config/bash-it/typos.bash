@@ -500,6 +500,8 @@ typo mereges merges
 typo mergetoo mergetool
 typo merge- 'merge --no-ff -'
 typo m- merge-
+typo rebase- 'rebase -'
+typo r- rebase-
 typo yesteday yesterday
 typo yest yesterday
 typo wortree worktree
