@@ -245,7 +245,8 @@ typo fiel file
 typo fild file
 typo fil file
 
-typo filw filew # not file - filewhich!
+typo filw filew   # not file - filewhich!
+typo vilew filew  # phonics!
 
 typo fiels files
 
