@@ -88,6 +88,7 @@
 --type-add=docker:is:Dockerfile
 --type-add=docker:ext:dockerfile
 --type-add=docker:match:dockerfile*
+--type-add=docker:match:Docker*
 
 ## Continuous integration files
 --type-add=ci:is:.gitlab-ci.yml
