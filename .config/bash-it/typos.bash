@@ -59,6 +59,7 @@ typo npmrun npm-run
 typo viim vim
 typo vimi vim
 typo vimn vim # actual
+typo vinm vim # actual
 typo vimm vim # speculative
 typo viom vim
 typo vom vim
