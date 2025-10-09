@@ -1,0 +1,9 @@
+registry=https://artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/
+email=jake.boeckerman@charter.com
+always-auth=true
+
+# Be sure not to commit your secrets!
+//artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/:_auth="Not a secret"
+
+# For my own convenience, to match the NNS-land tagging conventions
+tag-version-prefix=Release-
