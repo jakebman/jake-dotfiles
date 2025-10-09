@@ -3,6 +3,7 @@ email=jake.boeckerman@charter.com
 always-auth=true
 
 # Be sure not to commit your secrets!
+# Scoped auth is cool, btw: https://docs.npmjs.com/cli/v8/configuring-npm/npmrc#auth-related-configuration
 //artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/:_auth="Not a secret"
 
 # For my own convenience, to match the NNS-land tagging conventions
