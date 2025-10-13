@@ -403,6 +403,8 @@ typo retore restore
 typo rstore restore
 typo restorep restore
 typo qr r
+typo r-b rainbow-branches
+typo rb rainbow-branches
 typo r-here rainbow-here
 typo r-h rainbow-here
 typo rh rainbow-here
@@ -433,6 +435,7 @@ typo stqat status
 typo staut status
 typo tatus status
 typo staus status
+typo stast status
 typo cstat stat # allow a level of indrection here - this *might* actually want to be `stat`
 typo stst stat  # ditto.
 # NB: `stat` is an existing command. I needed a function to turn zero-arg `stat` into status, not just a simple alias
