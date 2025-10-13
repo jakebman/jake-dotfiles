@@ -239,6 +239,9 @@
 	logp = log --patch
 	logs = log --stat
 	logn = log --numstat
+	logr = log --reverse
+	logpr = logp --reverse
+	logrp = logpr
 
 	# see pretty.jake, which is my custom formatting, defined in pretty.jake
 	log-oneline = log --pretty=jake
