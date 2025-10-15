@@ -1,0 +1,11 @@
+#! /usr/bin/env -S jq --raw-input --raw-output --unbuffered --from-file
+# env -S lets us add parameters to jq
+# --raw-input and --raw-output let us act on non-json-y input lines
+# --unbuffered prevents us from stalling a live/log-tailing pipeline
+# --from-file needs to be last, because it will receive this file as its argument
+
+
+# A live filter on text, json-ifying it if possible
+#
+
+. as $line | fromjson? // $line
