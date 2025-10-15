@@ -33,5 +33,6 @@ typo treecd cd # Ditto, but tree. Wow.
 
 typo cdg cdgit
 typo dg cdgit # really a typo of cdg, but shortening the loop
+typo dfg cdgit
 
 unset -f typo
