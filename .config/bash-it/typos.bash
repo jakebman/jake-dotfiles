@@ -403,6 +403,7 @@ typo retore restore
 typo rstore restore
 typo restorep restore
 typo qr r
+typo r-branches rainbow-branches
 typo r-b rainbow-branches
 typo rb rainbow-branches
 typo r-here rainbow-here
