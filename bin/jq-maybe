@@ -6,6 +6,6 @@
 
 
 # A live filter on text, json-ifying it if possible
-#
+# TODO: it would be cool to try and respect JQ_FILTER
 
 . as $line | fromjson? // $line
