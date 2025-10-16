@@ -247,6 +247,7 @@
 	log-oneline = log --pretty=jake
 	log-nodate  = log --pretty=jake-nodate
 
+	# TODO: rainbow-read-my-mind - is -here or -all based on context, but then allows a branch name to override that choice
 	rainbow = log-oneline --graph
 	rainbow-here = rainbow # for legacy clarity to myself
 	# NNS stores argo information in the argo_manifests branch. THAT IS NOT A REASONABLE BRANCH
