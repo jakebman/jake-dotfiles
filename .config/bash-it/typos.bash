@@ -513,6 +513,7 @@ typo wortree worktree
 typo workdir worktree
 typo jfd jdf
 typo jdkf jdf
+typo jmf jmg
 typo ws jws
 
 # most likely something like "said [y] to a tool that already had --yes'd". Just succeed
