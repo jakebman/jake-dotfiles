@@ -257,8 +257,8 @@ forward =
     # NB: these parameters are subject to SQL-like injection.
     # ex: aws forward instance "aHost,aNewParameter=aNewValue"
     # TODO: it'd be nice if I could default these values in the aws config (aws configure get myVariableName)
-    local instance_id="${2:-i-0351334206111560d}" # "slate-natnavdev-bastion-tunnel"
     local host="${1:-nns-cache-default-pmtest2nnd.redis.nns}"
+    local instance_id="${2:-i-0351334206111560d}" # "slate-natnavdev-bastion-tunnel"
     local hostPort="${3:-6379}"
     local localPort="${4:-${hostPort}}"
     echo "This functionality is now also available via:"
