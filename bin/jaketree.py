@@ -8,7 +8,7 @@ import re
 import sys # for argv and stdout
 
 # A regex to match word barriers - the zero-width string where we want to cut words.
-# Currently, that's at |The |start |of |words |and |also |within |Snake|Case|Words
+# Currently, that's at "The| end| of| words| and| also| within| Snake|Case|Words|"
 # Broken down:
 # (?<=\w)(?=\W|$)
 #   A word barrier. Essentially r'\b', but only at the end of words:
