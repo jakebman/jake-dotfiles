@@ -394,9 +394,11 @@ typo commit-a 'commit -a'
 typo commita 'commit -a'
 typo ignroed ignored
 typo rebas rebase
+typo rease rebase
 typo reabse rebase
 typo revase rebase
 typo rebvase rebase
+typo rebased rebase
 typo erstore restore
 typo restoer restore
 typo retore restore
@@ -467,6 +469,7 @@ typo oush push
 typo puas push
 typo spuh push
 typo puhs push
+typo psuh push
 typo upsh push
 typo pusl push
 typo ppush push
