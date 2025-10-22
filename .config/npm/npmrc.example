@@ -12,3 +12,6 @@ registry=https://artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/
 
 # For my own convenience, to match the NNS-land tagging conventions
 tag-version-prefix=Release-
+
+# Not sure I can rely on bash-default syntax to make this perfect (${XDG_CACHE_HOME-${HOME-~}/.cache}), so:
+cache=~/.cache/npm
