@@ -1,6 +1,10 @@
 registry=https://artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/
-email=jake.boeckerman@charter.com
-always-auth=true
+
+# npm 11 notifies me that this is base64-encoded in <registry>:_auth, and it is:
+# email=...
+
+# deprecated in npm 7. to be removed in npm 12:
+# always-auth=true
 
 # Be sure not to commit your secrets!
 # Scoped auth is cool, btw: https://docs.npmjs.com/cli/v8/configuring-npm/npmrc#auth-related-configuration
