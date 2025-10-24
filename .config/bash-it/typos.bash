@@ -479,7 +479,7 @@ typo pusbh push
 typo pusjh push
 typo pushj push
 typo push4 push
-typo pushd push
+# typo pushd push  # shadowed by the bash builtin `pushd`
 typo psh push
 typo pus push
 typo puh push
