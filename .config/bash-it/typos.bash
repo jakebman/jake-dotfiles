@@ -57,6 +57,7 @@ function npm-run {
 typo npmrun npm-run
 
 typo viim vim
+typo vbim vim
 typo vimi vim
 typo vimn vim # actual
 typo vinm vim # actual
