@@ -219,7 +219,6 @@ typo renite remote
 typo remtoe remote
 typo rewmote remote
 typo reomote remote
-typo remotes remote # technically, a different word, but it's the plural of the first and should do the same thing
 
 typo bash0t bash-it
 typo bash0-t bash-it
@@ -393,7 +392,6 @@ typo commitpm commit
 typo committ commit
 typo commit-a 'commit -a'
 typo commita 'commit -a'
-typo ignroed ignored
 typo rebas rebase
 typo rease rebase
 typo reabse rebase
@@ -422,7 +420,6 @@ typo ranibow rainbow
 typo rainboqw rainbow
 typo rainboiw rainbow
 typo raninbow rainbow
-typo submodules submodule # in git-land, I consider this a "command I expected to work", but here in bash-land, I consider it closer to a typo
 typo dubmodule submodule
 typo submoduel submodule
 typo submod submodule
@@ -452,7 +449,6 @@ typo bracnhes branches
 typo gst gstatus
 typo gstat gstatus
 typo staqsh stash
-typo stashs stash
 typo stasg stash
 typo stas stash      # Ah. So that's what I meant the first time I made this typo
 typo tsga tags       # Wow.
