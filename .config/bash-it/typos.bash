@@ -504,6 +504,7 @@ typo mergve merge
 typo mereges merges
 typo mergetoo mergetool
 typo m- merge-
+typo rebse rebase
 typo rebase- 'rebase -'
 typo r- rebase-
 typo yesteday yesterday
