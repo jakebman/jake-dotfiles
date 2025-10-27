@@ -497,6 +497,8 @@ typo logd logp # apparently log[D]iff makes sense if I forget it's actually [P]a
 typo lgop logp
 typo lopg logp
 typo ls-fiels ls-files
+# Nope. Tied. splits the ticket.
+# typo ls-files 'git ls-files' # an implicit-git typo, but hopefully, it gets the autocomplete first before ls-fiels
 typo mrege merge
 typo mereg merge
 typo merege merge
