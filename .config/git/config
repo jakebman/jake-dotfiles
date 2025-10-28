@@ -262,7 +262,13 @@
 	# Borrowed --simplify-by-decoration from mr. Thank you, mr
 	rainbow-branches = rainbow-all --simplify-by-decoration
 
+	# parallel structure. `gitk` is essentially rainbow
+	gitk = !gitk --exclude=*argo_manifests
+	gitk-here = gitk
+	gitk-all = gitk --all
+
 	# cute aliases, inspired by https://stackoverflow.com/a/52896091/285944, sharing my common oneline alias above
+	k = gitk
 	r  = rainbow-all # convenience name
 	l  = rainbow
 	# don't want rainbow here - stats really don't rainbow nicely
