@@ -26,6 +26,7 @@ typo ced cd
 typo dcd cd
 typo ccd cd
 typo cdc cd
+typo cd- 'cd -'
 typo xs cd
 typo qcd cd    # I quit less *twice*, then wanted to cd
 typo lcd cd    # I tried to ls, then decided to change directories instead
