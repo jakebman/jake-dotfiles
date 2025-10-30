@@ -370,6 +370,7 @@ typo shw show
 # TODO: I wish there were a way to auto-correct `commit --amened` to `commit --amend`
 typo githelp 'git help'
 typo ammend amend
+typo amdnd amend
 typo amned amend
 typo ament amend
 typo amedn amend
