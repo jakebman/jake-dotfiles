@@ -15,3 +15,11 @@ tag-version-prefix=Release-
 
 # Not sure I can rely on bash-default syntax to make this perfect (${XDG_CACHE_HOME-${HOME-~}/.cache}), so:
 cache=~/.cache/npm
+
+
+# "Global" installs are "per-user" installs
+# https://stackoverflow.com/a/13021677/285944
+# https://docs.npmjs.com/cli/v10/commands/npm-config#global
+# https://docs.npmjs.com/cli/v10/configuring-npm/folders#prefix-configuration
+
+prefix=${HOME}/.local
