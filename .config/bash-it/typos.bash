@@ -39,6 +39,9 @@ function run {
 	if [ -f package.json ]; then
 		# probably npm run
 		npm-run "$@"
+	elif [ -f pom.xml ]; then
+		# probably maven
+		mvn spring-boot:run "$@"
 	else
 		# probably docker run
 		docker-run "$@"
