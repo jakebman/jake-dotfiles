@@ -248,6 +248,7 @@ typo vile file
 typo fiel file
 typo fild file
 typo fil file
+typo fuile file
 
 typo filw filew   # not file - filewhich!
 typo vilew filew  # phonics!
