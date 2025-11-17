@@ -524,6 +524,7 @@ typo ws jws
 # most likely something like "said [y] to a tool that already had --yes'd". Just succeed
 typo y true
 
+typo wiget winget
 typo wignet winget
 typo wingetg winget
 
