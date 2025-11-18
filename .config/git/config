@@ -109,6 +109,7 @@
 	deltaDiff = delta-diff
 	deltaLog = deltalog
 	edit-config = config-edit
+	id = implicitdiff # this sounds like a convenience name, but no. I typo'd `d`, but that's a typo of implicitdiff, so here we are
 	d = implicitdiff
 	dff = diff
 	dif = diff
