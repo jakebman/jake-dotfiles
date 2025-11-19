@@ -114,6 +114,9 @@
 ## RPM .spec files
 --type-add=spec:ext:spec
 
+## Test files. Anything with the word test in its name. Useful to exclude
+--type-add=test:match:/test/
+
 ## Oauth files. Mostly, these are the work files `oauthsecret<place>` and similar
 --type-add=oauth:match:/oauth/
 
