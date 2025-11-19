@@ -15,7 +15,8 @@ shopt -s expand_aliases
 if [ -f pom.xml ]; then
 	# We're in maven-land, baby!
 	declare -a IMPLICIT_MAVEN
-	mapfile -t IMPLICIT_MAVEN < <(grep -v "^#" < "$(dirname "$BASH_SOURCE")/maven-goals-and-phases.list" | grep -v '^\s*$')
+	: ${BASH_IT_TYPOS_FILE:=${XDG_CONFIG_HOME:-${HOME}/.config}/bash-it/typos.bash}
+	mapfile -t IMPLICIT_MAVEN < <(cat "$(dirname "$BASH_IT_TYPOS_FILE")/maven-goals-and-phases.list" | grep -v "^#" | grep -v '^\s*$')
 	declare _IMPLICIT_MAVEN
 	for _IMPLICIT_MAVEN in "${IMPLICIT_MAVEN[@]}"; do
 		typo "$_IMPLICIT_MAVEN" "mvn ${_IMPLICIT_MAVEN}"
