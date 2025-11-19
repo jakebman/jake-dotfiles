@@ -172,6 +172,8 @@ autocmd BufNewFile,BufRead *.bash let &filetype = "bash"
 autocmd BufNewFile,BufRead *dockerfile let &filetype = "dockerfile"
 autocmd BufNewFile,BufRead Docker* let &filetype = "dockerfile"
 autocmd BufNewFile,BufRead *.Jenkinsfile,*.jenkinsfile,*Jenkinsfile* let &filetype= "Jenkinsfile"
+" TODO: java is sh-bang-able. Can I fix it here, but maybe also upstream in
+" vim-polyglot?
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
