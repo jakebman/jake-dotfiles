@@ -197,6 +197,7 @@ typo tre tree
 typo ree tree
 typo tgree tree
 typo treee tree
+typo trree tree
 
 # These are times when I expected tree to have neither the depth nor count limits
 typo treea ltree
