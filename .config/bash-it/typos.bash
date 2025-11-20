@@ -106,6 +106,7 @@ typo gitr git
 typo qgit git
 typo jgti git # it's like... sometimes I just mash the keyboard while thinking really hard about the command
 
+typo redis redis-cli
 typo glap glab
 
 typo ggsheild ggshield # Git Guardian - a work tool
