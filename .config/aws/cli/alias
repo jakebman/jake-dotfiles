@@ -250,7 +250,7 @@ logout = sso logout
 forware = forward
 # TODO: this is redundant once I can `ssh -L 6379:nns-cache-default-pmtest2nnd.redis.nns:6379 i-0351334206111560d`
 # Thanks, SSM
-forward =
+forward-once =
   !f() {
     # NB: all parameter strings are concatenated together. I'm a little uncertain of the mechanism
     # but it's necessary and also useful
@@ -269,11 +269,11 @@ forward =
                    "portNumber=${hostPort},"\
                    "localPortNumber=${localPort}"
   } ; f
-
+forward = forward-daemon
 forward-daemon =
   !f() {
     while true; do
-      aws forward "$@"
+      aws forward-once "$@"
     done
   } ; f
 
