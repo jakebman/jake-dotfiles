@@ -248,6 +248,7 @@ logout = sso logout
 
 # typo:
 forware = forward
+foreward-once = forward-once
 # TODO: this is redundant once I can `ssh -L 6379:nns-cache-default-pmtest2nnd.redis.nns:6379 i-0351334206111560d`
 # Thanks, SSM
 forward-once =
