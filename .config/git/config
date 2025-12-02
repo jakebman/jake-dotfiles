@@ -1547,8 +1547,8 @@
 	# fun fact! You can include files that *don't exist*! (at least this doesn't exist in my home install)
 	# (This gets a custom callout in vimrc to map to the gitconfig filetype)
 	path = ~/.config/git/work-config
-[includeif "hasconfig:remote.*.url:*:jakebman/**"]
-	# Even at work, if the repo is jakebman-y, I should probably use jakebman email
+[includeif "hasconfig:remote.*.url:*github.com:jakebman/**"]
+	# Even at work, if the repo is from my home git account, I should probably use jakebman email
 	path = ~/.config/git/home-config
 [git-extras "get"]
 	# TODO: git-extra's `get` doesn't expand ~ like mailmap.file does
