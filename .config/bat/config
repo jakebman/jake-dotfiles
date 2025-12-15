@@ -36,6 +36,9 @@
 --map-syntax "*.bats:Bourne Again Shell (bash)"
 --map-syntax "*.pom:XML"
 
+--map-syntax "**/*kubectl/*config*:YAML"
+--map-syntax "**/*kubectl/*backup*:YAML" # I also smear backups around there
+
 # I include ~/.ssh/work-config from ~/.ssh/config. It's an ssh config by any other name
 # Ditto git config and mailmap
 --map-syntax "**/.ssh/*config:SSH Config"
