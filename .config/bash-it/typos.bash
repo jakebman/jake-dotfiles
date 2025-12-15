@@ -470,6 +470,7 @@ typo pul pull
 typo ull pull
 typo upll pull
 typo pulll pull
+typo "[ush" push # quoting is for vim's benefit, otherwise open brace dangles
 typo oush push
 typo puas push
 typo spuh push
