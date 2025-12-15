@@ -46,6 +46,11 @@ function kubectl-autostart {
 		"${env_args[@]}"
 		"$@"
 		)
+	if [ -v KUBECONFIG ]; then
+		echo "# KUBECONFIG is: $(sed -E 's/(^|:)/\n# * /g' <<< "$KUBECONFIG")"
+	else
+		echo "# KUBECONFIG is empty"
+	fi
 	if [ "${#env_args[@]}" -gt 0 ] && [ -t 0 ] && [ -t 2 ]; then
 		>&2 cat <<-MESSAGE
 			# Jake received ${env_args[*]} from the environment
