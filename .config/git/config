@@ -1420,6 +1420,8 @@
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
 	help = true
+	# alas - this works, but less and git fight over who gets keyboard input
+	# restore = true
 	# This is not doc'd explicitly, but it works!!! Woo to ls-untracked!
 	ls-files = jaketree
 	# Nonstandard, but my alias outputting commands check git-pager with this name
