@@ -14,3 +14,16 @@ eksctl/clusters/
 maven/mvnd/registry/
 maven/wrapper/dists/
 vcsh/repo.d/
+
+# These specific files are of the sort listed above, but not swaths.
+# These are UI files that generally control the layout etc. of a UI.
+# They can change whenever the ui changes. Let's not track that
+btop/btop.conf
+git/gitk
+# There's some stuff in gitk which tries to ignore the argo_manifest branch
+# set permviews {{{All Branches & Tags} {} {--all --branches --tags --remotes} {}}
+# {{Command line} {} {--all ^argo_manifests --exclude=*argo_manifests} {}}
+htop/htoprc
+neofetch/config.conf
+mc/ini
+mc/panels.ini
