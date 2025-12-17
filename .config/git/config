@@ -238,7 +238,6 @@
 		[ 'true' = \"$(git rev-parse --is-shallow-repository)\" ] \n\
 		} ; f"
 	unstash = stash pop
-	untracked = status --untracked
 	up = pull
 	# stage = diff --staged # Fails, because stage is already a command
 	staged = diff --staged
@@ -811,6 +810,7 @@
 	ls-ignored = ls-files --other --exclude-standard --ignored
 	# NB: ls-ignored is just a list of files. git-ignored is status-like, so includes word-y context
 	ignored = status --ignored --untracked=normal # an ignored file isn't listed if it's also untracked unless you're also listing untracked files
+	untracked = status --untracked
 
 	# "Status, if it would have any output. Show otherwise."
 	# TODO: Did I actually fix the bug that if there's an untracked file, I'd expect status to show it. But we don't catch it here.
