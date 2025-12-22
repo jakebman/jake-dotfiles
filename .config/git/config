@@ -1469,6 +1469,8 @@
 	# Allow submodule recursion everywhere. This gets thorny with mr fetching bat's 85(!) submodules,
 	# but it's really useful where I want it to be, and as long as I put out that fire
 	recurse = true
+	# This won't be really helpful ever, but worth mentioning that it parallels the fetch.parallel setting
+	# fetchJobs = 0 # zero means "some reasonable (non-1) default"; the default value is 1
 [pretty]
 	# Impl. notes:
 	# This used to be part of a raw --pretty invocation (from the stackoverflow link for the l,ll,ls alias variants)
