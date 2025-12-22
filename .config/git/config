@@ -73,6 +73,7 @@
 # A variant of safe.directory; a whitelist for my git-permit-aliases-to-shadow-builtins command
 [safe "aliases"]
 	alias = remote
+	alias = pull
 	alias = push # TODO: A USER-PROMPTING(!) --force-with-lease on certain failures
 	alias = worktree # TODO: allow for aliases under worktree, like `git worktree new` for `git worktree add`
 	alias = init # TODO: ability to register newly-initted repos with a default (gh/glab) service, and mr register them
@@ -84,6 +85,7 @@
 	# `git permit-aliases-to-shadow-builtins remote`, (or via bash alias git='git permit-aliases-to-shadow-builtins')
 	# Style: these should try to reference a different, always-accessible (non-shadowing) git command
 	remote = remotes # implicit -v
+	pull = pull-unless-detached # when you're not on a branch, `pull` shouldn't move you
 
 	## Typos (alphabetical by correct name) ("I mashed my keyboard and expected this to work")
 	ad = add
