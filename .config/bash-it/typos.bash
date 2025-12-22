@@ -376,6 +376,7 @@ typo shw show
 # in jake-aliases. These are typo words, not git-command words.
 # TODO: I wish there were a way to auto-correct `commit --amened` to `commit --amend`
 typo githelp 'git help'
+typo amened amend
 typo ammend amend
 typo amdnd amend
 typo amned amend
