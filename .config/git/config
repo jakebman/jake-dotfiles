@@ -70,7 +70,7 @@
 	# /mnt/c/Program Files/Git/cmd
 	invalid-commands = -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn
 
-# A variant of safe.directory; a whitelist for my git-allow-aliases-to-shadow-builtins command
+# A variant of safe.directory; a whitelist for my git-permit-aliases-to-shadow-builtins command
 [safe "aliases"]
 	alias = remote
 	alias = push # TODO: A USER-PROMPTING(!) --force-with-lease on certain failures
@@ -142,6 +142,7 @@
 	workdir = worktree # geez.
 
 	## Convenient Names ("I typed something intentionally and expected it to work (often this promotes a flag to a command)")
+	allow-aliases-to-shadow-builtins = permit-aliases-to-shadow-builtins # My docs had both names. Guess I like both names.
 	amend = commit --amend # NB: the bash version of this command leverages my smart commit command
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	bare = clone --bare
