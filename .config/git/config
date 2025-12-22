@@ -377,7 +377,14 @@
 		# TODO: other guard statements? \n\
 		git reset --hard @{upstream} \n\
 		} ; f"
-
+	pull-unless-detached = "!f() { \n\
+		if git symbolic-ref -q HEAD >/dev/null 2>&1; then \n\
+			git pull \"$@\" \n\
+		else \n\
+			>&2 echo 'Not on a branch. Pull could accidentally merge. Fetching instead.' \n\
+			git fetch \"$@\" \n\
+		fi \n\
+	} ; f"
 
 	# TODO: it would be nice do more with this
 	type = help
