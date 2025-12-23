@@ -337,7 +337,6 @@
 				<(git ls-files -z) \\\n\
 				<(git log --name-only --pretty= -z \"$@\" | sort -z | uniq -z) | \n\
 			find -files0-from - -maxdepth 0 '!' -type d 2>/dev/null | \n\
-			tr \"\\0\" \"\\n\" | \n\
 			git pager formerly-tracked; \n\
 		} ; f'"
 
