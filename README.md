@@ -26,3 +26,7 @@ https://www.atlassian.com/git/tutorials/dotfiles
 
 # multigit
 An alternative to vcsh is to have layered git repos in ~, with https://github.com/capr/multigit
+
+# GNU Stow
+A tool for symlinking. Potentially could allow dotfiles repos to be fully independently VCS'd, per https://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html
+https://www.gnu.org/software/stow/
