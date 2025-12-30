@@ -36,4 +36,8 @@ typo cdg cdgit
 typo dg cdgit # really a typo of cdg, but shortening the loop
 typo dfg cdgit
 
+# pj is cd-like
+typo puj pj
+typo pjh pj
+
 unset -f typo
