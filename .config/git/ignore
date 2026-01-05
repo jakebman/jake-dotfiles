@@ -25,3 +25,7 @@
 
 # It's probably correct to put this only in maven repos, but it's everywhere I use CI friendly variables:
 **/.flattened-pom.xml
+
+# Some repos have a /bin folder. Some of those (pyenv) have a parallel /man folder. If you run `mandb --user-db`
+# while your repo's /bin folder is on the path, then it creates a local file that you probably want to always ignore
+man/index.db
