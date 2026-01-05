@@ -20,7 +20,8 @@
 	# TODO: .cpy files aren't recognized (for rmkit & some reMarkable tablet stuff)
 	# https://github.com/ideawu/cpy
 	path = .config/vim/pack/vim-polyglot/start/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot
+	# until sheerun's upstream merges my java sh-band line
+	url = https://github.com/jakebman/vim-polyglot
 	branch = master
 	# use a non-detached HEAD strategy in the submodule
 	update = rebase
