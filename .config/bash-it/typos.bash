@@ -221,6 +221,7 @@ typo dfiff diff
 typo difff diff
 typo diiff diff
 
+typo re remote
 typo renite remote
 typo remtoe remote
 typo rewmote remote
