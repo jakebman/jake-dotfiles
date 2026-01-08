@@ -179,6 +179,8 @@
 	delta-diff = delta diff
 	diffs = diff --stat           # convenient name
 	delta-log = delta log --patch # --patch is implied if you're going to send log to delta
+	# detach from a branch. Also coincidentally allows you to detach from any <commit-ish> if we phrase it this way
+	detach = checkout --detach
 	# add --intent-to-add, but also implicitly `touch` files that don't exist, including their parent folders
 	intent-to-add = "!f() { \n\
 		# Move to the user's working directory \n\
