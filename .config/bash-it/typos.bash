@@ -546,6 +546,7 @@ typo jaek jake
 typo vack jack
 typo j! jack
 typo jakeTree jaketree
+typo jaketee jaketree # forgot the r
 
 typo furl curl
 
@@ -555,6 +556,7 @@ typo adk sdk
 
 typo mrdir rmdir
 
+typo gocker docker
 typo dockar docker
 typo docksr docker
 typo docker0run docker-run
