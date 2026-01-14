@@ -89,7 +89,7 @@ def calc_args(argv):
     # I *want* this to be a add_mutually_exclusive_group, but those don't get group titles, and
     # it's annoying that you can't override prior flags with later ones (instead, you get an error)
     group = args.add_argument_group("word-splitting strategies")
-    group.add_argument("--wordwise", "-w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier (default)")
+    group.add_argument("--wordwise", "-w", action='store_const', dest='commonStrat', const=common_word_barrier, help="break on on a word barrier, includingWithinSnakeCase (default)")
     group.add_argument("--pathwise", "-p", action='store_const', dest='commonStrat', const=commonpath, help="only break on path separators")
     group.add_argument("--textwise", "-t", action='store_const', dest='commonStrat', const=commonprefix, help="recognize any text as the common prefix")
     args.add_argument("--elision-marker", default=ELISION_MARKER, help=f"the indicator that a piece has been removed ({ELISION_MARKER})")
