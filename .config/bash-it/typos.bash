@@ -326,6 +326,7 @@ typo hsitory history
 typo pws pwd
 typo wpd pwd
 
+typo brow browse
 typo brows browse
 typo brose browse
 typo brwose browse
