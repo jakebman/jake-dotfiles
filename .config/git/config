@@ -1441,6 +1441,13 @@
 	# WARNING: adding custom pagers here goozles the delta alias. Adding a custom entry here should add one there
 [column]
 	ui = auto
+[status]
+	# When showing status, also list the number of stashes you have
+	showStash = true
+[stash]
+	# By default, `git stash show` should include the patch.
+	# It's paged, so that's even more cool
+	showPatch = true
 [diff]
 	context = 5
 	tool = vimdiff
