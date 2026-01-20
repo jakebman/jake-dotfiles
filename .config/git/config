@@ -132,6 +132,7 @@
 	jmg = j --merge
 	jws = j --ws
 	lop = logp
+	ls- = ls-files # common prefix for ls-{files,untracked,ignored} should be the first one
 	mr-up = mr-pull
 	oroboros = ouroboros
 	tpush = push
