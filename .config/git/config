@@ -482,6 +482,7 @@
 		if [ -z \"$existingBranch\" ]; then \n\
 			if ! existingBranch=\"$(git current-branch 2>/dev/null)\" ; then \n\
 				>&2 echo not on a current branch. Please specify a branch to alias from; \n\
+				>&2 echo \"(If you didn't have an existing branch to alias, you could just create a new branch from here via checkout -b or something)\"; \n\
 				return 1; \n\
 			fi \n\
 		fi; \n\
