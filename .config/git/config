@@ -146,6 +146,7 @@
 
 	## Convenient Names ("I typed something intentionally and expected it to work (often this promotes a flag to a command)")
 	allow-aliases-to-shadow-builtins = permit-aliases-to-shadow-builtins # My docs had both names. Guess I like both names.
+	alias-main-for-master = branch-alias-main-for-master # (17 months later) I thought it was called this other name
 	amend = commit --amend # NB: the bash version of this command leverages my smart commit command
 	autostash = pull --rebase --autostash # My brain also expects an implicit rebase when I'm talking about autostash
 	bare = clone --bare
