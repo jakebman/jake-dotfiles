@@ -493,7 +493,7 @@
 			>&2 echo \"cannot create alias $newBranch for $existingBranch - $newBranch already exists\"; \n\
 			return 1; \n\
 		else \n\
-			git symbolic-ref \"refs/heads/$newBranch\" \"refs/heads/$existingBranch\" && \n\
+			git symbolic-ref -m \"git branch-alias $newBranch $existingBranch\" \"refs/heads/$newBranch\" \"refs/heads/$existingBranch\" && \n\
 			echo \"successfully aliased $newBranch for $existingBranch\"; \n\
 		fi \n\
 		} ; f"
