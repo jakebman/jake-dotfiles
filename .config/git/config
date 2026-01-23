@@ -489,7 +489,7 @@
 		if ! git commit-ish-exists \"$existingBranch\"; then \n\
 			>&2 echo \"cannot create alias $newBranch for $existingBranch - $existingBranch does not exist \"; \n\
 			return 1; \n\
-		elif git commit-ish-exists \"$newBranch\"; then \n\
+		elif ! git commit-ish-is-creatable \"$newBranch\"; then \n\
 			>&2 echo \"cannot create alias $newBranch for $existingBranch - $newBranch already exists\"; \n\
 			return 1; \n\
 		else \n\
@@ -594,13 +594,40 @@
 						2>&1); \n\
 		if [ 0 -eq $return ]; then \n\
 			# parameter expansion - add (...) if parsed is not empty \n\
-			echo \"${1} exists ${parsed:+(sounds like ${parsed})}\"; \n\
+			echo \"${1} exists${parsed:+ (sounds like ${parsed})}\"; \n\
 		else \n\
-			echo $1 does not exist in git as a commitish object; \n\
+			echo \"${1} does not exist in git as a commit-ish object\"; \n\
 		fi \n\
 		return $return; \n\
 		} ; f"
+	# Logical inverse, but also better messages ("is clear to create" vs "doesn't exist")
+	commit-ish-is-creatable = "!f() { \n\
+		local return parsed; \n\
+		git rev-parse \\\n\
+				--verify \\\n\
+				--end-of-options \\\n\
+				\"${1?need a commit object}^{commit}\" \\\n\
+				>/dev/null \\\n\
+				2>&1; \n\
+		return=$?; \n\
+		if ! [ -t 1 ]; then \n\
+			return $return; \n\
+		fi \n\
+		parsed=$(git rev-parse \\\n\
+						--abbrev-ref \\\n\
+						\"${1}\" \\\n\
+						2>&1); \n\
+		if [ 0 -eq $return ]; then \n\
+			# parameter expansion - add (...) if parsed is not empty \n\
+			echo \"${1} exists, and cannot be created${parsed:+ (sounds like ${parsed})}\"; \n\
+			return 1; \n\
+		else \n\
+			echo \"${1} can be created as a commit-ish object\"; \n\
+			return 0; \n\
+		fi \n\
+		} ; f"
 
+	commit-ish-doesnt-exist = commit-ish-is-creatable
 	# Calls out and fails if the working directory is dirty
 	is-clean = "!f() { \n\
 		if ! git is-clean-quiet; then \n\
