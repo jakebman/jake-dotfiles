@@ -550,6 +550,7 @@ typo vack jack
 typo j! jack
 typo jakeTree jaketree
 typo jaketee jaketree # forgot the r
+typo jaktree jaketree # forgot the e
 
 typo furl curl
 
