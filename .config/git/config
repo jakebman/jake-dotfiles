@@ -163,7 +163,17 @@
 			git big-picture \"$@\"; \n\
 		fi \n\
 		} ; f"
-	co = checkout
+	co = co-like-cd
+	co- = co -
+	# no-args co
+	co-like-cd = "!f() { \n\
+		if test \"$#\" -eq 0; then \n\
+			git checkout -; \n\
+		else \n\
+			git checkout \"$@\"; \n\
+		fi \n\
+		} ; f"
+
 	# This "should" be a typo of 'commit -m', but I want the ergonomics of no complaints if no arguments
 	commitm = "!f() { \n\
 		if test \"$#\" -eq 0; then \n\
