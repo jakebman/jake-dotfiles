@@ -118,6 +118,7 @@ typo wq :q
 
 typo ecoh echo
 typo ehco echo
+typo eho echo
 
 typo explorer. 'explorer .'
 typo exploer. explorer. # happened while I was writing the alias above
