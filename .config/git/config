@@ -167,6 +167,7 @@
 	co- = co -
 	# no-args co
 	co-like-cd = "!f() { \n\
+		: checkout; \n\
 		if test \"$#\" -eq 0; then \n\
 			git checkout -; \n\
 		else \n\
