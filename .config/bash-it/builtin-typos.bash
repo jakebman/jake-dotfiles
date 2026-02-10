@@ -16,6 +16,7 @@ function typo {
 typo alais alias
 
 # All typos of cd need to live here, otherwise they won't be able to actually change the directory
+typo CD cd # doesn't get helped by my allcaps typo fixer, because that's executed in a subshell
 typo '~cd' cd
 typo foo 'cd foo'
 typo vd cd
