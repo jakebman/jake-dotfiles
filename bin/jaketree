@@ -8,13 +8,17 @@ set -o pipefail # allow failure of jaketree.py to propagate outward
 # * Output isn't to a terminal
 # * We have no arguments, and yet stdin is a terminal (this is a testing scenario)
 
+function run {
+	python ~/bin/jaketree.py "$@"
+}
+
 if [ ! -t 1 ]; then
 	# no terminal output
-	jaketree.py "$@"
+	run "$@"
 elif [ "$#" -eq 0 ] && [ -t 0 ]; then
 	# no arguments, but stdin is a terminal
 	# Probably testing
-	jaketree.py "$@"
+	run "$@"
 else
-	jaketree.py "$@" | pager
+	run "$@" | pager
 fi
