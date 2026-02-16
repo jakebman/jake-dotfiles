@@ -112,6 +112,7 @@ autologin-exceptions =
     echo login loggedin logged-in logout    # my aliases that also don't need this indirection
     echo whoami whomai
     echo browse
+    echo configure
     echo "$AWS_CUSTOM_AUTOLOGIN_EXCEPTIONS"
   } ; f
 
