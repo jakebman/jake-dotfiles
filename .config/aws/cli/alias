@@ -240,6 +240,7 @@ docker-login =
 regions = ec2 regions
 # TODO: list more things
 ls = ec2 ls
+list = ec2 list
 search = ec2 search
 find = search
 loggedin = sso loggedin
