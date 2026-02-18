@@ -282,7 +282,11 @@
 	rainbow-branches = rainbow-all --simplify-by-decoration
 
 	# parallel structure. `gitk` is essentially rainbow
-	gitk = !gitk --exclude='*argo_manifests'
+	gitk = "!f() { \n\
+		local temp=$(mktemp editing-base64-as-file-XXXXXXXXXX --tmpdir); \n\
+		>&2 echo \"running gitk to $temp\"; \n\
+		nohup gitk --exclude='*argo_manifests' >\"$temp\" 2>&1 & \n\
+		} ; f"
 	gitk-here = gitk
 	gitk-all = gitk --all
 
