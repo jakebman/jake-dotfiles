@@ -282,7 +282,7 @@
 	rainbow-branches = rainbow-all --simplify-by-decoration
 
 	# parallel structure. `gitk` is essentially rainbow
-	gitk = !gitk --exclude=*argo_manifests
+	gitk = !gitk --exclude='*argo_manifests'
 	gitk-here = gitk
 	gitk-all = gitk --all
 
