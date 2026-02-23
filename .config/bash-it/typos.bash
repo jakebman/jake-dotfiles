@@ -504,6 +504,7 @@ typo nog log
 typo loig log
 typo lig log
 typo lob log
+typo lgo log
 typo lgp logp
 typo jogp logp
 typo logd logp # apparently log[D]iff makes sense if I forget it's actually [P]atch
