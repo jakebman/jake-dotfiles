@@ -1,0 +1,2 @@
+#! /bin/bash
+'/mnt/c/Program Files/Google/Chrome/Application/chrome.exe' --new-window --app="${1?need a url}"
