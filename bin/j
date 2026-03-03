@@ -94,6 +94,9 @@ function j-fzf-common {
 			--delimiter=':' \
 			"$@" \
 			> "$QUICKFIX_FILE"
+	# TODO: I'd like to get the final query out and print it sometimes.
+	# That probably means using --print-query and an intermediate pipe step to grab the first line out
+	# to a separate file
 	# INFO: I'm treating this redirection identically to a final tee to the output, because I'd otherwise be fragile to
 	# adding a final pipeline step here
 }
