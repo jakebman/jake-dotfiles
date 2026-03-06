@@ -358,6 +358,10 @@ typo eks eksctl
 typo mktmp mktemp
 
 typo s3 'aws s3'
+typo forward 'aws forward' # actually has a convenience name, not a typo name, but w/e
+typo forwar forward # aws forward
+
+typo racher rancher
 
 # from jake-aliases - these are git command which drop the "git " prefix
 typo stage staged # NB: `git stage` is an alias for `git add`. This here is a TYPO of staged, not an attempt to use `git stage` conveniently
