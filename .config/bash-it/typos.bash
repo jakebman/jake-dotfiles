@@ -330,6 +330,7 @@ typo pws pwd
 typo wpd pwd
 
 typo brow browse
+typo borse browse
 typo rowse browse
 typo brows browse
 typo brose browse
