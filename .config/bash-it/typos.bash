@@ -131,6 +131,8 @@ typo htp htop
 typo cht cht.sh
 typo ch cht.sh
 
+typo chmog chmod
+
 typo ks ls
 typo lks ls
 typo dls ls
@@ -362,6 +364,7 @@ typo forward 'aws forward' # actually has a convenience name, not a typo name, b
 typo forwar forward # aws forward
 
 typo racher rancher
+typo rk "rancher kubectl"
 
 # from jake-aliases - these are git command which drop the "git " prefix
 typo stage staged # NB: `git stage` is an alias for `git add`. This here is a TYPO of staged, not an attempt to use `git stage` conveniently
