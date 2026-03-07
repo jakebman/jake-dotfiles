@@ -1426,6 +1426,7 @@
 	all = true   # Fetch should assume --all. Thank you git 2.44 :D. Oh. This is all 'remotes', not all 'branches'. Boo.
 	parallel = 0 # zero means "some reasonable (non-1) default"; the default value is 1
 [push]
+	default = upstream # no-arg pushes go to @{upstream}, even if the current branch's name differs from @{upstream}'s
 	autoSetupRemote = true
 [transfer]
 	# clone should check with the remote server and download bootstrap object databases ("bundles")
