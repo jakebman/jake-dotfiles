@@ -804,17 +804,18 @@
 			\n\
 			# NB: the x-prefix is necessary in case either of these gets a dash prefix. \n\
 			# Defensive coding! \n\
+			# NB: these blocks both redirect to stderr. \n\
 			if [ \"x$remoteHead\" != \"x$remoteBranch\" ]; then \n\
-				>&2 echo -n \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the\" \n\
+				echo -n \"Local branch ${local} pushes to ${remoteBranch}, not ${remoteHead} - the\" \n\
 				if git config get \"remote.$remote.mainline-chosen-head\" >/dev/null 2>&1; then \n\
-					>&2 echo -n \" chosen head \"; \n\
+					echo -n \" chosen head \"; \n\
 				else \n\
-					>&2 echo -n \" HEAD \"; \n\
+					echo -n \" HEAD \"; \n\
 				fi \n\
-				>&2 echo \"for ${remote}.\"; \n\
-				>&2 echo \"Use 'git config set remote.$remote.mainline-chosen-head $remoteBranch' to ignore.\"; \n\
+				echo \"for ${remote}.\"; \n\
+				echo \"Use 'git config set remote.$remote.mainline-chosen-head $remoteBranch' to ignore.\"; \n\
 				return 1; \n\
-			fi \n\
+			fi >&2 \n\
 			# output should be hexadecimal, but further defensiveness on this check \n\
 			if [ \"x$(git rev-parse \"$local\")\" != \"x$(git rev-parse \"$remoteBranch\")\" ]; then \n\
 				# ahead/behind info from https://gist.github.com/jehiah/1288596 \n\
