@@ -425,6 +425,7 @@ typo qr r
 typo r-branches rainbow-branches
 typo r-b rainbow-branches
 typo rb rainbow-branches
+typo tb rainbow-branches # typo of rb
 typo r-here rainbow-here
 typo r-her rainbow-here
 typo r-h rainbow-here
