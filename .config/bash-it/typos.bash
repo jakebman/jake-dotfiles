@@ -461,6 +461,7 @@ typo stst stat  # ditto.
 # NB: `stat` is an existing command. I needed a function to turn zero-arg `stat` into status, not just a simple alias
 # That's why all-but-one typos go to `status`, because they all intended to be a status command, never a `stat`
 typo sta status
+typo sat status
 typo st status # first unique difference from s's status-or-show magic
 typo brach branch
 typo branche branches # because sometimes I get lazy, apparently
