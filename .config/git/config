@@ -1142,7 +1142,7 @@
 				>&2 echo 'please specify a subcommand. Using pager as command name'; \n\
 				subcommand='pager'; \n\
 			fi \n\
-			fallback_pager=\"$(git var GIT_PAGER)\"; \n\
+			fallback_pager=$(git var GIT_PAGER); \n\
 			if [ -n \"${GIT_PAGER+git-pager-has-a-set-value-including-the-empty-string}\" ]; then \n\
 				# GIT_PAGER is set to something. But remember: '' means 'cat' \n\
 				pager=${GIT_PAGER:-cat}; \n\
@@ -1155,11 +1155,11 @@
 						return; \n\
 					;; \n\
 					yes|on|true|1) \n\
-						pager=\"$fallback_pager\"; \n\
+						pager=$fallback_pager; \n\
 					;; \n\
 				esac \n\
 			else \n\
-				pager=\"$fallback_pager\"; \n\
+				pager=$fallback_pager; \n\
 			fi \n\
 			echo \"$pager\"; \n\
 		} ; f"
