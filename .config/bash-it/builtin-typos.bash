@@ -34,7 +34,8 @@ typo lcd cd    # I tried to ls, then decided to change directories instead
 typo treecd cd # Ditto, but tree. Wow.
 
 typo cdg cdgit
-typo dg cdgit # really a typo of cdg, but shortening the loop
+typo dg cdgit  # really a typo of cdg, but shortening the loop
+typo dgc cdgit # I... really just mashed keys there
 typo dfg cdgit
 
 # pj is cd-like

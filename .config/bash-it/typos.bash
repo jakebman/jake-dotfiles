@@ -336,6 +336,7 @@ typo brows browse
 typo brose browse
 typo brwose browse
 typo borwse browse
+typo broswe browse
 typo browsed browse # I was thinking browse when I made this typo
 
 typo cowthing cowthink
