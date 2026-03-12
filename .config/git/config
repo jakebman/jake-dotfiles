@@ -1488,6 +1488,8 @@
 	ls-files = jaketree
 	# Nonstandard, but my alias outputting commands check git-pager with this name
 	alias = true
+	# For External use:
+	jake-custom-mr-status = bat --style=plain --paging=never --language='Git Attributes'
 	# WARNING: adding custom pagers here goozles the delta alias. Adding a custom entry here should add one there
 [column]
 	ui = auto
