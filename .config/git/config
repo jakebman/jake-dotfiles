@@ -769,6 +769,8 @@
 			\"$@\"; \n\
 		} ; f"
 
+	diff-no-imports = diff "--ignore-matching-lines='^import '"
+
 	env = "!f() { echo EDITOR=$EDITOR; set | git pager env; } ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	# NB: git-extras has git-root, which is essentially rev-parse --show-toplevel
