@@ -506,6 +506,7 @@ typo psh push
 typo pus push
 typo puh push
 typo ush push
+typo puhs-- push--
 typo push--- push--
 typo cone clone
 typo cloen clone
