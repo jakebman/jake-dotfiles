@@ -1500,6 +1500,8 @@
 	# By default, `git stash show` should include the patch.
 	# It's paged, so that's even more cool
 	showPatch = true
+[grep]
+	extendedRegexp = true # enable --extended-regexp, unless grep.patternType chooses a different default
 [diff]
 	context = 5
 	tool = vimdiff
