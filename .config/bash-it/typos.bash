@@ -299,6 +299,8 @@ typo pyhtron python
 typo pytrhon python
 typo pyhton python
 
+typo qy yq
+
 # because that's what I was trying to type at the time, and I figure if I most-common'd
 # 'type asdf' into 'typ easdf', it wouldn't work anyway
 typo typ typo
