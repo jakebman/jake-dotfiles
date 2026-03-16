@@ -771,7 +771,14 @@
 
 	diff-no-imports = diff "--ignore-matching-lines='^import '"
 
-	env = "!f() { echo EDITOR=$EDITOR; set | git pager env; } ; f"
+	# This could just be `env = !env` if I didn't want the pager
+	env = "!f() { \n\
+		if [ $# -eq 0 ]; then \n\
+			env \"$@\" | git pager env; \n\
+		else \n\
+			env \"$@\"; \n\
+		fi \n\
+		} ; f"
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	# NB: git-extras has git-root, which is essentially rev-parse --show-toplevel
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
