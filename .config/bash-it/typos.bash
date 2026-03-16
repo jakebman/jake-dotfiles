@@ -568,6 +568,7 @@ typo jaek jake
 typo vack jack
 typo j! jack
 typo jakeTree jaketree
+typo jaketre jaketree
 typo jaketee jaketree # forgot the r
 typo jaktree jaketree # forgot the e
 
