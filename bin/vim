@@ -1,0 +1,12 @@
+#! /bin/sh
+
+# Inspired by https://github.com/tpope/vim-obsession/issues/11
+
+VIM=/usr/bin/vim
+
+file="${XDG_STATE_HOME:-${HOME?}/.local/state}/vim/jake-autosaved-session";
+if [ "$#" -eq 0 ]; then
+	"$VIM" -S "$file" "$@"
+else
+	"$VIM" "$@"
+fi
