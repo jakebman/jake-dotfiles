@@ -772,6 +772,7 @@
 	diff-no-imports = diff "--ignore-matching-lines='^import '"
 
 	# This could just be `env = !env` if I didn't want the pager
+	# Provides easy access to ad-hoc run a command with GIT_DIR, etc.
 	env = "!f() { \n\
 		if [ $# -eq 0 ]; then \n\
 			env \"$@\" | git pager env; \n\
@@ -779,6 +780,8 @@
 			env \"$@\"; \n\
 		fi \n\
 		} ; f"
+	# This could be `vim = env vim`, but is cleaner
+	vim = !vim
 	# named from https://stackoverflow.com/questions/16163829/git-get-effective-git-dir-if-current-dir-is-a-working-tree-subdir-and-git-dir
 	# NB: git-extras has git-root, which is essentially rev-parse --show-toplevel
 	gitdir = "!f() { git rev-parse --absolute-git-dir ; } ; f"
