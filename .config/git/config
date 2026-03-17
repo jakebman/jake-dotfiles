@@ -252,7 +252,12 @@
 	# TODO: this doesn't undo `fetch = +refs/heads/master:refs/remotes/origin/master`
 	# TODO: with multiple remotes, you need to `fetch --unshallow origin`. --all doesn't seem to help
 	# TODO: this command should probably reduce/ignore 'fatal: --unshallow on a complete repository does not make sense'
-	unshallow = fetch --unshallow
+	unshallow = "!f() { \n\
+		local gitdir=$(git gitdir); \n\
+		du -hs \"$gitdir\"; \n\
+		git fetch --unshallow \"$@\"; \n\
+		du -hs \"$gitdir\"; \n\
+		} ; f"
 	is-shallow = "!f() { \n\
 		[ 'true' = \"$(git rev-parse --is-shallow-repository)\" ] \n\
 		} ; f"
