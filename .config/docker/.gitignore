@@ -6,5 +6,8 @@ desktop/log/
 contexts
 features.json
 
+# config file is really per-device
+config.json
+
 # These files aren't useful to track in git - they're per-machine configs
 .token_seed*
