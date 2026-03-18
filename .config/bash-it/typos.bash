@@ -210,6 +210,7 @@ typo treen ltree
 typo trene treen
 
 typo deita delta
+typo dleta delta
 
 typo di diff
 typo idf diff
