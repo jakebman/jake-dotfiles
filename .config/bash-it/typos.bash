@@ -173,6 +173,8 @@ typo shfmty shfmt # speculative
 
 typo crontabl crontab
 
+typo mogosh mongosh
+
 typo cata cat
 typo vat cat
 typo at cat
@@ -406,6 +408,7 @@ typo cmmit commit
 typo cimmit commit
 typo vimmit commit
 typo ocmmit commit
+typo comimt commit
 typo commmit commit
 typo commi9t commit
 typo commitm commit
