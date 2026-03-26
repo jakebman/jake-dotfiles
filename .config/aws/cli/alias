@@ -265,7 +265,7 @@ forward-once =
     local localPort="${3:-${hostPort}}"
     local instance_id="${4:-${JAKE_AWS_JUMPBOX:-$(aws configure get jake_jumpbox || echo i-0351334206111560d)}}"
     echo "This functionality is now also available via:"
-    echo "ssh -L \"${localPort}:\${JAKE_AWS_FORWARD_TARGET:-${host}}:${hostPort}\" ${instance_id}"
+    echo "ssh -N -L \"${localPort}:\${JAKE_AWS_FORWARD_TARGET:-${host}}:${hostPort}\" ${instance_id}"
     aws ssm start-session --target "${instance_id:?}" \
       --document-name AWS-StartPortForwardingSessionToRemoteHost \
       --parameters "host=${host},"\
