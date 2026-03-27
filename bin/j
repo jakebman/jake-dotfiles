@@ -81,6 +81,7 @@ function j-fzf-common {
 			--reverse \
 			--wrap \
 			--multi \
+			--print-query \
 			--history "${JAKE_J_HISTORY_FILE:-${XDG_STATE_HOME:-${HOME}/.local/state}/jake-j/history}" \
 			--header "Ctrl+Space to preview" \
 			--bind "ctrl-space:execute(vim -q <(echo {}) </dev/tty >/dev/tty)" \
@@ -93,10 +94,12 @@ function j-fzf-common {
 			--preview-window=+{2}+3/3,~3 \
 			--delimiter=':' \
 			"$@" \
+		| tee "${QUICKFIX_FILE}.raw" \
+		| {
+			head -n1 > "${QUICKFIX_FILE}.query"
+			cat
+		} \
 			> "$QUICKFIX_FILE"
-	# TODO: I'd like to get the final query out and print it sometimes.
-	# That probably means using --print-query and an intermediate pipe step to grab the first line out
-	# to a separate file
 	# INFO: I'm treating this redirection identically to a final tee to the output, because I'd otherwise be fragile to
 	# adding a final pipeline step here
 }
@@ -128,7 +131,7 @@ export -f j-preview
 # The fzf output will be piped into $QUICKFIX_FILE instead of using `become()` so that we can
 # introspect the fzf output if the editor has any errors
 if QUICKFIX_FILE=$(mktemp --tmpdir jake-j-jumping-tool.quickfix.XXXXXX); then
-	trap 'rm "$QUICKFIX_FILE"' EXIT
+	trap 'rm "$QUICKFIX_FILE"{,.raw,.query}' EXIT
 else
 	echo >&2 "Could not create temporary file :("
 	exit 100
@@ -292,5 +295,6 @@ elif [ "$RET" -eq 130 ]; then
 else
 	echo "Failed to search with $(basename $0) for $@"
 fi
+echo "query: $(cat "$QUICKFIX_FILE".query)"
 
 exit $RET
