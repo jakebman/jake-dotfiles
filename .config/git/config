@@ -249,6 +249,10 @@
 			git remote \"$@\" ; \n\
 		fi \n\
 		} ; f"
+	ignore-remote = "!f() { \n\
+		git config \"remote.${1!Need a remote name}.skipFetchAll\" true \n\
+		} ; f"
+
 	submodules = submodule # arguably a typo, but I thought this was a proper command name
 
 	shallow = clone --depth 1
