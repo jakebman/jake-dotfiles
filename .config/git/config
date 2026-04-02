@@ -223,6 +223,12 @@
 		# a la ${MAYBE_EMPTY-some fallback value} \n\
 		git merge --no-ff \"${1--}\" \n\
 		} ; f"
+	# exactly like merge-, but rebase
+	rebase- = "!f() { : git rebase \n\
+		# ${1--} has two dashes. The second is a literal dash. The first is the bash variable fallback indicator \n\
+		# a la ${MAYBE_EMPTY-some fallback value} \n\
+		git rebase \"${1--}\" \n\
+		} ; f"
 	no-columns = !git -c column.ui=never -c column.branch=never -c column.clean=never -c column.status=never -c column.tag=never # disable columning in a further git command
 	no-mailmap = !git -c mailmap.file=/dev/null -c mailmap.blob=0000000:/dev/null
 	no-pager = !git --no-pager
