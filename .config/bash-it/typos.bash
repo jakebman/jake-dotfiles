@@ -612,6 +612,7 @@ typo nns-conifg nns-config
 typo nns-confg nns-config
 
 typo edit-confg edit-config
+typo edit-conifg edit-config
 
 typo sha256 sha256sum
 typo sha sha256sum
