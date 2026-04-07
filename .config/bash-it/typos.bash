@@ -157,6 +157,9 @@ typo path path_to_lines
 # mt is actually a real command, but I don't plan on doing stuff with magnetic tape
 typo mt mr
 
+# Draft command, but still worth tracking typos
+typo _mr- _mr-able
+
 typo map man # I'm kinda surprised there was no existing map command that this overrides
 typo amn man
 typo mabn man
