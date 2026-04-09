@@ -116,6 +116,8 @@ typo :q "echo You are not in vim"
 typo :wq :q
 typo wq :q
 
+typo kiro kiro-cli
+
 typo ecoh echo
 typo ehco echo
 typo eho echo
@@ -340,12 +342,14 @@ typo wpd pwd
 
 typo brow browse
 typo borse browse
+typo borws browse
 typo rowse browse
 typo brows browse
 typo brose browse
 typo brwose browse
 typo borwse browse
 typo broswe browse
+typo breowse browse
 typo browsed browse # I was thinking browse when I made this typo
 
 typo cowthing cowthink
