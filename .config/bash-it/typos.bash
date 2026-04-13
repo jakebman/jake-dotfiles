@@ -539,6 +539,7 @@ typo jogp logp
 typo logd logp # apparently log[D]iff makes sense if I forget it's actually [P]atch
 typo lgop logp
 typo lopg logp
+typo lgos logs # first logs typo, after 5 logps and 6 logs. Easier to type?
 typo ls-fiels ls-files
 # Nope. Tied. splits the ticket.
 # typo ls-files 'git ls-files' # an implicit-git typo, but hopefully, it gets the autocomplete first before ls-fiels
