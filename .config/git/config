@@ -93,6 +93,7 @@
 	aliases = alias # git-alias is in git-extras. Sometimes I expect the plural to work
 	alais = alias
 	alises = aliases
+	autohors = authors
 	pb = bp # alias defined below to do big-picture stuff implicitly
 	config-todo = config-todos
 	comit = commit
