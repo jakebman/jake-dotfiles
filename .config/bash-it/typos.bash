@@ -474,6 +474,7 @@ typo staus status
 typo stast status
 typo cstat stat # allow a level of indrection here - this *might* actually want to be `stat`
 typo stst stat  # ditto.
+typo dstat status # not this one - I changed my mind from `d`/implicit diff
 # NB: `stat` is an existing command. I needed a function to turn zero-arg `stat` into status, not just a simple alias
 # That's why all-but-one typos go to `status`, because they all intended to be a status command, never a `stat`
 typo sta status
