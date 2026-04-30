@@ -48,7 +48,18 @@ function kubectl-autostart {
 		)
 	if [[ "${#env_args[@]}" -gt 0 || -v KUBECONFIG ]] && [ -t 0 ] && [ -t 2 ]; then
 		if [ -v KUBECONFIG ]; then
-			echo "# KUBECONFIG is: $(sed -E 's/(^|:)/\n# * /g' <<< "$KUBECONFIG")"
+			if [[ -v KUBECONFIG_DEBUG ]]; then
+				local file files
+				IFS=':' read -ra files <<< "$KUBECONFIG"
+				for file in "${files[@]}"; do
+					echo '---'
+					echo "# $file"
+					cat "$file"
+				done |
+					sed 's/^/#/g'
+			else
+				echo "# KUBECONFIG is: $(sed -E 's/(^|:)/\n# * /g' <<< "$KUBECONFIG")"
+			fi
 		else
 			echo "# KUBECONFIG is empty"
 		fi
