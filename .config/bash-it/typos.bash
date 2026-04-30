@@ -513,6 +513,7 @@ typo pusl push
 typo ppush push
 typo pushb push
 typo pusbh push
+typo pushh push
 typo pusjh push
 typo pushj push
 typo push4 push
