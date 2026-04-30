@@ -164,7 +164,9 @@
 			git big-picture \"$@\"; \n\
 		fi \n\
 		} ; f"
-	chmod = update-index --chmod=+x
+	chmod = chmod-plus-x
+	chmod-plus-x = update-index --chmod=+x
+	chmod-minus-x = update-index --chmod=-x
 	co = co-like-cd
 	co- = co -
 	# no-args co
