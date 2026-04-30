@@ -47,6 +47,7 @@ function kubectl-autostart {
 		"$@"
 		)
 	if [[ "${#env_args[@]}" -gt 0 || -v KUBECONFIG ]] && [ -t 0 ] && [ -t 2 ]; then
+		# TODO: output to >&3 or something if 2 isn't a terminal instead of silencing this
 		if [ -v KUBECONFIG ]; then
 			echo "KUBECONFIG is:"
 			local file files
