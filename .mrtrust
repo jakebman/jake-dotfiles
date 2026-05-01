@@ -1,13 +1,13 @@
+# NB: work-junk-drawer is unlikely to ever be used
+~/ms/.mrconfig
+~/projects/.mrconfig
+~/specflow-projects/.mrconfig
 ~/wsl-projects/.mrconfig
 ~/wsl-projects/home-junk-drawer/.mrconfig
-# probably never used, but nice to have for parallel:
-~/wsl-projects/work-junk-drawer/.mrconfig
 ~/wsl-projects/junk-drawer/.mrconfig
 ~/wsl-projects/junk-drawer/starred-as-mr/.mrconfig
+~/wsl-projects/junk-drawer/starred-as-mr/repos/.mrconfig
 ~/wsl-projects/junk-drawer/starred-as-mr/starred/.mrconfig
 ~/wsl-projects/junk-drawer/starred-as-mr/subscriptions/.mrconfig
-~/wsl-projects/junk-drawer/starred-as-mr/repos/.mrconfig
 ~/wsl-projects/remarkable/.mrconfig
-~/ms/.mrconfig
-~/specflow-projects/.mrconfig
-~/projects/.mrconfig
+~/wsl-projects/work-junk-drawer/.mrconfig
