@@ -302,7 +302,7 @@
 
 	# parallel structure. `gitk` is essentially rainbow
 	gitk = "!f() { \n\
-		local temp=$(mktemp editing-base64-as-file-XXXXXXXXXX --tmpdir); \n\
+		local temp=$(mktemp gitk-nohup-XXXXXXXXXX --tmpdir); \n\
 		>&2 echo \"running gitk to $temp\"; \n\
 		nohup gitk --exclude='*argo_manifests' >\"$temp\" 2>&1 & \n\
 		} ; f"
