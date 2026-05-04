@@ -555,7 +555,7 @@
 	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME. Hence, why I'm calling it psychotic.
 	authors = "!f() { \n\
 		git shortlog -s -e \"$@\" | \n\
-			awk '{$1=\"\";print}' | \n\
+			cut --fields=2- | \n\
 			sort -f | \n\
 			git pager authors; \n\
 		} ; f"
