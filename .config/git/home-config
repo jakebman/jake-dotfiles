@@ -1,4 +1,2 @@
 [user]
   email = jakebman@gmail.com
-[mailmap]
-  file = ~/.config/git/mailmap
