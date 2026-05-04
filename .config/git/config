@@ -554,9 +554,9 @@
 	# NB: the git-authors command from git-extras is psychotic - it appends to any existing file with a certain name regex
 	# WHICH HAPPENS TO MATCH ITS OWN SCRIPT NAME. Hence, why I'm calling it psychotic.
 	authors = "!f() { \n\
-		git shortlog -s -e \"$@\" | \n\
+		git shortlog --summary --email \"$@\" | \n\
 			cut --fields=2- | \n\
-			sort -f | \n\
+			sort --ignore-case | \n\
 			git pager authors; \n\
 		} ; f"
 	authors-raw = no-mailmap authors
