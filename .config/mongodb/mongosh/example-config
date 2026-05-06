@@ -1,0 +1,4 @@
+{
+  "__comment__": "set this to keep logs out of ~/.config",
+  "logLocation": "/home/jakebman/.local/state/mongosh"
+}
