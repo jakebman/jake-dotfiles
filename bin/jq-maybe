@@ -1,6 +1,17 @@
 #! /usr/bin/bash
 
 
+# We have a first argument, which is not a file or a flag. Assume jq filter
+if [[
+		"$#" -ge 1 &&
+		! -f "$1" &&
+		"x$1" != x-* # paranoid x-prefix in case $1 is flag-y
+	]] ; then
+	JQ_FILTER=$1
+	shift
+	echo "set filter to $JQ_FILTER"
+fi
+
 # A live filter on text, json-ifying it if possible
 
 # --raw-input and --raw-output let us act on non-json-y input lines
