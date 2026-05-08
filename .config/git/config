@@ -789,7 +789,7 @@
 			\"$@\"; \n\
 		} ; f"
 	# access to side-by-side feature
-	side-by-side = ! DELTA_FEATURES=\"+side-by-side +short-tabs${DELTA_FEATURES+ ${DELTA_FEATURES}}\" git delta
+	side-by-side = ! DELTA_FEATURES=\"+side-by-side${DELTA_FEATURES+ ${DELTA_FEATURES}}\" git delta
 	sxs = side-by-side
 
 	diff-no-imports = diff "--ignore-matching-lines='^import '"
@@ -1555,9 +1555,10 @@
 	# Jake Note: ^ this rule does not apply to tabs value, where first one seems to win
 [delta "default-feature"]
 	tabs = 4
-[delta "short-tabs"]
+[delta "short-tabs"] # unused, currently, but nice to keep
 	tabs = 2
 [delta "side-by-side"]
+	tabs = 2 # side-by-side needs a fixed tab size, and this one's nice and small
 	side-by-side = true
 [delta "natural-tabs"]
 	# Delta will use natural tabs instead of translating to spaces
