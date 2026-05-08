@@ -781,12 +781,16 @@
 		# Move to the user's working directory \n\
 		cd \"$GIT_PREFIX\" || return 1; \n\
 		unset GIT_PREFIX; \n\
+		export DELTA_FEATURES=\"${DELTA_FEATURES+${DELTA_FEATURES} }+natural-tabs +git-pager\"; \n\
 		git \\\n\
-		-c core.pager='delta --features=git-pager' \\\n\
-			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta --features=git-pager' \\\n\
-			-c interactive.diffFilter='delta --features=diff-filter' \\\n\
+			-c core.pager='delta' \\\n\
+			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta' \\\n\
+			-c interactive.diffFilter='delta --features=\"diff-filter natural-tabs\"' \\\n\
 			\"$@\"; \n\
 		} ; f"
+	# access to side-by-side feature
+	side-by-side = ! DELTA_FEATURES=\"+side-by-side +short-tabs${DELTA_FEATURES+ ${DELTA_FEATURES}}\" git delta
+	sxs = side-by-side
 
 	diff-no-imports = diff "--ignore-matching-lines='^import '"
 
@@ -1544,15 +1548,20 @@
 	# https://github.com/dandavison/delta/blob/main/manual/src/merge-conflicts.md
 	conflictStyle = zdiff3
 [delta]
-	# Leverage delta features to get cool behaviors. Our default-feature sets tabs to 4. That means
-	# that I'll get that whenever I invoke the delta executable directly.
-	# But that gets overwritten when we're using 'delta.exe' in our 'git-delta' alias because those commands
-	# specifically specify those --features.
-	# When that happens, the git-delta pagers end up using natural tabs instead of configured-width tabs
 	features = default-feature
-	tabs = 0 # print tabs naturally - respect `tabs` setting in the terminal
+	# Leave the rest of this section empty, because per docs:
+	# If an option is present in the [delta] section, then features are not considered at all.
+	# If more than one feature sets the same option, the last one wins.
+	# Jake Note: ^ this rule does not apply to tabs value, where first one seems to win
 [delta "default-feature"]
 	tabs = 4
+[delta "short-tabs"]
+	tabs = 2
+[delta "side-by-side"]
+	side-by-side = true
+[delta "natural-tabs"]
+	# Delta will use natural tabs instead of translating to spaces
+	tabs = 0 # print tabs naturally - respect `tabs` setting in the terminal
 [delta "diff-filter"]
 	color-only = true
 [delta "git-pager"]
