@@ -782,7 +782,7 @@
 		cd \"$GIT_PREFIX\" || return 1; \n\
 		unset GIT_PREFIX; \n\
 		git \\\n\
-		-c core.pager='delta --features=git-pager' \\\n\
+			-c core.pager='delta --features=git-pager' \\\n\
 			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta --features=git-pager' \\\n\
 			-c interactive.diffFilter='delta --features=diff-filter' \\\n\
 			\"$@\"; \n\
