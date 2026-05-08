@@ -1555,6 +1555,13 @@
 	# Jake Note: ^ this rule does not apply to tabs value, where first one seems to win
 [delta "default-feature"]
 	tabs = 4
+[delta "short-tabs"]
+	tabs = 2
+[delta "side-by-side"]
+	side-by-side = true
+[delta "natural-tabs"]
+	# Delta will use natural tabs instead of translating to spaces
+	tabs = 0 # print tabs naturally - respect `tabs` setting in the terminal
 [delta "diff-filter"]
 	color-only = true
 [delta "git-pager"]
