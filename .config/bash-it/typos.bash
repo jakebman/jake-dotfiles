@@ -491,6 +491,7 @@ typo stas stash      # Ah. So that's what I meant the first time I made this typ
 typo tsga tags       # Wow.
 typo unstasn unstash # Amusingly, a typo of a command I didn't even have before I made the typo. Now I do
 typo ftch fetch
+typo ffg ff # not a git command, but... sorta related to pull here
 typo pu pull
 typo up pull  # Technically not a typo, but it's a typo of a typo, so I'm keeping it here
 typo uop pull # Actually a typo of up, which I'm using more as an alias of up, apparently
