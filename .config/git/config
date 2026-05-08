@@ -1548,13 +1548,11 @@
 	# https://github.com/dandavison/delta/blob/main/manual/src/merge-conflicts.md
 	conflictStyle = zdiff3
 [delta]
-	# Leverage delta features to get cool behaviors. Our default-feature sets tabs to 4. That means
-	# that I'll get that whenever I invoke the delta executable directly.
-	# But that gets overwritten when we're using 'delta.exe' in our 'git-delta' alias because those commands
-	# specifically specify those --features.
-	# When that happens, the git-delta pagers end up using natural tabs instead of configured-width tabs
 	features = default-feature
-	tabs = 0 # print tabs naturally - respect `tabs` setting in the terminal
+	# Leave the rest of this section empty, because per docs:
+	# If an option is present in the [delta] section, then features are not considered at all.
+	# If more than one feature sets the same option, the last one wins.
+	# Jake Note: ^ this rule does not apply to tabs value, where first one seems to win
 [delta "default-feature"]
 	tabs = 4
 [delta "diff-filter"]
