@@ -781,14 +781,15 @@
 		# Move to the user's working directory \n\
 		cd \"$GIT_PREFIX\" || return 1; \n\
 		unset GIT_PREFIX; \n\
+		export DELTA_FEATURES=\"${DELTA_FEATURES+${DELTA_FEATURES} }+natural-tabs +git-pager\"; \n\
 		git \\\n\
-			-c core.pager='delta --features=git-pager' \\\n\
-			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta --features=git-pager' \\\n\
-			-c interactive.diffFilter='delta --features=diff-filter' \\\n\
+			-c core.pager='delta' \\\n\
+			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta' \\\n\
+			-c interactive.diffFilter='delta --features=\"diff-filter natural-tabs\"' \\\n\
 			\"$@\"; \n\
 		} ; f"
 	# access to side-by-side feature
-	side-by-side = ! DELTA_FEATURES=\"+side-by-side $DELTA_FEATURES\" git delta
+	side-by-side = ! DELTA_FEATURES=\"+side-by-side +short-tabs${DELTA_FEATURES+ ${DELTA_FEATURES}}\" git delta
 	sxs = side-by-side
 
 	diff-no-imports = diff "--ignore-matching-lines='^import '"
