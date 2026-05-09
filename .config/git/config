@@ -240,6 +240,7 @@
 	colored = !git -c color.ui=always
 	verbose = !git -c format.pretty=fuller
 
+	prune = fetch --prune
 	# promoted from my bash-implicit-git function `remote`.
 	# This name was originally a typo in bash-land, but makes a good first-class citizen in git-alias-land
 	# because it lets us to have a simple declaration (remote=remotes) that can be leveraged
