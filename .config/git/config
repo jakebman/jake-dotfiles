@@ -767,27 +767,37 @@
 	# NB: git branch --show-current is less good - succeeds with empty string in detached head state
 	current-branch = "!f() { git symbolic-ref --short HEAD ; } ; f"
 	# Read this as "run git in a delta-like mode for this current interaction"
-	# And don't confuse it with my bash alias for delta, which uses *this* to invoke git-implicitdiff
+	# There's also an attempt to engage with implicitdiff behavior
 	# NB: the [delta] sections below configures the particular --features I'm using here
 	# Additionally, we need to include modified settings for each custom pager in [pager]
 	# TODO: that might be able to be done programatically?
-	# TODO: this would *love* to also invoke implicitdiff if $# is zero
-	#       (But while you're thinking on that, maybe restructure the implicitdiff behaviors, to make them very consistent)
 	# hint: list all keys that probably need to be overwritten:
 	#       git config get --all --show-names --regexp -z '^pager\.' | sed -z 's/\n.*//g' | tr '\0' '\n'
 	# perhaps, we do something where non-'true' values get modified into 'DELTA_PAGER="$old_value" delta --features=git-pager'
 	# (we can trust that 'true' is identical to 'use the value from core.pager', right?)
-	delta = "!f() { \n\
-		# Move to the user's working directory \n\
+	# NB: a digression from !f() - I want bash arrays for my args
+	delta = "!bash -c 'function f() { \n\
+		# Move back to the working directory from the repo root \n\
 		cd \"$GIT_PREFIX\" || return 1; \n\
 		unset GIT_PREFIX; \n\
+		local -a args=( \"$@\" ); \n\
+		if [ 0 -eq $# ]; then \n\
+			args=( implicitdiff ); \n\
+		fi \n\
 		export DELTA_FEATURES=\"${DELTA_FEATURES+${DELTA_FEATURES} }+natural-tabs +git-pager\"; \n\
+		# git config comment: When this function is embedded in a !bash -c <singleQuotedString> \n\
+		# within a git-config value, then every single single quote from the function'\\''s perspective \n\
+		# needs to be escaped via closing the !(which invokes sh)-single-quoted string, then escaping \n\
+		# a single quote, then coming back into the single-quoted string. We even need to do it in \n\
+		# this very comment! \n\
+		# The escape character needs to be seen by sh, which means that git-config needs to escape it \n\
+		# so we end up with [quote slash slash quote quote] for this single character :( \n\
 		git \\\n\
-			-c core.pager='delta' \\\n\
-			-c pager.log='LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta' \\\n\
-			-c interactive.diffFilter='delta --features=\"diff-filter natural-tabs\"' \\\n\
-			\"$@\"; \n\
-		} ; f"
+			-c core.pager=delta \\\n\
+			-c pager.log='\\''LESS=\"${LESS} --lesskey-src ${HOME}/.config/lesskey-no-gotoend-on-q\" delta'\\'' \\\n\
+			-c interactive.diffFilter='\\''delta --features=\"diff-filter natural-tabs\"'\\'' \\\n\
+			\"${args[@]}\"; \n\
+		} ; f \"$@\"' git-delta"
 	# access to side-by-side feature
 	side-by-side = ! DELTA_FEATURES=\"+side-by-side${DELTA_FEATURES+ ${DELTA_FEATURES}}\" git delta
 	sxs = side-by-side
