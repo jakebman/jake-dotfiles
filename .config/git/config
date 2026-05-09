@@ -110,7 +110,7 @@
 	debug-alias = alias-debug
 	deltaAdd = delta-add
 	deltaDiff = delta-diff
-	deltaLog = deltalog
+	deltaLog = delta-log
 	edit-config = config-edit
 	id = implicitdiff # this sounds like a convenience name, but no. I typo'd `d`, but that's a typo of implicitdiff, so here we are
 	d = implicitdiff
