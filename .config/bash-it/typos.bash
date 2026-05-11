@@ -59,6 +59,7 @@ function npm-run {
 
 # pre-emptive
 typo npmrun npm-run
+typo unmount umount # seriously, unix. Why?
 
 typo viim vim
 typo vbim vim
