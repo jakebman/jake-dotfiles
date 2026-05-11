@@ -248,6 +248,7 @@ loggedin = sso loggedin
 logged-in = loggedin # typo
 loggedin-silent = ! aws loggedin >/dev/null 2>&1
 logout = sso logout
+mount = efs mount
 
 # typo:
 forware = forward
@@ -304,6 +305,30 @@ loggedin =
       echo "you are not logged in"
       return "$code"
     fi
+  } ; f
+
+[command efs]
+describe-fs-ids =
+  !f() {
+    aws efs describe-file-systems | aws jq-paged '.FileSystems[] | {Name, FileSystemId}'
+  } ; f
+
+mount =
+  !f() {
+    if ! efsHost=${1:-$(aws configure get jake_efs_default_fs)} ; then
+      echo "no good host - Consider one of these, or set jake_efs_default_fs"
+      aws efs describe-fs-ids
+      return 1
+    fi
+
+    efsMount=${2:-/mnt/efs-user-mountable}
+    region=$(aws configure get region || echo us-east-1)
+    efsUrl="${efsHost}.efs.${region}.amazonaws.com"
+
+    ( set -x
+      aws forward-once "${efsUrl}" 2049 &
+      mount "${efsMount}"
+    ) || echo "Please consider adding '127.0.0.1:/ ${efsMount} nfs4 noauto,user,nfsvers=4.1,port=2049 0 0' to /etc/fstab"
   } ; f
 
 [command eks]
