@@ -325,10 +325,16 @@ mount =
     region=$(aws configure get region || echo us-east-1)
     efsUrl="${efsHost}.efs.${region}.amazonaws.com"
 
-    ( set -x
-      mount "${efsMount}"
-      exec aws forward "${efsUrl}" 2049
-    ) || echo "Please consider adding '127.0.0.1:/ ${efsMount} nfs4 noauto,user,nfsvers=4.1,port=2049 0 0' to /etc/fstab"
+    port=${3:-2049} # default
+
+    set -x # show the user what we're doing
+
+    # Careful - we kick off the mount command *first*, despite no listener on ${port}.
+    # However, mount will wait for a few moments to find somebody there.
+    # So we can quickly become aws-forward to be there where we said there would.
+    # Phew.
+    mount "${efsMount}" || echo "Please consider adding '127.0.0.1:/ ${efsMount} nfs4 noauto,user,nfsvers=4.1,port=${port} 0 0' to /etc/fstab" &
+    exec aws forward "${efsUrl}" "${port}"
   } ; f
 
 [command eks]
