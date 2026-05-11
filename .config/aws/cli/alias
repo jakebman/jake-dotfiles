@@ -326,8 +326,8 @@ mount =
     efsUrl="${efsHost}.efs.${region}.amazonaws.com"
 
     ( set -x
-      aws forward-once "${efsUrl}" 2049 &
       mount "${efsMount}"
+      exec aws forward "${efsUrl}" 2049
     ) || echo "Please consider adding '127.0.0.1:/ ${efsMount} nfs4 noauto,user,nfsvers=4.1,port=2049 0 0' to /etc/fstab"
   } ; f
 
