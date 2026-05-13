@@ -41,5 +41,6 @@ typo dfg cdgit
 # pj is cd-like
 typo puj pj
 typo pjh pj
+typo '[k' pj # right hand moved one to the right
 
 unset -f typo
