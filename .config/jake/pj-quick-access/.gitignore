@@ -1,10 +1,14 @@
 *
 !README.md
 !.gitignore
-# This is quite possibly the only symlink I'd ever put into git tracking here
+# This could reasonably be the sole symlink that needs to be tracked here
 # Because it's:
 # 1) Easily spelled via relative symlink (`ln -s . "$(basename "$PWD")"`)
 # 2) Doesn't require `../../..` to get back to ~
 # 3) Always useful as long as pj-quick-access is useful
 # 4) Allows `pj pj` to work (this is incredibly satisfying, but also a bit gimmicky)
 !pj-quick-access
+
+# Except, these are folders I basically always expect to exist:
+!foo
+!wsl-projects
