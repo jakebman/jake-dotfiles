@@ -144,6 +144,7 @@ typo lsa 'ls -a'
 typo lsl 'ls -l'
 typo los ls
 typo lh llh
+typo elss less
 typo les less
 typo hess less
 typo lesss less
