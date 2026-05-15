@@ -805,6 +805,11 @@
 
 	diff-no-imports = diff "--ignore-matching-lines='^import '"
 
+	# These are intended to be invoked from `mr-run`, so they print the repo's $PWD
+	# the `tr`s try to awkwardly allow files with newlines in their names
+	count-files = "!printf '%s %s\n' \"$(git ls-files -z | tr -d '\\n' | tr '\\0' '\\n'| wc --lines )\" \"$PWD\""
+	count-lines = "!printf '%s %s\n' \"$(git ls-files -z | wc --files0-from=- --total=only --lines )\" \"$PWD\""
+
 	# This could just be `env = !env` if I didn't want the pager
 	# Provides easy access to ad-hoc run a command with GIT_DIR, etc.
 	env = "!f() { \n\
