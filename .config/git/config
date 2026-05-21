@@ -74,6 +74,7 @@
 [safe "aliases"]
 	alias = remote
 	alias = pull
+	alias = prune # Git's builtin is gc-like. I prefer it to be fetch --prune
 	alias = push # TODO: A USER-PROMPTING(!) --force-with-lease on certain failures
 	alias = worktree # TODO: allow for aliases under worktree, like `git worktree new` for `git worktree add`
 	alias = init # TODO: ability to register newly-initted repos with a default (gh/glab) service, and mr register them
@@ -240,6 +241,7 @@
 	colored = !git -c color.ui=always
 	verbose = !git -c format.pretty=fuller
 
+	# NB: git already has a prune, which is for gc-land not remote-branch-land
 	prune = fetch --prune
 	# promoted from my bash-implicit-git function `remote`.
 	# This name was originally a typo in bash-land, but makes a good first-class citizen in git-alias-land
