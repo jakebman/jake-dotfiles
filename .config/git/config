@@ -71,6 +71,8 @@
 	invalid-commands = -archimport -cvsexportcommit -cvsimport -cvsserver -p4 -send-email -sh-i18n -sh-setup -svn
 
 # A variant of safe.directory; a whitelist for my git-permit-aliases-to-shadow-builtins command
+# SAEFTY: these should only be respected from *certain* config sources, just like safe.directory.
+# NB: these aliases are not required to exist (Notice that three are marked as TODO:)
 [safe "aliases"]
 	alias = remote
 	alias = pull
