@@ -9,14 +9,14 @@
         <server>
             <id>Artifactory-nns-remote</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
-            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
+            <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
+            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
         </server>
         <server>
             <id>Artifactory-Release</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
-            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
+            <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
+            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
         </server>
         <server>
             <!-- TODO: the URL configured for this seems to 403:
@@ -24,14 +24,14 @@
             -->
             <id>Artifactory-Snapshot</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
-            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
+            <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
+            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
         </server>
         <server>
             <id>Artifactory-Public</id>
             <username>jake.boeckerman@charter.com</username>
-            <!-- token id is 6971fb68-65d0-4973-9ed2-1ecbc3a74b01 -->
-            <password>{fX5wUdFvr6oHX2Bp77L77putpbgt1pTlw0n9Cv33qLXC4enNIpG4WBJgDgFqHxJdkO/O3rg3ZlxIrh2A4LiOEBz+J+B3lys0K27+gE7JOAY1LYUdFSWaBrGSy7joMWQR}</password>
+            <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
+            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
         </server>
     </servers>
     <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
