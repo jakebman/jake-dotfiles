@@ -530,6 +530,7 @@ typo puhs-- push--
 typo push--- push--
 typo cone clone
 typo cloen clone
+typo sddp addp
 typo addd add
 typo ass add
 typo ad add
