@@ -8,30 +8,30 @@
         </server>
         <server>
             <id>Artifactory-nns-remote</id>
-            <username>jake.boeckerman@charter.com</username>
+            <username>jake.boeckerman@spectrum.com</username>
             <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
-            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
+            <password>{YiXK8k44W74HyaJSPSLZ8EwBI6kMaeDoX1vUzflkBJfVjTNyLjC9o+oHB9dpb6T71pK3aEMCHnCaCb3+3dUgrE1UURKdAiKKpiam8Ib2pfOs3daqDCd5uuif+NJvp+nH}</password>
         </server>
         <server>
             <id>Artifactory-Release</id>
-            <username>jake.boeckerman@charter.com</username>
+            <username>jake.boeckerman@spectrum.com</username>
             <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
-            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
+            <password>{YiXK8k44W74HyaJSPSLZ8EwBI6kMaeDoX1vUzflkBJfVjTNyLjC9o+oHB9dpb6T71pK3aEMCHnCaCb3+3dUgrE1UURKdAiKKpiam8Ib2pfOs3daqDCd5uuif+NJvp+nH}</password>
         </server>
         <server>
             <!-- TODO: the URL configured for this seems to 403:
                   com.twc.mystro.mas.share:ump_stbmgr/maven-metadata.xml failed to transfer from https://artifactory.spectrumtoolbox.com/artifactory/libs-snapshot/ during a previous attempt. This failure was cached in the local repository and resolution will not be reattempted until the update interval of Artifactory-Snapshot has elapsed or updates are forced. Original error: Could not transfer metadata com.twc.mystro.mas.share:ump_stbmgr/maven-metadata.xml from/to Artifactory-Snapshot (https://artifactory.spectrumtoolbox.com/artifactory/libs-snapshot/): status code: 403, reason phrase:  (403)
             -->
             <id>Artifactory-Snapshot</id>
-            <username>jake.boeckerman@charter.com</username>
+            <username>jake.boeckerman@spectrum.com</username>
             <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
-            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
+            <password>{YiXK8k44W74HyaJSPSLZ8EwBI6kMaeDoX1vUzflkBJfVjTNyLjC9o+oHB9dpb6T71pK3aEMCHnCaCb3+3dUgrE1UURKdAiKKpiam8Ib2pfOs3daqDCd5uuif+NJvp+nH}</password>
         </server>
         <server>
             <id>Artifactory-Public</id>
-            <username>jake.boeckerman@charter.com</username>
+            <username>jake.boeckerman@spectrum.com</username>
             <!-- token id is be925cc3-82db-4e3c-8f61-2a4aec4298dd, expires May 25-ish, 2027 -->
-            <password>{eTByG7FuQk0HwMVil9NVIeZ3WMnXr8juMaFJcCtj3wRW4eIfi6lFLdwe+MjpG0e0GQ2yiGahQ00H7APlOHP978uL8ClytGKedDL1p5lXMGz5s6ChuOu2NMOETbug0noqq6}</password>
+            <password>{YiXK8k44W74HyaJSPSLZ8EwBI6kMaeDoX1vUzflkBJfVjTNyLjC9o+oHB9dpb6T71pK3aEMCHnCaCb3+3dUgrE1UURKdAiKKpiam8Ib2pfOs3daqDCd5uuif+NJvp+nH}</password>
         </server>
     </servers>
     <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
