@@ -352,6 +352,7 @@ typo brwose browse
 typo borwse browse
 typo broswe browse
 typo brosse browse
+typo browwse browse
 typo breowse browse
 typo browsed browse # I was thinking browse when I made this typo
 
