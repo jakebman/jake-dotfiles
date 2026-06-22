@@ -114,6 +114,10 @@
 ## Google Protobuf
 --type-add=proto:ext:proto
 
+## Executables, especially Windows-y ones
+### Not really useful for ack, but ack-find (`ack -f`)
+--type-add=exe:ext:exe
+
 ## RPM .spec files
 --type-add=spec:ext:spec
 
