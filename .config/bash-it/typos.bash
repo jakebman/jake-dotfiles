@@ -222,6 +222,7 @@ typo deita delta
 typo dleta delta
 
 typo di diff
+typo ds diff
 typo idf diff
 typo dif diff
 typo iff diff
