@@ -44,6 +44,12 @@
             <url>http://nexus.ctec.charterlab.com/content/groups/public</url>
         </mirror>
         <mirror>
+            <id>Artifactory-Public</id>
+            <mirrorOf>central</mirrorOf>
+            <name>Route Maven Central (incl. plugin central) through JFrog maven-central proxy</name>
+            <url>https://artifactory.spectrumtoolbox.com/artifactory/maven-central/maven2</url>
+        </mirror>
+        <mirror>
             <id>nexus-public-mirror</id>
             <mirrorOf>nexus-public,nexus-nns-public,jitpack.io</mirrorOf>
             <name>Pseudo repository to mirror internal nns repositories initially using HTTP.</name>
