@@ -575,6 +575,7 @@ typo ws jws
 typo y true
 
 typo wiget winget
+typo wimget winget
 typo wignet winget
 typo wingetg winget
 
