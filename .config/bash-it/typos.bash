@@ -579,6 +579,8 @@ typo wimget winget
 typo wignet winget
 typo wingetg winget
 
+typo gmai gmail
+
 # shortened (typo-like) form of these "please definitely use git, and not bash, man, or mr" commands
 typo ghelp githelp
 typo gman gitman
