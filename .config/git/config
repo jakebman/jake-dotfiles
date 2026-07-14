@@ -18,7 +18,7 @@
         -mr-up -helps \
         -ignroed \
         -stat \
-        -lop \
+        -lop -lopg \
     \
         -"convenient-names" \
         -d -r \
@@ -136,6 +136,7 @@
 	jmg = j --merge
 	jws = j --ws
 	lop = logp
+	lopg = logp
 	ls- = ls-files # common prefix for ls-{files,untracked,ignored} should be the first one
 	mr-up = mr-pull
 	oroboros = ouroboros
