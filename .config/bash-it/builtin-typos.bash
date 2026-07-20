@@ -39,6 +39,7 @@ typo dgc cdgit # I... really just mashed keys there
 typo dfg cdgit
 
 # pj is cd-like
+typo PJ pj
 typo puj pj
 typo pjh pj
 typo '[k' pj # right hand moved one to the right
