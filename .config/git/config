@@ -808,7 +808,8 @@
 	side-by-side = ! DELTA_FEATURES=\"+side-by-side${DELTA_FEATURES+ ${DELTA_FEATURES}}\" git delta
 	sxs = side-by-side
 
-	diff-no-imports = diff "--ignore-matching-lines='^import '"
+	# If a file changed only in package, import and empty lines, ignore it
+	diff-no-imports = diff --ignore-matching-lines='^(package|import)\\b|^$'
 
 	# These are intended to be invoked from `mr-run`, so they print the repo's $PWD
 	# the `tr`s try to awkwardly allow files with newlines in their names
