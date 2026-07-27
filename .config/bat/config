@@ -39,6 +39,9 @@
 --map-syntax "**/*kubectl/*config*:YAML"
 --map-syntax "**/*kubectl/*backup*:YAML" # I also smear backups around there
 
+--map-syntax "**/.aws/config:INI" # It is gitconfig-like, but not really
+--map-syntax "**/.config/aws/config:INI" # I symlink ~/.aws to here
+
 # I include ~/.ssh/work-config from ~/.ssh/config. It's an ssh config by any other name
 # Ditto git config and mailmap
 --map-syntax "**/.ssh/*config:SSH Config"
