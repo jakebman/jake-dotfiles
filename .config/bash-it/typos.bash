@@ -284,6 +284,8 @@ typo tiem time
 typo mcn mvn
 typo vmn mvn
 
+typo mvnw ./mvnw
+
 typo mf mv
 
 typo lobs jobs
