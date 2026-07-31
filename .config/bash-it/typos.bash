@@ -103,6 +103,7 @@ typo ghit git
 typo gith git
 typo ghti git
 typo gitt git
+typo gity git
 typo gitr git
 typo qgit git
 typo jgti git # it's like... sometimes I just mash the keyboard while thinking really hard about the command
