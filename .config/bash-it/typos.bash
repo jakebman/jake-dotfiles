@@ -382,6 +382,8 @@ typo eks eksctl
 
 typo mktmp mktemp
 
+typo freee free
+
 typo s3 'aws s3'
 typo forward 'aws forward' # actually has a convenience name, not a typo name, but w/e
 typo forwar forward # aws forward
