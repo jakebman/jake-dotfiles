@@ -246,6 +246,16 @@
 
 	# NB: git already has a prune, which is for gc-land not remote-branch-land
 	prune = fetch --prune
+	trim-branches = "!f() { \n\
+		git prune # above \n\
+		git delete-all-branches \n\
+		} ; f"
+	delete-all-branches = "!f() { \n\
+		current_branch=$(git symbolic-ref --short HEAD 2>/dev/null || true) \n\
+		git for-each-ref --format='%(refname:short)' refs/heads/ | \n\
+			grep -v -x -F \"$current_branch\" | \n\
+			xargs -d '\n' git branch -d -- \n\
+		} ; f"
 	# promoted from my bash-implicit-git function `remote`.
 	# This name was originally a typo in bash-land, but makes a good first-class citizen in git-alias-land
 	# because it lets us to have a simple declaration (remote=remotes) that can be leveraged
