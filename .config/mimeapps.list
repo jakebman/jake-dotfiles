@@ -5,3 +5,4 @@ x-scheme-handler/http=wslview.desktop
 x-scheme-handler/https=wslview.desktop
 x-scheme-handler/about=wslview.desktop
 x-scheme-handler/unknown=wslview.desktop
+x-scheme-handler/jetbrains=jetbrainsd.desktop
