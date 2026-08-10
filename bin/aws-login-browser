@@ -1,2 +1,19 @@
 #! /bin/bash
-'/mnt/c/Program Files/Google/Chrome/Application/chrome.exe' --new-window --app="${1?need a url}"
+
+BROWSER_PROGID=$(/mnt/c/Windows/System32/reg.exe query 'HKCU\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' /v ProgId | awk '/^\s*ProgId/ {print $3}')
+
+case "$BROWSER_PROGID" in
+	*Edge*)
+		exec '/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' --profile-directory=Default --new-window --app="${1?need a url}"
+		;;
+	*Chrome*)
+		exec '/mnt/c/Program Files/Google/Chrome/Application/chrome.exe' --new-window --app="${1?need a url}"
+		;;
+	*)
+		echo "Unknown browser '$BROWSER_PROGID'; View its launch options with:"
+		echo <<- 'HEREDOC'
+			/mnt/c/Windows/System32/reg.exe query 'HKCR\YourProgIDHere\shell\open\command'
+		HEREDOC
+		echo 'Hint: `wslpath C:\Program\ Files\ (x86)\Microsoft\Edge\Application\msedge.exe`'
+		;;
+esac
