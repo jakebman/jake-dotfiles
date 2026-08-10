@@ -1,7 +1,6 @@
 #! /bin/bash
 
-
-BROWSER_PROGID=$(/mnt/c/Windows/System32/reg.exe query 'HKCU\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice'  /v ProgId | awk '/^\s*ProgId/ {print $3}')
+BROWSER_PROGID=$(/mnt/c/Windows/System32/reg.exe query 'HKCU\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' /v ProgId | awk '/^\s*ProgId/ {print $3}')
 
 case "$BROWSER_PROGID" in
 	*Edge*)
@@ -12,7 +11,7 @@ case "$BROWSER_PROGID" in
 		;;
 	*)
 		echo "Unknown browser '$BROWSER_PROGID'; View its launch options with:"
-		echo <<-'HEREDOC'
+		echo <<- 'HEREDOC'
 			/mnt/c/Windows/System32/reg.exe query 'HKCR\YourProgIDHere\shell\open\command'
 		HEREDOC
 		echo 'Hint: `wslpath C:\Program\ Files\ (x86)\Microsoft\Edge\Application\msedge.exe`'
