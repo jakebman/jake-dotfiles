@@ -1,2 +1,2 @@
 #! /bin/bash
-'/mnt/c/Program Files/Google/Chrome/Application/chrome.exe' --new-window --app="${1?need a url}"
+'/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' --profile-directory=Default --new-window --app="${1?need a url}"
