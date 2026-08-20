@@ -119,6 +119,7 @@ typo :wq :q
 typo wq :q
 
 typo kiro kiro-cli
+typo hito hiro # work tool based on kiro
 
 typo ecoh echo
 typo ehco echo
