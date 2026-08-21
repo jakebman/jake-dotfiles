@@ -15,6 +15,9 @@ maven/mvnd/registry/
 maven/wrapper/dists/
 vcsh/repo.d/
 
+# ggshield settings are not portable
+ggshield/
+
 # These specific files are of the sort listed above, but not swaths.
 # These are UI files that generally control the layout etc. of a UI.
 # They can change whenever the ui changes. Let's not track that
