@@ -21,5 +21,8 @@ cache=~/.cache/npm
 # https://stackoverflow.com/a/13021677/285944
 # https://docs.npmjs.com/cli/v10/commands/npm-config#global
 # https://docs.npmjs.com/cli/v10/configuring-npm/folders#prefix-configuration
-
 prefix=${HOME}/.local
+
+# BE VERY CAREFUL WITH THIS
+# Permit certain (TRUSTED!) install scripts to run
+# allow-scripts=@cde/hiro,bun
