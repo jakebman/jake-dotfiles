@@ -4,5 +4,8 @@
 .user.lock.*
 .userRootModFile.*
 
+# IntelliJ settings when it runs in WSL-land don't need to be sync'd
+.java/.userPrefs/jetbrains
+
 # This ends up being just a command history. Not an XDG 'config', but 'state' or 'cache'
 **/JShell/prefs.xml
