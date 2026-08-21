@@ -171,6 +171,7 @@ autocmd BufNewFile,BufRead $XDG_CONFIG_HOME/aws/cli/alias let &filetype = "gitco
 autocmd BufNewFile,BufRead *.bash let &filetype = "bash"
 autocmd BufNewFile,BufRead *dockerfile let &filetype = "dockerfile"
 autocmd BufNewFile,BufRead Docker* let &filetype = "dockerfile"
+autocmd BufNewFile,BufRead npmrc* let &filetype = "dosini"
 autocmd BufNewFile,BufRead *.Jenkinsfile,*.jenkinsfile,*Jenkinsfile* let &filetype= "Jenkinsfile"
 " TODO: java is sh-bang-able. Can I fix it here, but maybe also upstream in
 " vim-polyglot?
