@@ -1,0 +1,6 @@
+#! /bin/bash
+printf "%s args, DELTA_FEATURES=%q at " "$#" "$DELTA_FEATURES" >>~/deltacommands.txt
+date >>~/deltacommands.txt
+printf ' %q' delta "$@"  >>~/deltacommands.txt
+echo "; # done" >>~/deltacommands.txt
+exec /usr/bin/delta "$@" 2>>~/deltacommands.txt
