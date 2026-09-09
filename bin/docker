@@ -77,8 +77,8 @@ function docker-is-running {
 	# checks to see if the WSL2 integration is present in the current machine.
 	# But, even after it exists, there is still a failure to connect to the unix socket...
 	# So we check for that, too
-	 [ -f "$DOCKER" ] &&
-		 [ -S "$DOCKER_SOCKET" ]
+	[ -f "$DOCKER" ] &&
+		[ -S "$DOCKER_SOCKET" ]
 }
 
 
