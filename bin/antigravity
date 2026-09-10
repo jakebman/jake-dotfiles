@@ -1,0 +1,18 @@
+#! /usr/bin/env -S java --source 17
+
+
+import java.awt.Desktop;
+import java.net.URI;
+
+
+public class Antigravity {
+    public static void main(String[] args) {
+        try {
+            // Open the xkcd comic in the default web browser
+            Desktop desktop = Desktop.getDesktop();
+            desktop.browse(new URI("https://xkcd.com/353/"));
+        } catch (Exception e) {
+            System.out.println("An error occurred while trying to open the browser: " + e.getMessage());
+        }
+    }
+}
