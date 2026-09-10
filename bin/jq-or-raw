@@ -1,0 +1,5 @@
+#! /bin/bash
+
+# bad idea - we want $1 concatenated to this filter, but the rest of the args not.
+# This might(?) work
+jq --raw-input --raw-output --unbuffered '. as $line | fromjson? // $line |'"$@"
