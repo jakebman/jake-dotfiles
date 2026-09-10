@@ -1,0 +1,15 @@
+man/
+
+# Provided by manual installation
+delta
+fzf
+git-jump
+helm
+httpx
+ijq
+jira
+jless
+jp
+rancher
+
+chrome.exe
