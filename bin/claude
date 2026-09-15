@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+"""Open the browser to claude.ai/new, optionally with a query parameter.
+
+Usage:
+    claude ["your query here" ["and it can be" ["across multiple strings"]]]
+"""
+import sys
+import webbrowser
+from urllib.parse import urlencode, urlsplit, urlunsplit
+
+URL = urlsplit("https://claude.ai/new")
+
+def main(argv):
+    query = urlencode({"q": " ".join(argv[1:])}) # skip the executable's name
+    url = urlunsplit(URL._replace(query=query))
+    return webbrowser.open(url)
+
+if __name__ == "__main__":
+    # We must negate the return value of main to Unix
+    # "True is returned on success" must become "False indicates no error occurred"`
+    sys.exit(not main(sys.argv))
