@@ -313,6 +313,7 @@ typo base65 base64
 typo pyt python # technically, just a lazy name
 typo pyhtron python
 typo pytrhon python
+typo pytthon python
 typo pyhton python
 
 typo qy yq
