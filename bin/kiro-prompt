@@ -1,0 +1,107 @@
+#!/usr/bin/env perl
+# kiro-prompt — interpreter for Kiro prompt files.
+#
+# Concatenates one or more prompt files (stripping a leading #! shebang line
+# from each, like a real interpreter) and streams them line-by-line into a
+# single `kiro-cli chat` session. With no file arguments, reads from STDIN.
+#
+#   Shebang use:  #!/usr/bin/env kiro-prompt   (as line 1 of a prompt file)
+#   Direct use:   kiro-prompt [kiro-cli flags...] FILE [FILE...]
+#   Explicit:     kiro-prompt [kiro-cli flags...] -- FILE [FILE...]
+#   Stdin use:    printf '...' | kiro-prompt [kiro-cli flags...]
+#
+# Flags are forwarded to `kiro-cli chat`. Non-flag arguments are prompt files.
+#
+# ---------------------------------------------------------------------------
+# FLAG PARSING
+# ---------------------------------------------------------------------------
+# To forward flags like `--model X` (value in a separate token), the parser
+# must know which flags consume the following argument. kiro-cli does NOT
+# expose this in a usable machine-readable form: `kiro-cli completion fig`
+# models `chat` as a single variadic `args` blob and does not enumerate these
+# options, so it cannot be parsed for value-flag info. Hence the hardcoded set
+# below.
+#
+# HOW TO UPDATE %TAKES_VALUE when kiro-cli changes:
+#   Run:  kiro-cli chat --help | grep -E '^\s+-' | grep -E '<[A-Z_]+>'
+#   Every listed option (both long and short forms) takes a value — add it
+#   here. Options without a <PLACEHOLDER> are booleans; do NOT list them.
+#   As a safety net, you can always use `--` to separate flags from files
+#   explicitly, which bypasses this table entirely.
+# ---------------------------------------------------------------------------
+
+use strict;
+use warnings;
+
+# Value-taking `kiro-cli chat` flags (long and short forms).
+# Verified against: kiro-cli chat --help  (see "HOW TO UPDATE" above).
+my %TAKES_VALUE = map { $_ => 1 } qw(
+    --resume-id
+    --agent
+    --model
+    --effort
+    --trust-tools
+    --format        -f
+    --output-format
+    --delete-session -d
+    --wrap          -w
+    --agent-engine
+    --mode
+    --repo
+);
+
+# --- Split @ARGV into forwarded flags and prompt files. ---
+my @flags;
+my @files;
+{
+    my @argv = @ARGV;
+    @ARGV = ();
+
+    if (grep { $_ eq '--' } @argv) {
+        # Explicit separator: everything before `--` is flags, after is files.
+        while (@argv) {
+            my $a = shift @argv;
+            last if $a eq '--';
+            push @flags, $a;
+        }
+        @files = @argv;
+    } else {
+        # No separator: consume flags (and their values) until the first
+        # non-flag token, which begins the file list.
+        while (@argv) {
+            my $a = $argv[0];
+            if ($a =~ /^-/) {
+                shift @argv;
+                push @flags, $a;
+                # If this flag takes a value in a separate token, take it too.
+                if ($TAKES_VALUE{$a} && @argv && $argv[0] !~ /^--$/) {
+                    push @flags, shift @argv;
+                }
+            } else {
+                last;   # first non-flag arg: the rest are files
+            }
+        }
+        @files = @argv;
+    }
+}
+
+# Files are read via the diamond operator, which uses @ARGV.
+@ARGV = @files;
+
+# --- Open the pipe to ONE kiro-cli chat session (list form: no shell). ---
+my @cmd = ('kiro-cli', 'chat', '--no-interactive', '--trust-tools=', @flags);
+open(my $kiro, '|-', @cmd) or die "kiro-prompt: cannot run kiro-cli: $!\n";
+
+# --- Stream each discovered line straight into the pipe, dropping line 1 of
+#     each file only if it is a #! shebang. <<>> forces safe 3-arg opens. ---
+my $current = '';
+while (my $line = <<>>) {
+    if (defined $ARGV && $ARGV ne $current) {   # first line of a new file
+        $current = $ARGV;
+        next if $line =~ /^#!/;                  # strip its shebang
+    }
+    print {$kiro} $line;
+}
+
+close($kiro);
+exit($? >> 8);   # propagate kiro-cli's exit code
