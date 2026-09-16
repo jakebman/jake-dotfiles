@@ -77,20 +77,17 @@ if (grep { $_ eq '--' } @ARGV) {
 
 # --- Open the pipe to ONE kiro-cli chat session (list form: no shell). ---
 my @cmd = ('kiro-cli', 'chat', '--no-interactive', '--trust-tools=', @flags);
-open(my $kiro, '|-', @cmd) or die "kiro-prompt: cannot run kiro-cli: $!\n";
+open(KIRO, '|-', @cmd) or die "kiro-prompt: cannot run kiro-cli: $!\n";
 
 # --- Stream each line straight into the pipe, dropping line 1 of each file
 #     only if it is a #! shebang. Under <<>>, $INPUT_LINE_NUMBER (the alias
 #     of $.) resets to 1 at the start of each file, so "== 1" means "first
 #     line of the current file". <<>> forces safe 3-arg opens and assigns
-#     each line to $_ implicitly, so a bare pattern match (/.../) tests $_.
-#     NOTE: print {$kiro} $_ keeps the explicit $_ on purpose — the
-#     {FILEHANDLE} block form has no implicit-$_ default; `print {$kiro};`
-#     is a syntax error. ---
+#     each line to $_ implicitly, so a bare pattern match (/.../) tests $_. ---
 while (<<>>) {                                      # each line lands in $_
     next if $INPUT_LINE_NUMBER == 1 && /^#!/;       # strip a per-file shebang
-    print {$kiro} $_;                               # $_ required in block form
+    print KIRO;
 }
 
-close($kiro);
+close(KIRO);
 exit($? >> 8);   # propagate kiro-cli's exit code
