@@ -32,6 +32,7 @@
 
 use strict;
 use warnings;
+use English qw( -no_match_vars );   # for $INPUT_LINE_NUMBER (alias of $.)
 
 # Value-taking `kiro-cli chat` flags (long and short forms).
 # Verified against: kiro-cli chat --help  (see "HOW TO UPDATE" above).
@@ -78,21 +79,17 @@ if (grep { $_ eq '--' } @ARGV) {
 my @cmd = ('kiro-cli', 'chat', '--no-interactive', '--trust-tools=', @flags);
 open(my $kiro, '|-', @cmd) or die "kiro-prompt: cannot run kiro-cli: $!\n";
 
-# --- Stream each discovered line straight into the pipe, dropping line 1 of
-#     each file only if it is a #! shebang. <<>> forces safe 3-arg opens.
-#     The bare <<>> assigns each line to $_ implicitly, and a bare pattern
-#     match (/.../) tests against $_. $ARGV stays explicit: it names the file
-#     currently being read, which we need to detect file boundaries.
+# --- Stream each line straight into the pipe, dropping line 1 of each file
+#     only if it is a #! shebang. Under <<>>, $INPUT_LINE_NUMBER (the alias
+#     of $.) resets to 1 at the start of each file, so "== 1" means "first
+#     line of the current file". <<>> forces safe 3-arg opens and assigns
+#     each line to $_ implicitly, so a bare pattern match (/.../) tests $_.
 #     NOTE: print {$kiro} $_ keeps the explicit $_ on purpose — the
 #     {FILEHANDLE} block form has no implicit-$_ default; `print {$kiro};`
 #     is a syntax error. ---
-my $current = '';
-while (<<>>) {                                  # each line lands in $_
-    if (defined $ARGV && $ARGV ne $current) {   # first line of a new file
-        $current = $ARGV;
-        next if /^#!/;                          # strip its shebang (tests $_)
-    }
-    print {$kiro} $_;                           # $_ required in block form
+while (<<>>) {                                      # each line lands in $_
+    next if $INPUT_LINE_NUMBER == 1 && /^#!/;       # strip a per-file shebang
+    print {$kiro} $_;                               # $_ required in block form
 }
 
 close($kiro);
