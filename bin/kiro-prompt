@@ -50,43 +50,29 @@ my %TAKES_VALUE = map { $_ => 1 } qw(
     --repo
 );
 
-# --- Split @ARGV into forwarded flags and prompt files. ---
+# --- Split @ARGV in place: shift forwarded flags off the front and leave the
+#     remaining prompt-file args sitting in @ARGV, which the diamond operator
+#     (<<>>) reads directly. No temporary lists. ---
 my @flags;
-my @files;
-{
-    my @argv = @ARGV;
-    @ARGV = ();
-
-    if (grep { $_ eq '--' } @argv) {
-        # Explicit separator: everything before `--` is flags, after is files.
-        while (@argv) {
-            my $a = shift @argv;
-            last if $a eq '--';
-            push @flags, $a;
+if (grep { $_ eq '--' } @ARGV) {
+    # Explicit separator: everything before `--` is flags, after is files.
+    while (@ARGV) {
+        my $a = shift @ARGV;
+        last if $a eq '--';     # drop the `--` itself; files remain in @ARGV
+        push @flags, $a;
+    }
+} else {
+    # No separator: consume flags (and their values) until the first non-flag
+    # token, which begins the file list and is left in place in @ARGV.
+    while (@ARGV && $ARGV[0] =~ /^-/) {
+        push @flags, shift @ARGV;
+        # If this flag takes a value in a separate token, take it too.
+        if ($TAKES_VALUE{$flags[-1]} && @ARGV && $ARGV[0] !~ /^--$/) {
+            push @flags, shift @ARGV;
         }
-        @files = @argv;
-    } else {
-        # No separator: consume flags (and their values) until the first
-        # non-flag token, which begins the file list.
-        while (@argv) {
-            my $a = $argv[0];
-            if ($a =~ /^-/) {
-                shift @argv;
-                push @flags, $a;
-                # If this flag takes a value in a separate token, take it too.
-                if ($TAKES_VALUE{$a} && @argv && $argv[0] !~ /^--$/) {
-                    push @flags, shift @argv;
-                }
-            } else {
-                last;   # first non-flag arg: the rest are files
-            }
-        }
-        @files = @argv;
     }
 }
-
-# Files are read via the diamond operator, which uses @ARGV.
-@ARGV = @files;
+# Whatever remains in @ARGV is the file list, read below via <<>>.
 
 # --- Open the pipe to ONE kiro-cli chat session (list form: no shell). ---
 my @cmd = ('kiro-cli', 'chat', '--no-interactive', '--trust-tools=', @flags);
