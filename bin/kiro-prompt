@@ -93,14 +93,20 @@ my @cmd = ('kiro-cli', 'chat', '--no-interactive', '--trust-tools=', @flags);
 open(my $kiro, '|-', @cmd) or die "kiro-prompt: cannot run kiro-cli: $!\n";
 
 # --- Stream each discovered line straight into the pipe, dropping line 1 of
-#     each file only if it is a #! shebang. <<>> forces safe 3-arg opens. ---
+#     each file only if it is a #! shebang. <<>> forces safe 3-arg opens.
+#     The bare <<>> assigns each line to $_ implicitly, and a bare pattern
+#     match (/.../) tests against $_. $ARGV stays explicit: it names the file
+#     currently being read, which we need to detect file boundaries.
+#     NOTE: print {$kiro} $_ keeps the explicit $_ on purpose — the
+#     {FILEHANDLE} block form has no implicit-$_ default; `print {$kiro};`
+#     is a syntax error. ---
 my $current = '';
-while (my $line = <<>>) {
+while (<<>>) {                                  # each line lands in $_
     if (defined $ARGV && $ARGV ne $current) {   # first line of a new file
         $current = $ARGV;
-        next if $line =~ /^#!/;                  # strip its shebang
+        next if /^#!/;                          # strip its shebang (tests $_)
     }
-    print {$kiro} $line;
+    print {$kiro} $_;                           # $_ required in block form
 }
 
 close($kiro);
