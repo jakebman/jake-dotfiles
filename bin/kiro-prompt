@@ -1,0 +1,93 @@
+#!/usr/bin/env perl
+# kiro-prompt — interpreter for Kiro prompt files.
+#
+# Concatenates one or more prompt files (stripping a leading #! shebang line
+# from each, like a real interpreter) and streams them line-by-line into a
+# single `kiro-cli chat` session. With no file arguments, reads from STDIN.
+#
+#   Shebang use:  #!/usr/bin/env kiro-prompt   (as line 1 of a prompt file)
+#   Direct use:   kiro-prompt [kiro-cli flags...] FILE [FILE...]
+#   Explicit:     kiro-prompt [kiro-cli flags...] -- FILE [FILE...]
+#   Stdin use:    printf '...' | kiro-prompt [kiro-cli flags...]
+#
+# Flags are forwarded to `kiro-cli chat`. Non-flag arguments are prompt files.
+#
+# ---------------------------------------------------------------------------
+# FLAG PARSING
+# ---------------------------------------------------------------------------
+# To forward flags like `--model X` (value in a separate token), the parser
+# must know which flags consume the following argument. kiro-cli does NOT
+# expose this in a usable machine-readable form: `kiro-cli completion fig`
+# models `chat` as a single variadic `args` blob and does not enumerate these
+# options, so it cannot be parsed for value-flag info. Hence the hardcoded set
+# below.
+#
+# HOW TO UPDATE %TAKES_VALUE when kiro-cli changes:
+#   Run:  kiro-cli chat --help | grep -E '^\s+-' | grep -E '<[A-Z_]+>'
+#   Every listed option (both long and short forms) takes a value — add it
+#   here. Options without a <PLACEHOLDER> are booleans; do NOT list them.
+#   As a safety net, you can always use `--` to separate flags from files
+#   explicitly, which bypasses this table entirely.
+# ---------------------------------------------------------------------------
+
+use strict;
+use warnings;
+use English qw( -no_match_vars );   # for $INPUT_LINE_NUMBER (alias of $.)
+
+# Value-taking `kiro-cli chat` flags (long and short forms).
+# Verified against: kiro-cli chat --help  (see "HOW TO UPDATE" above).
+my %TAKES_VALUE = map { $_ => 1 } qw(
+    --resume-id
+    --agent
+    --model
+    --effort
+    --trust-tools
+    --format        -f
+    --output-format
+    --delete-session -d
+    --wrap          -w
+    --agent-engine
+    --mode
+    --repo
+);
+
+# --- Split @ARGV in place: shift forwarded flags off the front and leave the
+#     remaining prompt-file args sitting in @ARGV, which the diamond operator
+#     (<<>>) reads directly. No temporary lists. ---
+my @flags;
+if (grep { $_ eq '--' } @ARGV) {
+    # Explicit separator: everything before `--` is flags, after is files.
+    while (@ARGV) {
+        my $a = shift @ARGV;
+        last if $a eq '--';     # drop the `--` itself; files remain in @ARGV
+        push @flags, $a;
+    }
+} else {
+    # No separator: consume flags (and their values) until the first non-flag
+    # token, which begins the file list and is left in place in @ARGV.
+    while (@ARGV && $ARGV[0] =~ /^-/) {
+        push @flags, shift @ARGV;
+        # If this flag takes a value in a separate token, take it too.
+        if ($TAKES_VALUE{$flags[-1]} && @ARGV && $ARGV[0] !~ /^--$/) {
+            push @flags, shift @ARGV;
+        }
+    }
+}
+# Whatever remains in @ARGV is the file list, read below via <<>>.
+
+# --- Open the pipe to ONE kiro-cli chat session (list form: no shell). ---
+my @cmd = ('kiro-cli', 'chat', '--no-interactive', @flags);
+open(KIRO, '|-', @cmd) or die "kiro-prompt: cannot run kiro-cli: $!\n";
+
+# --- Stream each line straight into the pipe, dropping line 1 of each file
+#     only if it is a #! shebang. Under <<>>, $INPUT_LINE_NUMBER (the alias
+#     of $.) resets to 1 at the start of each file, so "== 1" means "first
+#     line of the current file". <<>> forces safe 3-arg opens and assigns
+#     each line to $_ implicitly, so a bare pattern match (/.../) tests $_. ---
+while (<<>>) {                                      # each line lands in $_
+    next if $INPUT_LINE_NUMBER == 1 && /^#!/;       # strip a per-file shebang
+    print KIRO;
+}
+
+close(KIRO);
+exit($? >> 8);   # propagate kiro-cli's exit code
