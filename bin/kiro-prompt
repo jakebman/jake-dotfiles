@@ -76,7 +76,7 @@ if (grep { $_ eq '--' } @ARGV) {
 # Whatever remains in @ARGV is the file list, read below via <<>>.
 
 # --- Open the pipe to ONE kiro-cli chat session (list form: no shell). ---
-my @cmd = ('kiro-cli', 'chat', '--no-interactive', '--trust-tools=', @flags);
+my @cmd = ('kiro-cli', 'chat', '--no-interactive', @flags);
 open(KIRO, '|-', @cmd) or die "kiro-prompt: cannot run kiro-cli: $!\n";
 
 # --- Stream each line straight into the pipe, dropping line 1 of each file
