@@ -1,6 +1,6 @@
 #! /bin/bash
 
-BROWSER_PROGID=$(/mnt/c/Windows/System32/reg.exe query 'HKCU\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' /v ProgId | awk '/^\s*ProgId/ {print $3}')
+BROWSER_PROGID=$(/mnt/c/Windows/System32/reg.exe query 'HKCU\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' /v ProgId | awk '$1 ~ ProgId {print $3}')
 
 case "$BROWSER_PROGID" in
 	*Edge*)
