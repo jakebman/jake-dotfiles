@@ -981,6 +981,42 @@
 		git rev-list --objects --all | grep \"$items\" \n\
 		} ; f"
 
+	# Find empty files that have siblings
+	#
+	# Heredoc is super careful and helpful here for !python:
+	# * quotes prevent backslash interpolation
+	# * Dash strips all leading tabs (so the initial import is unindented)
+	# TODO: this doesn't respect $GIT_PREFIX
+	redundant-keepfiles-unpaged = "!python3 <<-'HEREDOC' \n\
+		import os \n\
+		import subprocess \n\
+		import sys \n\
+		from collections import defaultdict \n\
+		\n\
+		def git(*args): \n\
+		  out = subprocess.run(['git', *args], check=True, stdout=subprocess.PIPE).stdout \n\
+		  return [rec for rec in out.split(b'\\0') if rec] \n\
+		\n\
+		# dir -> tracked files directly in it \n\
+		by_dir = defaultdict(list) \n\
+		for path in git('ls-files', '-z'): \n\
+		  by_dir[os.path.dirname(path)].append(path) \n\
+		\n\
+		# empty tracked files: each record is '<size>\\t<path>' \n\
+		redundant = [] \n\
+		for rec in git('ls-files', '-z', '--format=%(objectsize)%x09%(path)'): \n\
+		  size, _, path = rec.partition(b'\\t') \n\
+		  if size == b'0' and len(by_dir[os.path.dirname(path)]) > 1: \n\
+		    redundant.append(path) \n\
+		\n\
+		redundant.sort() \n\
+		sep = b'\\n' if sys.stdout.isatty() else b'\\0' \n\
+		for path in redundant:\n\
+		  sys.stdout.buffer.write(path + sep) \n\
+		HEREDOC"
+	redundant-keepfiles = "!f() { \n\
+		git _redundant-keepfiles-unpaged \"$@\" | git pager redundant-keepfiles \n\
+		} ; f"
 
 
 	# TODO: Let's get a "pull, but also for non-checked-out branches"
