@@ -1016,9 +1016,8 @@
 		    redundant.append(path) \n\
 		\n\
 		redundant.sort() \n\
-		sep = b'\\n' if sys.stdout.isatty() else b'\\0' \n\
 		for path in redundant:\n\
-		  sys.stdout.buffer.write(path + sep) \n\
+		  sys.stdout.buffer.write(path + b'\\0') \n\
 		HEREDOC"
 
 
@@ -1589,6 +1588,7 @@
 	# to discover that refactoring out the final item of the inspiration to changed-since into the pager settings
 	# does this!
 	# git log --pretty="" --name-only  --since 500\ days\ ago | sort | uniq | jaketree
+	redundant-keepfiles = tr '\\0' '\\n' | jaketree # unpaged output is null-terminated; rectify that first
 	changed-since = jaketree
 	status = true # `git status` should always use a pager
 	show-branch = true # ditto
