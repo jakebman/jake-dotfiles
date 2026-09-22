@@ -826,8 +826,11 @@
 	count-files = "!printf '%s %s\n' \"$(git ls-files -z | tr -d '\\n' | tr '\\0' '\\n'| wc --lines )\" \"$PWD\""
 	count-lines = "!printf '%s %s\n' \"$(git ls-files -z | wc --files0-from=- --total=only --lines )\" \"$PWD\""
 
-	# This could just be `env = !env` if I didn't want the pager
 	# Provides easy access to ad-hoc run a command with GIT_DIR, etc.
+	# Unpaged version provided to match my pattern where git-X can be implemented
+	# via `git-unpaged-X | git pager X`, even though this isn't exactly that, the
+	# unpaged version is still simpler
+	unpaged-env = !env
 	env = "!f() { \n\
 		if [ $# -eq 0 ]; then \n\
 			env \"$@\" | git pager env; \n\
@@ -987,7 +990,10 @@
 	# * quotes prevent backslash interpolation
 	# * Dash strips all leading tabs (so the initial import is unindented)
 	# TODO: this doesn't respect $GIT_PREFIX
-	redundant-keepfiles-unpaged = "!python3 <<-'HEREDOC' \n\
+	redundant-keepfiles = "!f() { \n\
+		git unpaged-redundant-keepfiles \"$@\" | git pager redundant-keepfiles \n\
+		} ; f"
+	unpaged-redundant-keepfiles = "!python3 <<-'HEREDOC' \n\
 		import os \n\
 		import subprocess \n\
 		import sys \n\
@@ -1014,9 +1020,6 @@
 		for path in redundant:\n\
 		  sys.stdout.buffer.write(path + sep) \n\
 		HEREDOC"
-	redundant-keepfiles = "!f() { \n\
-		git _redundant-keepfiles-unpaged \"$@\" | git pager redundant-keepfiles \n\
-		} ; f"
 
 
 	# TODO: Let's get a "pull, but also for non-checked-out branches"
