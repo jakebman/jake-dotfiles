@@ -9,6 +9,9 @@ registry=https://artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/
 # Be sure not to commit your secrets!
 # Scoped auth is cool, btw: https://docs.npmjs.com/cli/v8/configuring-npm/npmrc#auth-related-configuration
 //artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/:_auth="Not a secret"
+# _auth contains email and password --- OR --- _authToken is just from
+# https://artifactory.spectrumtoolbox.com/ui/user_profile
+//artifactory.spectrumtoolbox.com/artifactory/api/npm/npm/:_authToken="Not a secret"
 
 # For my own convenience, to match the NNS-land tagging conventions
 tag-version-prefix=Release-
