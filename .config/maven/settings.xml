@@ -7,31 +7,27 @@
             <password>{S9xeJJSysFUHSyEZeLrFHsNuBjG0aRhjS8FIKdlSSx4=}</password>
         </server>
         <server>
-            <id>Artifactory-nns-remote</id>
-            <username>jake.boeckerman@spectrum.com</username>
-            <!-- token id is 546b8b2b-3e8e-4351-8338-5e09a3ca863, expires June 9, 2027 -->
-            <password>{PREFvnZmRoEHiBEpiHWKoZHtg/F8w33X7KxMJbXF/aC2mIJ45paBL9q691gpXfj9ovk9PWScsMWIZbqqdoVNRaaAjp7M2wgm8XH9GI7o1Bc1hj+u6Pa/k5TJCrffqK62}</password>
-        </server>
-        <server>
-            <id>Artifactory-Release</id>
-            <username>jake.boeckerman@spectrum.com</username>
-            <!-- token id is 546b8b2b-3e8e-4351-8338-5e09a3ca863, expires June 9, 2027 -->
-            <password>{PREFvnZmRoEHiBEpiHWKoZHtg/F8w33X7KxMJbXF/aC2mIJ45paBL9q691gpXfj9ovk9PWScsMWIZbqqdoVNRaaAjp7M2wgm8XH9GI7o1Bc1hj+u6Pa/k5TJCrffqK62}</password>
-        </server>
-        <server>
-            <!-- TODO: the URL configured for this seems to 403:
-                  com.twc.mystro.mas.share:ump_stbmgr/maven-metadata.xml failed to transfer from https://artifactory.spectrumtoolbox.com/artifactory/libs-snapshot/ during a previous attempt. This failure was cached in the local repository and resolution will not be reattempted until the update interval of Artifactory-Snapshot has elapsed or updates are forced. Original error: Could not transfer metadata com.twc.mystro.mas.share:ump_stbmgr/maven-metadata.xml from/to Artifactory-Snapshot (https://artifactory.spectrumtoolbox.com/artifactory/libs-snapshot/): status code: 403, reason phrase:  (403)
+            <!--
+                Trying to angle-shoot for compatiblity with Maven 3.9.x -
+                this ID is designed to intentionally "leak" credentials
+                for any other reposity that shares an ID prefix
+                per 3.10.0's new behavior
+                "a server entry no longer leaks credentials to unrelated repositories sharing an id prefix"
+                https://maven.apache.org/docs/3.10.0/release-notes.html#security-hardening
             -->
-            <id>Artifactory-Snapshot</id>
+            <id>Artifactory</id>
             <username>jake.boeckerman@spectrum.com</username>
             <!-- token id is 546b8b2b-3e8e-4351-8338-5e09a3ca863, expires June 9, 2027 -->
             <password>{PREFvnZmRoEHiBEpiHWKoZHtg/F8w33X7KxMJbXF/aC2mIJ45paBL9q691gpXfj9ovk9PWScsMWIZbqqdoVNRaaAjp7M2wgm8XH9GI7o1Bc1hj+u6Pa/k5TJCrffqK62}</password>
-        </server>
-        <server>
-            <id>Artifactory-Public</id>
-            <username>jake.boeckerman@spectrum.com</username>
-            <!-- token id is 546b8b2b-3e8e-4351-8338-5e09a3ca863, expires June 9, 2027 -->
-            <password>{PREFvnZmRoEHiBEpiHWKoZHtg/F8w33X7KxMJbXF/aC2mIJ45paBL9q691gpXfj9ovk9PWScsMWIZbqqdoVNRaaAjp7M2wgm8XH9GI7o1Bc1hj+u6Pa/k5TJCrffqK62}</password>
+            <aliases>
+                <alias>Artifactory-nns-remote</alias>
+                <alias>Artifactory-Release</alias>
+                <alias>Artifactory-Snapshot</alias>
+                <alias>Artifactory-Public</alias>
+            </aliases>
+            <repositoryOrigins>
+                <repositoryOrigin>https://artifactory.spectrumtoolbox.com</repositoryOrigin>
+            </repositoryOrigins>
         </server>
     </servers>
     <!-- These mirrors are to get around http blocker in maven. These Charter-internal repos are safe -->
