@@ -315,6 +315,7 @@
 
 	# Borrowed --simplify-by-decoration from mr. Thank you, mr
 	rainbow-branches = rainbow-all --simplify-by-decoration
+	rainbow-tags = rainbow --tags --decorate-refs=refs/tags/* --simplify-by-decoration
 
 	# parallel structure. `gitk` is essentially rainbow
 	gitk = "!f() { \n\
