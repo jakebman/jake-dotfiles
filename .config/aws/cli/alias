@@ -103,6 +103,7 @@ browse =
   !f() {
     command browse "https://charter-cloud-connect.awsapps.com/start/"
   } ; f
+browser = browse
 
 autologin-exceptions =
   !f() {
