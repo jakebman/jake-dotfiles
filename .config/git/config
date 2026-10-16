@@ -426,6 +426,10 @@
 			# error message handled by is-clean \n\
 			return 1 \n\
 		fi \n\
+		git pull---- \"$@\" \n\
+		} ; f"
+
+	pull----= "!f() { \n\
 		if ! git commit-ish-exists @{upstream}; then \n\
 			# error message handled by commit-ish-exists \n\
 			return 1 \n\
