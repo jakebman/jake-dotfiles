@@ -20,5 +20,5 @@ elif [ "$#" -eq 0 ] && [ -t 0 ]; then
 	# Probably testing
 	run "$@"
 else
-	run "$@" | pager
+	run "$@" | eval "${JAKETREE_PAGER-${PAGER-pager}}"
 fi
