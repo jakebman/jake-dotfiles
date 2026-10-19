@@ -5,6 +5,7 @@ from collections import Counter
 from os.path import commonpath, commonprefix
 import argparse
 import re
+import os
 import sys # for argv and stdout
 
 # A regex to match word barriers - the zero-width string where we want to cut words.
@@ -150,5 +151,16 @@ if __name__ == '__main__':
         main()
         # TODO: how do other progams get automatic less pagination to the terminal? Can we do that here, too?
         # ..is https://pypi.org/project/autopage/ viable?
+
+        # flush output here to force SIGPIPE to be triggered
+        # while inside this try block.
+        sys.stdout.flush()
     except (BrokenPipeError, IOError, KeyboardInterrupt):
+        # Python flushes standard streams on exit; redirect remaining output
+        # to devnull to avoid another BrokenPipeError at shutdown
+        # See https://docs.python.org/3/library/signal.html#note-on-sigpipe for details
+        # Otherwise, we get spurious output like:
+        #       Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+        devnull = os.open(os.devnull, os.O_WRONLY)
+        os.dup2(devnull, sys.stdout.fileno())
         exit(55)
