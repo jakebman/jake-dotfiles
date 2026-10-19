@@ -38,3 +38,8 @@
 # Some repos have a /bin folder. Some of those (pyenv) have a parallel /man folder. If you run `mandb --user-db`
 # while your repo's /bin folder is on the path, then it creates a local file that you probably want to always ignore
 man/index.db
+
+# Macintosh has a file format called "AppleDouble encoded Macintosh file" by `file`
+# It's extended metadata on a file which needs to be stored *somewhere*.
+# ... But it won't be in my git repo, dammit.
+._*
