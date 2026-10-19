@@ -16,6 +16,8 @@
 .cache_ggshield
 
 # Nothing-is-as-permanent-as-temporary - allow myself to drop these files into any repo I care to add to
+# To be fair, this essentially just adds a `--force` speedbump if I ever want to add them to whatever repo
+# (and keeps them from being included in an `add --all` glob)
 .editorconfig
 .sdkmanrc
 
