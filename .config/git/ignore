@@ -5,6 +5,9 @@
 # VS Code settings:
 .vscode/*
 
+# Kiro AI
+.kiro/
+
 # Codegraph analysis results (usually fast to recreate)
 # Tool is https://colbymchenry.github.io/codegraph/ with source at https://github.com/colbymchenry/codegraph
 .codegraph/
