@@ -1,3 +1,21 @@
+
+" NB: Source files up here at the top, that way they don't undo my
+" customizations below:
+
+" preserve edit position,
+" see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
+source $VIMRUNTIME/vimrc_example.vim
+
+" disable the textwidth setting in /usr/share/vim/vim82/vimrc_example.vim
+" (it's annoying, and I don't like it)
+augroup vimrcEx
+  " Clear the contents of this group
+  au!
+augroup END
+" Delete the group, for cleanliness
+augroup! vimrcEx
+
+
 " from https://vi.stackexchange.com/questions/4141/how-to-indent-as-spaces-instead-of-tab/4175#4175
 " tabstop:          Width of tab character
 " softtabstop:      Fine tunes the amount of white space to be added
@@ -128,19 +146,6 @@ autocmd VimEnter * Obsession $XDG_STATE_HOME/vim/jake-autosaved-session
 " TODO: it'd be nice, if we resumed an existing session, to have vim print the
 " filenames from that session to stdout (stderr?) when we exit - it's
 " currently just completely opaque.
-
-" preserve edit position,
-" see https://stackoverflow.com/questions/7894330/preserve-last-editing-position-in-vim/7894493#7894493
-source $VIMRUNTIME/vimrc_example.vim
-
-" disable the textwidth setting in /usr/share/vim/vim82/vimrc_example.vim
-" (it's annoying, and I don't like it)
-augroup vimrcEx
-  " Clear the contents of this group
-  au!
-augroup END
-" Delete the group, for cleanliness
-augroup! vimrcEx
 
 
 " stash temporary files in ~ (modified to respect XDG, above)
