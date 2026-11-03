@@ -13,7 +13,7 @@
 # Uncomment the following line to disable automatic paging:
 #--paging=never
 
---plain
+--style=plain
 
 # Allow the terminal itself to set the tab width, by not turning them into any specific set of spaces
 --tabs 0
