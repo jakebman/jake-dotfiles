@@ -799,8 +799,10 @@
 	# NB: a digression from !f() - I want bash arrays for my args
 	delta = "!bash -c 'function f() { \n\
 		# Move back to the working directory from the repo root \n\
-		cd \"$GIT_PREFIX\" || return 1; \n\
-		unset GIT_PREFIX; \n\
+		if [[ -n \"$GIT_PREFIX\" ]]; then \n\
+			cd \"$GIT_PREFIX\" || return 1; \n\
+			unset GIT_PREFIX; \n\
+		fi \n\
 		local -a args=( \"$@\" ); \n\
 		if [ 0 -eq $# ]; then \n\
 			args=( implicitdiff ); \n\
