@@ -79,6 +79,7 @@ typo cim vim
 typo fim vim
 typo vm vim
 typo im vim
+typo vi vim # yes, so I can get my intervention in
 
 typo wimw vimw
 
@@ -228,6 +229,7 @@ typo ds diff
 typo idf diff
 typo dif diff
 typo iff diff
+typo 3ff diff
 typo doff diff
 typo idff diff
 typo duff diff
