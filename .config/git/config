@@ -205,8 +205,10 @@
 	# add --intent-to-add, but also implicitly `touch` files that don't exist, including their parent folders
 	intent-to-add = "!f() { \n\
 		# Move to the user's working directory \n\
-		cd \"$GIT_PREFIX\" || return 1; \n\
-		unset GIT_PREFIX; \n\
+		if [ -n \"$GIT_PREFIX\" ]; then \n\
+			cd \"$GIT_PREFIX\" || return 1; \n\
+			unset GIT_PREFIX; \n\
+		fi \n\
 		for arg; do \n\
 			# TODO: getopt, git-rev-parse, or *something* more canoncial than 'skip arguments if they start with dash' \n\
 			if [ \"x${arg}\" = \"x${arg#-}\" ] && ! [ -f \"${arg}\" ]; then \n\
@@ -707,7 +709,10 @@
 		local -; \n\
 		set -o errexit # a simple 'or die' for everything \n\
 		# Go to the working directory where the command ran, to allow reference to files from that location \n\
-		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
+		if [ -n \"$GIT_PREFIX\" ]; then \n\
+			cd \"$GIT_PREFIX\" || return 1; \n\
+			unset GIT_PREFIX; \n\
+		fi \n\
 		local branch=\"git-cp-temp-impl-branch-$$\"; \n\
 		local source=\"${1?need a source}\"; \n\
 		local destination=\"${2?need a destination}\"; \n\
@@ -733,7 +738,10 @@
 		echo and also git help cp \n\
 		local -; \n\
 		set -o errexit -x; \n\
-		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
+		if [ -n \"$GIT_PREFIX\" ]; then \n\
+			cd \"$GIT_PREFIX\" || return 1; \n\
+			unset GIT_PREFIX; \n\
+		fi \n\
 		local branchPrefix=\"git-cat-into-temp-impl-branch-$$\"; \n\
 		local destination=\"${1?need a destination}\"; \n\
 		local parents branches branch treeHash commitHash source index=0 \n\
@@ -768,7 +776,10 @@
 		local -; \n\
 		set -o errexit # a simple 'or die' for everything \n\
 		# Go to the working directory where the command ran, to allow reference to files from that location \n\
-		cd \"$GIT_PREFIX\" && unset GIT_PREFIX; \n\
+		if [ -n \"$GIT_PREFIX\" ]; then \n\
+			cd \"$GIT_PREFIX\" || return 1; \n\
+			unset GIT_PREFIX; \n\
+		fi \n\
 		git is-clean || return # explicit 'or die' - fail if we're not clean (return propagates the last exit code) \n\
 		local source=\"${1?need a source}\"; \n\
 		local destination=\"${2?need a destination}\"; \n\
@@ -799,7 +810,7 @@
 	# NB: a digression from !f() - I want bash arrays for my args
 	delta = "!bash -c 'function f() { \n\
 		# Move back to the working directory from the repo root \n\
-		if [[ -n \"$GIT_PREFIX\" ]]; then \n\
+		if [ -n \"$GIT_PREFIX\" ]; then \n\
 			cd \"$GIT_PREFIX\" || return 1; \n\
 			unset GIT_PREFIX; \n\
 		fi \n\
@@ -950,8 +961,10 @@
 	# TODO: Did I actually fix the bug that if there's an untracked file, I'd expect status to show it. But we don't catch it here.
 	status-or-show = "!f() { \n\
 		# Move to the user's working directory \n\
-		cd \"$GIT_PREFIX\" || return 1; \n\
-		unset GIT_PREFIX; \n\
+		if [ -n \"$GIT_PREFIX\" ]; then \n\
+			cd \"$GIT_PREFIX\" || return 1; \n\
+			unset GIT_PREFIX; \n\
+		fi \n\
 		if git is-clean-quiet; then \n\
 			git show \"$@\"; \n\
 		else \n\
@@ -962,8 +975,10 @@
 	# 'promoted' from git-implicitdiff so windows-land can borrow it
 	implicitdiff = "!f() { \n\
 		# Move to the user's working directory \n\
-		cd \"$GIT_PREFIX\" || return 1; \n\
-		unset GIT_PREFIX; \n\
+		if [ -n \"$GIT_PREFIX\" ]; then \n\
+			cd \"$GIT_PREFIX\" || return 1; \n\
+			unset GIT_PREFIX; \n\
+		fi \n\
 		# The implicit --exit-code in --quiet disable the pager (because otherwise less's return code would be the one returned) \n\
 		# NB: --quiet doesn't suppress stderr if you're outside a git dir, and the output is elaborate \n\
 		if ! git rev-parse; then \n\
