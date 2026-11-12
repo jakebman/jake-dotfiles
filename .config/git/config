@@ -1557,7 +1557,9 @@
 
 [fetch]
 	all = true   # Fetch should assume --all. Thank you git 2.44 :D. Oh. This is all 'remotes', not all 'branches'. Boo.
+	followRemoteHEAD = always # Whenever origin/HEAD changes, update local remotes/origin/HEAD ref. Default 'create' only does this once, but doesn't follow updates.
 	parallel = 0 # zero means "some reasonable (non-1) default"; the default value is 1
+	writeCommitGraph = true # Spend extra time during fetch to make `log --graph` faster
 [push]
 	default = upstream # no-arg pushes go to @{upstream}, even if the current branch's name differs from @{upstream}'s
 
