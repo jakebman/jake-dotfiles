@@ -1,0 +1,9 @@
+
+# No need to track history across servers
+mongosh_repl_history
+
+# No need to track snippets
+snippets/
+
+# No need to track update metadata either
+update-metadata.json
